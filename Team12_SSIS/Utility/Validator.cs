@@ -2,10 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Text.RegularExpressions;
 
 namespace Team12_SSIS.Utility
 {
-    public class Validator
+    public static class Validator
     {
+        public static bool IsPositiveInteger(int i)
+        {
+            Regex regex = new Regex("^\\d+$");
+            return regex.IsMatch(i.ToString());
+
+        }
+
+        public static bool IsProductIdFormat(string productId)
+        {
+            Regex regex = new Regex("^([A-Za-z])([0-9][0-9][0-9][0-9])");
+            return regex.IsMatch(productId);
+        }
+
+        public static bool IsEmailFormat(string email)
+        {
+            Regex regex = new Regex("^[A-Za-z0-9](([_\\.\\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\\.\\-]?[a-zA-Z0-9]+)*)\\.([A-Za-z]{2,})$");
+            return regex.IsMatch(email);
+        }
+
+        public static bool IsDateRangeValid(DateTime startDate, DateTime endDate)
+        {
+            if(startDate < endDate)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
