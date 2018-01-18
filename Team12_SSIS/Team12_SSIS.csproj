@@ -198,11 +198,6 @@
     <Compile Include="BusinessLogic\PurchasingLogic.cs" />
     <Compile Include="BusinessLogic\ReportLogic.cs" />
     <Compile Include="BusinessLogic\RequisitionLogic.cs" />
-    <Compile Include="DAO\DisbursementDAO.cs" />
-    <Compile Include="DAO\InventoryDAO.cs" />
-    <Compile Include="DAO\PurchasingDAO.cs" />
-    <Compile Include="DAO\RequisitionDAO.cs" />
-    <Compile Include="DAO\SupplierDAO.cs" />
     <Compile Include="DepartmentEmployee\CreateRequisitionForm.aspx.cs">
       <DependentUpon>CreateRequisitionForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
