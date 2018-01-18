@@ -117,9 +117,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Team12EmailControl">
-      <HintPath>..\..\..\..\..\National University of Singapore\Sicat Jane Escalada - TEAM12\Resources\Team12EmailControl.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="NewUser.aspx" />

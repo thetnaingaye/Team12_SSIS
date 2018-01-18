@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Team12_SSIS.Model;
+using Team12_SSIS.DAO;
 
 namespace Team12_SSIS.BusinessLogic
 {
