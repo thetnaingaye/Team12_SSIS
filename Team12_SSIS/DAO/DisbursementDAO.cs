@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using Team12_SSIS.Model;
 
-namespace Team12_SSIS.BusinessLogic
+namespace Team12_SSIS.DAO
 {
-    public class DisbursementLogic { }
+    public class DisbursementDAO
+    {
+    }
 }
