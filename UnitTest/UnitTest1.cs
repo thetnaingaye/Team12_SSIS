@@ -60,6 +60,8 @@ namespace UnitTest
         public void TestMethod6()
         {
 			//hello
+   //Write Some Method here (Chang Siang)
+
         }
         [TestMethod]
         public void TestMail()
