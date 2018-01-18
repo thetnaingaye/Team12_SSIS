@@ -59,8 +59,6 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
-            DisbursementLogic dl = new DisbursementLogic();
-            Console.WriteLine(dl.AddDisbursementList().ToString());
         }
         [TestMethod]
         public void TestMail()
