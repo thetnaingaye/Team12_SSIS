@@ -13,48 +13,48 @@ namespace Team12_SSIS.DepartmentHead {
     public partial class ManageDepartmentRep {
         
         /// <summary>
-        /// CurrentRepTextLabel control.
+        /// CurrentRepTextLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentRepTextLabel;
+        protected global::System.Web.UI.WebControls.Label CurrentRepTextLbl;
         
         /// <summary>
-        /// CurrentRepLabel control.
+        /// CurrentRepLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentRepLabel;
+        protected global::System.Web.UI.WebControls.Label CurrentRepLbl;
         
         /// <summary>
-        /// Label1 control.
+        /// NewRepTextLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label NewRepTextLbl;
         
         /// <summary>
-        /// EmployeesDropDownList control.
+        /// EmployeesDdl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList EmployeesDropDownList;
+        protected global::System.Web.UI.WebControls.DropDownList EmployeesDdl;
         
         /// <summary>
-        /// NewRepAssignedLabel control.
+        /// NewRepAssignedLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NewRepAssignedLabel;
+        protected global::System.Web.UI.WebControls.Label NewRepAssignedLbl;
     }
 }
