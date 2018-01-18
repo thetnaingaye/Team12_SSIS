@@ -7,5 +7,7 @@ namespace Team12_SSIS.BusinessLogic
 {
     public class RequisitionLogic
     {
+        
+
     }
 }
