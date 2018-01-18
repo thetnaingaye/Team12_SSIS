@@ -10,9 +10,12 @@
         </asp:DropDownList>
     </p>
     <p>
-        Order Lead Time (Days):<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+        Order Lead Time (Days):<asp:TextBox ID="OrderLeadTimeTxt" runat="server"></asp:TextBox>
     </p>
     <p>
-        <asp:Button ID="SaveBtn" runat="server" Text="Save" />
+        <asp:Button ID="SaveBtn" runat="server" OnClick="SaveBtn_Click" Text="Save" />
+    </p>
+    <p>
+        <asp:Label ID="ChangedLbl" runat="server" Visible="False"></asp:Label>
     </p>
 </asp:Content>

@@ -1216,12 +1216,25 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-		public List<SupplierList> ListSuppliers()
+		public static List<SupplierList> ListSuppliers()
 		{
 			using (SA45Team12AD entities = new SA45Team12AD())
 			{
-				return entities.SupplierLists.ToList<SupplierList>();
+				return entities.SupplierLists.ToList();
 			}
 		}
+
+		public static void UpdateOrderLeadTime(int orderLeadTime, string supplierID)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				SupplierList supplier = entities.SupplierLists.Where(p => p.SupplierID == supplierID).First<SupplierList>();
+				supplier.OrderLeadTime = orderLeadTime;
+				entities.SaveChanges();
+			}
+		}
+
+		
+
 	}
 }
