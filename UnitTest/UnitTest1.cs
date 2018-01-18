@@ -59,7 +59,9 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
-            //Write Some Method here (Chang Siang)
+			//hello
+   //Write Some Method here (Chang Siang)
+
         }
         [TestMethod]
         public void TestMail()
@@ -68,48 +70,6 @@ namespace UnitTest
             {
                 em.DisburstmentPointChangeNotification("lim.chang.siang@gmail.com", "English", "Naiag", "Science");
             }
-        }
-
-        public void TestMethod7()
-        {
-            //Start Here....
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
     }
 }
