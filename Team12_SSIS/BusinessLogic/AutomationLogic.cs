@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Team12_SSIS.BusinessLogic
 {
+    //Whole thing belongs to Khair
     public class AutomationLogic
     {
     }

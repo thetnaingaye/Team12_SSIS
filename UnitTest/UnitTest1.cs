@@ -69,5 +69,47 @@ namespace UnitTest
                 em.DisburstmentPointChangeNotification("lim.chang.siang@gmail.com", "English", "Naiag", "Science");
             }
         }
+
+        public void TestMethod7()
+        {
+            //Start Here....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
     }
 }
