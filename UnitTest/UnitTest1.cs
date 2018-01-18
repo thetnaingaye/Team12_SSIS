@@ -59,7 +59,7 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
-            //Hello World
+            //Write Some Method here (Chang Siang)
         }
         [TestMethod]
         public void TestMail()

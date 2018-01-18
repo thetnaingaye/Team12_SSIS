@@ -6,5 +6,28 @@ using Team12_SSIS.Model;
 
 namespace Team12_SSIS.BusinessLogic
 {
-    public class DisbursementLogic { }
+    public class DisbursementLogic
+    {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 }
