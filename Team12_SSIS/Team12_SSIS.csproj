@@ -553,7 +553,6 @@
       <DependentUpon>ViewSupplierList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utility\EmailControl.cs" />
-    <Compile Include="Utility\ProfileCommon.cs" />
     <Compile Include="Utility\Validator.cs" />
     <Compile Include="WebServices\IService.cs" />
     <Compile Include="WebServices\Service.svc.cs">
