@@ -10,6 +10,6 @@
     </asp:DropDownList>
     <br />
     <br />
-    <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+    <asp:Label ID="NewRepAssignedLabel" runat="server"></asp:Label>
     <br />
 </asp:Content>

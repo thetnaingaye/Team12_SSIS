@@ -49,12 +49,12 @@ namespace Team12_SSIS.DepartmentHead {
         protected global::System.Web.UI.WebControls.DropDownList EmployeesDropDownList;
         
         /// <summary>
-        /// Label2 control.
+        /// NewRepAssignedLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label NewRepAssignedLabel;
     }
 }
