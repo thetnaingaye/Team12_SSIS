@@ -47,16 +47,6 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void TestMethod5()
-        {
-            DisbursementLogic dl = new DisbursementLogic();
-            List<int> testList = dl.GetListOfDisbursement();
-            foreach(int s in testList)
-            {
-                Console.WriteLine(s);
-            }
-        }
-        [TestMethod]
         public void TestMethod6()
         {
         }
