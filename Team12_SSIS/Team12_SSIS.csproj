@@ -117,9 +117,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Team12EmailControl">
-      <HintPath>..\..\..\..\..\National University of Singapore\Sicat Jane Escalada - TEAM12\Resources\Team12EmailControl.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="NewUser.aspx" />
@@ -200,12 +197,7 @@
     <Compile Include="BusinessLogic\InventoryLogic.cs" />
     <Compile Include="BusinessLogic\PurchasingLogic.cs" />
     <Compile Include="BusinessLogic\ReportLogic.cs" />
-    <Compile Include="DAO\RequisitionLogic.cs" />
-    <Compile Include="DAO\DisbursementDAO.cs" />
-    <Compile Include="DAO\InventoryDAO.cs" />
-    <Compile Include="DAO\PurchasingDAO.cs" />
-    <Compile Include="DAO\RequisitionDAO.cs" />
-    <Compile Include="DAO\SupplierDAO.cs" />
+    <Compile Include="BusinessLogic\RequisitionLogic.cs" />
     <Compile Include="DepartmentEmployee\CreateRequisitionForm.aspx.cs">
       <DependentUpon>CreateRequisitionForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
