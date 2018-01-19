@@ -54,11 +54,11 @@ namespace Team12_SSIS.StoreManager
         //protected void ClearField()
         //{
         //    TxtItemID.Text = string.Empty;
-        //    TxtDescription.Text = string.Empty;
-        //    DdlCategoryID.SelectedIndex = 1;
-        //    TxtReorderLevel.Text = string.Empty;
-        //    TxtReorderQty.Text = string.Empty;
-        //    TxtUOM.Text = string.Empty;
+            //    TxtDescription.Text = string.Empty;
+            //    DdlCategoryID.SelectedIndex = 1;
+            //    TxtReorderLevel.Text = string.Empty;
+            //    TxtReorderQty.Text = string.Empty;
+            //    TxtUOM.Text = string.Empty;
         //}
     }
 }

@@ -4,10 +4,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
 <h2>Stationery Catalog List</h2>
-  <asp:TextBox ID="TextBox1" placeholder="Search Item Id" runat="server"></asp:TextBox>
-<asp:Button ID="Button3" runat="server" Text="Search" />
-    <asp:Button ID="Button1" runat="server" Text="Create" OnClick="Button1_Click" />     
-<asp:Button ID="Button2" runat="server" Text="Print" />
+    <asp:Button ID="BtnCreate" runat="server" Text="Create" OnClick="BtnCreate_Click" />     
+<asp:Button ID="BtnPrint" runat="server" Text="Print" />
+        <br />
+        <asp:TextBox ID="TxtSearch" placeholder="Search Item Id" runat="server"></asp:TextBox>
+<asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
 </div>
 <div>
 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"

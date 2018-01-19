@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
 
 namespace Team12_SSIS.StoreManager
 {
     public partial class ViewCatalogue : System.Web.UI.Page
     {
+        InventoryLogic inventoryLogic = new InventoryLogic();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -68,9 +70,17 @@ namespace Team12_SSIS.StoreManager
             }
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void BtnCreate_Click(object sender, EventArgs e)
         {
             Response.Redirect("CreateCatalogue.aspx");
+        }
+
+        protected void BtnSearch_Click(object sender, EventArgs e)
+        {
+            string temp= TxtSearch.Text;
+            GridView1.DataSource = inventoryLogic.SearchBy(temp);
+            GridView1.DataBind();
+            
         }
     }
 }
