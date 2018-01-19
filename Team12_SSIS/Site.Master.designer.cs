@@ -40,6 +40,24 @@ namespace Team12_SSIS {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ClerkMenu;
         
         /// <summary>
+        /// ManagerMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ManagerMenu;
+        
+        /// <summary>
+        /// SupervisorMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SupervisorMenu;
+        
+        /// <summary>
         /// UserName control.
         /// </summary>
         /// <remarks>

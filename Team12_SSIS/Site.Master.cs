@@ -12,23 +12,33 @@ namespace Team12_SSIS
         protected void Page_Load(object sender, EventArgs e)
         {
 
-      
-            if (Page.User.IsInRole("Clerk"))
+            ClerkMenu.Visible = Page.User.IsInRole("Clerk");
+
+            if (Page.User.IsInRole("Supervisor"))
             {
-                ClerkMenu.Visible = true;
-      
+                ManagerMenu.Visible = true;
+                SupervisorMenu.Visible = true;
+            }
+            else if(Page.User.IsInRole("Manager"))
+            {
+                ManagerMenu.Visible = true;
+                SupervisorMenu.Visible = false;
             }
             else
             {
-                ClerkMenu.Visible = false;
+                ManagerMenu.Visible = false;
+                SupervisorMenu.Visible = false;
             }
+      
 
-            if(Page.User.Identity.IsAuthenticated)
+
+
+            if (Page.User.Identity.IsAuthenticated)
             {
                 LogoutMenu.Visible = true;
                 UserName.Visible = true;
                 LoginMenu.Visible = false;
-                LblUserName.Text = Page.User.Identity.Name.ToString(); 
+                LblUserName.Text = Page.User.Identity.Name.ToString();
             }
 
 

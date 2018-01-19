@@ -130,6 +130,8 @@
     <Content Include="StoreClerk\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="StoreManager\ListOfAdjustmentVouchers.aspx" />
+    <Content Include="StoreManager\StoreSupervisor\ListOfPurchaseOrders.aspx" />
     <Content Include="StoreManager\Web.config" />
     <Content Include="StoreManager\StoreSupervisor\Web.config" />
     <Content Include="DepartmentHead\Web.config" />
@@ -551,12 +553,26 @@
     <Compile Include="StoreManager\IssueAdjustmentVoucher.aspx.designer.cs">
       <DependentUpon>IssueAdjustmentVoucher.aspx</DependentUpon>
     </Compile>
+    <Compile Include="StoreManager\ListOfAdjustmentVouchers.aspx.cs">
+      <DependentUpon>ListOfAdjustmentVouchers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\ListOfAdjustmentVouchers.aspx.designer.cs">
+      <DependentUpon>ListOfAdjustmentVouchers.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StoreManager\StoreSupervisor\ApprovePurchaseOrder.aspx.cs">
       <DependentUpon>ApprovePurchaseOrder.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="StoreManager\StoreSupervisor\ApprovePurchaseOrder.aspx.designer.cs">
       <DependentUpon>ApprovePurchaseOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreManager\StoreSupervisor\ListOfPurchaseOrders.aspx.cs">
+      <DependentUpon>ListOfPurchaseOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\StoreSupervisor\ListOfPurchaseOrders.aspx.designer.cs">
+      <DependentUpon>ListOfPurchaseOrders.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoreManager\ViewAdjustmentVoucherDetails.aspx.cs">
       <DependentUpon>ViewAdjustmentVoucherDetails.aspx</DependentUpon>

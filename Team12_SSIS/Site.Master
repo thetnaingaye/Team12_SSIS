@@ -94,15 +94,13 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Purchase Order<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li class="menu-item dropdown dropdown-submenu">
-
                                         <a href="<%= Page.ResolveUrl("~/StoreClerk/ReorderList.aspx") %>">Re-order List</a>
                                     </li>
                                     <li class="menu-item dropdown dropdown-submenu">
-
                                         <a href="<%= Page.ResolveUrl("~/StoreClerk/CreatePurchaseOrder.aspx") %>">Create P.O</a>
                                     </li>
                                     <li class="menu-item dropdown dropdown-submenu">
-                                        <a href="<%= Page.ResolveUrl("~/StoreClerk/ViewPurchaseOrder.aspx") %>">View P.O</a>
+                                        <a href="<%= Page.ResolveUrl("~/StoreClerk/ListOfPurchaseOrders.aspx") %>">View P.O List</a>
                                     </li>
                                     <li class="menu-item dropdown dropdown-submenu">
                                         <a href="<%= Page.ResolveUrl("~/StoreClerk/CreateGoodsReceipt.aspx") %>">Create Goods Receipt</a>
@@ -140,6 +138,40 @@
                         </ul>
                     </div>
 
+                    <div id="ManagerMenu" runat="server">
+                        <ul class="nav navbar-nav">
+
+                            <li><a href="<%= Page.ResolveUrl("~/StoreManager/Home.aspx") %>">Home</a></li>
+                            <li><a href="<%= Page.ResolveUrl("~/StoreManager/ListOfAdjustmentVouchers.aspx") %>">Adjustment Voucher</a></li>
+
+                            <li id="SupervisorMenu" visible="false" runat="server"><a href="<%= Page.ResolveUrl("~/StoreManager/StoreSupervisor/ListOfPurchaseOrders.aspx") %>">Purchase Order</a></li>
+
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catalogue<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li class="menu-item dropdown dropdown-submenu">
+                                        <a href="<%= Page.ResolveUrl("~/StoreManager/ViewCatalogue.aspx") %>">Catalogue List</a>
+                                    </li>
+                                    <li class="menu-item dropdown dropdown-submenu">
+                                        <a href="<%= Page.ResolveUrl("~/StoreManager/CreateCatalogue.aspx") %>">Create New Catalogue Item</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Suppliers<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li class="menu-item dropdown dropdown-submenu">
+                                        <a href="<%= Page.ResolveUrl("~/StoreManager/ViewSupplierList.aspx") %>">Supplier List</a>
+                                    </li>
+                                    <li class="menu-item dropdown dropdown-submenu">
+                                        <a href="<%= Page.ResolveUrl("~/StoreManager/CreateSupplier.aspx") %>">Create New Supplier</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
 
                     <ul class="nav navbar-nav navbar-right">
                         <li id="UserName" visible="false" runat="server"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
