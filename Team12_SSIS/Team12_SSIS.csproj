@@ -110,6 +110,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\2-2-calendar-png-image.png" />
     <Content Include="NewUser.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -117,6 +118,7 @@
     </Content>
     <Content Include="Site.Master" />
     <Content Include="StoreClerk\Web.config" />
+    <Content Include="StoreClerk\WebForm2.aspx" />
     <Content Include="StoreManager\Web.config" />
     <Content Include="StoreManager\StoreSupervisor\Web.config" />
     <Content Include="DepartmentHead\Web.config" />
@@ -128,6 +130,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="WebForm1.aspx" />
     <Content Include="WebServices\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -452,6 +455,13 @@
     <Compile Include="StoreClerk\ViewStockCard.aspx.designer.cs">
       <DependentUpon>ViewStockCard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="StoreClerk\WebForm2.aspx.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\WebForm2.aspx.designer.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StoreManager\CreateCatalogue.aspx.cs">
       <DependentUpon>CreateCatalogue.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -523,6 +533,13 @@
       <DependentUpon>ViewSupplierList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utility\Validator.cs" />
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebServices\IService.cs" />
     <Compile Include="WebServices\Service.svc.cs">
       <DependentUpon>Service.svc</DependentUpon>
