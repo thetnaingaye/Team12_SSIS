@@ -16,4 +16,13 @@
         <asp:Button ID="Button1" runat="server" CssClass="auto-style1" OnClick="Button1_Click" Text="Change to Supvervisor" />
         <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Change back to Clerk" />
     </p>
+    <p>
+        &nbsp;</p>
+    <p>
+        <asp:GridView ID="GridView1" runat="server">
+        </asp:GridView>
+    </p>
+    <p>
+        <asp:Label ID="LblEmail" runat="server" Text="Label"></asp:Label>
+    </p>
 </asp:Content>

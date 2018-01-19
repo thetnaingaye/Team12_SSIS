@@ -20,7 +20,6 @@ namespace Team12_SSIS.StoreClerk
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            IIdentity id = User.Identity;
             LblUserName.Text = "Welcome : " + User.Identity.Name + " : " + (User.IsInRole("Clerk") ? "Clerk Role" : "No Role");
             String name = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
             String salutation = HttpContext.Current.Profile.GetPropertyValue("salutation").ToString();
@@ -29,7 +28,18 @@ namespace Team12_SSIS.StoreClerk
             LblUserName.Text += "." + name;
             LblUserName.Text += " : " + department;
 
-           
+            var users = Membership.GetAllUsers();
+            var userList = new List<MembershipUser>();
+            foreach (MembershipUser u in users)
+            {
+                userList.Add(u);
+            }
+            GridView1.DataSource = userList;
+            GridView1.DataBind();
+
+            var user = (MembershipUser)userList.Find(x => x.UserName == "clerk1");
+            LblEmail.Text = user.Email.ToString();
+
         }
 
         protected void Button1_Click(object sender, EventArgs e)
