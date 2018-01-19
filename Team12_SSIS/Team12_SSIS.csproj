@@ -119,7 +119,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NewUser.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -188,7 +187,9 @@
     <Content Include="StoreManager\ViewAdjustmentVoucherDetails.aspx" />
     <Content Include="StoreManager\ViewCatalogue.aspx" />
     <Content Include="StoreManager\ViewSupplierList.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="WebServices\Service.svc" />
   </ItemGroup>
   <ItemGroup>
@@ -333,13 +334,6 @@
     <Compile Include="Model\SupplierCatalogue.cs" />
     <Compile Include="Model\SupplierList.cs" />
     <Compile Include="Model\sysdiagram.cs" />
-    <Compile Include="NewUser.aspx.cs">
-      <DependentUpon>NewUser.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NewUser.aspx.designer.cs">
-      <DependentUpon>NewUser.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
