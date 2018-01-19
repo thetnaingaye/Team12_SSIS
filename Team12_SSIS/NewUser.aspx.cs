@@ -4,15 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Security;
+using System.Web.Profile;
+
 
 namespace Team12_SSIS
 {
-    public partial class Site : System.Web.UI.MasterPage
+    public partial class NewUser : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Yishu
 
         }
+
+       
     }
 }

@@ -2,54 +2,67 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   <body>
-<form id="form1" runat="server">
+    <div>
 <h2>Stationery Catalog List</h2>
-  <asp:TextBox ID="TextBox1" placeholder="Search Item Id" runat="server"></asp:TextBox>
-<asp:Button ID="Button3" runat="server" Text="Search" />
-    <asp:Button ID="Button1" runat="server" Text="Create" />     
-<asp:Button ID="Button2" runat="server" Text="Print" />
-
+    <asp:Button ID="BtnCreate" runat="server" Text="Create" OnClick="BtnCreate_Click" />     
+<asp:Button ID="BtnPrint" runat="server" Text="Print" />
+        <br />
+        <asp:TextBox ID="TxtSearch" placeholder="Search Item Id" runat="server"></asp:TextBox>
+<asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
+</div>
 <div>
 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"
-OnRowDeleting="OnRowDeleting"
-OnRowEditing="OnRowEditing"
-DataKeyNames="ItemID" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+OnRowCancelingEdit="GridView1_RowCancelingEdit"
+OnRowDataBound="GridView1_RowDataBound"
+OnRowDeleting="GridView1_RowDeleting"
+OnRowEditing="GridView1_RowEditing"
+OnRowUpdating="GridView1_RowUpdating"
+DataKeyNames="ItemID">
 <Columns>
-<asp:TemplateField HeaderText="ItemId" SortExpression="ItemId">
+<asp:TemplateField HeaderText="ItemID" SortExpression="ItemID">
 <ItemTemplate>
-<asp:Label ID="Label5" runat="server" Text='<%# Bind("ItemId") %>'></asp:Label>
+<asp:Label ID="LblItemID" runat="server" Text='<%# Bind("ItemID") %>'></asp:Label>
 </ItemTemplate>
 </asp:TemplateField>
-<asp:TemplateField HeaderText="Category" SortExpression="Category">
+<asp:TemplateField HeaderText="CategoryID" SortExpression="CategoryID">
 <ItemTemplate>
-<asp:Label ID="Label6" runat="server" Text='<%# Bind("Category") %>'></asp:Label>
+<asp:Label ID="LblCategoryID" runat="server" Text='<%# Bind("CategoryID") %>'></asp:Label>
 </ItemTemplate>
 </asp:TemplateField>
 <asp:TemplateField HeaderText="Description" SortExpression="Description">
+<EditItemTemplate>
+<asp:TextBox ID="TxtDescription" runat="server" Text='<%# Bind("Description") %>'></asp:TextBox>
+</EditItemTemplate>
 <ItemTemplate>
-<asp:Label ID="Label7" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
+<asp:Label ID="LblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
 </ItemTemplate>
 </asp:TemplateField>
 <asp:TemplateField HeaderText="ReorderLevel" SortExpression="ReorderLevel">
+<EditItemTemplate>
+<asp:TextBox ID="TxtReorderLevel" runat="server" Text='<%# Bind("ReorderLevel") %>'></asp:TextBox>
+</EditItemTemplate>
 <ItemTemplate>
-<asp:Label ID="Label7" runat="server" Text='<%# Bind("ReorderLevel") %>'></asp:Label>
+<asp:Label ID="LblReorderLevel" runat="server" Text='<%# Bind("ReorderLevel") %>'></asp:Label>
 </ItemTemplate>
 </asp:TemplateField>
-<asp:TemplateField HeaderText="ReorderQuantity" SortExpression="ReorderQuantity">
+<asp:TemplateField HeaderText="ReorderQty" SortExpression="ReorderQty">
+<EditItemTemplate>
+<asp:TextBox ID="TxtReorderQty" runat="server" Text='<%# Bind("ReorderQty") %>'></asp:TextBox>
+</EditItemTemplate>
 <ItemTemplate>
-<asp:Label ID="Label7" runat="server" Text='<%# Bind("ReorderQuantity") %>'></asp:Label>
+<asp:Label ID="LblReorderQty" runat="server" Text='<%# Bind("ReorderQty") %>'></asp:Label>
 </ItemTemplate>
 </asp:TemplateField>
-<asp:TemplateField HeaderText="UnitofMeasure" SortExpression="UnitofMeasure">
+<asp:TemplateField HeaderText="UOM" SortExpression="UOM">
+<EditItemTemplate>
+<asp:TextBox ID="TxtUOM" runat="server" Text='<%# Bind("UOM") %>'></asp:TextBox>
+</EditItemTemplate>
 <ItemTemplate>
-<asp:Label ID="Label7" runat="server" Text='<%# Bind("UnitofMeasure") %>'></asp:Label>
+<asp:Label ID="LblUOM" runat="server" Text='<%# Bind("UOM") %>'></asp:Label>
 </ItemTemplate>
 </asp:TemplateField>
-<asp:CommandField ButtonType="Button" ShowDeleteButton="True" ShowEditButton="True" ShowSelectButton="True" />
+<asp:CommandField ButtonType="Button" ShowDeleteButton="True" ShowEditButton="True" />
 </Columns>
 </asp:GridView>
 </div>
-</form>
-</body>
 </asp:Content>
