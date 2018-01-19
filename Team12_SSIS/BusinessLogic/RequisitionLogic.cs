@@ -1516,13 +1516,7 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        public static List<InventoryCatalogue> ListCatalogues()
-        {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                return entities.InventoryCatalogues.ToList<InventoryCatalogue>();
-            }
-        }
+        
 
     }
     }

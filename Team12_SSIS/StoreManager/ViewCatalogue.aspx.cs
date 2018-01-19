@@ -26,5 +26,47 @@ namespace Team12_SSIS.StoreManager
                 GridView1.DataBind();
             }
         }
+
+        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            string ItemID = Convert.ToString(GridView1.DataKeys[e.RowIndex].Values[0]);
+            BusinessLogic.InventoryLogic.DeleteCatalogue(ItemID);
+            BindGrid();
+        }
+
+        protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+        { 
+            GridView1.EditIndex = e.NewEditIndex;
+            BindGrid();
+        }
+
+        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            GridViewRow row = GridView1.Rows[e.RowIndex];
+            string ItemID = Convert.ToString(GridView1.DataKeys[e.RowIndex].Values[0]);
+            string Description = Convert.ToString((row.FindControl("TxtDescription") as TextBox).Text);
+            int ReorderLevel = Convert.ToInt32((row.FindControl("TxtReorderLevel") as TextBox).Text);
+            int ReorderQty = Convert.ToInt32((row.FindControl("TxtReorderQty") as TextBox).Text);
+            string UOM = Convert.ToString((row.FindControl("TxtUOM") as TextBox).Text);
+            BusinessLogic.InventoryLogic.UpdateCatalogue(ItemID, Description, ReorderLevel, ReorderQty, UOM);
+            GridView1.EditIndex = -1;
+            BindGrid();
+        }
+
+        protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            GridView1.EditIndex = -1;
+            BindGrid();
+        }
+
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                InventoryCatalogue catalogue = (InventoryCatalogue)e.Row.DataItem;
+                string ItemID = catalogue.ItemID;
+            }
+        }
+
     }
 }
