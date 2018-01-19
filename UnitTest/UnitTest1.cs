@@ -1,6 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static Team12_SSIS.Utility.Validator;
+using Team12_SSIS.BusinessLogic;
+using System.Collections.Generic;
+using System.Data.Entity;
+using Team12_SSIS.Utility;
 
 namespace UnitTest
 {
@@ -40,6 +44,61 @@ namespace UnitTest
             Console.WriteLine(IsDateRangeValid(DateTime.Parse(todayDate), DateTime.Parse(tomorrowDate)).ToString());
             Console.WriteLine(IsDateRangeValid(DateTime.Parse(todayDate), DateTime.Parse(todayDate)).ToString());
             Console.WriteLine(IsDateRangeValid(DateTime.Parse(tomorrowDate), DateTime.Parse(todayDate)).ToString());
+        }
+
+        [TestMethod]
+        public void TestMethod6()
+        {
+        }
+        [TestMethod]
+        public void TestMail()
+        {
+            using(EmailControl em = new EmailControl())
+            {
+                em.DisburstmentPointChangeNotification("lim.chang.siang@gmail.com", "English", "Naiag", "Science");
+            }
+        }
+
+        public void TestMethod7()
+        {
+            //Start Here....
+
+
+
+
+
+
+
+
+            //Some things there
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
     }
 }
