@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<%--<html>
 <head runat="server">
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -17,4 +17,106 @@
     </div>
     </form>
 </body>
+</html>--%>
+
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> -  Stationery Store</title>
+
+
+    <!-- Latest compiled and minified CSS -->
+
+    <link rel="stylesheet" href="Style/bootstrap.css" />
+
+<%--    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Roboto" rel="s--%>tylesheet">
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+</head>
+
+
+
+
+<body>
+    <form id="form2" runat="server">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" runat="server" href="~/">SSIS</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="<%= Page.ResolveUrl("~/login.aspx") %>">Home</a></li>
+                        <li><a href="<%= Page.ResolveUrl("~/BookDisplayPage.aspx") %>">Books</a></li>
+                        <li><a href="<%= Page.ResolveUrl("~/ShoppingCart.aspx") %>">View Cart
+                        <asp:Label ID="Label1" runat="server" Text=""></asp:Label></a></li>
+                        <li id="Li1" runat="server"><a href="<%= Page.ResolveUrl("~/SignUp.aspx") %>">Register</a></li>
+                        <li id="Li2" visible="false" runat="server"><a href="<%= Page.ResolveUrl("~/secret/UpdateInventory.aspx") %>">Update Inventory</a></li>
+                        <li id="Li3" visible="false" runat="server"><a href="<%= Page.ResolveUrl("~/secret/AddBook.aspx") %>">Add Book</a></li>
+                        <li id="Li4" visible="false" runat="server"><a href="<%= Page.ResolveUrl("~/secret/Sales.aspx") %>">Set Discount</a></li>
+
+
+                        <li id="Li5" runat="server"><a href="<%= Page.ResolveUrl("~/login.aspx") %>">Log in</a></li>
+                        <li id="Li6" runat="server"><a href="<%= Page.ResolveUrl("~/login.aspx") %>">Log out</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="col-xs-12">
+            <table style="width: 100%">
+                <tr>
+                    <td class="auto-style4">Stationery Store</td>
+                    <td>
+                        <asp:Label ID="Label2" runat="server" Text="guest user" Style="text-align: right"></asp:Label>
+                    </td>
+                    <td class="auto-style5">
+                        <%--                        <asp:LinkButton ID="LinkButton_logout" Visible="false" runat="server" OnClick="LinkButton_logout_Click">Log out</asp:LinkButton>--%>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="text-align: center">
+        </div>
+
+
+        <div class="container panel-body">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+            <footer>
+                <br />
+                <hr />
+                <p>&copy; <%: DateTime.Now.Year %> - SSIS - V0.1</p>
+            </footer>
+
+        </div>
+    </form>
+
+
+</body>
 </html>
+
+
