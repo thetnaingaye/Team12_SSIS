@@ -13,15 +13,23 @@ namespace Team12_SSIS
         {
             if (User.Identity.IsAuthenticated) // if the user is already logged in
             {
+
+                //redirecting respective home page according to Roles
                 if (Page.User.IsInRole("Clerk"))
                 {
-
                     Response.Redirect("~/StoreClerk/Home.aspx");
-
                 }
-                if (Page.User.IsInRole("Employee"))
+                if (Page.User.IsInRole("Manager") || Page.User.IsInRole("Supervisor"))
+                {
+                    Response.Redirect("~/StoreManager/Home.aspx");
+                }
+                if (Page.User.IsInRole("Employee") || Page.User.IsInRole("Rep"))
                 {
                     Response.Redirect("~/DepartmentEmployee/Home.aspx");
+                }
+                if (Page.User.IsInRole("HOD"))
+                {
+                    Response.Redirect("~/DepartmentHead/Home.aspx");
                 }
 
             }
