@@ -130,6 +130,7 @@
     <Content Include="DepartmentHead\Web.config" />
     <Content Include="DepartmentEmployee\Web.config" />
     <Content Include="DepartmentEmployee\DepartmentRep\Web.config" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

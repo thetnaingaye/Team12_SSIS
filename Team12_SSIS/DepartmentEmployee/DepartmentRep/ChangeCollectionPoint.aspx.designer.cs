@@ -13,6 +13,15 @@ namespace Team12_SSIS.DepartmentEmployee.DepartmentRep {
     public partial class ChangeCollectionPoint {
         
         /// <summary>
+        /// TextBox1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        
+        /// <summary>
         /// CurrentCollectionPointLbl control.
         /// </summary>
         /// <remarks>
@@ -22,13 +31,13 @@ namespace Team12_SSIS.DepartmentEmployee.DepartmentRep {
         protected global::System.Web.UI.WebControls.Label CurrentCollectionPointLbl;
         
         /// <summary>
-        /// RadioButtonList1 control.
+        /// CollectionPointRbtnl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList1;
+        protected global::System.Web.UI.WebControls.RadioButtonList CollectionPointRbtnl;
         
         /// <summary>
         /// ChangeCollectionPointBtn control.
