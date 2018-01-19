@@ -200,6 +200,7 @@
     <Compile Include="BusinessLogic\PurchasingLogic.cs" />
     <Compile Include="BusinessLogic\ReportLogic.cs" />
     <Compile Include="BusinessLogic\RequisitionLogic.cs" />
+    <Compile Include="BusinessLogic\UserLogic.cs" />
     <Compile Include="DepartmentEmployee\CreateRequisitionForm.aspx.cs">
       <DependentUpon>CreateRequisitionForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
