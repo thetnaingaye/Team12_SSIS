@@ -44,5 +44,28 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        public static List<CatalogueCategory> CategoryID()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.CatalogueCategories.ToList<CatalogueCategory>();
+            }
+        }
+
+        public static void AddCatalogue(string ItemID, string CategoryID, string Description, int ReorderLevel, int ReorderQty, string UOM)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                InventoryCatalogue inventoryCatalogue = new InventoryCatalogue();
+                inventoryCatalogue.ItemID = ItemID;
+                inventoryCatalogue.CategoryID = CategoryID;
+                inventoryCatalogue.Description = Description;
+                inventoryCatalogue.ReorderLevel = ReorderLevel;
+                inventoryCatalogue.ReorderQty = ReorderQty;
+                inventoryCatalogue.UOM = UOM;
+                entities.InventoryCatalogues.Add(inventoryCatalogue);
+                entities.SaveChanges();
+            }
+        }
     }
 }
