@@ -11,8 +11,27 @@ namespace Team12_SSIS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //this is naing branch
-            //from acer
+
+      
+            if (Page.User.IsInRole("Clerk"))
+            {
+                ClerkMenu.Visible = true;
+      
+            }
+            else
+            {
+                ClerkMenu.Visible = false;
+            }
+
+            if(Page.User.Identity.IsAuthenticated)
+            {
+                LogoutMenu.Visible = true;
+                UserName.Visible = true;
+                LoginMenu.Visible = false;
+                LblUserName.Text = Page.User.Identity.Name.ToString(); ;
+            }
+
+
         }
     }
 }
