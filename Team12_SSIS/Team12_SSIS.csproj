@@ -119,6 +119,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="default.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -200,6 +201,13 @@
     <Compile Include="BusinessLogic\PurchasingLogic.cs" />
     <Compile Include="BusinessLogic\ReportLogic.cs" />
     <Compile Include="BusinessLogic\RequisitionLogic.cs" />
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DepartmentEmployee\CreateRequisitionForm.aspx.cs">
       <DependentUpon>CreateRequisitionForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

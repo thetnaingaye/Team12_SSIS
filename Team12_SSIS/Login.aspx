@@ -2,6 +2,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:Login ID="Login1" runat="server">
-</asp:Login>
+    <div class="col-xs-12">
+        <div style="width: 400px; margin-left: auto; margin-right: auto;">
+            <asp:Login ID="Login1" runat="server" OnLoggedIn="Page_Load"></asp:Login>
+        </div>
+    </div>
+
 </asp:Content>
