@@ -40,15 +40,6 @@ namespace Team12_SSIS.DepartmentHead {
         protected global::System.Web.UI.WebControls.Calendar Calendar2;
         
         /// <summary>
-        /// StatusDdl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList StatusDdl;
-        
-        /// <summary>
         /// ApplyBtn control.
         /// </summary>
         /// <remarks>
@@ -56,6 +47,15 @@ namespace Team12_SSIS.DepartmentHead {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ApplyBtn;
+        
+        /// <summary>
+        /// CancelDelegationBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button CancelDelegationBtn;
         
         /// <summary>
         /// DelegatesListGridView control.

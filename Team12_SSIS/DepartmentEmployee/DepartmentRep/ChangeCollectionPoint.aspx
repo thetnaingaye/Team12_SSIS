@@ -13,4 +13,7 @@
         <asp:RadioButtonList ID="RadioButtonList1" runat="server">
         </asp:RadioButtonList>
     </p>
+    <p>
+        <asp:Button ID="ChangeCollectionPointBtn" runat="server" Text="Change Collection Point" />
+    </p>
 </asp:Content>

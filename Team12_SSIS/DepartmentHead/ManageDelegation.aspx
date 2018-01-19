@@ -12,10 +12,10 @@
     From:<asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
     <br />
     To:<asp:Calendar ID="Calendar2" runat="server"></asp:Calendar>
-    Status:<asp:DropDownList ID="StatusDdl" runat="server">
-    </asp:DropDownList>
     <br />
     <asp:Button ID="ApplyBtn" runat="server" Text="Apply" />
+    &nbsp;&nbsp;&nbsp;
+    <asp:Button ID="CancelDelegationBtn" runat="server" Text="Cancel Delegation" />
     <br />
     <br />
     <strong>Employees Delegated:</strong><br />
