@@ -28,7 +28,7 @@ namespace Team12_SSIS
                 LogoutMenu.Visible = true;
                 UserName.Visible = true;
                 LoginMenu.Visible = false;
-                LblUserName.Text = Page.User.Identity.Name.ToString(); ;
+                LblUserName.Text = Page.User.Identity.Name.ToString(); 
             }
 
 

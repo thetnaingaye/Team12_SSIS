@@ -58,15 +58,6 @@ namespace Team12_SSIS {
         protected global::System.Web.UI.WebControls.Label LblUserName;
         
         /// <summary>
-        /// LoginMenu control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LoginMenu;
-        
-        /// <summary>
         /// LogoutMenu control.
         /// </summary>
         /// <remarks>
@@ -74,6 +65,15 @@ namespace Team12_SSIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LogoutMenu;
+        
+        /// <summary>
+        /// LoginMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LoginMenu;
         
         /// <summary>
         /// ContentPlaceHolder1 control.
