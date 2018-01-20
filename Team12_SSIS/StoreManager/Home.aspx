@@ -60,7 +60,7 @@
 
 
             <div class="col-md-6 col-sm-12">
-                <div class="panel panel-default" style="border-color: #006699">
+                <div class="panel panel-default" style="border-color: #006699;">
                     <div class="panel-heading" style="text-align: center; background-color: #006699; color: white">Panel Heading</div>
                     <div class="auto-style2">
                         <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
