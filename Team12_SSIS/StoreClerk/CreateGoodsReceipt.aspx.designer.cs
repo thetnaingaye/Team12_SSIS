@@ -31,6 +31,24 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.HiddenField HiddenFieldPONumber;
         
         /// <summary>
+        /// RegularExpressionValidatorPoNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorPoNumber;
+        
+        /// <summary>
+        /// RequiredFieldValidatorPoNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorPoNumber;
+        
+        /// <summary>
         /// BtnRetrievePO control.
         /// </summary>
         /// <remarks>
@@ -49,6 +67,24 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.TextBox TxtDoNumber;
         
         /// <summary>
+        /// RequiredFieldValidatorDoNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorDoNumber;
+        
+        /// <summary>
+        /// ValidationSummaryPo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummaryPo;
+        
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -65,6 +101,15 @@ namespace Team12_SSIS.StoreClerk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridViewGR;
+        
+        /// <summary>
+        /// ValidatorSummary1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidatorSummary1;
         
         /// <summary>
         /// BtnPostGR control.

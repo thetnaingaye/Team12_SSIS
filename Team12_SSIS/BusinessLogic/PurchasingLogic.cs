@@ -343,7 +343,11 @@ namespace Team12_SSIS.BusinessLogic
                 foreach (PORecordDetail orderedItem in poDetailList)
                 {
                     //Add the updated Order detail into the fresh list.
-                    poDetailListWithGR.Add(CheckForGRQuantity(grRecords, orderedItem));
+                    PORecordDetail prd = CheckForGRQuantity(grRecords, orderedItem);
+                    if (prd.Quantity > 0)
+                    {
+                        poDetailListWithGR.Add(prd);
+                    }
 
                 }
                 //Return the Order list that has the updated reamining quantity.
@@ -360,7 +364,7 @@ namespace Team12_SSIS.BusinessLogic
                 {
                     //Minus ordered quantity with received quantity
                     int qty = (int) orderedItem.Quantity - (int)received.Quantity;
-                    orderedItem.Quantity = qty;
+                    orderedItem.Quantity = qty;                    
                 }
             }
             return orderedItem;
@@ -385,7 +389,6 @@ namespace Team12_SSIS.BusinessLogic
             
         }
 
-
         public PORecord GetPORecords (int poNumber)
         {
             using (SA45Team12AD ctx = new SA45Team12AD())
@@ -404,6 +407,22 @@ namespace Team12_SSIS.BusinessLogic
             {
                 ctx.GoodReceiptDetails.Add(grd);
                 ctx.SaveChanges();
+            }
+        }
+
+        public GoodReceipt GetGoodsReceipt(int goodReceiptNumber)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.GoodReceipts.FirstOrDefault(x => x.GRNumber == goodReceiptNumber);
+            }
+        }
+
+        public List<GoodReceiptDetail> GetGoodsReceiptDetails(int goodReceiptNumber)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.GoodReceiptDetails.Where(x => x.GRNumber == goodReceiptNumber).ToList();
             }
         }
 
