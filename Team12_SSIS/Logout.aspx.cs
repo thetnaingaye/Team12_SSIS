@@ -7,16 +7,12 @@ using System.Web.UI.WebControls;
 
 namespace Team12_SSIS
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Logout : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
-        }
-
-        protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
-        {
+            System.Web.Security.FormsAuthentication.SignOut();
+            Response.Redirect("Login.aspx");
 
         }
     }
