@@ -5,6 +5,8 @@ using Team12_SSIS.BusinessLogic;
 using System.Collections.Generic;
 using System.Data.Entity;
 using Team12_SSIS.Utility;
+using System.Data;
+using System.Linq;
 
 namespace UnitTest
 {
@@ -49,6 +51,8 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
+            PurchasingLogic pl = new PurchasingLogic();
+
         }
         [TestMethod]
         public void TestMail()
