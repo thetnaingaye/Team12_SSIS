@@ -1288,5 +1288,54 @@ namespace Team12_SSIS.BusinessLogic
 
             }
         }
+        public static double GetInventoryPrice(string itemID)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return (double) ctx.SupplierCatalogues.Where(x => x.ItemID == itemID).Where(x => x.Priority == 1).Select(x => x.Price).FirstOrDefault();
+            }
+        }
+
+        public static InventoryCatalogue GetInventoryItem(string itemID)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.InventoryCatalogues.FirstOrDefault(x => x.ItemID == itemID);
+            }
+        }
+
+        public int CreateAdjustmentVoucherRequest(string clerkName, DateTime dateRequested)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                AVRequest aVRequest = new AVRequest
+                {
+                    RequestedBy = clerkName,
+                    DateRequested = dateRequested,
+                    Status = "Pending"
+                };
+                ctx.AVRequests.Add(aVRequest);
+                ctx.SaveChanges();
+                return aVRequest.AVRID;
+            }
+        }
+        public void CreateAdjustmentVoucherRequestDetails(int avrId, string itemId, string type, int quantity, string uom, string reason, double unitPrice)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                AVRequestDetail aVRequestDetail = new AVRequestDetail
+                {
+                    AVRID = avrId,
+                    ItemID = itemId,
+                    Type = type,
+                    Quantity = quantity,
+                    UOM = uom,
+                    Reason = reason,
+                    UnitPrice = unitPrice
+                };
+                ctx.AVRequestDetails.Add(aVRequestDetail);
+                ctx.SaveChanges();
+            }
+        }
     }
 }
