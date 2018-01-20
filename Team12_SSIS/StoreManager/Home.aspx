@@ -19,7 +19,7 @@
 
         <div class="row">
             <div class="col-md-6 well col-sm-12" style="background-color: transparent; border: none; box-shadow: none; padding: 5px 30px 0px 30px">
-                <div class="well" style="background-color: steelblue">
+                <div class="well" style="background-color: steelblue;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
 
                     <div class="auto-style2">
                         <span>You have</span>
@@ -37,7 +37,7 @@
                     </div>
 
                 </div>
-                <div class="well" style="background-color: steelblue;">
+                <div class="well" style="background-color: steelblue;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
 
                     <div class="auto-style2">
                         <span>You have</span>
@@ -60,7 +60,7 @@
 
 
             <div class="col-md-6 col-sm-12">
-                <div class="panel panel-default" style="border-color: #006699;">
+                <div class="panel panel-default" style="border-color: #006699;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
                     <div class="panel-heading" style="text-align: center; background-color: #006699; color: white">Panel Heading</div>
                     <div class="auto-style2">
                         <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
@@ -91,7 +91,7 @@
 
         <div class="row">
             <div class="col-md-6 col-sm-12">
-                <div class="panel panel-default" style="border-color: #006699">
+                <div class="panel panel-default" style="border-color: #006699;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
                     <div class="panel-heading" style="text-align: center; background-color: #006699; color: white">Panel Heading</div>
                     <div class="auto-style2">
                         <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
@@ -117,7 +117,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
-                <div class="panel panel-default" style="border-color: #006699">
+                <div class="panel panel-default" style="border-color: #006699;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
                     <div class="panel-heading" style="text-align: center; background-color: #006699; color: white">Number of Items by Category</div>
                     <div class="auto-style2">
                         <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
