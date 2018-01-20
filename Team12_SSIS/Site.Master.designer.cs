@@ -58,6 +58,33 @@ namespace Team12_SSIS {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl SupervisorMenu;
         
         /// <summary>
+        /// EmployeeMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl EmployeeMenu;
+        
+        /// <summary>
+        /// RepMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl RepMenu;
+        
+        /// <summary>
+        /// HOD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl HOD;
+        
+        /// <summary>
         /// UserName control.
         /// </summary>
         /// <remarks>
