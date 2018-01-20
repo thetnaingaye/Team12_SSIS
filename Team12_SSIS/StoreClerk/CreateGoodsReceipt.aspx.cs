@@ -39,7 +39,7 @@ namespace Team12_SSIS.StoreClerk
         }
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
-            /*if (e.Row.RowType == DataControlRowType.DataRow)
+            if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 PORecordDetail pR = (PORecordDetail)e.Row.DataItem;
                 string itemId = pR.ItemID;
@@ -49,7 +49,7 @@ namespace Team12_SSIS.StoreClerk
                 if (LblDesc != null)
                     LblDesc.Text = itemName;
 
-            }*/
+            }
         }
     }
 }
