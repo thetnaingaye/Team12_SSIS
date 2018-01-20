@@ -1,5 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Team12_SSIS.Site" %>
 
+
 <!DOCTYPE html>
 
 
@@ -244,6 +245,7 @@
             <footer>
                 <br />
                 <hr />
+                <asp:Label ID="LblStatus" runat="server" Text="Label"></asp:Label>
                 <p>&copy; <%: DateTime.Now.Year %> - SA45 Team12 - Stationery Store Inventory System - V0.1</p>
             </footer>
 

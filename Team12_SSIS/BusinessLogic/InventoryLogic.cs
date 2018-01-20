@@ -1512,41 +1512,87 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        //----
+        //---- Chang Siang
         public static string GetItemName(string ItemID)
         {
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 return ctx.InventoryCatalogues.Where(x => x.ItemID == ItemID).Select(x => x.Description).First();
             }
         }
 
+        //---- Update Inventory Quantity (Temporary Method until Khair's method is available)
+        public void AddInventoryQuantity(int quantity, string itemID)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryCatalogue ic = ctx.InventoryCatalogues.Where(x => x.ItemID == itemID).First();
+                ic.UnitsInStock += quantity;
+                ctx.SaveChanges();
+            }
+        }
 
+        public void MinusInventoryQuantity(int quantity, string itemID)
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryCatalogue ic = ctx.InventoryCatalogues.Where(x => x.ItemID == itemID).First();
+                ic.UnitsInStock -= quantity;
+                ctx.SaveChanges();
+            }
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //---- Update Stock Card
+        public void UpdateStockCard(string description, string itemID, DateTime date, string type, int quantity, string uom)
+        {
+            StockCard sc = new StockCard();
+            sc.ItemID = itemID;
+            sc.Date = date;
+            sc.Description = description;
+            sc.Type = type;
+            sc.Quantity = quantity;
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                int unitInStock = ctx.InventoryCatalogues.Where(x => x.ItemID == itemID).Select(x => x.UnitsInStock).First();
+                switch (type)
+                {
+                    case ("Add"):
+                        sc.Balance = unitInStock + quantity;
+                        AddInventoryQuantity(quantity, itemID);
+                        break;
+                    case ("Minus"):
+                        sc.Balance = unitInStock - quantity;
+                        MinusInventoryQuantity(quantity, itemID);
+                        break;
+                }
+                ctx.StockCards.Add(sc);
+                ctx.SaveChanges();
+            }
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
