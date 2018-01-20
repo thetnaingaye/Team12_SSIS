@@ -7,6 +7,7 @@ using System.Data.Entity;
 using Team12_SSIS.Utility;
 using System.Data;
 using System.Linq;
+using Team12_SSIS.Model;
 
 namespace UnitTest
 {
@@ -52,6 +53,7 @@ namespace UnitTest
         public void TestMethod6()
         {
             PurchasingLogic pl = new PurchasingLogic();
+            List<PORecordDetail> pod = pl.GetPurchaseOrdersForGR(1);
 
         }
         [TestMethod]
