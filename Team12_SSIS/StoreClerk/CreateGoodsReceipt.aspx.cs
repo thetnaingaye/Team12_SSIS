@@ -28,27 +28,24 @@ namespace Team12_SSIS.StoreClerk
 
         }
 
-        protected void TxtGRDate_OnClick(object sender, EventArgs e)
-        {
-        }
-
         protected void BtnRetrievePO_Click(object sender, EventArgs e)
         {
             PurchasingLogic pl = new PurchasingLogic();
             List<PORecordDetail> poDetailList = pl.GetPurchaseOrdersForGR(int.Parse(TxtPONumber.Text.ToString()));
             if (poDetailList.Count == 0)
             {
-                statusMessage.Text = "Invalid PO Number";
+                statusMessage.Text = "No such Purchase Order exist.";
                 statusMessage.ForeColor = Color.Red;
                 DisplayEmptyGrid();
             }
             else
             {
-                GridViewGR.DataSource = pl.GetPurchaseOrdersForGR(int.Parse(TxtPONumber.Text.ToString()));
+                GridViewGR.DataSource = poDetailList;
                 GridViewGR.DataBind();
                 BtnPostGR.Visible = true;
             }
             HiddenFieldPONumber.Value = TxtPONumber.Text;
+            statusMessage.Visible = false;
         }
 
         protected void DisplayEmptyGrid()
@@ -96,10 +93,14 @@ namespace Team12_SSIS.StoreClerk
                 string stockCardDesc = "Goods Receipt - " + grNumber + " Supplier " + pr.SupplierID;
                 il.UpdateStockCard(stockCardDesc, itemID, date, "Add", quantity, uom);
             }
+
             poNumber = -1;
             statusMessage.Text = "Goods Receipt " + grNumber + " Posted Successfully.";
             statusMessage.ForeColor = Color.Green;
             statusMessage.Visible = true;
+            BtnPostGR.Visible = false;
+            TxtPONumber.Text = string.Empty;
+            TxtDoNumber.Text = string.Empty;
             DisplayEmptyGrid();
         }
     }
