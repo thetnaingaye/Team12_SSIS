@@ -51,7 +51,7 @@
                 <asp:Label ID="Label1" runat="server" Text="Posting Date:" Font-Size="Small"></asp:Label>
             </td>
             <td>
-                <input type="text" id="datepicker" name="datepicker" readonly />
+                <input type="text" id="datepicker" name="datepicker" readonly="true" />
             </td>
         </tr>
         <tr>
