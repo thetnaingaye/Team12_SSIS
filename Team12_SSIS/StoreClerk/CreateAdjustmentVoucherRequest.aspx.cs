@@ -116,7 +116,8 @@ namespace Team12_SSIS.StoreClerk
                 il.CreateAdjustmentVoucherRequestDetails(avRId, itemID, type, quantity, uom, reason, unitPrice);
                 isAbove250 = (quantity * unitPrice > 250 ? true : false);
             }
-            il.SendEmailToApprovingOfficer(avRId, isAbove250, clerkName);
+
+            il.SendAdjRequentEmail(avRId, isAbove250, clerkName);
 
             Session["AdjustVID"] = avRId;
             Server.Transfer("ViewAdjustmentVoucherDetails.aspx", true);

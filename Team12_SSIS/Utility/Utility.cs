@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 
 namespace Team12_SSIS.Utility
 {
@@ -24,6 +25,17 @@ namespace Team12_SSIS.Utility
                 table.Rows.Add(row);
             }
             return table;
+        }
+
+        public static List<MembershipUser> GetListOfMembershipUsers()
+        {
+            var users = Membership.GetAllUsers();
+            var userList = new List<MembershipUser>();
+            foreach (MembershipUser u in users)
+            {
+                userList.Add(u);
+            }
+            return userList;
         }
     }
 }
