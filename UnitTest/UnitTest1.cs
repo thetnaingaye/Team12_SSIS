@@ -8,6 +8,7 @@ using Team12_SSIS.Utility;
 using System.Data;
 using System.Linq;
 using Team12_SSIS.Model;
+using System.Web.Security;
 
 namespace UnitTest
 {
@@ -52,8 +53,8 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
-            PurchasingLogic pl = new PurchasingLogic();
-            List<PORecordDetail> pod = pl.GetPurchaseOrdersForGR(1);
+            InventoryLogic il = new InventoryLogic();
+            il.SendEmailToApprovingOfficer(12, true, "test");
 
         }
         [TestMethod]

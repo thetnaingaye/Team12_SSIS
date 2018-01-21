@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using Team12_SSIS.Model;
+using Team12_SSIS.Utility;
 
 namespace Team12_SSIS.BusinessLogic
 {
@@ -1587,7 +1589,7 @@ namespace Team12_SSIS.BusinessLogic
 
         public int CreateAdjustmentVoucherRequest(string clerkName, DateTime dateRequested)
         {
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 AVRequest aVRequest = new AVRequest
                 {
@@ -1596,7 +1598,7 @@ namespace Team12_SSIS.BusinessLogic
                     Status = "Pending"
                 };
                 ctx.AVRequests.Add(aVRequest);
-                ctx.SaveChanges();
+                ctx.SaveChanges();             
                 return aVRequest.AVRID;
             }
         }
@@ -1654,6 +1656,30 @@ namespace Team12_SSIS.BusinessLogic
                 success = true;
             }
             return success;
+        }
+
+        public void SendEmailToApprovingOfficer(int avRId, bool isAbove250, string clerkName)
+        {
+            string[] approveAuthList;
+            var userList = new List<MembershipUser>();
+            if (isAbove250)
+            {
+                approveAuthList = Roles.GetUsersInRole("Manager");
+            }
+            else
+            {
+                approveAuthList = Roles.GetUsersInRole("Supervisor");
+            }
+            foreach (string s in approveAuthList)
+            {
+                var User = userList.Find(x => x.UserName == s);
+
+                using (EmailControl em = new EmailControl())
+                {
+                    em.NewAdjustmentVoucherRequestNotification(User.Email.ToString(), avRId.ToString(), clerkName);
+                }
+            }
+
         }
     }
 }
