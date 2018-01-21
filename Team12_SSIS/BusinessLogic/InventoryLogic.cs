@@ -1618,6 +1618,43 @@ namespace Team12_SSIS.BusinessLogic
                 ctx.SaveChanges();
             }
         }
+
+        public static AVRequest GetAdjustmentVoucherRequest(int avRId)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.AVRequests.FirstOrDefault(x => x.AVRID == avRId);
+            }
+        }
+
+        public static List<AVRequestDetail> GetAdjustmentVoucherDetailsList(int avRId)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.AVRequestDetails.Where(x => x.AVRID == avRId).ToList();
+            }
+        }
+
+        public static int GetAdjustmentVoucherApproveID (int avRId)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.AdjustmentVouchers.Where(x => x.AVRID == avRId).Select(x => x.AVID).FirstOrDefault();
+            }
+        }
+
+        public static bool CancelAdjustmentVoucherRequest(int avRId)
+        {
+            bool success = false;
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                AVRequest aVRequest = ctx.AVRequests.FirstOrDefault(x => x.AVRID == avRId);
+                aVRequest.Status = "Cancelled";
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
     }
 }
 
