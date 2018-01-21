@@ -41,8 +41,17 @@ namespace Team12_SSIS.StoreClerk
 
         protected void GridViewAdjV_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            Session["AdjustVID"] = int.Parse(e.CommandArgument.ToString());
-            Server.Transfer("ViewAdjustmentVoucherDetails.aspx", true);
+            if (e.CommandName == "ViewDetails")
+            {
+                Session["AdjustVID"] = int.Parse(e.CommandArgument.ToString());
+                Server.Transfer("ViewAdjustmentVoucherDetails.aspx", true);
+            }
+        }
+
+        protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridViewAdjV.PageIndex = e.NewPageIndex;
+            BindGrid();
         }
     }
 }
