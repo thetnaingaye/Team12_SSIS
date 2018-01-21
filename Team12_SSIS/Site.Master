@@ -230,7 +230,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li id="LoginMenu" runat="server"><a href="<%= Page.ResolveUrl("~/login.aspx") %>">Log in</a></li>
+                        <li id="LoginMenu" runat="server"><a href="<%= Page.ResolveUrl("~/login.aspx") %>"> <%: DateTime.Now.Date.ToLongDateString() %></a></li>
                     </ul>
 
                 </div>
