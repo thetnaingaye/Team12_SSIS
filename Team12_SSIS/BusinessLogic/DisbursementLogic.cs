@@ -1562,5 +1562,15 @@ namespace Team12_SSIS.BusinessLogic
 			}
 		}
 
+		public static void UpdateCollectionPoint(string depid, int cpid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				Department department = entities.Departments.Where(p => p.DeptID== depid).First<Department>();
+				department.CollectionPointID = cpid;
+				entities.SaveChanges();
+			}
+		}
+
 	}
 }

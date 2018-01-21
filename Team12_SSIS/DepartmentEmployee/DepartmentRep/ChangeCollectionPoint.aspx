@@ -8,7 +8,7 @@
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
     </p>
     <p>
-        Current Collection Point:<asp:Label ID="CurrentCollectionPointLbl" runat="server"></asp:Label>
+        Current Collection Point: <asp:Label ID="CurrentCollectionPointLbl" runat="server"></asp:Label>
     </p>
     <p>
         New Collection Point:
@@ -18,6 +18,6 @@
         </asp:RadioButtonList>
     </p>
     <p>
-        <asp:Button ID="ChangeCollectionPointBtn" runat="server" Text="Change Collection Point" />
+        <asp:Button ID="ChangeCollectionPointBtn" runat="server" Text="Change Collection Point" OnClick="ChangeCollectionPointBtn_Click" />
     </p>
 </asp:Content>

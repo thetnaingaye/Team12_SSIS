@@ -15,12 +15,21 @@ namespace Team12_SSIS.DepartmentEmployee.DepartmentRep
         {
 			if(!IsPostBack)
 			{
-				CollectionPointRbtnl.DataSource = DisbursementLogic.ListCollectionPointsWithTime();
+				CollectionPointRbtnl.DataSource = DisbursementLogic.ListCollectionPoints();
+				CollectionPointRbtnl.DataTextField = "CollectionPoint1";
+				CollectionPointRbtnl.DataValueField = "CollectionPointID";
 				CollectionPointRbtnl.DataBind();
 				TextBox1.Text = DisbursementLogic.GetCurrentDep();
 				CurrentCollectionPointLbl.Text = DisbursementLogic.GetCurrentCPWithTimeByID(Int32.Parse(DisbursementLogic.GetCurrentCPIDByDep(DisbursementLogic.GetCurrentDep())));
 			}
 
         }
-    }
+
+		protected void ChangeCollectionPointBtn_Click(object sender, EventArgs e)
+		{
+			int newcpid = Int32.Parse(CollectionPointRbtnl.SelectedValue);
+			DisbursementLogic.UpdateCollectionPoint(DisbursementLogic.GetCurrentDep(), newcpid);
+			
+		}
+	}
 }
