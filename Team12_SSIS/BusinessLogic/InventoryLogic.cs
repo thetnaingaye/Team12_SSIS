@@ -1348,6 +1348,22 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        public static List<AVRequest> GetListOfAdjustmentRequests()
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.AVRequests.ToList();
+            }
+        }
+
+        public static List<AVRequest> GetListOfAdjustmentRequests(string status)
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.AVRequests.Where(x => x.Status == status).ToList();
+            }
+        }
+
         public static List<AVRequestDetail> GetAdjustmentVoucherDetailsList(int avRId)
         {
             using(SA45Team12AD ctx = new SA45Team12AD())
@@ -1377,18 +1393,10 @@ namespace Team12_SSIS.BusinessLogic
             return success;
         }
 
-        public void SendEmailToApprovingOfficer(int avRId, bool isAbove250, string clerkName)
+        public void SendAdjRequentEmail(int avRId, bool isAbove250, string clerkName)
         {
-            string[] approveAuthList;
-            var userList = new List<MembershipUser>();
-            if (isAbove250)
-            {
-                approveAuthList = Roles.GetUsersInRole("Manager");
-            }
-            else
-            {
-                approveAuthList = Roles.GetUsersInRole("Supervisor");
-            }
+            List<MembershipUser> userList = Utility.Utility.GetListOfMembershipUsers();
+            string[] approveAuthList = isAbove250 ? Roles.GetUsersInRole("Manager") : Roles.GetUsersInRole("Supervisor");
             foreach (string s in approveAuthList)
             {
                 var User = userList.Find(x => x.UserName == s);

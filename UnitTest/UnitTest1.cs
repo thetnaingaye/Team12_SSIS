@@ -54,7 +54,7 @@ namespace UnitTest
         public void TestMethod6()
         {
             InventoryLogic il = new InventoryLogic();
-            il.SendEmailToApprovingOfficer(12, true, "test");
+            il.SendAdjRequentEmail(12, true, "test");
 
         }
         [TestMethod]
