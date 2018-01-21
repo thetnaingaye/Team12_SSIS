@@ -2886,6 +2886,7 @@ pre {
 
 table {
     background-color: transparent;
+    text-align: left;
 }
 
 caption {

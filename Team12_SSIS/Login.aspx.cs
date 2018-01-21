@@ -11,7 +11,8 @@ namespace Team12_SSIS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Label status = Master.FindControl("LblStatus") as Label;
+            status.Text = "Please login to start";
 
         }
 
