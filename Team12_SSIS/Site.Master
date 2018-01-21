@@ -242,6 +242,7 @@
             </asp:ContentPlaceHolder>
             <footer>
                 <br />
+                <asp:Label ID="LblStatus" runat="server" Text="" ForeColor="Peru"></asp:Label>
                 <hr />
                 <p>&copy; <%: DateTime.Now.Year %> - SA45 Team12 - Stationery Store Inventory System - V0.1</p>
             </footer>
