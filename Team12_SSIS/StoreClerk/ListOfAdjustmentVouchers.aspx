@@ -16,10 +16,11 @@
                     <td>
                         <div>
                             <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False"
-                                Style="height: 100px; overflow: auto" ShowHeaderWhenEmpty="True"
+                                ShowHeaderWhenEmpty="True"
                                 OnRowDataBound="OnRowDataBound" OnRowCommand="GridViewAdjV_RowCommand"
-                                CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="AVRID">
-                                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="AVRID" AllowPaging="true"
+    OnPageIndexChanging="OnPageIndexChanging" PageSize="15">
+                                <AlternatingRowStyle BackColor="White" ForeColor="#284775"/>
                                 <Columns>
                                     <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                         <ItemTemplate>
@@ -30,8 +31,8 @@
 
                                     <asp:TemplateField HeaderText="Voucher ID / Request ID" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
-                                            <asp:LinkButton ID="LBtnVoucherId" runat="server" Visible="false" CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
-                                            <asp:LinkButton ID="LBtnRequestId" runat="server" Text='<%# Bind("AVRID") %>' CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
+                                            <asp:LinkButton ID="LBtnVoucherId" runat="server" Visible="false" CommandName="ViewDetails" CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
+                                            <asp:LinkButton ID="LBtnRequestId" runat="server" Text='<%# Bind("AVRID") %>' CommandName="ViewDetails" CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
                                         </ItemTemplate>
                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
                                     </asp:TemplateField>
