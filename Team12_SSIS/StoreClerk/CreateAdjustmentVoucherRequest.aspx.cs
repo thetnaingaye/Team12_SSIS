@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,8 +12,10 @@ namespace Team12_SSIS.StoreClerk
 {
     public partial class CreateAdjustmentVoucherRequest : System.Web.UI.Page
     {
+        Label statusMessage; 
         protected void Page_Load(object sender, EventArgs e)
         {
+            statusMessage = this.Master.FindControl("LblStatus") as Label;
             if (!IsPostBack)
             {
                 BindGrid();
@@ -110,6 +113,11 @@ namespace Team12_SSIS.StoreClerk
                 double unitPrice = InventoryLogic.GetInventoryPrice(itemID); 
                 il.CreateAdjustmentVoucherRequestDetails(avRId, itemID, type, quantity, uom, reason, unitPrice);
             }
+
+            Session["AdjustVID"] = avRId;
+            Server.Transfer("ViewAdjustmentVoucherDetails.aspx", true);
+            statusMessage.ForeColor = Color.Green;
+            statusMessage.Text = "Request Sent. Inventory Adjustment Voucher Request ID: " + avRId.ToString() + " has been created";
         }
         protected void OnRowDeleting(object sender, GridViewDeleteEventArgs e)
         {
@@ -131,7 +139,6 @@ namespace Team12_SSIS.StoreClerk
             adjDetailList.RemoveAt(sN - 1);
             GridViewAdjV.DataSource = adjDetailList;
             GridViewAdjV.DataBind();
-
         }
     }
 }

@@ -245,7 +245,6 @@
                 <br />
                 <asp:Label ID="LblStatus" runat="server" Text="" ForeColor="Peru"></asp:Label>
                 <hr />
-                <asp:Label ID="LblStatus" runat="server" Text="Label"></asp:Label>
                 <p>&copy; <%: DateTime.Now.Year %> - SA45 Team12 - Stationery Store Inventory System - V0.1</p>
             </footer>
 
