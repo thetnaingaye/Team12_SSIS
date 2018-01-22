@@ -74,7 +74,7 @@
                                         <a href="<%= Page.ResolveUrl("~/StoreClerk/CreateDisbursementForm.aspx") %>">Create Disbursement List</a>
                                     </li>
                                     <li class="menu-item dropdown dropdown-submenu">
-                                        <a href="<%= Page.ResolveUrl("~/StoreClerk/ViewDisbursementList.aspx") %>">View Disbursement List</a>
+                                        <a href="<%= Page.ResolveUrl("~/StoreClerk/ViewDisbursementForm.aspx") %>">View Disbursement List</a>
                                     </li>
                                 </ul>
                             </li>
@@ -192,7 +192,7 @@
 
                             <li><a href="<%= Page.ResolveUrl("~/DepartmentHead/Home.aspx") %>">Home</a></li>
                             <li><a href="<%= Page.ResolveUrl("~/DepartmentHead/ViewRequisitionFormList.aspx") %>">Requests</a></li>
-                            <li><a href="<%= Page.ResolveUrl("~/DepartmentHead/ViewDisbursementList.aspx") %>">Disbursement</a></li>
+                            <li><a href="<%= Page.ResolveUrl("~/DepartmentHead/ViewDisbursementForm.aspx") %>">Disbursement</a></li>
 
                             <li>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Representative<b class="caret"></b></a>
