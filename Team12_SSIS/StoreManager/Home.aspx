@@ -71,11 +71,18 @@
                                 <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:SA45Team12AD %>" SelectCommand="SELECT CategoryID, COUNT(*) AS TotalItem FROM InventoryCatalogue GROUP BY CategoryID" OnSelecting="SqlDataSource3_Selecting"></asp:SqlDataSource>
                                 <asp:Chart ID="Chart8" runat="server" DataSourceID="SqlDataSource3">
                                     <Series>
-                                        <asp:Series Name="Series1" XValueMember="CategoryID" YValueMembers="TotalItem">
+                                        <asp:Series Name="Series1" XValueMember="CategoryID" YValueMembers="TotalItem" ChartType="SplineArea">
                                         </asp:Series>
                                     </Series>
                                     <ChartAreas>
                                         <asp:ChartArea Name="ChartArea1">
+                                            <AxisY>
+                                                <MajorGrid LineColor="LightGray" LineDashStyle="Dot" />
+                                            </AxisY>
+                                            <AxisX>
+                                                <MajorGrid LineColor="LightGray" LineDashStyle="Dot" />
+                                                <MajorTickMark LineColor="LightGray" />
+                                            </AxisX>
                                         </asp:ChartArea>
                                     </ChartAreas>
                                 </asp:Chart>
@@ -101,15 +108,30 @@
                             <ContentTemplate>
                                 <asp:Chart ID="Chart4" runat="server" DataSourceID="SqlDataSource3" BackColor="Transparent" Height="325px" Width="400px">
                                     <Series>
-                                        <asp:Series Name="Series1" XValueMember="CategoryID" YValueMembers="TotalItem">
+                                        <asp:Series Name="Series1" XValueMember="CategoryID" YValueMembers="TotalItem" CustomProperties="PixelPointWidth=5" LabelForeColor="RoyalBlue">
+                                            <EmptyPointStyle LabelForeColor="DimGray" />
                                         </asp:Series>
                                     </Series>
                                     <ChartAreas>
                                         <asp:ChartArea Name="ChartArea1" BackColor="Transparent">
-                                            <Area3DStyle Enable3D="True" LightStyle="Realistic" />
+                                            <AxisY LineColor="Transparent">
+                                                <MajorGrid LineColor="Silver" LineDashStyle="Dot" />
+                                                <MajorTickMark LineColor="DimGray" />
+                                            </AxisY>
+                                            <AxisX LineColor="Transparent">
+                                                <MajorGrid LineColor="Silver" LineDashStyle="Dot" />
+                                                <MajorTickMark LineColor="DimGray" />
+                                            </AxisX>
+                                            <AxisX2 LineColor="Transparent">
+                                                <MajorTickMark LineColor="DimGray" />
+                                            </AxisX2>
+                                            <AxisY2 LineColor="Transparent">
+                                                <MajorTickMark LineColor="DimGray" />
+                                            </AxisY2>
+                                            <Area3DStyle LightStyle="Realistic" />
                                         </asp:ChartArea>
                                     </ChartAreas>
-                                    <BorderSkin PageColor="DarkGray" />
+                                    <BorderSkin PageColor="DarkGray" BorderColor="Transparent" />
                                 </asp:Chart>
                             </ContentTemplate>
                         </asp:UpdatePanel>
@@ -125,14 +147,14 @@
                                 <asp:AsyncPostBackTrigger ControlID="Timer2" />
                             </Triggers>
                             <ContentTemplate>
-                                <asp:Chart ID="Chart5" runat="server" DataSourceID="SqlDataSource3" BackColor="Transparent" BackImageTransparentColor="Transparent" BorderlineColor="Transparent" OnLoad="Chart2_Load" Width="500px" Height="325px">
+                                <asp:Chart ID="Chart5" runat="server" DataSourceID="SqlDataSource3" BackColor="Transparent" BackImageTransparentColor="Transparent" BorderlineColor="Transparent" OnLoad="Chart2_Load" Width="500px" Height="325px" Palette="None" PaletteCustomColors="26, 110, 204; 39, 128, 227; 190, 216, 246; 171, 194, 221; 18, 77, 142; 41, 94, 153; 212, 222, 234">
                                     <Series>
-                                        <asp:Series ChartType="Pie" Name="Product Category" XValueMember="CategoryID" YValueMembers="TotalItem" BackImageTransparentColor="Silver" Legend="Legend1">
+                                        <asp:Series ChartType="Doughnut" Name="Product Category" XValueMember="CategoryID" YValueMembers="TotalItem" BackImageTransparentColor="Silver" Legend="Legend1" LabelForeColor="DimGray">
                                         </asp:Series>
                                     </Series>
                                     <ChartAreas>
-                                        <asp:ChartArea Name="ChartArea1" BackColor="Transparent" BackSecondaryColor="Transparent">
-                                            <Area3DStyle Enable3D="True" />
+                                        <asp:ChartArea Name="ChartArea1" BackColor="Transparent" BackSecondaryColor="Transparent" BorderColor="Transparent" IsSameFontSizeForAllAxes="True">
+                                            <Area3DStyle IsClustered="True" LightStyle="None" />
                                         </asp:ChartArea>
                                     </ChartAreas>
                                     <Legends>
