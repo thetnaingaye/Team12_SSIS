@@ -20,4 +20,7 @@
     <p>
         <asp:Button ID="ChangeCollectionPointBtn" runat="server" Text="Change Collection Point" OnClick="ChangeCollectionPointBtn_Click" />
     </p>
+    <p>
+        <asp:Label ID="ChangedLbl" runat="server" Visible="False"></asp:Label>
+    </p>
 </asp:Content>

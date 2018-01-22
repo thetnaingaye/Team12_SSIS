@@ -13,7 +13,7 @@ namespace Team12_SSIS.DepartmentEmployee.DepartmentRep
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-			if(!IsPostBack)
+			if (!IsPostBack)
 			{
 				CollectionPointRbtnl.DataSource = DisbursementLogic.ListCollectionPoints();
 				CollectionPointRbtnl.DataTextField = "CollectionPoint1";
@@ -22,6 +22,8 @@ namespace Team12_SSIS.DepartmentEmployee.DepartmentRep
 				TextBox1.Text = DisbursementLogic.GetCurrentDep();
 				CurrentCollectionPointLbl.Text = DisbursementLogic.GetCurrentCPWithTimeByID(Int32.Parse(DisbursementLogic.GetCurrentCPIDByDep(DisbursementLogic.GetCurrentDep())));
 			}
+			else
+				ChangedLbl.Visible = true;
 
         }
 
@@ -29,7 +31,9 @@ namespace Team12_SSIS.DepartmentEmployee.DepartmentRep
 		{
 			int newcpid = Int32.Parse(CollectionPointRbtnl.SelectedValue);
 			DisbursementLogic.UpdateCollectionPoint(DisbursementLogic.GetCurrentDep(), newcpid);
-			
+			CurrentCollectionPointLbl.Text = DisbursementLogic.GetCurrentCPWithTimeByID(Int32.Parse(DisbursementLogic.GetCurrentCPIDByDep(DisbursementLogic.GetCurrentDep())));
+			ChangedLbl.Text = "The Collection Point has been updated to " + CurrentCollectionPointLbl.Text;
+
 		}
 	}
 }

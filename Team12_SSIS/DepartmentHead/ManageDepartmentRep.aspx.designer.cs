@@ -49,6 +49,15 @@ namespace Team12_SSIS.DepartmentHead {
         protected global::System.Web.UI.WebControls.DropDownList EmployeesDdl;
         
         /// <summary>
+        /// AssignRepBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AssignRepBtn;
+        
+        /// <summary>
         /// NewRepAssignedLbl control.
         /// </summary>
         /// <remarks>

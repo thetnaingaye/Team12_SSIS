@@ -9,6 +9,7 @@
     <asp:DropDownList ID="EmployeesDdl" runat="server">
     </asp:DropDownList>
     <br />
+    <asp:Button ID="AssignRepBtn" runat="server" OnClick="AssignRepBtn_Click" Text="Assign Representative" />
     <br />
     <asp:Label ID="NewRepAssignedLbl" runat="server"></asp:Label>
     <br />

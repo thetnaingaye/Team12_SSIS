@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Profile;
+using System.Web.Security;
 using Team12_SSIS.Model;
 
 namespace Team12_SSIS.BusinessLogic
@@ -1557,8 +1559,7 @@ namespace Team12_SSIS.BusinessLogic
 			using (SA45Team12AD entities = new SA45Team12AD())
 			{
 				string CPName = entities.CollectionPoints.Where(x => x.CollectionPointID == id).Select(x=>x.CollectionPoint1).Single().ToString();
-				string CTime = entities.CollectionPoints.Where(x => x.CollectionPointID == id).Select(x => x.CollectionTime).Single().ToString();
-				return CPName + " " + CTime;
+				return CPName;
 			}
 		}
 
@@ -1572,5 +1573,98 @@ namespace Team12_SSIS.BusinessLogic
 			}
 		}
 
+		public static List<MembershipUser> GetUsersFromDept(string dept)
+		{
+			List<MembershipUser> currentdep = new List<MembershipUser>();
+			var users = Membership.GetAllUsers();
+
+			foreach(MembershipUser u in users)
+			{
+
+
+				ProfileBase profile = ProfileBase.Create(u.UserName);
+				if(profile.GetPropertyValue("department").ToString() == dept)
+				{
+					currentdep.Add(u);
+				}
+
+
+			}
+
+
+			return currentdep;
+		}
+		public static List<String> GetFullNamesFromDept(string dept)
+		{
+			List<String> currentdep = new List<String>();
+			var users = Membership.GetAllUsers();
+
+			foreach (MembershipUser u in users)
+			{
+
+
+				ProfileBase profile = ProfileBase.Create(u.UserName);
+				if (profile.GetPropertyValue("department").ToString() == dept)
+				{
+					currentdep.Add(profile.GetPropertyValue("fullname").ToString());
+				}
+
+
+			}
+
+
+			return currentdep;
+		}
+
+		public static List<String> GetAllEmployeeFullNamesFromDept(string dept)
+		{
+			String employeeFullName = "";
+			List<MembershipUser> users = GetUsersFromDept(dept);
+			List<String> repusers = Roles.GetUsersInRole("Employee").ToList();
+			List<string> employees = new List<string>();
+			foreach (MembershipUser u in users)
+			{
+				foreach (string username in repusers)
+				{
+					if (u.UserName == username)
+					{
+						ProfileBase p = ProfileBase.Create(username);
+						employeeFullName = p.GetPropertyValue("fullname").ToString();
+						employees.Add(employeeFullName);
+						
+
+					}
+				}
+			}
+
+			return employees;
+		}
+		public static string GetDeptRep(String dept)
+		{
+			String repFullName = "";
+			List <MembershipUser> users = GetUsersFromDept(dept);
+			List<String> repusers = Roles.GetUsersInRole("Rep").ToList();
+			foreach (MembershipUser u in users)
+			{
+				foreach(string username in repusers)
+				{
+					if(u.UserName == username)
+					{
+						ProfileBase p = ProfileBase.Create(username);
+						repFullName = p.GetPropertyValue("fullname").ToString();
+
+					}
+				}
+			}
+
+			return repFullName;
+		}
+		public static void UpdateDeptRep(string username)
+		{
+
+
+		}
 	}
+
+	
 }
