@@ -195,8 +195,6 @@
     <Content Include="StoreClerk\ViewStockCard.aspx" />
     <Content Include="StoreManager\CreateCatalogue.aspx" />
     <Content Include="StoreManager\CreateSupplier.aspx" />
-    <Content Include="StoreManager\EditCatalogue.aspx" />
-    <Content Include="StoreManager\EditSupplier.aspx" />
     <Content Include="StoreManager\Home.aspx" />
     <Content Include="StoreManager\IssueAdjustmentVoucher.aspx" />
     <Content Include="StoreManager\StoreSupervisor\ApprovePurchaseOrder.aspx" />
@@ -525,20 +523,6 @@
     </Compile>
     <Compile Include="StoreManager\CreateSupplier.aspx.designer.cs">
       <DependentUpon>CreateSupplier.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="StoreManager\EditCatalogue.aspx.cs">
-      <DependentUpon>EditCatalogue.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="StoreManager\EditCatalogue.aspx.designer.cs">
-      <DependentUpon>EditCatalogue.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="StoreManager\EditSupplier.aspx.cs">
-      <DependentUpon>EditSupplier.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="StoreManager\EditSupplier.aspx.designer.cs">
-      <DependentUpon>EditSupplier.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoreManager\Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
