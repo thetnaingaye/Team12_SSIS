@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,9 +12,11 @@ namespace Team12_SSIS.StoreClerk
 {
     public partial class CreateDisbursementList : System.Web.UI.Page
     {
+        Label statusMessage;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack)
+            statusMessage = this.Master.FindControl("LblStatus") as Label;
+            if (!IsPostBack)
             {
                 BindDeptDdl();
             }
@@ -29,23 +32,17 @@ namespace Team12_SSIS.StoreClerk
             List<Department> deptList = DisbursementLogic.GetListofDepartments();
             DdlDept.DataSource = deptList;
             DdlDept.DataBind();
-            DdlDept.DataTextField = "DepartmentName";
-            DdlDept.DataValueField = "DeptID";
+            DdlDept.SelectedIndex = 0;
         }
 
         protected void BtnRetrieve_Click(object sender, EventArgs e)
         {
-            string deptId = DdlDept.SelectedValue;
-            GridViewDisbList.DataSource = InventoryLogic.GetListOfInventoryRetrival(deptId);
-            GridViewDisbList.DataBind();
+            RetrieveDisbursementData();
         }
 
         protected void DdlDept_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<CollectionPoint> pointList = DisbursementLogic.ListCollectionPoints();
-            int collectionId = DisbursementLogic.GetListofDepartments().Where(x => x.DeptID == DdlDept.SelectedValue).Select(x => x.CollectionPointID).FirstOrDefault();
-            LblCollectPoint.Text = pointList.Where(x => x.CollectionPointID == collectionId).Select(x => x.CollectionPoint1).FirstOrDefault();
-            LblDeptRep.Text = DisbursementLogic.GetDeptRepFullName(DdlDept.SelectedValue);
+            RetrieveDisbursementData();
         }
 
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -66,6 +63,38 @@ namespace Team12_SSIS.StoreClerk
         protected void BtnCreateDis_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void RetrieveDisbursementData()
+        {
+            List<CollectionPoint> pointList = DisbursementLogic.ListCollectionPoints();
+            int collectionId = DisbursementLogic.GetListofDepartments().Where(x => x.DeptID == DdlDept.SelectedValue).Select(x => x.CollectionPointID).FirstOrDefault();
+            LblCollectPoint.Text = pointList.Where(x => x.CollectionPointID == collectionId).Select(x => x.CollectionPoint1).FirstOrDefault();
+            LblDeptRep.Text = DisbursementLogic.GetDeptRepFullName(DdlDept.SelectedValue);
+
+            string deptId = DdlDept.SelectedValue;
+            List<InventoryRetrievalList> rList = InventoryLogic.GetListOfInventoryRetrival(deptId);
+            if (rList.Count > 0)
+            {                
+                GridViewDisbList.DataSource = rList;
+                GridViewDisbList.DataBind();
+
+                GridViewDisbList.Visible = true;
+                BtnCreateDis.Visible = true;
+
+                statusMessage.Text = string.Empty;
+
+            }
+            else
+            {
+                GridViewDisbList.Visible = false;
+                BtnCreateDis.Visible = false;
+                statusMessage.ForeColor = Color.Red;
+                statusMessage.Text = "No Disbursement Found for " + DdlDept.SelectedItem;
+
+            }
+
+            
         }
     }
 }

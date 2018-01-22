@@ -29,9 +29,9 @@
                 <asp:Label runat="server" Text="Department: " Font-Size="Small"></asp:Label>
             </td>
             <td style="width: 10%">
-                <asp:DropDownList ID="DdlDept" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DdlDept_SelectedIndexChanged"></asp:DropDownList>
+                <asp:DropDownList ID="DdlDept" runat="server"  AutoPostBack="true" DataTextField="DepartmentName" DataValueField="DeptID" OnSelectedIndexChanged="DdlDept_SelectedIndexChanged"></asp:DropDownList>
             </td>
-            <td style="width: 50%">
+            <td style="width: 40%">
                 <asp:Button ID="BtnRetrievePO" runat="server" Text="Retrieve" OnClick="BtnRetrieve_Click" CssClass="btn btn-xs" ValidationGroup="BtnRetrievePO" />
             </td>
             <td>
@@ -45,12 +45,14 @@
                 <asp:Label ID="Label2" runat="server" Text="Collection Point: "></asp:Label>
 
             </td>
-            <td>
+            <td colspan="2">
                 <asp:Label ID="LblCollectPoint" runat="server"></asp:Label>
             </td>
-            <td></td>
-            <td colspan="2">
-                <asp:Label ID="Label3" runat="server" Text="Collection Date: "></asp:Label><input type="text" id="datepicker" name="datepicker" readonly="true" />
+            <td>
+                <asp:Label ID="Label3" runat="server" Text="Collection Date: "></asp:Label>
+            </td>
+            <td>
+                <input type="text" id="datepicker" name="datepicker" readonly="true" />
             </td>
             <td></td>
         </tr>
@@ -140,7 +142,9 @@
             </td>
         </tr>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="3">
+
+            </td>
             <td colspan="2" style="align-items: center">
 
                 <br />
