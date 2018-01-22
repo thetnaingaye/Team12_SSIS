@@ -1217,8 +1217,39 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
+		public static List<SupplierList> ListSuppliers()
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				return entities.SupplierLists.ToList();
+			}
+		}
 
+		public static void UpdateOrderLeadTime(int orderLeadTime, string supplierID)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				SupplierList supplier = entities.SupplierLists.Where(p => p.SupplierID == supplierID).First<SupplierList>();
+				supplier.OrderLeadTime = orderLeadTime;
+				entities.SaveChanges();
+			}
+		}
 
+		public static string GetCurrentAutomationStatus(string itemid)
+		{
+			using (SA45Team12AD entites = new SA45Team12AD())
+			{
+				InventoryCatalogue inventory = entites.InventoryCatalogues.Where(x => x.ItemID == itemid).First<InventoryCatalogue>();
+				if (inventory.BufferStockLevel == null)
+				{
+					return "The buffer stock level is currently calculated automatically for the current item.";
+				}
+				else
+				{
+					return "The buffer stock level for the current item is " + inventory.BufferStockLevel.ToString();
+				}
+			}
+		}
 
 
 
@@ -1984,13 +2015,10 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        public static List<SupplierList> ListSuppliers()
-        {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                return entities.SupplierLists.ToList<SupplierList>();
-            }
-        }
+
+
+
+		
 
         public static void DeleteSupplier(string SupplierID)
         {
