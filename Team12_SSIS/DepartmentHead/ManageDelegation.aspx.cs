@@ -14,10 +14,16 @@ namespace Team12_SSIS.DepartmentHead
         {
 			if(!IsPostBack)
 			{
-				
 				EmployeesDdl.DataSource = DisbursementLogic.GetAllEmployeeFullNamesFromDept(DisbursementLogic.GetCurrentDep());
 				EmployeesDdl.DataBind();
 			}
         }
-    }
+
+		protected void ApplyBtn_Click(object sender, EventArgs e)
+		{
+			string delegatefullname = EmployeesDdl.Text;
+			string delegateusername = DisbursementLogic.GetUserName(delegatefullname, DisbursementLogic.GetCurrentDep());
+
+		}
+	}
 }

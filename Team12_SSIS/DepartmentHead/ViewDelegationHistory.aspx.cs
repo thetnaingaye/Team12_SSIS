@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Team12_SSIS.BusinessLogic;
 
 namespace Team12_SSIS.DepartmentHead
 {
@@ -11,7 +12,18 @@ namespace Team12_SSIS.DepartmentHead
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+			if(!IsPostBack)
+			{
+				DelegationHistoryGridView.DataSource = RequisitionLogic.ListDelegateDetails();
+				DelegationHistoryGridView.DataBind();
+			}
 
         }
+
+		public void BindGrid()
+		{
+			DelegationHistoryGridView.DataSource = RequisitionLogic.ListDelegateDetails();
+			DelegationHistoryGridView.DataBind();
+		}
     }
 }

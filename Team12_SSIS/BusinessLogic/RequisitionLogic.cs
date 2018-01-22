@@ -1216,7 +1216,32 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
+	public static void AddDelegate(String fullname,DateTime startdate, DateTime enddate, string depid)
+	{
+			if (startdate > DateTime.Today)
+			{
+				using (SA45Team12AD entities = new SA45Team12AD())
+				{
+					DDelegateDetail delegateDetail = new DDelegateDetail
+					{
+						DepartmentID = depid,
+						DepartmentHeadDelegate = fullname,
+						StartDate = startdate,
+						EndDate = enddate
+					};
+					entities.DDelegateDetails.Add(delegateDetail);
+					entities.SaveChanges();
+				}
+			}
+	}
 
+	public static List<DDelegateDetail> ListDelegateDetails()
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				return entities.DDelegateDetails.ToList<DDelegateDetail>();
+			}
+		}
 
 
 

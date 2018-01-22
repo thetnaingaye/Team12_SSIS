@@ -9,11 +9,11 @@
     </asp:DropDownList>
     <br />
     <br />
-    From:<asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+    From:<asp:Calendar ID="StartCal" runat="server"></asp:Calendar>
     <br />
-    To:<asp:Calendar ID="Calendar2" runat="server"></asp:Calendar>
+    To:<asp:Calendar ID="EndCal" runat="server"></asp:Calendar>
     <br />
-    <asp:Button ID="ApplyBtn" runat="server" Text="Apply" />
+    <asp:Button ID="ApplyBtn" runat="server" Text="Apply" OnClick="ApplyBtn_Click" />
     &nbsp;&nbsp;&nbsp;
     <asp:Button ID="CancelDelegationBtn" runat="server" Text="Cancel Delegation" />
     <br />

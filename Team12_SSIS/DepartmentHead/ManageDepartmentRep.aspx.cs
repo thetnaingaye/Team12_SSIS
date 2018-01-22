@@ -14,21 +14,28 @@ namespace Team12_SSIS.DepartmentHead
         {
 			if (!IsPostBack)
 			{
+				//Show current rep
 				CurrentRepLbl.Text = DisbursementLogic.GetDeptRepFullName(DisbursementLogic.GetCurrentDep());
-				EmployeesDdl.DataSource = DisbursementLogic.GetAllEmployeeFullNamesFromDept(DisbursementLogic.GetCurrentDep());
-				EmployeesDdl.DataBind();
+				BindDdl();
 			}
 
         }
 
+		protected void BindDdl()
+		{
+			EmployeesDdl.DataSource = DisbursementLogic.GetAllEmployeeFullNamesFromDept(DisbursementLogic.GetCurrentDep());
+			EmployeesDdl.DataBind();
+		}
 		protected void AssignRepBtn_Click(object sender, EventArgs e)
 		{
-			
-			string newrep = EmployeesDdl.SelectedValue;
-			DisbursementLogic.UpdateDeptRep(newrep);
+			//Getting new representative name from dropdown list
+			string newrepfullname = EmployeesDdl.SelectedValue;
+			//Update new rep and delete old rep by passing in new representative name and current department
+			DisbursementLogic.UpdateDeptRep(newrepfullname,DisbursementLogic.GetCurrentDep());
+			//Update current representative
 			CurrentRepLbl.Text = DisbursementLogic.GetDeptRepFullName(DisbursementLogic.GetCurrentDep());
-			NewRepAssignedLbl.Text = newrep + "has been assigned as the new representative.";
-			
+			NewRepAssignedLbl.Text = newrepfullname + "has been assigned as the new representative.";
+			BindDdl();
 			
 
 		}
