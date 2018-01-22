@@ -23,9 +23,6 @@ namespace Team12_SSIS.Model
         [StringLength(255)]
         public string CollectionPoint1 { get; set; }
 
-        [StringLength(255)]
-        public string CollectionTime { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Department> Departments { get; set; }
 
