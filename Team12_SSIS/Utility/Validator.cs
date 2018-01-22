@@ -38,5 +38,14 @@ namespace Team12_SSIS.Utility
                 return false;
             }
         }
+
+        public static string IsEmptyReturnSpace(string validString)
+        {
+            if(validString == "")
+            {
+                return " ";
+            }
+            return validString;
+        }
     }
 }
