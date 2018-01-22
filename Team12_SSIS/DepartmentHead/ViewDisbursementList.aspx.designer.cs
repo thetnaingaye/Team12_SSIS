@@ -22,6 +22,24 @@ namespace Team12_SSIS.DepartmentHead {
         protected global::System.Web.UI.WebControls.Label LblTitle;
         
         /// <summary>
+        /// LblCollectionPoint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblCollectionPoint;
+        
+        /// <summary>
+        /// LblCollectionPointD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblCollectionPointD;
+        
+        /// <summary>
         /// LblCollectionDate control.
         /// </summary>
         /// <remarks>
@@ -31,13 +49,13 @@ namespace Team12_SSIS.DepartmentHead {
         protected global::System.Web.UI.WebControls.Label LblCollectionDate;
         
         /// <summary>
-        /// LblCollectionPoint control.
+        /// LblCollectionDateD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblCollectionPoint;
+        protected global::System.Web.UI.WebControls.Label LblCollectionDateD;
         
         /// <summary>
         /// LblRepresentativeName control.
@@ -49,12 +67,21 @@ namespace Team12_SSIS.DepartmentHead {
         protected global::System.Web.UI.WebControls.Label LblRepresentativeName;
         
         /// <summary>
-        /// GridView1 control.
+        /// LblRepresentativeNameD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.Label LblRepresentativeNameD;
+        
+        /// <summary>
+        /// GridViewDisbursementDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewDisbursementDetails;
     }
 }
