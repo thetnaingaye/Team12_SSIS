@@ -1542,7 +1542,7 @@ namespace Team12_SSIS.BusinessLogic
         {
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
-                return ctx.InventoryRetrievalLists.Where(x => x.DepartmentID == dept).Where(x => x.Status == "fulfilled" || x.Status == "unfulfilled").ToList();
+                return ctx.InventoryRetrievalLists.Where(x => x.DepartmentID == deptId).Where(x => x.Status == "fulfilled" || x.Status == "unfulfilled").ToList();
             }
         }
     }

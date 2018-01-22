@@ -105,7 +105,7 @@
 
                             <asp:TemplateField HeaderText="UOM" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                 <ItemTemplate>
-                                    <asp:Label ID="LblUom" runat="server" Text='<%# Bind("UOM") %>'></asp:Label>
+                                    <asp:Label ID="LblUom" runat="server"></asp:Label>
                                 </ItemTemplate>
 
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
@@ -144,7 +144,7 @@
             <td colspan="2" style="align-items: center">
 
                 <br />
-                <asp:Button ID="BtnCreateDis" runat="server" Text="Create Disbursement List" CssClass="btn btn-group-xs center-block" Visible="false" OnClick="BtnPostGR_Click" ValidationGroup="BtnCreateGR" />
+                <asp:Button ID="BtnCreateDis" runat="server" Text="Create Disbursement List" CssClass="btn btn-group-xs center-block" Visible="false" OnClick="BtnCreateDis_Click" ValidationGroup="BtnCreateGR" />
             </td>
         </tr>
     </table>

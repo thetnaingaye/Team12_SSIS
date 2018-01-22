@@ -346,25 +346,25 @@ namespace Team12_SSIS.BusinessLogic
         }
 
 
-		//-----------------------------using join --------//
-		//public List<Object> getDisbursementForm()
-		//{
-		//    using (SA45Team12AD entities = new SA45Team12AD())
-		//    {
-		//        var q = (from di in entities.DisbursementLists
-		//                 join de in entities.Departments on di.DepartmentID equals de.DeptID
-		//                 join co in entities.CollectionPoints on di.CollectionPointID equals co.CollectionPointID
-		//                 select new
-		//                 {
-		//                     DisbursementID = di.DisbursementID,
-		//                     DepartmentName = de.DepartmentName,
-		//                     CollectionPoint = co.CollectionPoint1,
-		//                     Representative = di.RepresentativeName,
-		//                     status = di.Status
-		//                 });
-		//        return 
-		//        }
-		//    }
+        //-----------------------------using join --------//
+        //public List<Object> getDisbursementForm()
+        //{
+        //    using (SA45Team12AD entities = new SA45Team12AD())
+        //    {
+        //        var q = (from di in entities.DisbursementLists
+        //                 join de in entities.Departments on di.DepartmentID equals de.DeptID
+        //                 join co in entities.CollectionPoints on di.CollectionPointID equals co.CollectionPointID
+        //                 select new
+        //                 {
+        //                     DisbursementID = di.DisbursementID,
+        //                     DepartmentName = de.DepartmentName,
+        //                     CollectionPoint = co.CollectionPoint1,
+        //                     Representative = di.RepresentativeName,
+        //                     status = di.Status
+        //                 });
+        //        return 
+        //        }
+        //    }
 
 
 
@@ -614,6 +614,14 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
+        //-- Jane not using.. Chang Siang will write here first..
+        public static List<Department> GetListofDepartments()
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.Departments.ToList();
+            }
+        }
 
 
 
@@ -1520,8 +1528,7 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-
-		public static List<CollectionPoint> ListCollectionPoints()
+        public static List<CollectionPoint> ListCollectionPoints()
 		{
 			using (SA45Team12AD entities = new SA45Team12AD())
 			{
