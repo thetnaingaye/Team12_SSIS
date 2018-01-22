@@ -1282,297 +1282,75 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //----Thanisha-------------------------View Stock Card details-----------------------------------------------//
+        //------------------------------getting stock card details(ItemID,Date of transaction,Description,UOM,transaction type,quantity,balance)-------------//
+
+        public List<Object> getStockCardList(string itemid)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                var q = entity.StockCards.
+                Select(x => new { x.ItemID, x.Date, x.Description, x.Type, x.Quantity, x.Balance }).Where(x => x.ItemID == itemid);
+                List<Object> sList = q.ToList<Object>();
+                return sList;
+            }
+        }
+
+        //-------------------------(BIN,Description,UOM)------------------------------//
+        public InventoryCatalogue getInventoryDetails(string itemid)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.InventoryCatalogues.Where(s => s.ItemID == itemid).ToList().First<InventoryCatalogue>();
+            }
+        }
+        //-------------------------- (Supplier details)---------------------------------------//
+        public List<SupplierCatalogue> getSCatalogueDetails(string itemid)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.SupplierCatalogues.Where(s => s.ItemID == itemid).ToList<SupplierCatalogue>();
+            }
+        }
+
+
+        //-------------------------------------------------View InventoryList-----------------------------------------//
+
+        //-----------------------------------get Catalogue Name in  dropdown list---------------------------//
+        public List<CatalogueCategory> getCatalogue()
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.CatalogueCategories.ToList<CatalogueCategory>();
+            }
+        }
+
+        //-----------------------------------get inventory catalogue record based on itemcode in gridview---------------------------//
+        public List<InventoryCatalogue> getInventoryByItemcode(string itemcode)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.InventoryCatalogues.Where(x => x.ItemID == itemcode).ToList<InventoryCatalogue>();
+            }
+        }
+
+        public List<InventoryCatalogue> getInventoryByCatagory(string catagory)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                CatalogueCategory catalogue = getCatalogue(catagory);
+                return entity.InventoryCatalogues.Where(x => x.CategoryID == catalogue.CategoryID).ToList<InventoryCatalogue>();
+            }
+        }
+        public CatalogueCategory getCatalogue(string catagory)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.CatalogueCategories.Where(x => x.CatalogueName == catagory).First<CatalogueCategory>();
+
+
+            }
+        }
 
 
         //---- Chang Siang
@@ -1587,7 +1365,7 @@ namespace Team12_SSIS.BusinessLogic
         //---- Update Inventory Quantity (Temporary Method until Khair's method is available)
         public void AddInventoryQuantity(int quantity, string itemID)
         {
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 InventoryCatalogue ic = ctx.InventoryCatalogues.Where(x => x.ItemID == itemID).First();
                 ic.UnitsInStock += quantity;
@@ -1632,6 +1410,7 @@ namespace Team12_SSIS.BusinessLogic
                 ctx.SaveChanges();
             }
         }
+
         public static double GetInventoryPrice(string itemID)
         {
             using(SA45Team12AD ctx = new SA45Team12AD())
@@ -1752,28 +1531,3 @@ namespace Team12_SSIS.BusinessLogic
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

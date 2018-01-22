@@ -11,6 +11,8 @@ namespace Team12_SSIS.DepartmentHead
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            LblCollectionDate.Text = Request.QueryString["DisbursementID"];
+
 
         }
     }
