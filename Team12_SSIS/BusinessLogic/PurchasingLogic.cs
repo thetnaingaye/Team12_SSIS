@@ -614,7 +614,57 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
+        //--- Jianing Here
+        public static void AddText(string Deliverto, string Address)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                PORecord poRecord = new PORecord();
+                poRecord.RecipientName = Deliverto;
+                poRecord.DeliveryAddress = Address;
+                entities.PORecords.Add(poRecord);
+                entities.SaveChanges();
 
+
+            }
+        }
+        public static void AddItem(string ItemID, int Quantity, string UOM, double UnitPrice)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                PORecordDetail poRecordDetails = new PORecordDetail();
+                poRecordDetails.ItemID = ItemID;
+                poRecordDetails.Quantity = Quantity;
+                poRecordDetails.UOM = UOM;
+                poRecordDetails.UnitPrice = UnitPrice;
+                entities.PORecordDetails.Add(poRecordDetails);
+                entities.SaveChanges();
+            }
+        }
+        public static void AddDescription(string Description)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                InventoryCatalogue inventoCatalogue = new InventoryCatalogue();
+                inventoCatalogue.Description = Description;
+                entities.InventoryCatalogues.Add(inventoCatalogue);
+                entities.SaveChanges();
+            }
+        }
+
+
+
+
+
+
+        public static List<PORecord> ListPORecords()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.PORecords.ToList();
+
+            }
+        }
 
 
 
