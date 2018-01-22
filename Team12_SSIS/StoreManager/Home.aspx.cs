@@ -22,5 +22,10 @@ namespace Team12_SSIS.StoreManager
         {
 
         }
+
+        protected void Chart4_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
