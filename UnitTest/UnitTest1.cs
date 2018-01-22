@@ -5,6 +5,10 @@ using Team12_SSIS.BusinessLogic;
 using System.Collections.Generic;
 using System.Data.Entity;
 using Team12_SSIS.Utility;
+using System.Data;
+using System.Linq;
+using Team12_SSIS.Model;
+using System.Web.Security;
 
 namespace UnitTest
 {
@@ -49,6 +53,9 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
+            InventoryLogic il = new InventoryLogic();
+            il.SendAdjRequentEmail(12, true, "test");
+
         }
         [TestMethod]
         public void TestMail()
