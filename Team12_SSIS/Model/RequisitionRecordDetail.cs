@@ -19,6 +19,8 @@ namespace Team12_SSIS.Model
 
         public int? RequestedQuantity { get; set; }
 
+        public string Status { get; set; }
+
         public virtual InventoryCatalogue InventoryCatalogue { get; set; }
 
         public virtual RequisitionRecord RequisitionRecord { get; set; }

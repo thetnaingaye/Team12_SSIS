@@ -26,10 +26,7 @@ namespace Team12_SSIS.Model
         [StringLength(255)]
         public string RequestorName { get; set; }
 
-        public DateTime? ProcessDate { get; set; }
-
-        [StringLength(255)]
-        public string Status { get; set; }
+        public DateTime? ApprovedDate { get; set; }
 
         [StringLength(255)]
         public string ApproverName { get; set; }
