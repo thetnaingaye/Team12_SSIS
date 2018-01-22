@@ -29,7 +29,7 @@
                                 <asp:AsyncPostBackTrigger ControlID="Timer1" />
                             </Triggers>
                             <ContentTemplate>
-                                <h1 style="color: white"><strong><%= Session["count"] %></strong></h1>
+                                <h1 style="color: white"><strong><%= GetPendingPO() %></strong></h1>
                             </ContentTemplate>
                         </asp:UpdatePanel>
 
@@ -46,7 +46,7 @@
                                 <asp:AsyncPostBackTrigger ControlID="Timer1" />
                             </Triggers>
                             <ContentTemplate>
-                                <h1 style="color: white"><strong><%= DateTime.Now.Second%10 %></strong></h1>
+                                <h1 style="color: white"><strong><%= GetPendingAVR() %></strong></h1>
 
                             </ContentTemplate>
                         </asp:UpdatePanel>
