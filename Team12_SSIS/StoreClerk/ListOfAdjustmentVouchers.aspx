@@ -11,16 +11,25 @@
                     <td style="height: 25px">
                         <asp:Label runat="server" Text="List Inventory Adjustment Vouchers" Font-Size="Large"></asp:Label>
                     </td>
+                                        <td>
+                        <asp:Label ID="Label1" runat="server" Text="Show: " Style="padding-right: 10px"></asp:Label>
+                        <asp:DropDownList ID="DdlStatus" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DdlStatus_SelectedIndexChanged">
+                            <asp:ListItem Selected="True" Value="Pending">Pending</asp:ListItem>
+                            <asp:ListItem Value="Approved">Approved</asp:ListItem>
+                            <asp:ListItem Value="Rejected">Rejected</asp:ListItem>
+                            <asp:ListItem Value="All">All</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td colspan="2">
                         <div>
                             <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False"
                                 ShowHeaderWhenEmpty="True"
                                 OnRowDataBound="OnRowDataBound" OnRowCommand="GridViewAdjV_RowCommand"
                                 CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="AVRID" AllowPaging="true"
-    OnPageIndexChanging="OnPageIndexChanging" PageSize="15">
-                                <AlternatingRowStyle BackColor="White" ForeColor="#284775"/>
+                                OnPageIndexChanging="OnPageIndexChanging" PageSize="15">
+                                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                 <Columns>
                                     <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                         <ItemTemplate>

@@ -22,6 +22,7 @@ namespace Team12_SSIS.StoreClerk
         protected void BindGrid()
         {
             List<AVRequest> avRequestList = InventoryLogic.GetListOfAdjustmentRequests();
+            avRequestList = avRequestList.Where(x => x.Status == "Pending").ToList();
             GridViewAdjV.DataSource = avRequestList;
             GridViewAdjV.DataBind();
         }
@@ -52,6 +53,11 @@ namespace Team12_SSIS.StoreClerk
         {
             GridViewAdjV.PageIndex = e.NewPageIndex;
             BindGrid();
+        }
+
+        protected void DdlStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
