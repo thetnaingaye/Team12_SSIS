@@ -2,9 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
-        .auto-style1 {
-            height: 12px;
-        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -20,7 +17,7 @@
     </script>
     <table style="width: 100%" class="center-block">
         <tr>
-            <td colspan="5" class="auto-style1">
+            <td colspan="5">
                 <asp:Label runat="server" Text="Create Disbursement Form" Font-Size="Large"></asp:Label>
             </td>
         </tr>
@@ -37,7 +34,9 @@
             <td>
                 <asp:Label ID="Label1" runat="server" Text="Representative Name: "></asp:Label></td>
             <td>
-                <asp:Label ID="LblDeptRep" runat="server"></asp:Label></td>
+                <asp:Label ID="LblDeptRep" runat="server"></asp:Label>
+
+            </td>
         </tr>
         <tr>
 
@@ -54,11 +53,9 @@
             <td>
                 <input type="text" id="datepicker" name="datepicker" readonly="true" />
             </td>
-            <td></td>
         </tr>
         <tr>
             <td colspan="5">
-                <div>
                     <asp:GridView ID="GridViewDisbList" runat="server" AutoGenerateColumns="False"
                         Style="height: 100px; overflow: auto; width: 100%" DataKeyNames="ItemID" ShowHeaderWhenEmpty="True"
                         OnRowDataBound="OnRowDataBound" OnRowDeleted="GridViewGR_RowDeleted" CellPadding="4" ForeColor="#333333" GridLines="None">
@@ -138,16 +135,10 @@
 
 
                     </asp:GridView>
-                </div>
             </td>
         </tr>
         <tr>
-            <td colspan="3">
-
-            </td>
-            <td colspan="2" style="align-items: center">
-
-                <br />
+            <td colspan="5" style="align-content:flex-end">
                 <asp:Button ID="BtnCreateDis" runat="server" Text="Create Disbursement List" CssClass="btn btn-group-xs center-block" Visible="false" OnClick="BtnCreateDis_Click" ValidationGroup="BtnCreateGR" />
             </td>
         </tr>
