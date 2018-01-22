@@ -1527,7 +1527,23 @@ namespace Team12_SSIS.BusinessLogic
                     em.NewAdjustmentVoucherRequestNotification(User.Email.ToString(), avRId.ToString(), clerkName);
                 }
             }
+        }
 
+        public static List<InventoryRetrievalList> GetListOfInventoryRetrival()
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.InventoryRetrievalLists.ToList();
+            }
+
+        }
+
+        public static List<InventoryRetrievalList> GetListOfInventoryRetrival(string deptId)
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.InventoryRetrievalLists.Where(x => x.DepartmentID == dept).Where(x => x.Status == "fulfilled" || x.Status == "unfulfilled").ToList();
+            }
         }
     }
 }
