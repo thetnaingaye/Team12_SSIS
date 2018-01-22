@@ -13,5 +13,7 @@ namespace Team12_SSIS.BusinessLogic
     //Yishu Line 1519 to 1820
     public class RequisitionLogic
     {
+        
+
     }
 }
