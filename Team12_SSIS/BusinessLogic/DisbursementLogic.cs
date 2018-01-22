@@ -8,7 +8,7 @@ namespace Team12_SSIS.BusinessLogic
 {
 
     //Yishu Line 15 to 315
-    //Khair Line 316 to 616
+    //thanisha Line 316 to 616
     //Jane Line 617 to 917
     //Naing Line 1218 to 1518
     //Pradeep Line 1519 to 1820
@@ -314,10 +314,34 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
+        //-------------------------Getting disbursement details------------------------------//
+        public List<DisbursementList> getDisbursement()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.DisbursementLists.ToList<DisbursementList>();
+            }
 
+        }
 
 
+        public List<DisbursementList> getDisbursementByRep(string rep)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.DisbursementLists.Where(x => x.RepresentativeName == rep).ToList<DisbursementList>();
+            }
 
+        }
+        public List<DisbursementList> getDisbursementByDate(DateTime startDate, DateTime enddate)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                var q = from x in entities.DisbursementLists where x.CollectionDate >= startDate && x.CollectionDate <= enddate select x;
+                List<DisbursementList> dList = q.ToList<DisbursementList>();
+                return dList;
+            }
+        }
 
 
 
@@ -590,5 +614,8 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-    }
+
+
+
+            }
 }
