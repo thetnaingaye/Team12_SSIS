@@ -5,16 +5,20 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Team12_SSIS.DepartmentEmployee
+namespace Team12_SSIS
 {
-    public partial class CreateRequisitionForm : System.Web.UI.Page
+    public partial class WebForm1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
-        protected void BtnSubmitForm_Click(object sender, EventArgs e)
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void GridView1_Updating(object sender,EventArgs e)
         {
 
         }

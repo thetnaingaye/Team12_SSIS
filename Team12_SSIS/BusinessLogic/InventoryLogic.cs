@@ -16,11 +16,68 @@ namespace Team12_SSIS.BusinessLogic
     public class InventoryLogic
     {
 
+        public static List<InventoryCatalogue> ListCatalogues()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.InventoryCatalogues.ToList<InventoryCatalogue>();
+            }
+        }
 
+        public static void DeleteCatalogue(string ItemID)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                InventoryCatalogue catalogue = entities.InventoryCatalogues.Where(c => c.ItemID == ItemID).First<InventoryCatalogue>();
+                entities.InventoryCatalogues.Remove(catalogue);
+                entities.SaveChanges();
+            }
+        }
 
+        public static void UpdateCatalogue(string ItemID, string Description, int ReorderLevel, int ReorderQty, string UOM)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                InventoryCatalogue catalogue = entities.InventoryCatalogues.Where(c => c.ItemID == ItemID).First<InventoryCatalogue>();
+                catalogue.Description = Description;
+                catalogue.ReorderLevel = ReorderLevel;
+                catalogue.ReorderQty = ReorderQty;
+                catalogue.UOM = UOM;
+                entities.SaveChanges();
+            }
+        }
 
+        public static List<CatalogueCategory> CategoryID()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.CatalogueCategories.ToList<CatalogueCategory>();
+            }
+        }
 
+        public static void AddCatalogue(string ItemID, string CategoryID, string Description, int ReorderLevel, int ReorderQty, string UOM)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                InventoryCatalogue inventoryCatalogue = new InventoryCatalogue();
+                inventoryCatalogue.ItemID = ItemID;
+                inventoryCatalogue.CategoryID = CategoryID;
+                inventoryCatalogue.Description = Description;
+                inventoryCatalogue.ReorderLevel = ReorderLevel;
+                inventoryCatalogue.ReorderQty = ReorderQty;
+                inventoryCatalogue.UOM = UOM;
+                entities.InventoryCatalogues.Add(inventoryCatalogue);
+                entities.SaveChanges();
+            }
+        }
 
+        public List<InventoryCatalogue> SearchBy(string value)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.InventoryCatalogues.Where(i => i.ItemID.Contains(value) || i.CategoryID.Contains(value)).ToList();
+            }
+        }
 
 
 
@@ -1225,293 +1282,75 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
+        //----Thanisha-------------------------View Stock Card details-----------------------------------------------//
+        //------------------------------getting stock card details(ItemID,Date of transaction,Description,UOM,transaction type,quantity,balance)-------------//
 
+        public List<Object> getStockCardList(string itemid)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                var q = entity.StockCards.
+                Select(x => new { x.ItemID, x.Date, x.Description, x.Type, x.Quantity, x.Balance }).Where(x => x.ItemID == itemid);
+                List<Object> sList = q.ToList<Object>();
+                return sList;
+            }
+        }
 
+        //-------------------------(BIN,Description,UOM)------------------------------//
+        public InventoryCatalogue getInventoryDetails(string itemid)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.InventoryCatalogues.Where(s => s.ItemID == itemid).ToList().First<InventoryCatalogue>();
+            }
+        }
+        //-------------------------- (Supplier details)---------------------------------------//
+        public List<SupplierCatalogue> getSCatalogueDetails(string itemid)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.SupplierCatalogues.Where(s => s.ItemID == itemid).ToList<SupplierCatalogue>();
+            }
+        }
 
 
+        //-------------------------------------------------View InventoryList-----------------------------------------//
 
+        //-----------------------------------get Catalogue Name in  dropdown list---------------------------//
+        public List<CatalogueCategory> getCatalogue()
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.CatalogueCategories.ToList<CatalogueCategory>();
+            }
+        }
 
+        //-----------------------------------get inventory catalogue record based on itemcode in gridview---------------------------//
+        public List<InventoryCatalogue> getInventoryByItemcode(string itemcode)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.InventoryCatalogues.Where(x => x.ItemID == itemcode).ToList<InventoryCatalogue>();
+            }
+        }
 
+        public List<InventoryCatalogue> getInventoryByCatagory(string catagory)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                CatalogueCategory catalogue = getCatalogue(catagory);
+                return entity.InventoryCatalogues.Where(x => x.CategoryID == catalogue.CategoryID).ToList<InventoryCatalogue>();
+            }
+        }
+        public CatalogueCategory getCatalogue(string catagory)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.CatalogueCategories.Where(x => x.CatalogueName == catagory).First<CatalogueCategory>();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            }
+        }
 
 
         //---- Chang Siang
@@ -1526,7 +1365,7 @@ namespace Team12_SSIS.BusinessLogic
         //---- Update Inventory Quantity (Temporary Method until Khair's method is available)
         public void AddInventoryQuantity(int quantity, string itemID)
         {
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 InventoryCatalogue ic = ctx.InventoryCatalogues.Where(x => x.ItemID == itemID).First();
                 ic.UnitsInStock += quantity;
@@ -1571,6 +1410,7 @@ namespace Team12_SSIS.BusinessLogic
                 ctx.SaveChanges();
             }
         }
+
         public static double GetInventoryPrice(string itemID)
         {
             using(SA45Team12AD ctx = new SA45Team12AD())
@@ -1691,28 +1531,3 @@ namespace Team12_SSIS.BusinessLogic
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

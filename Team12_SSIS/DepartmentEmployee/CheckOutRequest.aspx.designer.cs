@@ -7,45 +7,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Team12_SSIS.StoreManager {
+namespace Team12_SSIS.DepartmentEmployee {
     
     
-    public partial class ViewSupplierList {
+    public partial class CheckOutRequest {
         
         /// <summary>
-        /// BtnCreate control.
+        /// GridViewCheckOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnCreate;
+        protected global::System.Web.UI.WebControls.GridView GridViewCheckOut;
         
         /// <summary>
-        /// TxtSearch control.
+        /// BtnCheckOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtSearch;
+        protected global::System.Web.UI.WebControls.Button BtnCheckOut;
         
         /// <summary>
-        /// BtnSearch control.
+        /// LblStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSearch;
-        
-        /// <summary>
-        /// GridViewSupplier control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewSupplier;
+        protected global::System.Web.UI.WebControls.Label LblStatus;
     }
 }
