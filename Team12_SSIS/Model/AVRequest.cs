@@ -31,6 +31,8 @@ namespace Team12_SSIS.Model
 
         public DateTime? DateProcessed { get; set; }
 
+        public string Remarks { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdjustmentVoucher> AdjustmentVouchers { get; set; }
 

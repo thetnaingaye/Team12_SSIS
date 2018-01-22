@@ -1,5 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Team12_SSIS.Site" %>
 
+
 <!DOCTYPE html>
 
 
@@ -14,8 +15,8 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="Style/bootstrap.css" />
 
-    <%--    <!-- fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Roboto" rel="s--%>tylesheet">
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Roboto" rel="stylesheet" />
 
 
     <!-- jQuery library -->
@@ -43,7 +44,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">SSIS</a>
+                    <a class="navbar-brand" href="~/">
+                        <a class="navbar-brand" runat="server" href="~/">SSIS</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <div id="ClerkMenu" runat="server">
@@ -73,7 +75,7 @@
                                         <a href="<%= Page.ResolveUrl("~/StoreClerk/CreateDisbursementForm.aspx") %>">Create Disbursement List</a>
                                     </li>
                                     <li class="menu-item dropdown dropdown-submenu">
-                                        <a href="<%= Page.ResolveUrl("~/StoreClerk/ViewDisbursementList.aspx") %>">View Disbursement List</a>
+                                        <a href="<%= Page.ResolveUrl("~/StoreClerk/ViewDisbursementForm.aspx") %>">View Disbursement List</a>
                                     </li>
                                 </ul>
                             </li>
@@ -191,7 +193,7 @@
 
                             <li><a href="<%= Page.ResolveUrl("~/DepartmentHead/Home.aspx") %>">Home</a></li>
                             <li><a href="<%= Page.ResolveUrl("~/DepartmentHead/ViewRequisitionFormList.aspx") %>">Requests</a></li>
-                            <li><a href="<%= Page.ResolveUrl("~/DepartmentHead/ViewDisbursementList.aspx") %>">Disbursement</a></li>
+                            <li><a href="<%= Page.ResolveUrl("~/DepartmentHead/ViewDisbursementForm.aspx") %>">Disbursement</a></li>
 
                             <li>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Representative<b class="caret"></b></a>
@@ -229,7 +231,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li id="LoginMenu" runat="server"><a href="<%= Page.ResolveUrl("~/login.aspx") %>">Log in</a></li>
+                        <li id="LoginMenu" runat="server"><a href="<%= Page.ResolveUrl("~/login.aspx") %>"> <%: DateTime.Now.Date.ToLongDateString() %></a></li>
                     </ul>
 
                 </div>

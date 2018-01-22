@@ -7,54 +7,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Team12_SSIS.StoreClerk {
+namespace Team12_SSIS.DepartmentEmployee {
     
     
-    public partial class CreateAdjustmentVoucherRequest {
+    public partial class CheckOutRequest {
         
         /// <summary>
-        /// sm1 control.
+        /// GridViewCheckOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager sm1;
+        protected global::System.Web.UI.WebControls.GridView GridViewCheckOut;
         
         /// <summary>
-        /// Up1 control.
+        /// BtnCheckOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel Up1;
+        protected global::System.Web.UI.WebControls.Button BtnCheckOut;
         
         /// <summary>
-        /// GridViewAdjV control.
+        /// LblStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewAdjV;
-        
-        /// <summary>
-        /// BtnAddItem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAddItem;
-        
-        /// <summary>
-        /// BtnSendReq control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSendReq;
+        protected global::System.Web.UI.WebControls.Label LblStatus;
     }
 }
