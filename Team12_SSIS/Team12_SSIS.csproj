@@ -99,7 +99,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -118,27 +120,38 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\2-2-calendar-png-image.png" />
+    <Content Include="default.aspx" />
+    <Content Include="Logout.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Site.Master" />
-    <Content Include="StoreClerk\Web.config" />
-    <Content Include="StoreClerk\WebForm2.aspx" />
+    <Content Include="SSIS_UserPassword.txt" />
+    <Content Include="StoreClerk\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="StoreManager\ListOfAdjustmentVouchers.aspx" />
+    <Content Include="StoreManager\StoreSupervisor\ListOfPurchaseOrders.aspx" />
     <Content Include="StoreManager\Web.config" />
     <Content Include="StoreManager\StoreSupervisor\Web.config" />
     <Content Include="DepartmentHead\Web.config" />
-    <Content Include="DepartmentEmployee\Web.config" />
-    <Content Include="DepartmentEmployee\DepartmentRep\Web.config" />
+    <Content Include="DepartmentEmployee\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DepartmentEmployee\DepartmentRep\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Properties\PublishProfiles\AD.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Team12_SSISLJN.csproj" />
-    <Content Include="WebForm1.aspx" />
+    <Content Include="Style\bootstrap.css" />
+    <Content Include="Style\bootstrap.min.css" />
+    <Content Include="Style\Site.css" />
     <Content Include="WebServices\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +203,9 @@
     <Content Include="StoreManager\ViewAdjustmentVoucherDetails.aspx" />
     <Content Include="StoreManager\ViewCatalogue.aspx" />
     <Content Include="StoreManager\ViewSupplierList.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="WebServices\Service.svc" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +215,13 @@
     <Compile Include="BusinessLogic\PurchasingLogic.cs" />
     <Compile Include="BusinessLogic\ReportLogic.cs" />
     <Compile Include="BusinessLogic\RequisitionLogic.cs" />
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DepartmentEmployee\CreateRequisitionForm.aspx.cs">
       <DependentUpon>CreateRequisitionForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -308,6 +330,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
     <Compile Include="Model\ActualData.cs" />
     <Compile Include="Model\AdjustmentVoucher.cs" />
@@ -483,13 +512,6 @@
     <Compile Include="StoreClerk\ViewStockCard.aspx.designer.cs">
       <DependentUpon>ViewStockCard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="StoreClerk\WebForm2.aspx.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="StoreClerk\WebForm2.aspx.designer.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
-    </Compile>
     <Compile Include="StoreManager\CreateCatalogue.aspx.cs">
       <DependentUpon>CreateCatalogue.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -532,12 +554,26 @@
     <Compile Include="StoreManager\IssueAdjustmentVoucher.aspx.designer.cs">
       <DependentUpon>IssueAdjustmentVoucher.aspx</DependentUpon>
     </Compile>
+    <Compile Include="StoreManager\ListOfAdjustmentVouchers.aspx.cs">
+      <DependentUpon>ListOfAdjustmentVouchers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\ListOfAdjustmentVouchers.aspx.designer.cs">
+      <DependentUpon>ListOfAdjustmentVouchers.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StoreManager\StoreSupervisor\ApprovePurchaseOrder.aspx.cs">
       <DependentUpon>ApprovePurchaseOrder.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="StoreManager\StoreSupervisor\ApprovePurchaseOrder.aspx.designer.cs">
       <DependentUpon>ApprovePurchaseOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreManager\StoreSupervisor\ListOfPurchaseOrders.aspx.cs">
+      <DependentUpon>ListOfPurchaseOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\StoreSupervisor\ListOfPurchaseOrders.aspx.designer.cs">
+      <DependentUpon>ListOfPurchaseOrders.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoreManager\ViewAdjustmentVoucherDetails.aspx.cs">
       <DependentUpon>ViewAdjustmentVoucherDetails.aspx</DependentUpon>
@@ -560,21 +596,15 @@
     <Compile Include="StoreManager\ViewSupplierList.aspx.designer.cs">
       <DependentUpon>ViewSupplierList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Utility\EmailControl.cs" />
     <Compile Include="Utility\Validator.cs" />
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="WebServices\IService.cs" />
     <Compile Include="WebServices\Service.svc.cs">
       <DependentUpon>Service.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\" />
+    <Folder Include="TempImageFiles\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

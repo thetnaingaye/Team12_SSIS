@@ -11,6 +11,15 @@ namespace Team12_SSIS.StoreManager
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["count"] = 0;
+        }
+        protected void Chart2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void SqlDataSource3_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
+        {
 
         }
     }
