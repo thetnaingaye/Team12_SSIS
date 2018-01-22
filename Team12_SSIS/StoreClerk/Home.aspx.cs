@@ -60,6 +60,10 @@ namespace Team12_SSIS.StoreClerk
         {
             Roles.RemoveUserFromRole(User.Identity.Name, "Supervisor");
             Roles.AddUserToRole(User.Identity.Name, "Clerk");
+            ProfileBase profile = new ProfileBase();
+            profile.GetPropertyValue("department");
+            var userList = new List<MembershipUser>();
+
 
         }
     }

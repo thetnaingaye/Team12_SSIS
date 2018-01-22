@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Profile;
 using System.Web.Security;
 
 namespace Team12_SSIS.Utility
@@ -34,6 +35,20 @@ namespace Team12_SSIS.Utility
             foreach (MembershipUser u in users)
             {
                 userList.Add(u);
+            }
+            return userList;
+        }
+
+        public static List<MembershipUser> GetListOfMembershipUsersByDept(string dept)
+        {
+            List<MembershipUser> userList= GetListOfMembershipUsers();
+            foreach(MembershipUser u in userList)
+            {
+                ProfileBase user = ProfileBase.Create(u.UserName);
+                if((string)user.GetPropertyValue("department") != dept)
+                {
+                    userList.Remove(u);
+                }
             }
             return userList;
         }
