@@ -41,7 +41,7 @@
                                     <asp:TemplateField HeaderText="Voucher ID / Request ID" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
                                             <asp:LinkButton ID="LBtnVoucherId" runat="server" Visible="false" CommandName="ViewDetails" CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
-                                            <asp:LinkButton ID="LBtnRequestId" runat="server" Text='<%# Bind("AVRID") %>' CommandName="ViewDetails" CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
+                                            <asp:LinkButton ID="LBtnRequestId" runat="server" CommandName="ViewDetails" Text="" CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
                                         </ItemTemplate>
                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
                                     </asp:TemplateField>
