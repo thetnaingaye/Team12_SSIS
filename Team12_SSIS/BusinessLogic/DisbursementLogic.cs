@@ -1681,13 +1681,26 @@ namespace Team12_SSIS.BusinessLogic
 			return null;
 		}
 
-	
+		public static string GetUserName(String fullname,String dept)
+		{
+
+			List<MembershipUser> users = GetUsersFromDept(dept);
+			foreach(MembershipUser u in users)
+			{
+				ProfileBase p = ProfileBase.Create(u.UserName);
+				if(p.GetPropertyValue("fullname").ToString()== fullname)
+				{
+					return u.UserName;
+				}
+			}
+			return null;
+		}
 
 		public static void UpdateDeptRep(string username)
 		{
 			
 			Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
-			Roles.AddUserToRole("userName", "Rep");
+			Roles.AddUserToRole(username, "Rep");
 
 		}
 	}
