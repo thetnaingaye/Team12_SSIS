@@ -13,6 +13,9 @@ namespace Team12_SSIS.DepartmentEmployee.DepartmentRep
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+			//Label statusLbl;
+			//statusLbl = Master.FindControl("Lblstatus") as Label;
+
 			if (!IsPostBack)
 			{
 				CollectionPointRbtnl.DataSource = DisbursementLogic.ListCollectionPoints();
@@ -24,7 +27,7 @@ namespace Team12_SSIS.DepartmentEmployee.DepartmentRep
 			}
 			else
 				ChangedLbl.Visible = true;
-
+			
         }
 
 		protected void ChangeCollectionPointBtn_Click(object sender, EventArgs e)

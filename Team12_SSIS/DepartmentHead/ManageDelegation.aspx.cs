@@ -14,7 +14,8 @@ namespace Team12_SSIS.DepartmentHead
         {
 			if(!IsPostBack)
 			{
-				EmployeesDdl.DataSource = DisbursementLogic.GetFullNamesFromDept(DisbursementLogic.GetCurrentDep());
+				
+				EmployeesDdl.DataSource = DisbursementLogic.GetAllEmployeeFullNamesFromDept(DisbursementLogic.GetCurrentDep());
 				EmployeesDdl.DataBind();
 			}
         }

@@ -6,6 +6,7 @@ using System.Web.Profile;
 using System.Web.Security;
 using Team12_SSIS.Model;
 
+
 namespace Team12_SSIS.BusinessLogic
 {
 
@@ -1575,7 +1576,7 @@ namespace Team12_SSIS.BusinessLogic
 
 		public static List<MembershipUser> GetUsersFromDept(string dept)
 		{
-			List<MembershipUser> currentdep = new List<MembershipUser>();
+			List<MembershipUser> currentdepusers = new List<MembershipUser>();
 			var users = Membership.GetAllUsers();
 
 			foreach(MembershipUser u in users)
@@ -1585,14 +1586,14 @@ namespace Team12_SSIS.BusinessLogic
 				ProfileBase profile = ProfileBase.Create(u.UserName);
 				if(profile.GetPropertyValue("department").ToString() == dept)
 				{
-					currentdep.Add(u);
+					currentdepusers.Add(u);
 				}
 
 
 			}
 
 
-			return currentdep;
+			return currentdepusers;
 		}
 		public static List<String> GetFullNamesFromDept(string dept)
 		{
@@ -1639,7 +1640,7 @@ namespace Team12_SSIS.BusinessLogic
 
 			return employees;
 		}
-		public static string GetDeptRep(String dept)
+		public static string GetDeptRepFullName(String dept)
 		{
 			String repFullName = "";
 			List <MembershipUser> users = GetUsersFromDept(dept);
@@ -1659,9 +1660,34 @@ namespace Team12_SSIS.BusinessLogic
 
 			return repFullName;
 		}
+
+		public static string GetDeptRepUserName(String dept)
+		{
+	
+			List<MembershipUser> users = GetUsersFromDept(dept);
+			List<String> repusers = Roles.GetUsersInRole("Rep").ToList();
+			foreach (MembershipUser u in users)
+			{
+				foreach (string username in repusers)
+				{
+					if (u.UserName == username)
+					{
+						return u.UserName;
+
+					}
+				}
+			}
+
+			return null;
+		}
+
+	
+
 		public static void UpdateDeptRep(string username)
 		{
-
+			
+			Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
+			Roles.AddUserToRole("userName", "Rep");
 
 		}
 	}

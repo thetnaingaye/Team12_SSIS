@@ -1234,6 +1234,22 @@ namespace Team12_SSIS.BusinessLogic
 			}
 		}
 
+		public static string GetCurrentAutomationStatus(string itemid)
+		{
+			using (SA45Team12AD entites = new SA45Team12AD())
+			{
+				InventoryCatalogue inventory = entites.InventoryCatalogues.Where(x => x.ItemID == itemid).First<InventoryCatalogue>();
+				if (inventory.BufferStockLevel == null)
+				{
+					return "The buffer stock level is currently calculated automatically for the current item.";
+				}
+				else
+				{
+					return "The buffer stock level for the current item is " + inventory.BufferStockLevel.ToString();
+				}
+			}
+		}
+
 		
 
 	}
