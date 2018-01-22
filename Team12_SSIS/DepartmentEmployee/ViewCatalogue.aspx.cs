@@ -11,26 +11,28 @@ namespace Team12_SSIS.DepartmentEmployee
 {
     public partial class ViewCatalogue : System.Web.UI.Page
     {
+        public ViewCatalogue myCart = new ViewCatalogue();
         protected void Page_Load(object sender, EventArgs e)
         {
+            LblEmpty.Visible = false;
             if (!IsPostBack)
             {
-                //if (Session["CartList"] != null)
-                //{
-                //    List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
-                //}
-                //else
-                //{
-                //    List<InventoryCatalogue> temp = new List<InventoryCatalogue>();
-                //    Session["CartList"] = temp;
-                //}
+                if (Session["CartList"] != null)
+                {
+                    List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
+                }
+                else
+                {
+                    List<InventoryCatalogue> temp = new List<InventoryCatalogue>();
+                    Session["CartList"] = temp;
+                }
 
                 BindGrid();
             }
-            //else
-            //{
-            //    List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
-            //}
+            else
+            {
+                List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
+            }
         }
         
 

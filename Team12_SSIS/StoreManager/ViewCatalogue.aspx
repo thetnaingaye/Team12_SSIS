@@ -5,7 +5,7 @@
     <div>
 <h2>Stationery Catalog List</h2>
     <asp:Button ID="BtnCreate" runat="server" Text="Create" OnClick="BtnCreate_Click" />     
-<asp:Button ID="BtnPrint" runat="server" Text="Print" OnClick="BtnPrint_Click" />
+<asp:Button ID="BtnPrint" runat="server" Text="Print" />
         <br />
         <asp:TextBox ID="TxtSearch" placeholder="Search Item" runat="server"></asp:TextBox>
 <asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
