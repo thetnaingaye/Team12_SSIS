@@ -13,5 +13,10 @@ namespace Team12_SSIS.DepartmentEmployee
         {
 
         }
+
+        protected void BtnSubmitForm_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

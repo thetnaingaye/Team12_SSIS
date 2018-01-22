@@ -10,33 +10,33 @@
 namespace Team12_SSIS.DepartmentEmployee {
     
     
-    public partial class ViewCatalogue {
+    public partial class CheckOutRequest {
         
         /// <summary>
-        /// TxtSearch control.
+        /// GridViewCheckOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtSearch;
+        protected global::System.Web.UI.WebControls.GridView GridViewCheckOut;
         
         /// <summary>
-        /// BtnSearch control.
+        /// BtnCheckOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSearch;
+        protected global::System.Web.UI.WebControls.Button BtnCheckOut;
         
         /// <summary>
-        /// GridViewAddRequest control.
+        /// LblStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewAddRequest;
+        protected global::System.Web.UI.WebControls.Label LblStatus;
     }
 }

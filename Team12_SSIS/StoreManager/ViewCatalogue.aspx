@@ -5,18 +5,18 @@
     <div>
 <h2>Stationery Catalog List</h2>
     <asp:Button ID="BtnCreate" runat="server" Text="Create" OnClick="BtnCreate_Click" />     
-<asp:Button ID="BtnPrint" runat="server" Text="Print" />
+<asp:Button ID="BtnPrint" runat="server" Text="Print" OnClick="BtnPrint_Click" />
         <br />
-        <asp:TextBox ID="TxtSearch" placeholder="Search Item Id" runat="server"></asp:TextBox>
+        <asp:TextBox ID="TxtSearch" placeholder="Search Item" runat="server"></asp:TextBox>
 <asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
 </div>
 <div>
-<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"
-OnRowCancelingEdit="GridView1_RowCancelingEdit"
-OnRowDataBound="GridView1_RowDataBound"
-OnRowDeleting="GridView1_RowDeleting"
-OnRowEditing="GridView1_RowEditing"
-OnRowUpdating="GridView1_RowUpdating"
+<asp:GridView ID="GridViewCatalogue" runat="server" AutoGenerateColumns="False"
+OnRowCancelingEdit="GridViewCatalogue_RowCancelingEdit"
+OnRowDataBound="GridViewCatalogue_RowDataBound"
+OnRowDeleting="GridViewCatalogue_RowDeleting"
+OnRowEditing="GridViewCatalogue_RowEditing"
+OnRowUpdating="GridViewCatalogue_RowUpdating"
 DataKeyNames="ItemID">
 <Columns>
 <asp:TemplateField HeaderText="ItemID" SortExpression="ItemID">

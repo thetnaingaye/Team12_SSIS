@@ -1516,7 +1516,21 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        
+        public List<InventoryCatalogue> SearchBy(string value)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.InventoryCatalogues.Where(i => i.ItemID.Contains(value) || i.Description.Contains(value)).ToList();
+            }
+        }
+
+        //public static List<InventoryCatalogue> DeleteOrder(List<InventoryCatalogue> _bookList, int bookID)
+        //{
+        //    //List<Book> bookList = _bookList;
+        //    //Book removeBook = bookList.Where(b => b.BookID == bookID).First<Book>();
+        //    //bookList.Remove(removeBook);
+        //    //return bookList;
+        //}
 
     }
     }

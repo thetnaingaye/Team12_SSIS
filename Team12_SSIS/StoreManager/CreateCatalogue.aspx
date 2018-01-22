@@ -6,7 +6,7 @@
 <table >
                 <tr>
                     <td colspan="2">
-                        <h2>Stationery Catalog List</h2>
+                        <h2>Create Stationery Catalog</h2>
                     </td>
                 </tr>
 
@@ -25,8 +25,6 @@
                     <td>Category Name: 
                     </td>
                     <td>
-                        <asp:Label ID="LblCategoryID" runat="server" Text='<%# Bind("CategoryID") %>' Visible="false"></asp:Label>
-                        <asp:Label ID="LblCatalogueName" runat="server" Text='<%# Bind("CatalogueName") %>' Visible="false"></asp:Label>
                         <asp:DropDownList ID="DdlCategoryID" runat="server" CssClass="form-control"></asp:DropDownList>
                     </td>
                 </tr>
