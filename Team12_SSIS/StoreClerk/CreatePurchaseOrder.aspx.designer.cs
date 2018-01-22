@@ -67,13 +67,13 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label DltLbl;
         
         /// <summary>
-        /// txtDlt control.
+        /// TxtDlt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDlt;
+        protected global::System.Web.UI.WebControls.TextBox TxtDlt;
         
         /// <summary>
         /// SliLbl control.
@@ -85,13 +85,13 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label SliLbl;
         
         /// <summary>
-        /// ddlSli control.
+        /// DdlSli control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSli;
+        protected global::System.Web.UI.WebControls.DropDownList DdlSli;
         
         /// <summary>
         /// AdsLbl control.
@@ -103,13 +103,13 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label AdsLbl;
         
         /// <summary>
-        /// txtAds control.
+        /// TxtAds control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAds;
+        protected global::System.Web.UI.WebControls.TextBox TxtAds;
         
         /// <summary>
         /// SidLbl control.
@@ -157,22 +157,49 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label OdbLbl;
         
         /// <summary>
-        /// txtord control.
+        /// Lblorder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtord;
+        protected global::System.Web.UI.WebControls.Label Lblorder;
         
         /// <summary>
-        /// GridView1 control.
+        /// sml control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.ScriptManager sml;
+        
+        /// <summary>
+        /// Upl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel Upl;
+        
+        /// <summary>
+        /// GridViewPO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewPO;
+        
+        /// <summary>
+        /// BtnAddItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnAddItem;
         
         /// <summary>
         /// totLbl control.
@@ -193,13 +220,13 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label totalLbl;
         
         /// <summary>
-        /// btSfa control.
+        /// btnSfa control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btSfa;
+        protected global::System.Web.UI.WebControls.Button btnSfa;
         
         /// <summary>
         /// btcancel control.

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
 
 namespace Team12_SSIS.StoreClerk
@@ -22,14 +23,8 @@ namespace Team12_SSIS.StoreClerk
         }
         protected void Populate()
         {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                GridViewLPO.DataSource = entities.PORecords.ToList<PORecord>();
-                GridViewLPO.DataBind();
-            }
-
-
-        }
+            GridViewLPO.DataSource = PurchasingLogic.ListPORecords();
+            GridViewLPO.DataBind();
         }
     }
 }

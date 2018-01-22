@@ -13,5 +13,6 @@ namespace Team12_SSIS.BusinessLogic
     //Chang Siang Line 1519 to 1820
     public class InventoryLogic
     {
+
     }
 }

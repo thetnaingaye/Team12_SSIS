@@ -24,19 +24,22 @@ namespace Team12_SSIS.StoreClerk
             if (Request.QueryString["ID"] != "")
             {
                 int purchaseOrderID = int.Parse(Request.QueryString["ID"]);
-                using (PurchaseOrderDetails pod = new PurchaseOrderDetails())
-                {
-                    PurchaseOrder po = pod.FindPurchaseOrderByDate(purchaseOrderDate);
-                    PODateLbl.Text = po.PODate;
-                    RequestLbl.Text = po.Requestedby.ToString();
-                    StatusLbl.Text = po.POStatus.ToString();
-                    CodeLbl.Text = po.SupplierID.ToString();
-                    lblSupplier.Text = po.Supplier.CompanyName;
-                    List<PurchaseOrderItem> items = po.PurchaseOrderItems.ToList<PurchaseOrderItem>();
-                    this.gvPODetails.DataSource = items;
-                    this.gvPODetails.DataBind();
-                }
+                //using (PurchaseOrderDetails pod = new PurchaseOrderDetails())
+                //{
+                //    PurchaseOrder po = pod.FindPurchaseOrderByDate(purchaseOrderDate);
+                //    PODateLbl.Text = po.PODate;
+                //    RequestLbl.Text = po.Requestedby.ToString();
+                //    StatusLbl.Text = po.POStatus.ToString();
+                //    CodeLbl.Text = po.SupplierID.ToString();
+                //    lblSupplier.Text = po.Supplier.CompanyName;
+                //    List<PurchaseOrderItem> items = po.PurchaseOrderItems.ToList<PurchaseOrderItem>();
+                //    this.gvPODetails.DataSource = items;
+                //    this.gvPODetails.DataBind();
+                //}
+            }
+        }
     }
-
-    
 }
+
+
+        
