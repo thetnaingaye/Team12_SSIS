@@ -45,6 +45,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -111,7 +119,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\2-2-calendar-png-image.png" />
-    <Content Include="NewUser.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -130,6 +137,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="Team12_SSISLJN.csproj" />
     <Content Include="WebForm1.aspx" />
     <Content Include="WebServices\Web.config" />
   </ItemGroup>
@@ -290,6 +298,7 @@
     <Compile Include="DepartmentHead\ViewRequisitionFormList.aspx.designer.cs">
       <DependentUpon>ViewRequisitionFormList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\EmailControlException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -300,13 +309,32 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="NewUser.aspx.cs">
-      <DependentUpon>NewUser.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NewUser.aspx.designer.cs">
-      <DependentUpon>NewUser.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="Model\ActualData.cs" />
+    <Compile Include="Model\AdjustmentVoucher.cs" />
+    <Compile Include="Model\AVRequest.cs" />
+    <Compile Include="Model\AVRequestDetail.cs" />
+    <Compile Include="Model\CatalogueCategory.cs" />
+    <Compile Include="Model\CollectionPoint.cs" />
+    <Compile Include="Model\DDelegateDetail.cs" />
+    <Compile Include="Model\Department.cs" />
+    <Compile Include="Model\DisbursementList.cs" />
+    <Compile Include="Model\DisbursementListDetail.cs" />
+    <Compile Include="Model\ForecastedData.cs" />
+    <Compile Include="Model\GoodReceipt.cs" />
+    <Compile Include="Model\GoodReceiptDetail.cs" />
+    <Compile Include="Model\InventoryCatalogue.cs" />
+    <Compile Include="Model\InventoryRetrievalList.cs" />
+    <Compile Include="Model\OutstandingDisbursement.cs" />
+    <Compile Include="Model\PORecord.cs" />
+    <Compile Include="Model\PORecordDetail.cs" />
+    <Compile Include="Model\ReorderRecord.cs" />
+    <Compile Include="Model\RequisitionRecord.cs" />
+    <Compile Include="Model\RequisitionRecordDetail.cs" />
+    <Compile Include="Model\SA45Team12AD.cs" />
+    <Compile Include="Model\StockCard.cs" />
+    <Compile Include="Model\SupplierCatalogue.cs" />
+    <Compile Include="Model\SupplierList.cs" />
+    <Compile Include="Model\sysdiagram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -545,7 +573,9 @@
       <DependentUpon>Service.svc</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="bin\" />
+  </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>

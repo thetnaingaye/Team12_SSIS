@@ -40,6 +40,24 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label PODateLbl;
         
         /// <summary>
+        /// RstLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label RstLbl;
+        
+        /// <summary>
+        /// RequestLbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label RequestLbl;
+        
+        /// <summary>
         /// DltLbl control.
         /// </summary>
         /// <remarks>
@@ -58,22 +76,22 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.TextBox txtDlt;
         
         /// <summary>
-        /// SlcLbl control.
+        /// SliLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SlcLbl;
+        protected global::System.Web.UI.WebControls.Label SliLbl;
         
         /// <summary>
-        /// ddlSlc control.
+        /// ddlSli control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSlc;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSli;
         
         /// <summary>
         /// AdsLbl control.

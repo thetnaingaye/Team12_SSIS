@@ -1,10 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static Team12_SSIS.Utility.Validator;
-using Team12_SSIS.BusinessLogic;
-using System.Collections.Generic;
-using System.Data.Entity;
-using Team12_SSIS.Utility;
 
 namespace UnitTest
 {
@@ -53,10 +49,6 @@ namespace UnitTest
         [TestMethod]
         public void TestMail()
         {
-            using(EmailControl em = new EmailControl())
-            {
-                em.DisburstmentPointChangeNotification("lim.chang.siang@gmail.com", "English", "Naiag", "Science");
-            }
         }
 
         public void TestMethod7()
