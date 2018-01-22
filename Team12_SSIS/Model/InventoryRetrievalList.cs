@@ -24,10 +24,10 @@ namespace Team12_SSIS.Model
 
         public int? ActualQuantity { get; set; }
 
-        public DateTime? Status { get; set; }
+        public DateTime? DateRetrieved { get; set; }
 
         [StringLength(255)]
-        public string DateRetrieved { get; set; }
+        public string Status { get; set; }
 
         public virtual Department Department { get; set; }
 
