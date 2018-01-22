@@ -2,11 +2,6 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style type="text/css">
-        .auto-style1 {
-            margin-top: 0px;
-        }
-    </style>
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
@@ -14,8 +9,8 @@
       &nbsp;&nbsp;
      <br />
       <asp:Label ID="LblStartDate" runat="server" Text="Start Date:"></asp:Label>
-     
-     <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+   
+    <%-- <asp:TextBox ID="Txtstartdate" runat="server"></asp:TextBox>
      <asp:Calendar ID="CaldatePickerstartdate" runat="server" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px" OnSelectionChanged="DateChange">
         <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
         <NextPrevStyle VerticalAlign="Bottom" />
@@ -27,11 +22,12 @@
         <WeekendDayStyle BackColor="#FFFFCC" />
     </asp:Calendar> &nbsp;&nbsp;<asp:Label ID="LblEnddate" runat="server" Text="End Date:"></asp:Label>
      
-     &nbsp;<asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
-     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="BtnFindDate" runat="server" Text="FIND" OnClick="BtnFindDate_Click"  />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="Txtenddate" runat="server"></asp:TextBox>
+    &nbsp;<asp:Button ID="BtnFindDate" runat="server" Text="FIND" OnClick="BtnFindDate_Click"  />
      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
      &nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Calendar ID="CalDatePickerenddate" runat="server" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px" OnSelectionChanged="DateChange" CssClass="auto-style1">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:Calendar ID="CalDatePickerenddate" runat="server" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px" OnSelectionChanged="DateChange" CssClass="auto-style1">
         <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
         <NextPrevStyle VerticalAlign="Bottom" />
         <OtherMonthDayStyle ForeColor="#808080" />
@@ -41,7 +37,44 @@
         <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
         <WeekendDayStyle BackColor="#FFFFCC" />
     </asp:Calendar> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </p>            
+   <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </p>            --%>
+
+
+      <!--Calender Script-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker().datepicker("setDate", new Date());
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#datepicker2").datepicker().datepicker("setDate", new Date());
+        });
+    </script>
+
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="datepicker" name="datepicker" readonly="true" />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:Label ID="Label2" runat="server" Text="End Date:">
+
+    </asp:Label>&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <asp:Button ID="BtnFindDate" runat="server" Text="FIND" OnClick="BtnFindrep_Click" />
+     <br />
+    &nbsp;
+&nbsp;&nbsp;
+       <br />
+    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+    <br />
+
+
+
+
+
+
     <asp:Label ID="LblRep" runat="server" Text="Department Representative:"></asp:Label>
      
      <asp:DropDownList ID="DdlSal" runat="server">
@@ -50,65 +83,16 @@
          <asp:ListItem>Mrs</asp:ListItem>
      </asp:DropDownList> 
        <asp:TextBox ID="TxtRep" runat="server"></asp:TextBox>
-     <asp:Button ID="BtnFindrep" runat="server" Text="FIND" OnClick="BtnFindrep_Click" />
+     <asp:Button ID="BtnFindrep" runat="server" Text="FIND" OnClick="BtnFindDate_Click" />
      <br />
-    &nbsp;
-&nbsp;
        <br />
- <%--    <asp:GridView ID="GridViewDisbursement" runat="server" AutoPostback="true" autogeneretecolumn="false" >
-
-     
-              </asp:GridView>--%>
-
-
-
-            <asp:GridView ID="GridViewDisbursement" runat="server" AutoGenerateColumns="False" Width="100%"
-            DataKeyNames="ID"
-          BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" method="Page_Load">
-
-            <Columns>
-                <asp:TemplateField HeaderText="ID">
-                    <ItemTemplate>
-                        <asp:Label ID="LblBookID" runat="server" Text='<%# Bind("DisbursementID") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-
-
-                <asp:TemplateField HeaderText="DepartmentID" SortExpression="Title">
-                    <ItemTemplate>
-                        <asp:Label ID="LblTitle" runat="server" Text='<%# Bind("DepartmentID") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="ISBN" SortExpression="ISBN">
-                    <ItemTemplate>
-                        <asp:Label ID="LblISBN" runat="server" Text='<%# Bind("CollectionPointID") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="CategoryID" SortExpression="CategoryID">
-                    <ItemTemplate>
-                        <asp:Label ID="LblCatID" runat="server" Text='<%# Bind("CollectionDate") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Author" SortExpression="Author">
-                    <ItemTemplate>
-                        <asp:Label ID="LblAuthor" runat="server" Text='<%# Bind("RepresentativeName") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-               
-               
-            </Columns>
-            <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
-            <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
-            <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
-            <SortedAscendingCellStyle BackColor="#F7F7F7" />
-            <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
-            <SortedDescendingCellStyle BackColor="#E5E5E5" />
-            <SortedDescendingHeaderStyle BackColor="#242121" />
-        </asp:GridView>
-
-
-
+    <asp:GridView ID="GridViewDisbursement" runat="server" DataKeyNames="DisbursementID">
+        <Columns>
+            <asp:HyperLinkField NavigateUrl='~/DepartmentHead/ViewDisbursementList.aspx?DisbursementID={0}",Eval("DisbursementID") %>' Text="Click to see details" />
+           
+      
+             </Columns>
+    </asp:GridView>
 
      <br />
      <br />
