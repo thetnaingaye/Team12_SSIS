@@ -1253,6 +1253,8 @@ namespace Team12_SSIS.BusinessLogic
         }
 
 
+
+
         //-------------------------------------------------View InventoryList-----------------------------------------//
 
         //-----------------------------------get Catalogue Name in  dropdown list---------------------------//
@@ -1281,15 +1283,26 @@ namespace Team12_SSIS.BusinessLogic
                 return entity.InventoryCatalogues.Where(x => x.CategoryID == catalogue.CategoryID).ToList<InventoryCatalogue>();
             }
         }
+        public List<InventoryCatalogue> GetAllCatalogue()
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.InventoryCatalogues.ToList<InventoryCatalogue>();
+            }
+        }
         public CatalogueCategory getCatalogue(string catagory)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 return entity.CatalogueCategories.Where(x => x.CatalogueName == catagory).First<CatalogueCategory>();
 
-
             }
         }
+
+
+
+
+
 
 
         //---- Chang Siang

@@ -5,7 +5,10 @@
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
-    <asp:Label ID="LblDate" runat="server" Text="Date Range:"></asp:Label>
+    <asp:Label ID="LblTitle" runat="server" Text="DisbursementList" Font-Size="Large"></asp:Label>
+    <br />
+    <br />
+    <asp:Label ID="LblDate" runat="server" Text="Filter by date range:"></asp:Label>
       &nbsp;&nbsp;
      <br />
       <asp:Label ID="LblStartDate" runat="server" Text="Start Date:"></asp:Label>
@@ -28,9 +31,7 @@
 
 	&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="datepicker" name="datepicker" readonly="true" />
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:Label ID="Label2" runat="server" Text="End Date:">
-
-    </asp:Label>&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" />
+    <asp:Label ID="Label2" runat="server" Text="End Date:"> </asp:Label>&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" />
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
      <asp:Button ID="BtnFindDate" runat="server" Text="FIND" OnClick="BtnFindDate_Click" Height="25px" />
      <br />
@@ -41,9 +42,6 @@
 
 
 
-
-
-
     <asp:Label ID="LblRep" runat="server" Text="Department Representative:"></asp:Label>
      
      <asp:DropDownList ID="DdlSal" runat="server">
@@ -51,20 +49,28 @@
          <asp:ListItem>Ms</asp:ListItem>
          <asp:ListItem>Mrs</asp:ListItem>
      </asp:DropDownList> 
+       &nbsp; 
        <asp:TextBox ID="TxtRep" runat="server"></asp:TextBox>
+     &nbsp;
      <asp:Button ID="BtnFindrep" runat="server" Text="FIND" OnClick="BtnFindrep_Click" />
      <br />
        <br />
-    <asp:GridView ID="GridViewDisbursement" runat="server" DataKeyNames="DisbursementID" OnRowDataBound="GridViewDisbursement_RowDataBound" ItemType="Team12_SSIS.Model.DisbursementList">
+    <asp:GridView ID="GridViewDisbursement" runat="server"  OnRowDataBound="GridViewDisbursement_RowDataBound"  autogeneratecolumns="true" ItemType="Team12_SSIS.Model.DisbursementList" DataKeyNames="DisbursementID">
         <Columns>
-            <asp:HyperLinkField NavigateUrl="~/DepartmentHead/ViewDisbursementList.aspx" Text="Click to see details" />
+            <asp:TemplateField HeaderText="Click to see details">
+                <ItemTemplate>
+                    <%--<asp:Button ID="BtnLink" runat="server" Text="click to see details" CommandName="gridviewbuttonclick"  CommandArgument="<%#Item.DisbursementID %>" OnClick="btnView_click"  />--%>
+                <asp:LinkButton ID="btnDetails" runat="server" CommandArgument='<%#Eval("DisbursementID")%>' OnCommand="Btndetailclick" Text="Details">
+                      </asp:LinkButton>
+                </ItemTemplate>
+            </asp:TemplateField>
            
              </Columns>
     </asp:GridView>
 
-     <br />
-     <br />
+    
 
      <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
 
 </asp:Content>
+<%----%>

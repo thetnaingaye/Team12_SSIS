@@ -18,20 +18,28 @@ namespace Team12_SSIS.DepartmentHead
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            detail = logic.GetDisbursementtextDetails(3);
+            string id = Convert.ToString(Request.QueryString["DisbursementID"]);
+            int DisbursementID = Convert.ToInt32(id);
+            LblIdD.Text = id;
+
+            detail = logic.GetDisbursementtextDetails(DisbursementID);
             LblRepresentativeNameD.Text = detail.RepresentativeName;
+
            
                 DateTime collectionDate=(DateTime) detail.CollectionDate;
             LblCollectionDateD.Text = collectionDate.ToString("MM/dd/yyyy");
 
-            cdetail = logic.GetDisbursementCollectionDetails(3);
+            cdetail = logic.GetDisbursementCollectionDetails(DisbursementID);
             LblCollectionPointD.Text = cdetail.CollectionPoint1;
             
             //------------------------Binding datagridview with disbursement details----//
-            detailList = logic.GetDisbursementDetails(3);
+            detailList = logic.GetDisbursementDetails(DisbursementID);
             GridViewDisbursementDetails.DataSource = detailList;
             GridViewDisbursementDetails.DataBind();
-
+           
+          
         }
+
+       
     }
 }

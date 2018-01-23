@@ -89,7 +89,7 @@ namespace Team12_SSIS.StoreClerk
             LblUomD.Visible = true;
 
         }
-        
+      
 
 
 

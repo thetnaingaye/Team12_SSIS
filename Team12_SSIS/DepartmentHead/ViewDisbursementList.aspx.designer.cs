@@ -22,6 +22,24 @@ namespace Team12_SSIS.DepartmentHead {
         protected global::System.Web.UI.WebControls.Label LblTitle;
         
         /// <summary>
+        /// LblId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblId;
+        
+        /// <summary>
+        /// LblIdD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblIdD;
+        
+        /// <summary>
         /// LblCollectionPoint control.
         /// </summary>
         /// <remarks>

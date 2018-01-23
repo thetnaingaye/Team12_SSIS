@@ -4,6 +4,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:Label ID="LblTitle" runat="server" Text="Disbursement Details" Font-Size="Large"></asp:Label>
     <br />
+     <br />
+    <asp:Label ID="LblId" runat="server" Text="DisbursementID:" ></asp:Label>
+    <asp:Label ID="LblIdD" runat="server" Text="" > </asp:Label>
+    <br />
      <asp:Label ID="LblCollectionPoint" runat="server" Text="CollectionPoint:" ></asp:Label>
     &nbsp;<asp:Label ID="LblCollectionPointD" runat="server" Text="" ></asp:Label>
     <br />
@@ -13,5 +17,6 @@
      <asp:Label ID="LblRepresentativeName" runat="server" Text="RepresentativeName:" ></asp:Label>
     &nbsp;<asp:Label ID="LblRepresentativeNameD" runat="server" Text="" ></asp:Label><br />
     <br />
-    <asp:GridView ID="GridViewDisbursementDetails" runat="server"></asp:GridView>
+    <br />
+    <asp:GridView ID="GridViewDisbursementDetails" runat="server"  ></asp:GridView>
 </asp:Content>

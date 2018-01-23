@@ -10,11 +10,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
       <asp:Label ID="LblTitle" runat="server" Text="STOCK CARD" Font-Size="Large" ></asp:Label>
    
+      <br />
+   
     <p>
         <asp:Label ID="LblInput" runat="server" Text="Enter ItemId:"></asp:Label>
         <asp:TextBox ID="TxtId" runat="server"></asp:TextBox>
     </p>
     <asp:Button ID="BtnFind" runat="server" CssClass="auto-style1" Text="Find Transaction Details" OnClick="BtnFind_Click" />
+      <br />
      <p>
         <asp:Label ID="LblId" runat="server" Text="ItemID:"></asp:Label><asp:Label ID="LblIdD" runat="server" Text="Label" Font-Bold="true" ></asp:Label>
     </p>

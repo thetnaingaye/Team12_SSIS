@@ -7,20 +7,22 @@ using System.Web.UI.WebControls;
 using Team12_SSIS.Model;
 using Team12_SSIS.BusinessLogic;
 using System.Globalization;
+using Team12_SSIS.Utility;
 
 namespace Team12_SSIS.DepartmentHead
 {
     public partial class ViewDisbursementForm : System.Web.UI.Page
     {
-        List<Object> dsList;
+        List<DisbursementList> dsList;
+        List<DisbursementList> uList;
         DisbursementLogic disbursement = new DisbursementLogic();
         
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                dsList = disbursement.GetDisbursementForm();
-                GridViewDisbursement.DataSource = dsList;
+                uList = disbursement.GetDisbursementList();
+                GridViewDisbursement.DataSource = uList;
                 GridViewDisbursement.DataBind();
 
             }
@@ -47,9 +49,20 @@ namespace Team12_SSIS.DepartmentHead
 
         protected void GridViewDisbursement_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            e.Row.Cells[1].Visible = false;
+            e.Row.Cells[2].Visible = false;
+            e.Row.Cells[5].Visible = false;
 
         }
+
+        //-------------------------gridview details link button click event.........//
+        //-------------------------  directing to Disbursement detail page---//
+        protected void Btndetailclick(Object sender, CommandEventArgs e)
+        {
+            int dId = Convert.ToInt32(e.CommandArgument.ToString());
+            Response.Redirect("ViewDisbursementList.aspx?DisbursementID="+dId);
+
+        }
+
 
     }
 }
