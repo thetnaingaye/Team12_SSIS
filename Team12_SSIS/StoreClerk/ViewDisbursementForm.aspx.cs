@@ -84,9 +84,9 @@ namespace Team12_SSIS.StoreClerk
         }
         private void SetStatusLabel()
         {
+            statusMessage = this.Master.FindControl("LblStatus") as Label;
             if (Session["statusMsg"] != null)
             {
-                statusMessage = this.Master.FindControl("LblStatus") as Label;
                 statusMessage.Text = (string) Session["statusMsg"];
                 statusMessage.ForeColor = Color.Green;
                 statusMessage.Visible = true;

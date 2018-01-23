@@ -139,8 +139,11 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5" style="align-content: flex-end">
-                <asp:Button ID="BtnCancelDis" runat="server" Text="Cancel Disbursement List" CssClass="btn btn-group-xs center-block" Visible="false" OnClick="BtnCancelDis_Click" />
+            <td colspan="2">
+                <asp:Button id="btnPrintbtn" runat="server" onclick="window.print();" xmlns:asp="#unknown" CssClass="btn btn-group-xs"/>
+            </td>
+            <td colspan="3" style="align-content: flex-end">
+                <asp:Button ID="BtnCancelDis" runat="server" Text="Cancel Disbursement List" CssClass="btn btn-group-xs" Visible="false" OnClick="BtnCancelDis_Click" />
             </td>
         </tr>
     </table>

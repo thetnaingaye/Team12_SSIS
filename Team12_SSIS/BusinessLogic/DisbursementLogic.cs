@@ -624,10 +624,18 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        public static List<CollectionPoint> GetListofColPoint()
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.CollectionPoints.ToList();
+            }
+        }
+
         public int CreateDisbursementList(string deptId, int collectPtId, DateTime collectionDate, string deptRep)
         {
             DisbursementList dList = new DisbursementList();
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 dList.DepartmentID = deptId;
                 dList.CollectionPointID = collectPtId;
@@ -637,9 +645,9 @@ namespace Team12_SSIS.BusinessLogic
                 ctx.DisbursementLists.Add(dList);
                 ctx.SaveChanges();
             }
-            using(EmailControl em = new EmailControl())
+            using (EmailControl em = new EmailControl())
             {
-                em.NewStationeryCollectionNotification(Utility.Utility.GetEmailAddressByName(deptRep), GetCurrentCPWithTimeByID(collectPtId) , collectionDate.ToString("d"));
+                em.NewStationeryCollectionNotification(Utility.Utility.GetEmailAddressByName(deptRep), GetCurrentCPWithTimeByID(collectPtId), collectionDate.ToString("d"));
             }
             return dList.DisbursementID;
         }
@@ -679,11 +687,11 @@ namespace Team12_SSIS.BusinessLogic
         public int CreateSystemStationeryRequest(DateTime requestDate, string deptId, string remarks)
         {
             RequisitionRecord rRecord = new RequisitionRecord();
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 ctx.RequisitionRecords.Add(rRecord);
                 ctx.SaveChanges();
-                return rRecord.RequestID;                
+                return rRecord.RequestID;
             }
         }
 
@@ -713,7 +721,7 @@ namespace Team12_SSIS.BusinessLogic
 
         public static DisbursementList GetDisbursementList(int disbursementId)
         {
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 return ctx.DisbursementLists.Where(x => x.DisbursementID == disbursementId).FirstOrDefault();
             }
@@ -729,7 +737,7 @@ namespace Team12_SSIS.BusinessLogic
 
         public static List<DisbursementListDetail> GetDisbursementListDetails()
         {
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 return ctx.DisbursementListDetails.ToList();
             }
@@ -737,7 +745,7 @@ namespace Team12_SSIS.BusinessLogic
 
         public static List<DisbursementListDetail> GetDisbursementListDetails(int disbursementId)
         {
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 return ctx.DisbursementListDetails.Where(x => x.DisbursementID == disbursementId).ToList();
             }
@@ -746,7 +754,7 @@ namespace Team12_SSIS.BusinessLogic
         public bool UpdateDisbursementStatus(int disbursementId, string status)
         {
             bool success = false;
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 DisbursementList dL = ctx.DisbursementLists.Where(x => x.DisbursementID == disbursementId).FirstOrDefault();
                 dL.Status = status;
@@ -756,6 +764,29 @@ namespace Team12_SSIS.BusinessLogic
             return success;
         }
 
+        public static List<DisbursementList> GetListOfDisbursements()
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.DisbursementLists.ToList();
+            }
+        }
+
+        public static List<DisbursementList> GetListOfDisbursements(string columnName, string query)
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                switch (columnName)
+                {
+                    case ("DepartmentID"):
+                        return ctx.DisbursementLists.Where(x => x.DepartmentID == query).ToList();
+                    case ("Status"):
+                        return ctx.DisbursementLists.Where(x => x.Status == query).ToList();
+                    default:
+                        return ctx.DisbursementLists.ToList();
+                }
+            }
+        }
 
 
 
