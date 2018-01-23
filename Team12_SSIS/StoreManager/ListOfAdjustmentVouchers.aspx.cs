@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Team12_SSIS.BusinessLogic;
+using Team12_SSIS.Model;
 
 namespace Team12_SSIS.StoreManager.StoreSupervisor
 {
@@ -11,6 +13,7 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
 
         }
     }
