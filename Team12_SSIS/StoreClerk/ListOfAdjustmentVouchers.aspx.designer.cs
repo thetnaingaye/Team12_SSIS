@@ -13,30 +13,30 @@ namespace Team12_SSIS.StoreClerk {
     public partial class ListOfAdjustmentVouchers {
         
         /// <summary>
-        /// Label1 control.
+        /// Lblstatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label Lblstatus;
         
         /// <summary>
-        /// DdlStatus control.
+        /// DropDownList1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DdlStatus;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
         
         /// <summary>
-        /// GridViewAdjV control.
+        /// GridView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewAdjV;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
     }
 }

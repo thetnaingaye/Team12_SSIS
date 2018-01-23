@@ -12,9 +12,9 @@
                         <asp:Label runat="server" Text="List Inventory Adjustment Vouchers" Font-Size="Large"></asp:Label>
                     </td>
                                         <td>
-                        <asp:Label ID="Label1" runat="server" Text="Show: " Style="padding-right: 10px"></asp:Label>
-                        <asp:DropDownList ID="DdlStatus" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DdlStatus_SelectedIndexChanged">
-                            <asp:ListItem Selected="True" Value="Pending">Pending</asp:ListItem>
+                        <asp:Label ID="Lblstatus" runat="server" Text="Show: " Style="padding-right: 10px"></asp:Label>
+                            <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DdlStatus_SelectedIndexChanged">
+                             <asp:ListItem Selected="True" Value="Pending">Pending</asp:ListItem>
                             <asp:ListItem Value="Approved">Approved</asp:ListItem>
                             <asp:ListItem Value="Rejected">Rejected</asp:ListItem>
                             <asp:ListItem Value="All">All</asp:ListItem>
@@ -24,7 +24,7 @@
                 <tr>
                     <td colspan="2">
                         <div>
-                            <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False"
+                            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false"
                                 ShowHeaderWhenEmpty="True"
                                 OnRowDataBound="OnRowDataBound" OnRowCommand="GridViewAdjV_RowCommand"
                                 CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="AVRID" AllowPaging="true"
