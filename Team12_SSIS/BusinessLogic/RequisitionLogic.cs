@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using Team12_SSIS.Model;
 
 namespace Team12_SSIS.BusinessLogic
@@ -1230,17 +1231,21 @@ namespace Team12_SSIS.BusinessLogic
 						EndDate = enddate
 					};
 					entities.DDelegateDetails.Add(delegateDetail);
+
+					Department department = entities.Departments.Where(x => x.DeptID == depid).First();
+					department.HasDelegate = 1;
 					entities.SaveChanges();
 				}
+				AddDeptHeadRoleToUser(fullname, depid);
 			}
 			
 	}
 
-	public static List<DDelegateDetail> ListDelegateDetails(string dept)
+	public static List<DDelegateDetail> ListDelegateDetails(string depid)
 		{
 			using (SA45Team12AD entities = new SA45Team12AD())
 			{
-				return entities.DDelegateDetails.Where(x=>x.DepartmentID == dept).ToList<DDelegateDetail>();
+				return entities.DDelegateDetails.Where(x=>x.DepartmentID == depid).ToList<DDelegateDetail>();
 			}
 		}
 
@@ -1253,15 +1258,105 @@ namespace Team12_SSIS.BusinessLogic
 		}
 
 
+		public static bool HasDelegate(string depid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				int hasdelegate = entities.Departments.Where(x => x.DeptID == depid).Select(x => x.HasDelegate).Single();
+				if (hasdelegate == 0)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+
+			}
+		}
+
+		public static DDelegateDetail GetLatestDelegate(string depid)
+		{
+			List<DDelegateDetail> currentdeplist = new List<DDelegateDetail>();
+			List<DDelegateDetail> alllist = new List<DDelegateDetail>();
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				alllist = entities.DDelegateDetails.ToList();
+				foreach(DDelegateDetail u in alllist)
+				{
+					if(u.DepartmentID ==depid)
+					{
+						currentdeplist.Add(u);
+					}
+				}
+			}
+			return currentdeplist.OrderByDescending(x => x.EndDate).First(); ;
+		}
 
+		public static DateTime GetDelegateStartDate(DDelegateDetail dDelegateDetail)
+		{
+			return (DateTime)dDelegateDetail.StartDate;
+		}
 
+		public static DateTime GetDelegateEndDate(DDelegateDetail dDelegateDetail)
+		{
+			return (DateTime)dDelegateDetail.EndDate;
+			
 
+		}
 
+		public static string GetDelegateName(DDelegateDetail dDelegateDetail)
+		{
+			return dDelegateDetail.DepartmentHeadDelegate.ToString();
+		}
 
+		public static void UpdateDelegate(DDelegateDetail dDelegate, DateTime newstartdate, DateTime newenddate)
+		{
+			if (newstartdate >= DateTime.Today && newenddate >= newstartdate)
+			{
+				using (SA45Team12AD entities = new SA45Team12AD())
+				{
+					//DDelegateDetail dDelegateDetail = entities.DDelegateDetails.Where(p => p.DepartmentHeadDelegate == fullname).Where(x => x.DepartmentID == depid).Where(x => x.StartDate == currentstartdate).Where(x => x.EndDate == currentenddate).First();
+					dDelegate.StartDate = newstartdate;
+					dDelegate.EndDate = newenddate;
+					entities.SaveChanges();
+				}
+			}
+		}
 
+		public static void CancelDelegate(DDelegateDetail dDelegate)
+		{
 
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				//DDelegateDetail dDelegateDetail = entities.DDelegateDetails.Where(p => p.DepartmentHeadDelegate == fullname).Where(x => x.DepartmentID == depid).Where(x => x.StartDate == currentstartdate).Where(x => x.EndDate == currentenddate).First();
+				if(dDelegate.StartDate>=DateTime.Today)
+				{
+					dDelegate.StartDate = DateTime.Today.AddDays(-1);
+				}
+				dDelegate.EndDate = DateTime.Today.AddDays(-1);
 
+				Department department = entities.Departments.Where(x => x.DeptID == dDelegate.DepartmentID).First();
+				
+				department.HasDelegate = 0;
+				entities.SaveChanges();
+			}
+			RemoveDeptHeadRoleFromUser(dDelegate.DepartmentHeadDelegate, dDelegate.DepartmentID);
+		}
 
+		public static void AddDeptHeadRoleToUser(string fullname, string depid)
+		{
+			string username = DisbursementLogic.GetUserName(fullname, depid);
+			Roles.RemoveUserFromRole(username, "Employee");
+			Roles.AddUserToRole(username, "HOD");
+		}
+		public static void RemoveDeptHeadRoleFromUser(string fullname, string depid)
+		{
+			string username = DisbursementLogic.GetUserName(fullname, depid);
+			Roles.RemoveUserFromRole(username, "HOD");
+			Roles.AddUserToRole(username, "Employee");
+		}
+		
 
 
 
@@ -1550,7 +1645,14 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        public List<InventoryCatalogue> SearchBy(string value)
+
+
+
+
+
+
+
+		public List<InventoryCatalogue> SearchBy(string value)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
