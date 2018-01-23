@@ -1218,7 +1218,7 @@ namespace Team12_SSIS.BusinessLogic
 
 	public static void AddDelegate(String fullname,DateTime startdate, DateTime enddate, string depid)
 	{
-			if (startdate > DateTime.Today)
+			if (startdate >= DateTime.Today && enddate >= startdate)
 			{
 				using (SA45Team12AD entities = new SA45Team12AD())
 				{
@@ -1233,13 +1233,22 @@ namespace Team12_SSIS.BusinessLogic
 					entities.SaveChanges();
 				}
 			}
+			
 	}
 
-	public static List<DDelegateDetail> ListDelegateDetails()
+	public static List<DDelegateDetail> ListDelegateDetails(string dept)
 		{
 			using (SA45Team12AD entities = new SA45Team12AD())
 			{
-				return entities.DDelegateDetails.ToList<DDelegateDetail>();
+				return entities.DDelegateDetails.Where(x=>x.DepartmentID == dept).ToList<DDelegateDetail>();
+			}
+		}
+
+		public static List<DDelegateDetail> FindDelegateDetailsByEmployeeName(string input, string dept)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				return entities.DDelegateDetails.Where(x => x.DepartmentHeadDelegate.Contains(input)).Where(x => x.DepartmentID == dept).ToList<DDelegateDetail>();
 			}
 		}
 

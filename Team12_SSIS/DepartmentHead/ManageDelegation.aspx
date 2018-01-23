@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     
     <strong>Manage Delegation </strong>&nbsp;&nbsp;
     <br />
     <br />
@@ -9,12 +10,15 @@
     </asp:DropDownList>
     <br />
     <br />
-    From:<asp:Calendar ID="StartCal" runat="server"></asp:Calendar>
+   
+    From:<asp:Calendar ID="CalStart" runat="server"></asp:Calendar>
+     <br />
+    To:<asp:Calendar ID="CalEnd" runat="server"></asp:Calendar>
     <br />
-    To:<asp:Calendar ID="EndCal" runat="server"></asp:Calendar>
+    
     <br />
     <asp:Button ID="ApplyBtn" runat="server" Text="Apply" OnClick="ApplyBtn_Click" />
-    &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
     <asp:Button ID="CancelDelegationBtn" runat="server" Text="Cancel Delegation" />
     <br />
     <br />

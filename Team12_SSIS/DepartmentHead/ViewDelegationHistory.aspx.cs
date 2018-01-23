@@ -12,18 +12,30 @@ namespace Team12_SSIS.DepartmentHead
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-			if(!IsPostBack)
-			{
-				DelegationHistoryGridView.DataSource = RequisitionLogic.ListDelegateDetails();
-				DelegationHistoryGridView.DataBind();
+			if (!IsPostBack)
+			{	//Getting delegate history from database
+				GridViewDelegationHistory.DataSource = RequisitionLogic.ListDelegateDetails(DisbursementLogic.GetCurrentDep());
+				GridViewDelegationHistory.DataBind();
 			}
 
         }
 
 		public void BindGrid()
 		{
-			DelegationHistoryGridView.DataSource = RequisitionLogic.ListDelegateDetails();
-			DelegationHistoryGridView.DataBind();
+			GridViewDelegationHistory.DataSource = RequisitionLogic.ListDelegateDetails(DisbursementLogic.GetCurrentDep());
+			GridViewDelegationHistory.DataBind();
 		}
-    }
+
+		protected void SearchBtn_Click(object sender, EventArgs e)
+		{
+			//Show list of all users found on data grid view 
+			GridViewDelegationHistory.DataSource = RequisitionLogic.FindDelegateDetailsByEmployeeName(SearchTxt.Text,DisbursementLogic.GetCurrentDep());
+			GridViewDelegationHistory.DataBind();
+		}
+
+		protected void ViewAllBtn_Click(object sender, EventArgs e)
+		{
+			BindGrid();
+		}
+	}
 }

@@ -22,22 +22,22 @@ namespace Team12_SSIS.DepartmentHead {
         protected global::System.Web.UI.WebControls.DropDownList EmployeesDdl;
         
         /// <summary>
-        /// StartCal control.
+        /// CalStart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar StartCal;
+        protected global::System.Web.UI.WebControls.Calendar CalStart;
         
         /// <summary>
-        /// EndCal control.
+        /// CalEnd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar EndCal;
+        protected global::System.Web.UI.WebControls.Calendar CalEnd;
         
         /// <summary>
         /// ApplyBtn control.
