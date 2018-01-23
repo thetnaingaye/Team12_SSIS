@@ -15,6 +15,7 @@
                             <asp:ListItem Selected="True" Value="Pending">Pending</asp:ListItem>
                             <asp:ListItem Value="Approved">Approved</asp:ListItem>
                             <asp:ListItem Value="Rejected">Rejected</asp:ListItem>
+                             <asp:ListItem Value="RequestsToHandle">RequestsToHandle</asp:ListItem>
                             <asp:ListItem Value="All">All</asp:ListItem>
                         </asp:DropDownList>
                     </td>

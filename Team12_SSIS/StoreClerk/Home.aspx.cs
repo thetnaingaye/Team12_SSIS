@@ -35,7 +35,7 @@ namespace Team12_SSIS.StoreClerk
                 userList.Add(u);
             
             }
-          //  GridView1.DataSource = userList;
+            //  GridView1.DataSource = userList;
             GridView1.DataSource = Roles.GetUsersInRole("HOD");
                         GridView1.DataBind();
 

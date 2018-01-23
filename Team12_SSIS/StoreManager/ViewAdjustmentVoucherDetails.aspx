@@ -149,6 +149,11 @@
                 <tr>
                     <td colspan="2">
                         <asp:Button ID="BtnCancelReq" runat="server" Text="Cancel Request" CssClass="btn btn-xs" OnClick="BtnCancelReq_Click" Visible="false"/>
+                        <br />
+                        <br />
+                        <asp:Button ID="Btnapprove" runat="server" OnClick="Btnapprove_Click" Text="Approve" Width="120px" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Button ID="Btnreject" runat="server" Text="Reject" Width="101px" />
                     </td>
                 </tr>
             </tbody>
