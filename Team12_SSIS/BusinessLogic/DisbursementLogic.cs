@@ -623,6 +623,88 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        public int CreateDisbursementList(string deptId, int collectPtId, DateTime collectionDate, string deptRep)
+        {
+            DisbursementList dList = new DisbursementList();
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                dList.DepartmentID = deptId;
+                dList.CollectionPointID = collectPtId;
+                dList.CollectionDate = collectionDate;
+                dList.RepresentativeName = deptRep;
+                ctx.DisbursementLists.Add(dList);
+                ctx.SaveChanges();
+                return dList.DisbursementID;
+            }
+        }
+
+        public void CreateDisbursementListDetails(int disbursementId, string itemId, int actualQuantity, int quantityRequested, int quantityCollected, string uom, string remarks)
+        {
+            DisbursementListDetail dListDetails = new DisbursementListDetail();
+            dListDetails.DisbursementID = disbursementId;
+            dListDetails.ItemID = itemId;
+            dListDetails.ActualQuantity = actualQuantity;
+            dListDetails.QuantityRequested = quantityRequested;
+            dListDetails.QuantityCollected = quantityCollected;
+            dListDetails.UOM = uom;
+            dListDetails.Remarks = remarks;
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                ctx.DisbursementListDetails.Add(dListDetails);
+                ctx.SaveChanges();
+            }
+        }
+
+        public bool UpdateDisbursementListDetails(int id, int quantityCollected, string remarks)
+        {
+            bool success = false;
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                DisbursementListDetail dListDetails = ctx.DisbursementListDetails.Where(x => x.ID == id).FirstOrDefault();
+                CheckForOutstandingItem(quantityCollected, dListDetails, remarks);
+                dListDetails.QuantityCollected = quantityCollected;
+                dListDetails.Remarks = remarks;
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
+
+        public int CreateSystemStationeryRequest(DateTime requestDate, string deptId, string remarks)
+        {
+            RequisitionRecord rRecord = new RequisitionRecord();
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                ctx.RequisitionRecords.Add(rRecord);
+                ctx.SaveChanges();
+                return rRecord.RequestID;                
+            }
+        }
+
+        public void CreateStationeryRequestDetails(int requestId, string itemId, int requestedQuantity)
+        {
+            RequisitionRecordDetail rRDetails = new RequisitionRecordDetail();
+            rRDetails.RequestID = requestId;
+            rRDetails.ItemID = itemId;
+            rRDetails.RequestedQuantity = requestedQuantity;
+            rRDetails.Status = "Pending";
+
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                ctx.RequisitionRecordDetails.Add(rRDetails);
+                ctx.SaveChanges();
+            }
+        }
+
+        private void CheckForOutstandingItem(int quantityCollected, DisbursementListDetail dListDetails, string remarks)
+        {
+            if (quantityCollected < dListDetails.QuantityCollected)
+            {
+                int Reqid = CreateSystemStationeryRequest(DateTime.Now.Date, dListDetails.DisbursementList.DepartmentID, remarks);
+                CreateStationeryRequestDetails(Reqid, dListDetails.ItemID, (int)dListDetails.QuantityCollected - quantityCollected);
+            }
+        }
+
 
 
 

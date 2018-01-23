@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -52,17 +53,44 @@ namespace Team12_SSIS.StoreClerk
                 InventoryRetrievalList iRL = (InventoryRetrievalList)e.Row.DataItem;
                 string itemId = iRL.ItemID;
                 string itemName = InventoryLogic.GetItemName(itemId);
+                string uom = InventoryLogic.GetInventoryItem(itemId).UOM;
 
                 Label LblDesc = (e.Row.FindControl("LblDesc") as Label);
                 if (LblDesc != null)
                     LblDesc.Text = itemName;
+                Label LblUom = (e.Row.FindControl("LblUom") as Label);
+                if (LblUom != null)
+                    LblUom.Text = uom;
 
             }
         }
 
         protected void BtnCreateDis_Click(object sender, EventArgs e)
         {
+            DisbursementLogic dl = new DisbursementLogic();
 
+            DateTime date = DateTime.ParseExact(Request.Form["datepicker"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            int collectionId = DisbursementLogic.GetListofDepartments().Where(x => x.DeptID == DdlDept.SelectedValue).Select(x => x.CollectionPointID).FirstOrDefault();
+            string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
+            int disbLNumber = dl.CreateDisbursementList(DdlDept.SelectedValue, collectionId, date, LblDeptRep.Text);
+            
+            foreach (GridViewRow r in GridViewDisbList.Rows)
+            {
+                string itemID = (r.FindControl("LblItemCode") as Label).Text;
+                int ReqQty = int.Parse((r.FindControl("LblReqQty") as Label).Text);
+                int ActualQty = int.Parse((r.FindControl("LblActulQty") as Label).Text);
+                string uom = (r.FindControl("LblUom") as Label).Text;
+                string remarks = (r.FindControl("TxtRemarks") as TextBox).Text;
+                dl.CreateDisbursementListDetails(disbLNumber, itemID,ActualQty, ReqQty, 0, uom, remarks);
+            }
+            statusMessage.Text = "Disbursement List DL" + disbLNumber.ToString("0000") + " Created Successfully.";
+            statusMessage.ForeColor = Color.Green;
+            statusMessage.Visible = true;
+            BtnCreateDis.Visible = false;
+
+            Session["DisbId"] = disbLNumber;
+            Session["LblStatus"] = statusMessage;
+            Server.Transfer("~/StoreClerk/ViewDisbursementForm.aspx");
         }
 
         private void RetrieveDisbursementData()
@@ -92,9 +120,7 @@ namespace Team12_SSIS.StoreClerk
                 statusMessage.ForeColor = Color.Red;
                 statusMessage.Text = "No Disbursement Found for " + DdlDept.SelectedItem;
 
-            }
-
-            
+            }           
         }
     }
 }

@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(function () {
-            $("#datepicker").datepicker().datepicker("setDate", new Date());
+            $("#datepicker").datepicker({dateFormat: "dd/mm/yy"}).datepicker("setDate", new Date());
         });
     </script>
     <table style="width: 100%" class="center-block">
@@ -62,7 +62,7 @@
                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                         <Columns>
 
-                            <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                            <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" ItemStyle-CssClass="" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                 <ItemTemplate>
                                     <asp:Label ID="LblSn" runat="server" Text="<%# Container.DataItemIndex + 1 %>"></asp:Label>
                                 </ItemTemplate>
@@ -96,7 +96,7 @@
 
                             <asp:TemplateField HeaderText="Actual Quantity" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="TxtActulQty" runat="server" Width="100%" CssClass="center-block" Text='<%# Bind("ActualQuantity") %>'></asp:TextBox>
+                                    <asp:Label ID="LblActulQty" runat="server" Width="100%" CssClass="center-block" Text='<%# Bind("ActualQuantity") %>'></asp:Label>
                                 </ItemTemplate>
 
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
