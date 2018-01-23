@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewAdjustmentVoucherDetails.aspx.cs" Inherits="Team12_SSIS.StoreClerk.ViewAdjustmentVoucherDetails" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .auto-style1 {
+            height: 42px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" >
     <div>
@@ -12,11 +17,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="auto-style1">
                         <asp:Label ID="LblRequestIDLabel" runat="server" Style="padding-right: 10px"></asp:Label>
                         <asp:Label ID="LblRequestID" runat="server"></asp:Label>
                     </td>
-                    <td>
+                    <td class="auto-style1">
                         <asp:Label ID="LblHandledByLabel" runat="server" Text="Handled By: " Style="padding-right: 10px"></asp:Label>
                         <asp:Label ID="LblHandledBy" runat="server"></asp:Label>
 

@@ -4,42 +4,48 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Team12_SSIS.BusinessLogic;
 
 namespace Team12_SSIS.StoreClerk
 {
     public partial class ViewPurchaseOrder : System.Web.UI.Page
     {
-        static string prevPage = String.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                Populate();
-                prevPage = Request.UrlReferrer.ToString();
-            }
+
+            string temp = Request.QueryString["POnumber"];
+            LblNumber.Text = temp;
+            string req = Request.QueryString["userName"];
+            LblRst.Text = req;
+            string sli = Request.QueryString["SupplierID"];
+            LblCode.Text = sli;
+            string dto = Request.QueryString["Deliverto"];
+            LblDeliver.Text = dto;
+            string add = Request.QueryString["Address"];
+            LblAddress.Text = add;
+            string sid = Request.QueryString["SelectedDate"];
+            LblSib.Text = sid;
+
+
+
+
+        }
+        
+        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+   
+       }
+
+        protected string GetTotal()
+        {
+            PurchasingLogic p = new PurchasingLogic();
+            int temp = Convert.ToInt32(LblNumber.Text);
+            double res = p.FindTotalByPONum(temp);
+            return res.ToString("C0");
         }
 
-        private void Populate()
-        {
-            if (Request.QueryString["ID"] != "")
-            {
-                int purchaseOrderID = int.Parse(Request.QueryString["ID"]);
-                //using (PurchaseOrderDetails pod = new PurchaseOrderDetails())
-                //{
-                //    PurchaseOrder po = pod.FindPurchaseOrderByDate(purchaseOrderDate);
-                //    PODateLbl.Text = po.PODate;
-                //    RequestLbl.Text = po.Requestedby.ToString();
-                //    StatusLbl.Text = po.POStatus.ToString();
-                //    CodeLbl.Text = po.SupplierID.ToString();
-                //    lblSupplier.Text = po.Supplier.CompanyName;
-                //    List<PurchaseOrderItem> items = po.PurchaseOrderItems.ToList<PurchaseOrderItem>();
-                //    this.gvPODetails.DataSource = items;
-                //    this.gvPODetails.DataBind();
-                //}
-            }
-        }
     }
-}
+    }
 
 
         

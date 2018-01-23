@@ -11,6 +11,13 @@
         .auto-style3 {
             height: 24px;
         }
+        .auto-style4 {
+            width: 98px;
+            height: 21px;
+        }
+        .auto-style5 {
+            height: 21px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -32,13 +39,13 @@
                 <asp:Label ID="DltLbl" runat="server" Text="Deliver to:"></asp:Label>
             <td><asp:Label ID="DeliverLbl" runat="server"></asp:Label></td>
             </td></tr>
-            <tr><td class="auto-style1">
+            <tr><td class="auto-style4">
                 <asp:Label ID="AdsLbl" runat="server" Text="Address:"></asp:Label>
-            <td><asp:Label ID="AddressLbl" runat="server"></asp:Label></td>
+            <td class="auto-style5"><asp:Label ID="AddressLbl" runat="server"></asp:Label></td>
             </td></tr>
-            <tr><td class="auto-style1">
+            <tr><td class="auto-style4">
                 <asp:Label ID="ResLbl" runat="server" Text="Requested by:"></asp:Label>
-            <td><asp:Label ID="RequestLbl" runat="server"></asp:Label></td>
+            <td class="auto-style5"><asp:Label ID="RequestLbl" runat="server"></asp:Label></td>
             </td></tr>
                 <tr><td class="auto-style1">
                 <asp:Label ID="SlcLbl" runat="server" Text="Supplier Code:"></asp:Label>
@@ -49,13 +56,44 @@
             <td><asp:Label ID="OrderLbl" runat="server"></asp:Label></td>
             </td></tr>
             <tr>
-                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False">
+                 <asp:GridView ID="GridViewAPO" runat="server" AutoGenerateColumns="False">
             <Columns>
-                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
-                <asp:BoundField DataField="Quantity" HeaderText="Quantity" SortExpression="Quantity" />
-                <asp:BoundField DataField="UOM" HeaderText="UOM" SortExpression="UOM" />
-                <asp:BoundField DataField="Unit Price" HeaderText="Unit Price" SortExpression="Unit Price" />
-                <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" />
+
+                            <asp:TemplateField HeaderText="Description" HeaderStyle-Width="52%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                <ItemTemplate>
+                                    <asp:Label ID="LblDesc" runat="server"></asp:Label>
+                                </ItemTemplate>
+
+                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="52%"></HeaderStyle>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Quantity" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                <ItemTemplate>
+                                    <asp:Label ID="LblQty" runat="server" Width="100%" CssClass="center-block" Text='<%# Eval("Quantity") %>'></asp:Label>
+                                </ItemTemplate>
+                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="UOM" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                <ItemTemplate>
+                                    <asp:Label ID="LblUom" runat="server" Text='<%# Bind("UOM") %>'></asp:Label>
+                                </ItemTemplate>
+
+                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Unit Price" HeaderStyle-Width="22%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                <ItemTemplate>
+                                    <asp:Label ID="LblUnp" runat="server" Width="100%" CssClass="center-block" Text=""></asp:Label>
+                                </ItemTemplate>
+                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="22%"></HeaderStyle>
+                            </asp:TemplateField>
+                <asp:TemplateField HeaderText="Price" HeaderStyle-Width="22%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                <ItemTemplate>
+                                    <asp:Label ID="LblPrice" runat="server" Width="100%" CssClass="center-block" Text=""></asp:Label>
+                                </ItemTemplate>
+                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="22%"></HeaderStyle>
+                            </asp:TemplateField>
             </Columns>
         </asp:GridView></tr>
             <tr><td class="auto-style1"> <asp:Label ID="RmkLbl" runat="server" Text="Remarks :"></asp:Label></td>

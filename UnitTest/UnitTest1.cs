@@ -53,8 +53,7 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
-            InventoryLogic il = new InventoryLogic();
-            il.SendAdjRequentEmail(12, true, "test");
+            Console.WriteLine(PurchasingLogic.GetUnitPrice("C001", "BANE").ToString());
 
         }
         [TestMethod]
