@@ -69,9 +69,9 @@
                             </Triggers>
                             <ContentTemplate>
                                 <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:SA45Team12AD %>" SelectCommand="SELECT CategoryID, COUNT(*) AS TotalItem FROM InventoryCatalogue GROUP BY CategoryID" OnSelecting="SqlDataSource3_Selecting"></asp:SqlDataSource>
-                                <asp:Chart ID="Chart8" runat="server" DataSourceID="SqlDataSource3">
+                                <asp:Chart ID="Chart8" runat="server" DataSourceID="SqlDataSource_PO_AMT">
                                     <Series>
-                                        <asp:Series Name="Series1" XValueMember="CategoryID" YValueMembers="TotalItem" ChartType="SplineArea">
+                                        <asp:Series Name="Series1" XValueMember="CatalogueName" YValueMembers="AMOUNT_SGD" ChartType="SplineArea">
                                         </asp:Series>
                                     </Series>
                                     <ChartAreas>
@@ -99,28 +99,29 @@
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="panel panel-default" style="border-color: #006699;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-                    <div class="panel-heading" style="text-align: center; background-color: #006699; color: white">Panel Heading</div>
+            <div class="panel-heading" style="text-align: left; background-color: transparent; color: #1A6ECC";font-weight:600><h4>Purchasing Trend</h4><h6>Expenditure By Category For Current Month</h6></div>
                     <div class="auto-style2">
                         <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="Timer3" />
                             </Triggers>
                             <ContentTemplate>
-                                <asp:Chart ID="Chart4" runat="server" DataSourceID="SqlDataSource3" BackColor="Transparent" Height="325px" Width="400px">
+                                <asp:Chart ID="Chart4" runat="server" DataSourceID="SqlDataSource_PO_AMT" BackColor="Transparent" Height="325px" Width="400px">
                                     <Series>
-                                        <asp:Series Name="Series1" XValueMember="CategoryID" YValueMembers="TotalItem" CustomProperties="PixelPointWidth=5" LabelForeColor="RoyalBlue">
+                                        <asp:Series Name="Series1" XValueMember="CatalogueName" YValueMembers="AMOUNT_SGD" CustomProperties="PixelPointWidth=5" LabelForeColor="RoyalBlue" YValuesPerPoint="10" YValueType="Double">
                                             <EmptyPointStyle LabelForeColor="DimGray" />
                                         </asp:Series>
                                     </Series>
                                     <ChartAreas>
                                         <asp:ChartArea Name="ChartArea1" BackColor="Transparent">
-                                            <AxisY LineColor="Transparent">
+                                            <AxisY LineColor="Transparent" Title="Amount in SGD">
                                                 <MajorGrid LineColor="Silver" LineDashStyle="Dot" />
                                                 <MajorTickMark LineColor="DimGray" />
                                             </AxisY>
-                                            <AxisX LineColor="Transparent">
+                                            <AxisX LineColor="Transparent" Title="Category" IsLabelAutoFit="False">
                                                 <MajorGrid LineColor="Silver" LineDashStyle="Dot" />
                                                 <MajorTickMark LineColor="DimGray" />
+                                                <LabelStyle Angle="45" />
                                             </AxisX>
                                             <AxisX2 LineColor="Transparent">
                                                 <MajorTickMark LineColor="DimGray" />
@@ -140,16 +141,16 @@
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="panel panel-default" style="border-color: #006699;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-                    <div class="panel-heading" style="text-align: center; background-color: #006699; color: white">Number of Items by Category</div>
+                   <div class="panel-heading" style="text-align: left; background-color: transparent; color: #1A6ECC";font-weight:600><h4>Requisition Trend</h4><h6>Numbers of Ruquests By Department For Current Month</h6></div>
                     <div class="auto-style2">
                         <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="Timer2" />
                             </Triggers>
                             <ContentTemplate>
-                                <asp:Chart ID="Chart5" runat="server" DataSourceID="SqlDataSource3" BackColor="Transparent" BackImageTransparentColor="Transparent" BorderlineColor="Transparent" OnLoad="Chart2_Load" Width="500px" Height="325px" Palette="None" PaletteCustomColors="26, 110, 204; 39, 128, 227; 190, 216, 246; 171, 194, 221; 18, 77, 142; 41, 94, 153; 212, 222, 234">
+                                <asp:Chart ID="Chart5" runat="server" DataSourceID="SqlDataSource_CurrnetMonthRequets" BackColor="Transparent" BackImageTransparentColor="Transparent" BorderlineColor="Transparent" OnLoad="Chart2_Load" Width="500px" Height="325px" Palette="Pastel" PaletteCustomColors="26, 110, 204; 39, 128, 227; 190, 216, 246; 171, 194, 221; 18, 77, 142; 41, 94, 153; 212, 222, 234">
                                     <Series>
-                                        <asp:Series ChartType="Doughnut" Name="Product Category" XValueMember="CategoryID" YValueMembers="TotalItem" BackImageTransparentColor="Silver" Legend="Legend1" LabelForeColor="DimGray">
+                                        <asp:Series ChartType="Doughnut" Name="Product Category" XValueMember="DepartmentName" YValueMembers="TotalRequests" BackImageTransparentColor="Silver" Legend="Legend1" LabelForeColor="DimGray">
                                         </asp:Series>
                                     </Series>
                                     <ChartAreas>
@@ -163,6 +164,21 @@
                                     </Legends>
                                     <BorderSkin PageColor="DarkGray" />
                                 </asp:Chart>
+                                <asp:SqlDataSource ID="SqlDataSource_CurrnetMonthRequets" runat="server" ConnectionString="<%$ ConnectionStrings:SA45Team12AD %>" SelectCommand="SELECT  
+		D.DepartmentName,
+        COUNT(*) TotalRequests 
+FROM    RequisitionRecords Rr, Departments D
+WHERE   Rr.DepartmentID = D.DeptID AND 
+		Rr.RequestDate &gt;= DATEADD(day, 1, EOMONTH(DATEADD(month, -1, GETDATE()))) AND 
+        Rr.RequestDate &lt;= GetDate()
+GROUP BY D.DepartmentName"></asp:SqlDataSource>
+                                <asp:SqlDataSource ID="SqlDataSource_PO_AMT" runat="server" ConnectionString="<%$ ConnectionStrings:SA45Team12AD %>" SelectCommand="SELECT SUM(PD.UnitPrice * PD.Quantity) AS AMOUNT_SGD,CC.CatalogueName
+FROM PORecordDetails PD,CatalogueCategory CC,InventoryCatalogue I,PORecords PO
+WHERE PD.ItemID = I.ItemID AND 
+I.CategoryID = CC.CategoryID AND 
+PO.DateProcessed&gt;= DATEADD(day, 1, EOMONTH(DATEADD(month, -1, GETDATE()))) AND
+PO.DateProcessed &lt;= GETDATE()
+GROUP BY CC.CatalogueName"></asp:SqlDataSource>
                             </ContentTemplate>
                         </asp:UpdatePanel>
 
