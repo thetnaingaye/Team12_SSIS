@@ -20,6 +20,8 @@ namespace Team12_SSIS.StoreClerk
 				SuppliersDdl.DataTextField = "SupplierName";
 				SuppliersDdl.DataValueField = "SupplierID";
 				SuppliersDdl.DataBind();
+				LblCurrentOrderLeadTime.Text = PurchasingLogic.GetCurrentOrderLeadTime(SuppliersDdl.SelectedValue).ToString();
+
 			}
 			else
 				ChangedLbl.Visible = true;
@@ -33,9 +35,13 @@ namespace Team12_SSIS.StoreClerk
 			string supplier = SuppliersDdl.SelectedValue;
 			PurchasingLogic.UpdateOrderLeadTime(orderLeadTime, supplier);
 			ChangedLbl.Text = "Supplier " + SuppliersDdl.SelectedItem + "'s Order Lead Time has changed to " + orderLeadTime.ToString() + " day(s).";
+			//Response.Redirect("~/StoreClerk/ChangeOrderLeadTime.aspx");
 			
-			
-			
+		}
+
+		protected void SuppliersDdl_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			LblCurrentOrderLeadTime.Text = PurchasingLogic.GetCurrentOrderLeadTime(SuppliersDdl.SelectedValue).ToString();
 		}
 	}
 }
