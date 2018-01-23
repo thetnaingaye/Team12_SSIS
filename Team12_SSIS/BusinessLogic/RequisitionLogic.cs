@@ -1313,24 +1313,24 @@ namespace Team12_SSIS.BusinessLogic
 			return dDelegateDetail.DepartmentHeadDelegate.ToString();
 		}
 
-		public static void UpdateDelegate(DDelegateDetail dDelegate, DateTime newstartdate, DateTime newenddate)
+		public static void UpdateDelegate(DDelegateDetail dDelegateinput, DateTime newstartdate, DateTime newenddate)
 		{
-			if (newstartdate >= DateTime.Today && newenddate >= newstartdate)
+			//if (Roles.IsUserInRole(DisbursementLogic.GetUserName(dDelegateinput.DepartmentHeadDelegate, dDelegateinput.DepartmentID), "HOD"))
 			{
 				using (SA45Team12AD entities = new SA45Team12AD())
 				{
-					//DDelegateDetail dDelegateDetail = entities.DDelegateDetails.Where(p => p.DepartmentHeadDelegate == fullname).Where(x => x.DepartmentID == depid).Where(x => x.StartDate == currentstartdate).Where(x => x.EndDate == currentenddate).First();
+					DDelegateDetail dDelegate = entities.DDelegateDetails.Where(p => p.DepartmentHeadDelegate == dDelegateinput.DepartmentHeadDelegate).Where(x => x.DepartmentID == dDelegateinput.DepartmentID).Where(x => x.StartDate == dDelegateinput.StartDate).Where(x => x.EndDate == dDelegateinput.EndDate).First();
 					dDelegate.StartDate = newstartdate;
 					dDelegate.EndDate = newenddate;
 					entities.SaveChanges();
 				}
 			}
+			
 		}
 
 		public static void CancelDelegate(DDelegateDetail dDelegateinput)
 		{
-			if (Roles.IsUserInRole(DisbursementLogic.GetUserName(dDelegateinput.DepartmentHeadDelegate, dDelegateinput.DepartmentID), "HOD"))
-			{
+			
 				using (SA45Team12AD entities = new SA45Team12AD())
 				{
 					DDelegateDetail dDelegate = entities.DDelegateDetails.Where(p => p.DepartmentHeadDelegate == dDelegateinput.DepartmentHeadDelegate).Where(x => x.DepartmentID == dDelegateinput.DepartmentID).Where(x => x.StartDate == dDelegateinput.StartDate).Where(x => x.EndDate == dDelegateinput.EndDate).First();
@@ -1344,9 +1344,12 @@ namespace Team12_SSIS.BusinessLogic
 
 					department.HasDelegate = 0;
 					entities.SaveChanges();
-					RemoveDeptHeadRoleFromUser(dDelegate.DepartmentHeadDelegate, dDelegate.DepartmentID);
+					if (Roles.IsUserInRole(DisbursementLogic.GetUserName(dDelegateinput.DepartmentHeadDelegate, dDelegateinput.DepartmentID), "HOD"))
+					{
+						RemoveDeptHeadRoleFromUser(dDelegate.DepartmentHeadDelegate, dDelegate.DepartmentID);
+					}
 				}
-			}
+			
 			
 		}
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,10 +11,13 @@ namespace Team12_SSIS.DepartmentHead
 {
     public partial class ManageDepartmentRep : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+		Label statusMessage;
+		protected void Page_Load(object sender, EventArgs e)
         {
+			statusMessage = this.Master.FindControl("LblStatus") as Label;
 			if (!IsPostBack)
 			{
+				statusMessage.Visible = false;
 				//Show current rep
 				CurrentRepLbl.Text = DisbursementLogic.GetDeptRepFullName(DisbursementLogic.GetCurrentDep());
 				BindDdl();
@@ -34,7 +38,9 @@ namespace Team12_SSIS.DepartmentHead
 			DisbursementLogic.UpdateDeptRep(newrepfullname,DisbursementLogic.GetCurrentDep());
 			//Update current representative
 			CurrentRepLbl.Text = DisbursementLogic.GetDeptRepFullName(DisbursementLogic.GetCurrentDep());
-			NewRepAssignedLbl.Text = newrepfullname + "has been assigned as the new representative.";
+			statusMessage.Text = newrepfullname + " has been assigned as the new representative.";
+			statusMessage.Visible = true;
+			statusMessage.ForeColor = Color.Green;
 			BindDdl();
 			
 

@@ -55,6 +55,7 @@ namespace Team12_SSIS.DepartmentHead
 		}
 		
 
+		//for updating current delegate
 		protected void ApplyBtn_Click(object sender, EventArgs e)
 		{
 			DateTime newstartdate = CalStartEditDelegate.SelectedDate;
