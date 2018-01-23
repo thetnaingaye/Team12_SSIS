@@ -1699,10 +1699,11 @@ namespace Team12_SSIS.BusinessLogic
 
 		public static void UpdateDeptRep(String newrepfullname, String dept)
 		{
-			Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
 			Roles.AddUserToRole(GetDeptRepUserName(GetCurrentDep()), "Employee");
-			Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
+			Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
 			Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
+			Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
+			
 			
 		}
 	}

@@ -83,9 +83,13 @@ namespace Team12_SSIS.DepartmentHead
 			
 			string currentdep = DisbursementLogic.GetCurrentDep();
 			DDelegateDetail currentdelegate = RequisitionLogic.GetLatestDelegate(currentdep);
+			string fullname = RequisitionLogic.GetDelegateName(currentdelegate);
 			RequisitionLogic.CancelDelegate(currentdelegate);
 			MultiView1.ActiveViewIndex = 2;
 			BindDdl();
+			statusMessage.Text = fullname + "'s delegation has been cancelled.";
+			statusMessage.Visible = true;
+			statusMessage.ForeColor = Color.Green;
 
 		}
 

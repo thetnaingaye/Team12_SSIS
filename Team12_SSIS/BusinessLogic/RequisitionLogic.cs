@@ -1236,7 +1236,10 @@ namespace Team12_SSIS.BusinessLogic
 					department.HasDelegate = 1;
 					entities.SaveChanges();
 				}
-				AddDeptHeadRoleToUser(fullname, depid);
+				if (startdate == DateTime.Today)
+				{
+					AddDeptHeadRoleToUser(fullname, depid);
+				}
 			}
 			
 	}
@@ -1324,24 +1327,27 @@ namespace Team12_SSIS.BusinessLogic
 			}
 		}
 
-		public static void CancelDelegate(DDelegateDetail dDelegate)
+		public static void CancelDelegate(DDelegateDetail dDelegateinput)
 		{
-
-			using (SA45Team12AD entities = new SA45Team12AD())
+			if (Roles.IsUserInRole(DisbursementLogic.GetUserName(dDelegateinput.DepartmentHeadDelegate, dDelegateinput.DepartmentID), "HOD"))
 			{
-				//DDelegateDetail dDelegateDetail = entities.DDelegateDetails.Where(p => p.DepartmentHeadDelegate == fullname).Where(x => x.DepartmentID == depid).Where(x => x.StartDate == currentstartdate).Where(x => x.EndDate == currentenddate).First();
-				if(dDelegate.StartDate>=DateTime.Today)
+				using (SA45Team12AD entities = new SA45Team12AD())
 				{
-					dDelegate.StartDate = DateTime.Today.AddDays(-1);
-				}
-				dDelegate.EndDate = DateTime.Today.AddDays(-1);
+					DDelegateDetail dDelegate = entities.DDelegateDetails.Where(p => p.DepartmentHeadDelegate == dDelegateinput.DepartmentHeadDelegate).Where(x => x.DepartmentID == dDelegateinput.DepartmentID).Where(x => x.StartDate == dDelegateinput.StartDate).Where(x => x.EndDate == dDelegateinput.EndDate).First();
+					if (dDelegateinput.StartDate >= DateTime.Today)
+					{
+						dDelegate.StartDate = DateTime.Today.AddDays(-1);
+					}
+					dDelegate.EndDate = DateTime.Today.AddDays(-1);
 
-				Department department = entities.Departments.Where(x => x.DeptID == dDelegate.DepartmentID).First();
-				
-				department.HasDelegate = 0;
-				entities.SaveChanges();
+					Department department = entities.Departments.Where(x => x.DeptID == dDelegateinput.DepartmentID).First();
+
+					department.HasDelegate = 0;
+					entities.SaveChanges();
+					RemoveDeptHeadRoleFromUser(dDelegate.DepartmentHeadDelegate, dDelegate.DepartmentID);
+				}
 			}
-			RemoveDeptHeadRoleFromUser(dDelegate.DepartmentHeadDelegate, dDelegate.DepartmentID);
+			
 		}
 
 		public static void AddDeptHeadRoleToUser(string fullname, string depid)
