@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Team12_SSIS.Model;
+using Team12_SSIS.BusinessLogic;
+
 
 namespace Team12_SSIS.StoreManager
 {
@@ -15,3 +18,4 @@ namespace Team12_SSIS.StoreManager
         }
     }
 }
+
