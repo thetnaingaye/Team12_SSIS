@@ -58,7 +58,7 @@
             <td colspan="5">
                     <asp:GridView ID="GridViewDisbList" runat="server" AutoGenerateColumns="False"
                         Style="height: 100px; overflow: auto; width: 100%" DataKeyNames="ItemID" ShowHeaderWhenEmpty="True"
-                        OnRowDataBound="OnRowDataBound" OnRowDeleted="GridViewGR_RowDeleted" CellPadding="4" ForeColor="#333333" GridLines="None">
+                        OnRowDataBound="OnRowDataBound" OnRowDeleting="RowDeleting" CellPadding="4" ForeColor="#333333" GridLines="None">
                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                         <Columns>
 
@@ -73,6 +73,7 @@
                             <asp:TemplateField HeaderText="Item Code" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                 <ItemTemplate>
                                     <asp:Label ID="LblItemCode" runat="server" Text='<%# Bind("ItemID") %>'></asp:Label>
+                                    <asp:HiddenField ID="HideRetriId" runat="server" Value='<%# Bind("RetrievalID") %>'/>
                                 </ItemTemplate>
 
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
@@ -112,7 +113,7 @@
 
                             <asp:TemplateField HeaderText="Remarks" HeaderStyle-Width="22%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="TxtRemarks" runat="server" Width="100%" CssClass="center-block" Text=""></asp:TextBox>
+                                    <asp:TextBox ID="TxtRemarks" runat="server" Width="100%" CssClass="center-block"></asp:TextBox>
                                 </ItemTemplate>
 
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="22%"></HeaderStyle>

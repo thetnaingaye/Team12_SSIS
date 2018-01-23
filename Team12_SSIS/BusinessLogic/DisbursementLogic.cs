@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Profile;
 using System.Web.Security;
 using Team12_SSIS.Model;
+using Team12_SSIS.Utility;
 
 namespace Team12_SSIS.BusinessLogic
 {
@@ -632,10 +633,15 @@ namespace Team12_SSIS.BusinessLogic
                 dList.CollectionPointID = collectPtId;
                 dList.CollectionDate = collectionDate;
                 dList.RepresentativeName = deptRep;
+                dList.Status = "Pending Collection";
                 ctx.DisbursementLists.Add(dList);
                 ctx.SaveChanges();
-                return dList.DisbursementID;
             }
+            using(EmailControl em = new EmailControl())
+            {
+                em.NewStationeryCollectionNotification(Utility.Utility.GetEmailAddressByName(deptRep), GetCurrentCPWithTimeByID(collectPtId) , collectionDate.ToString("d"));
+            }
+            return dList.DisbursementID;
         }
 
         public void CreateDisbursementListDetails(int disbursementId, string itemId, int actualQuantity, int quantityRequested, int quantityCollected, string uom, string remarks)
@@ -704,6 +710,52 @@ namespace Team12_SSIS.BusinessLogic
                 CreateStationeryRequestDetails(Reqid, dListDetails.ItemID, (int)dListDetails.QuantityCollected - quantityCollected);
             }
         }
+
+        public static DisbursementList GetDisbursementList(int disbursementId)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.DisbursementLists.Where(x => x.DisbursementID == disbursementId).FirstOrDefault();
+            }
+        }
+
+        public static List<DisbursementList> GetDisbursementList()
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.DisbursementLists.ToList();
+            }
+        }
+
+        public static List<DisbursementListDetail> GetDisbursementListDetails()
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.DisbursementListDetails.ToList();
+            }
+        }
+
+        public static List<DisbursementListDetail> GetDisbursementListDetails(int disbursementId)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.DisbursementListDetails.Where(x => x.DisbursementID == disbursementId).ToList();
+            }
+        }
+
+        public bool UpdateDisbursementStatus(int disbursementId, string status)
+        {
+            bool success = false;
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                DisbursementList dL = ctx.DisbursementLists.Where(x => x.DisbursementID == disbursementId).FirstOrDefault();
+                dL.Status = status;
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
+
 
 
 

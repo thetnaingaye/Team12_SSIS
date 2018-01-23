@@ -1518,6 +1518,7 @@ namespace Team12_SSIS.BusinessLogic
         {
             List<MembershipUser> userList = Utility.Utility.GetListOfMembershipUsers();
             string[] approveAuthList = isAbove250 ? Roles.GetUsersInRole("Manager") : Roles.GetUsersInRole("Supervisor");
+            UpdateAdjustmentVoucherApprovingOfficer(avRId, isAbove250);
             foreach (string s in approveAuthList)
             {
                 var User = userList.Find(x => x.UserName == s);
@@ -1526,6 +1527,16 @@ namespace Team12_SSIS.BusinessLogic
                 {
                     em.NewAdjustmentVoucherRequestNotification(User.Email.ToString(), avRId.ToString(), clerkName);
                 }
+            }
+        }
+
+        private void UpdateAdjustmentVoucherApprovingOfficer(int avRId, bool isAbove250)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                AVRequest avR = ctx.AVRequests.Where(x => x.AVRID == avRId).FirstOrDefault();
+                avR.HandledBy = isAbove250 ? "Manager" : "Supervisor";
+                ctx.SaveChanges();
             }
         }
 
@@ -1544,6 +1555,19 @@ namespace Team12_SSIS.BusinessLogic
             {
                 return ctx.InventoryRetrievalLists.Where(x => x.DepartmentID == deptId).Where(x => x.Status == "fulfilled" || x.Status == "unfulfilled").ToList();
             }
+        }
+
+        public static bool UpdateInventoryRetrivalStatus(int retrievalId, string status)
+        {
+            bool success = false;
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryRetrievalList iRL = ctx.InventoryRetrievalLists.Where(x => x.RetrievalID == retrievalId).FirstOrDefault();
+                iRL.Status = status;
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
         }
     }
 }
