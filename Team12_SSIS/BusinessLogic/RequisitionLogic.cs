@@ -1532,5 +1532,13 @@ namespace Team12_SSIS.BusinessLogic
         //    //return bookList;
         //}
 
+        //public List<InventoryCatalogue> GetRequestedItems(string)
+        //{
+        //    using (SA45Team12AD entities = new SA45Team12AD())
+        //    {
+        //        return entities.InventoryCatalogues.Select(i => new { i.ItemID, i.Description }
+        //    );
+        //    }
+        //}
     }
     }

@@ -5,16 +5,28 @@
     <div>
 <h2>Stationery Request</h2>
         <asp:TextBox ID="TxtSearch" placeholder="Search Item" runat="server"></asp:TextBox>
-<asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
-        <asp:Label ID="LblEmpty" runat="server" Text="Sorry You have not request any items yet."></asp:Label>
+        <asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
+        <asp:Label ID="LblCount" runat="server"></asp:Label>
 </div>
-    <div>
-        <asp:GridView ID="GridViewAddRequest" runat="server" AutoGenerateColumns="False">
-            <Columns>
-                <asp:BoundField DataField="ItemID" HeaderText="ItemID" SortExpression="ItemID" />
-                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
-                <asp:ButtonField ButtonType="Button" CommandName="AddRequest" Text="Add" />
-            </Columns>
-        </asp:GridView>
-    </div>
+<div>
+    <asp:GridView ID="GridViewAddRequest" runat="server" AutoGenerateColumns="False" DataKeyNames="ItemID">
+        <Columns>
+            <asp:TemplateField HeaderText="ItemID" SortExpression="ItemID">
+                <ItemTemplate>
+                    <asp:Label ID="LblItemID" runat="server" Text='<%# Bind("ItemID") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Description" SortExpression="Description">
+                <ItemTemplate>
+                    <asp:Label ID="LblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:Button ID="BtnAddRequest" runat="server" OnClick="BtnAddRequest_Click" Text="Add"/>
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+    </asp:GridView>
+</div>
 </asp:Content>
