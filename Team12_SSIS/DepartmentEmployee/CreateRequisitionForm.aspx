@@ -9,9 +9,21 @@
         <asp:GridView ID="GridViewRequisitionForm" runat="server" AutoGenerateColumns="False"
             OnRowDeleting="GridViewCheckOut_RowDeleting" DataKeyNames="ItemID">
             <Columns>
-                <asp:BoundField DataField="ItemID" HeaderText="ItemID" SortExpression="ItemID" />
-                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
-                <asp:BoundField DataField="RequestedQuantity" HeaderText="RequestedQuantity" SortExpression="RequestedQuantity" />
+                <asp:TemplateField HeaderText="ItemID" SortExpression="ItemID">
+                <ItemTemplate>
+                    <asp:Label ID="LblItemID" runat="server" Text='<%# Bind("ItemID") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+                <asp:TemplateField HeaderText="Description" SortExpression="Description">
+                <ItemTemplate>
+                    <asp:Label ID="LblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+                <asp:TemplateField HeaderText="RequestedQuantity" SortExpression="RequestedQuantity">
+                <ItemTemplate>
+                    <asp:Label ID="LblRequestedQuantity" runat="server" Text='<%# Bind("RequestedQuantity") %>'></asp:Label>
+                </ItemTemplate>
+                </asp:TemplateField>
             </Columns>
         </asp:GridView>
         <asp:Button ID="BtnSubmitForm" runat="server" Text="Submit Form" OnClick="BtnSubmitForm_Click"/>

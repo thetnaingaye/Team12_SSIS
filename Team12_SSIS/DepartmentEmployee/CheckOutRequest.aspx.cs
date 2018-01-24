@@ -45,21 +45,23 @@ namespace Team12_SSIS.DepartmentEmployee
         {
             Response.Redirect("ViewCatalogue.aspx");
         }
-        List<RequisitionRecordDetail> rrd;
 
-        //protected void TxtRequestedQuantity_TextChanged(object sender, EventArgs e)
-        //{
-            //    rrd = (List<RequisitionRecordDetail>)Session["CartList"];
-            //    if (rrd == null) return;
-            //    for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
-            //    {
-            //        string ItemID = GridViewCheckOut.Rows[i].Cells[0].Text.ToString();
-            //        string Description = ((Label)GridViewCheckOut.Rows[i].Cells[1].FindControl("LblDescription")).Text.ToString();
-            //        string RequestedQuantity = ((TextBox)GridViewCheckOut.Rows[i].Cells[2].FindControl("TxtRequestedQuantity")).Text;
+        protected void TxtRequestedQuantity_TextChanged(object sender, EventArgs e)
+        {
+            List<String> rrd;
+            rrd = (List<String>)Session["CartList"];
+            if (rrd == null) return;
+            for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
+            {
+                string ItemID = GridViewCheckOut.Rows[i].Cells[0].Text.ToString();
+                string Description = ((Label)GridViewCheckOut.Rows[i].Cells[1].FindControl("LblDescription")).Text.ToString();
+                int RequestedQuantity = Convert.ToInt32(((TextBox)GridViewCheckOut.Rows[i].Cells[2].FindControl("TxtRequestedQuantity")).Text);
 
-            //        rrd.Add(ItemID);
-            //    }
-            //    Session["CartList"] = rrd;
-        //}
+                rrd.Add(ItemID);
+                rrd.Add(Description);
+                rrd.Add(Convert.ToString(RequestedQuantity));
+            }
+            Session["CartList"] = rrd;
+        }
     }
 }

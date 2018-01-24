@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CheckOutRequest.aspx.cs" Inherits="Team12_SSIS.DepartmentEmployee.CheckOutRequest" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" Debug="true" AutoEventWireup="true" CodeBehind="CheckOutRequest.aspx.cs" Inherits="Team12_SSIS.DepartmentEmployee.CheckOutRequest" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -20,7 +20,11 @@
                     <asp:Label ID="LblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-                
+                <asp:TemplateField HeaderText="RequestedQuantity" SortExpression="RequestedQuantity">
+                <ItemTemplate>
+                    <asp:TextBox ID="TxtRequestedQuantity" runat="server" ontextchanged="TxtRequestedQuantity_TextChanged" AutoPostBack="True" Text='<%# Bind("RequestedQuantity") %>'></asp:TextBox>
+                </ItemTemplate>
+                </asp:TemplateField>
                 <asp:CommandField ButtonType="Button" ShowDeleteButton="True"/>
             </Columns> 
         </asp:GridView>
