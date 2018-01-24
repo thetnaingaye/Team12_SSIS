@@ -40,6 +40,7 @@ namespace Team12_SSIS.DepartmentEmployee.DepartmentRep
 			statusMessage.Text = "The Collection Point has been updated to " + CurrentCollectionPointLbl.Text;
 			statusMessage.Visible = true;
 			statusMessage.ForeColor = Color.Green;
+			ChangeCollectionPointBtn.Enabled = true;
 
 		}
 	}
