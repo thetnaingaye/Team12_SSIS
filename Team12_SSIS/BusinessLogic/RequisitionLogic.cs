@@ -368,7 +368,11 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-
+        // Retrieves the name of the current user that is logged in
+        public static string GetCurrentDeptUserName()
+        {
+            return HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
+        }
 
 
 

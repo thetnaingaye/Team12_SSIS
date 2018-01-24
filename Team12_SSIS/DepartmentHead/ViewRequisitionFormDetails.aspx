@@ -4,6 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
         <h1>Requisition Form</h1>
+        <h4><asp:Label ID="LblCurrentUser" runat="server" Text=""></asp:Label></h4>
     </div>
     <div>
         <span>Requisition Form ID: </span><asp:Label ID="LblReqFormID" runat="server" Text=""></asp:Label><br />

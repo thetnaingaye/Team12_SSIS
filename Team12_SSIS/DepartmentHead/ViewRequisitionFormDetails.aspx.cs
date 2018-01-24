@@ -21,8 +21,9 @@ namespace Team12_SSIS.DepartmentHead
             // Retrieving from the link our req ID
             reqID = Request.QueryString["RequestID"];
 
-            // Retrieving the DeptHead's name      -          NEED RETRIEVE FROM THE LOGIN THINGYY
-            deptHeadName = "John";
+            // Retrieving the DeptHead's name
+            deptHeadName = RequisitionLogic.GetCurrentDeptUserName();
+            LblCurrentUser.Text = deptHeadName;
 
             // Retrieving our req record using the reqID retrieved
             RequisitionRecord tempR = r.FindRequisitionRecord(Convert.ToInt32(reqID));
