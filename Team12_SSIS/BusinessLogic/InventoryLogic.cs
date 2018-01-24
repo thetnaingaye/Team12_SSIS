@@ -1246,6 +1246,21 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        public List<StockCard> GetAllStockCard()
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                     return entity.StockCards.ToList<StockCard>();
+            }
+        }
+        public List<StockCard> GetStockcardByItemId(string id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.StockCards.Where(x => x.ItemID == id).ToList<StockCard>();
+            }
+        }
+
         //-------------------------(BIN,Description,UOM)------------------------------//
         public InventoryCatalogue getInventoryDetails(string itemid)
         {
