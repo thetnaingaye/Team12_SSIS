@@ -16,7 +16,7 @@ namespace Team12_SSIS.WebServices
     public interface IService
     {
         [OperationContract]
-        [WebGet(UriTemplate = "/DLists", ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "/GetDisbursementLists", ResponseFormat = WebMessageFormat.Json)]
         List<WCF_DisbursementList> GetDisbursementList();
 
         [OperationContract]
@@ -28,9 +28,42 @@ namespace Team12_SSIS.WebServices
         List<WCF_InventoryCatalogue> GetInventoryList();
 
         [OperationContract]
-        [WebGet(UriTemplate = "/GetInventoryList/{string}", ResponseFormat = WebMessageFormat.Json)]
-        
-        
+        [WebGet(UriTemplate = "/GetInventoryList/{query}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_InventoryCatalogue> GetInventoryList(string query);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/GetStockCard/{itemID}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_StockCard GetStockCard(string itemId);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/GetDeptRequests/", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_RequisitionRecord> GetDeptRequests();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/GetDeptRequests/{deptId}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_RequisitionRecord> GetDeptRequests(string deptId);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/UpdateDeptRequest", Method = "POST",
+            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        void UpdateDeptRequestStatus(WCF_RequisitionRecord record);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/UpdateDisburse", Method = "POST",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json)]
+        void UpdateDisbursementStatus(WCF_DisbursementList disbursementList);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/CreateRetrievalList", Method = "POST",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json)]
+        void CreateInventoryRetrievalList(WCF_InventoryRetrievalList retrievalList);
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/CreateAVRequest", Method = "POST",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json)]
+        void CreateAdjustmentRequest(WCF_AVRequest);
     }
 }
 

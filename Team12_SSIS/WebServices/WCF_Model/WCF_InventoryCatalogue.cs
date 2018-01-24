@@ -9,8 +9,26 @@ namespace Team12_SSIS.WebServices.WCF_Model
     [DataContract]
     public class WCF_InventoryCatalogue
     {
-        public WCF_InventoryCatalogue()
+        public static WCF_InventoryCatalogue Create
+            (string itemId, string bin, string shelf, int level, 
+            string categoryId, string description, int reOrderLvl, int unitInStock,
+            int reOrderQty, string uom, string discontinued, int unitOnOrder, int bufferStockLevel)
         {
+            WCF_InventoryCatalogue w = new WCF_InventoryCatalogue();
+            w.ItemID = itemId;
+            w.BIN = bin;
+            w.Shelf = shelf;
+            w.Level = level;
+            w.CategoryID = categoryId;
+            w.Description = description;
+            w.ReorderLevel = reOrderLvl;
+            w.UnitsInStock = unitInStock;
+            w.ReorderQty = reOrderLvl;
+            w.UOM = uom;
+            w.Discontinued = discontinued;
+            w.UnitsOnOrder = unitOnOrder;
+            w.BufferStockLevel = bufferStockLevel;
+            return w;
         }
 
 

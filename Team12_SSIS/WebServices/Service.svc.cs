@@ -8,6 +8,7 @@ using System.Text;
 using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
 using System.Data.Entity;
+using Team12_SSIS.WebServices.WCF_Model;
 
 namespace Team12_SSIS.WebServices
 {
@@ -59,6 +60,68 @@ namespace Team12_SSIS.WebServices
             }
             return wcf_ddlist;
 
+        }
+
+        public List<WCF_InventoryCatalogue> GetInventoryList()
+        {
+            List<InventoryCatalogue> catalogueList = InventoryLogic.ListCatalogues();
+            List<WCF_InventoryCatalogue> wcfList = new List<WCF_InventoryCatalogue>();
+            foreach(InventoryCatalogue i in catalogueList)
+            {
+                WCF_InventoryCatalogue w = WCF_InventoryCatalogue.Create(i.ItemID, i.BIN, i.Shelf, (int)i.Level, i.CategoryID,
+                    i.Description, (int)i.ReorderLevel, i.UnitsInStock, (int)i.ReorderQty, i.UOM, i.Discontinued, (int)i.UnitsOnOrder, (int)i.BufferStockLevel);
+                wcfList.Add(w);
+            }
+            return wcfList;
+        }
+
+        public List<WCF_InventoryCatalogue> GetInventoryList(string query)
+        {
+            InventoryLogic inventoryLogic = new InventoryLogic();
+            List<InventoryCatalogue> catalogueList = inventoryLogic.SearchBy(query);
+            List<WCF_InventoryCatalogue> wcfList = new List<WCF_InventoryCatalogue>();
+            foreach (InventoryCatalogue i in catalogueList)
+            {
+                WCF_InventoryCatalogue w = WCF_InventoryCatalogue.Create(i.ItemID, i.BIN, i.Shelf, (int)i.Level, i.CategoryID,
+                    i.Description, (int)i.ReorderLevel, i.UnitsInStock, (int)i.ReorderQty, i.UOM, i.Discontinued, (int)i.UnitsOnOrder, (int)i.BufferStockLevel);
+                wcfList.Add(w);
+            }
+            return wcfList;
+        }
+
+        public WCF_StockCard GetStockCard(string itemId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<WCF_RequisitionRecord> GetDeptRequests()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<WCF_RequisitionRecord> GetDeptRequests(string deptId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateDeptRequestStatus(WCF_RequisitionRecord record)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateDisbursementStatus(WCF_DisbursementList disbursementList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateInventoryRetrievalList(WCF_InventoryRetrievalList retrievalList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateAdjustmentRequest(WCF_AVRequest )
+        {
+            throw new NotImplementedException();
         }
     }
 }
