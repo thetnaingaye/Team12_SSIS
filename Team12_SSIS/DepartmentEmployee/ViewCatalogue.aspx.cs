@@ -30,6 +30,8 @@ namespace Team12_SSIS.DepartmentEmployee
                     Session["CartList"] = temp;
                     LblCount.Text = "Number of items requested : " + (temp.Count() + 0).ToString();
                 }
+
+
             }
             else
             {

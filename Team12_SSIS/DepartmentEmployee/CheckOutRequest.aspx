@@ -22,7 +22,7 @@
             </asp:TemplateField>
                 <asp:TemplateField HeaderText="RequestedQuantity" SortExpression="RequestedQuantity">
                 <ItemTemplate>
-                    <asp:TextBox ID="TxtRequestedQuantity" runat="server" ontextchanged="TxtRequestedQuantity_TextChanged" AutoPostBack="True" Text='<%# Bind("RequestedQuantity") %>'></asp:TextBox>
+                    <asp:TextBox ID="TxtRequestedQuantity" runat="server" ontextchanged="TxtRequestedQuantity_TextChanged" AutoPostBack="True"></asp:TextBox>
                 </ItemTemplate>
                 </asp:TemplateField>
                 <asp:CommandField ButtonType="Button" ShowDeleteButton="True"/>
