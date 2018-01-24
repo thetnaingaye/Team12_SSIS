@@ -33,7 +33,7 @@
                                 <asp:AsyncPostBackTrigger ControlID="Timer1" />
                             </Triggers>
                             <ContentTemplate>
-                                <h1 ><strong><%= GetReorders("Pending") %></strong></h1>
+                                <h1 style="font-size:50px;font-weight:600"><strong><%= GetReorders("Pending") %></strong></h1>
                             </ContentTemplate>
                         </asp:UpdatePanel>
 
