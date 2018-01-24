@@ -9,6 +9,39 @@ namespace Team12_SSIS.WebServices.WCF_Model
     [DataContract]
     public class WCF_StockCard
     {
+
+        public static WCF_StockCard Create(int id, string itemId, string date, 
+            string description, string type, int quantity, string uom, int balance)
+        {
+            WCF_StockCard s = new WCF_StockCard();
+            s.ID = id;
+            s.ItemID = itemId;
+            s.Date = date;
+            s.Description = description;
+            s.Type = type;
+            s.Quantity = quantity;
+            s.UOM = uom;
+            s.Balance = balance;
+            return s;
+        }
+
+        public static WCF_StockCard Create(int id, string itemId, string date,
+    string description, string type, int quantity, string uom, int balance, 
+    WCF_InventoryCatalogue inventoryCatalogue)
+        {
+            WCF_StockCard s = new WCF_StockCard();
+            s.ID = id;
+            s.ItemID = itemId;
+            s.Date = date;
+            s.Description = description;
+            s.Type = type;
+            s.Quantity = quantity;
+            s.UOM = uom;
+            s.Balance = balance;
+            s.WCF_InventoryCatalogue = inventoryCatalogue;
+            return s;
+        }
+
         [DataMember]
         public int ID { get; set; }
         [DataMember]

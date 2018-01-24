@@ -12,8 +12,8 @@ namespace Team12_SSIS.WebServices.WCF_Model
 
         public WCF_AVRequest()
         {
-            AdjustmentVouchers = new HashSet<WCF_AdjustmentVoucher>();
-            AVRequestDetails = new HashSet<WCF_AVRequestDetail>();
+            WCF_AdjustmentVouchers = new HashSet<WCF_AdjustmentVoucher>();
+            WCF_AVRequestDetails = new HashSet<WCF_AVRequestDetail>();
         }
 
         [DataMember]
@@ -35,9 +35,9 @@ namespace Team12_SSIS.WebServices.WCF_Model
         public string Remarks { get; set; }
 
         [DataMember]
-        public virtual ICollection<WCF_AdjustmentVoucher> AdjustmentVouchers { get; set; }
+        public virtual ICollection<WCF_AdjustmentVoucher> WCF_AdjustmentVouchers { get; set; }
 
         [DataMember]
-        public virtual ICollection<WCF_AVRequestDetail> AVRequestDetails { get; set; }
+        public virtual ICollection<WCF_AVRequestDetail> WCF_AVRequestDetails { get; set; }
     }
 }

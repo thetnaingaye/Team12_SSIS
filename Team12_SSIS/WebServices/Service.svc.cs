@@ -9,6 +9,10 @@ using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
 using System.Data.Entity;
 using Team12_SSIS.WebServices.WCF_Model;
+using System.Security.Permissions;
+using System.ServiceModel.Channels;
+using System.Web.Security;
+using System.Security.Principal;
 
 namespace Team12_SSIS.WebServices
 {
@@ -16,15 +20,15 @@ namespace Team12_SSIS.WebServices
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service.svc or Service.svc.cs at the Solution Explorer and start debugging.
     public class Service : IService
     {
+
         public List<string> GetUsersFromDept(string dept)
         {
             return DisbursementLogic.GetFullNamesFromDept(dept);
         }
 
-
         public List<WCF_DisbursementList> GetDisbursementList()
         {
-            List<DisbursementList> dlist = new DisbursementLogic().getDisbursement();
+            List<DisbursementList> dlist = DisbursementLogic.GetDisbursementList();
             List<WCF_DisbursementList> wcf_Dlist = new List<WCF_DisbursementList>();
             foreach(DisbursementList d in dlist)
             {
@@ -75,23 +79,36 @@ namespace Team12_SSIS.WebServices
             return wcfList;
         }
 
-        public List<WCF_InventoryCatalogue> GetInventoryList(string query)
+        public List<WCF_InventoryCatalogue> SearchInventoryList(string query)
         {
             InventoryLogic inventoryLogic = new InventoryLogic();
             List<InventoryCatalogue> catalogueList = inventoryLogic.SearchBy(query);
             List<WCF_InventoryCatalogue> wcfList = new List<WCF_InventoryCatalogue>();
             foreach (InventoryCatalogue i in catalogueList)
             {
-                WCF_InventoryCatalogue w = WCF_InventoryCatalogue.Create(i.ItemID, i.BIN, i.Shelf, (int)i.Level, i.CategoryID,
-                    i.Description, (int)i.ReorderLevel, i.UnitsInStock, (int)i.ReorderQty, i.UOM, i.Discontinued, (int)i.UnitsOnOrder, (int)i.BufferStockLevel);
+                WCF_InventoryCatalogue w = WCF_InventoryCatalogue.Create(i.ItemID, i.BIN, i.Shelf, (int)i.Level, 
+                    i.CategoryID,i.Description, (int)i.ReorderLevel, i.UnitsInStock, 
+                    (int)i.ReorderQty, i.UOM, i.Discontinued, (int)i.UnitsOnOrder, 
+                    (int)i.BufferStockLevel);
                 wcfList.Add(w);
             }
             return wcfList;
         }
 
-        public WCF_StockCard GetStockCard(string itemId)
+        public List<WCF_StockCard> GetStockCard(string itemId)
         {
-            throw new NotImplementedException(); //Wait for thanisha's method
+            InventoryLogic inventoryLogic = new InventoryLogic();
+            List<StockCard> stockCard = inventoryLogic.GetStockcardByItemId(itemId);
+            List<WCF_StockCard> wcfList = new List<WCF_StockCard>();
+            foreach(StockCard i in stockCard)
+            {
+                WCF_InventoryCatalogue c = SearchInventoryList(i.ItemID).First();
+                WCF_StockCard w = WCF_StockCard.Create(i.ID, i.ItemID, 
+                    ((DateTime)i.Date).ToString("d"), i.Description, i.Type, 
+                    (int)i.Quantity, i.UOM, (int)i.Balance, c);
+                wcfList.Add(w);
+            }
+            return wcfList;
         }
 
         public List<WCF_RequisitionRecord> GetDeptRequests()
@@ -99,7 +116,7 @@ namespace Team12_SSIS.WebServices
             throw new NotImplementedException(); //Wait for Khair's method
         }
 
-        public List<WCF_RequisitionRecord> GetDeptRequests(string deptId)
+        public List<WCF_RequisitionRecord> GetDeptRequestsById(string deptId)
         {
             throw new NotImplementedException(); //Wait for Khair's method
         }
@@ -111,17 +128,24 @@ namespace Team12_SSIS.WebServices
 
         public void UpdateDisbursementStatus(WCF_DisbursementList disbursementList)
         {
-            throw new NotImplementedException(); 
+            DisbursementLogic.UpdateDisbursementStatus
+                (disbursementList.DisbursementID, disbursementList.Status);
         }
 
         public void CreateInventoryRetrievalList(WCF_InventoryRetrievalList retrievalList)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //Wait for Khair method
         }
 
-        public void CreateAdjustmentRequest(WCF_AVRequest )
+        public void CreateAdjustmentRequest(WCF_AVRequest request)
         {
-            throw new NotImplementedException();
+            InventoryLogic.CreateAdjustmentVoucherRequest(request.RequestedBy, DateTime.Parse(request.DateRequested));
+            foreach(WCF_AVRequestDetail i in request.WCF_AVRequestDetails)
+            {
+                InventoryLogic.CreateAdjustmentVoucherRequestDetails
+                    (i.AVRID, i.ItemID, i.Type, i.Quantity, i.UOM, i.Reason, i.UnitPrice);
+            }
         }
+
     }
 }

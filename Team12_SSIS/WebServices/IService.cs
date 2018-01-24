@@ -12,7 +12,6 @@ namespace Team12_SSIS.WebServices
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService" in both code and config file together.
     [ServiceContract]
-    [ServiceKnownType(typeof(DisbursementListDetail))]
     public interface IService
     {
         [OperationContract]
@@ -28,20 +27,20 @@ namespace Team12_SSIS.WebServices
         List<WCF_InventoryCatalogue> GetInventoryList();
 
         [OperationContract]
-        [WebGet(UriTemplate = "/GetInventoryList/{query}", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_InventoryCatalogue> GetInventoryList(string query);
+        [WebGet(UriTemplate = "/SearchInventoryList/{query}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_InventoryCatalogue> SearchInventoryList(string query);
 
         [OperationContract]
         [WebGet(UriTemplate = "/GetStockCard/{itemID}", ResponseFormat = WebMessageFormat.Json)]
-        WCF_StockCard GetStockCard(string itemId);
+        List<WCF_StockCard> GetStockCard(string itemId);
 
         [OperationContract]
         [WebGet(UriTemplate = "/GetDeptRequests/", ResponseFormat = WebMessageFormat.Json)]
         List<WCF_RequisitionRecord> GetDeptRequests();
 
         [OperationContract]
-        [WebGet(UriTemplate = "/GetDeptRequests/{deptId}", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_RequisitionRecord> GetDeptRequests(string deptId);
+        [WebGet(UriTemplate = "/GetDeptRequestsById/{deptId}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_RequisitionRecord> GetDeptRequestsById(string deptId);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "/UpdateDeptRequest", Method = "POST",
@@ -63,7 +62,7 @@ namespace Team12_SSIS.WebServices
         [WebInvoke(UriTemplate = "/CreateAVRequest", Method = "POST",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json)]
-        void CreateAdjustmentRequest(WCF_AVRequest);
+        void CreateAdjustmentRequest(WCF_AVRequest request);
     }
 }
 
