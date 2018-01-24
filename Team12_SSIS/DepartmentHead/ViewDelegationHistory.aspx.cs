@@ -23,6 +23,7 @@ namespace Team12_SSIS.DepartmentHead
 		{
 			GridViewDelegationHistory.DataSource = RequisitionLogic.ListDelegateDetails(DisbursementLogic.GetCurrentDep());
 			GridViewDelegationHistory.DataBind();
+			
 		}
 
 		protected void SearchBtn_Click(object sender, EventArgs e)
