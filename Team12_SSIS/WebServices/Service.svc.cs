@@ -167,7 +167,7 @@ namespace Team12_SSIS.WebServices
         public void CreateInventoryRetrievalList(WCF_InventoryRetrievalList rList)
         {
             InventoryLogic iL = new InventoryLogic();
-            iL.CreateNewInventoryRetrievalEntry(0, 0, rList.ItemID, rList.DepartmentID, rList.RequestedQuantity, rList.ActualQuantity);
+            iL.CreateNewInventoryRetrievalEntry(rList.RequestID, rList.RequestDetailID, rList.ItemID, rList.DepartmentID, rList.RequestedQuantity, rList.ActualQuantity);
 
         }
 

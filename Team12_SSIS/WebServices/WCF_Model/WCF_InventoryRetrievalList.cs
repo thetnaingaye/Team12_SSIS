@@ -26,7 +26,9 @@ namespace Team12_SSIS.WebServices.WCF_Model
         [DataMember]
         public string Status { get; set; }
         [DataMember]
-        public string Department { get; set; }
+        public int RequestID { get; set; }
+        [DataMember]
+        public int RequestDetailID { get; set; }
         [DataMember]
         public virtual WCF_InventoryCatalogue InventoryCatalogue { get; set; }
     }
