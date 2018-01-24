@@ -13,6 +13,15 @@ namespace Team12_SSIS.StoreClerk {
     public partial class ViewInventoryList {
         
         /// <summary>
+        /// LblTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblTitle;
+        
+        /// <summary>
         /// LblInput control.
         /// </summary>
         /// <remarks>

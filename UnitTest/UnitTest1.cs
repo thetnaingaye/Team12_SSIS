@@ -53,7 +53,11 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
-            Console.WriteLine(PurchasingLogic.GetUnitPrice("C001", "BANE").ToString());
+			List<string> testlist = Utility.GetClerksEmailAddressList();
+			foreach(string s in testlist)
+			{
+				Console.WriteLine(s);
+			}
 
         }
         [TestMethod]
@@ -64,6 +68,7 @@ namespace UnitTest
                 em.DisburstmentPointChangeNotification("lim.chang.siang@gmail.com", "English", "Naiag", "Science");
             }
         }
+
 
         public void TestMethod7()
         {

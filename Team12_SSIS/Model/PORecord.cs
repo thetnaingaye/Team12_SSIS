@@ -40,6 +40,9 @@ namespace Team12_SSIS.Model
         [StringLength(255)]
         public string Status { get; set; }
 
+        [StringLength(255)]
+        public string HandledBy { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodReceipt> GoodReceipts { get; set; }
 

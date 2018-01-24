@@ -21,6 +21,9 @@ namespace Team12_SSIS.Model
 
         public string Status { get; set; }
 
+        [StringLength(50)]
+        public string Priority { get; set; }
+
         public virtual InventoryCatalogue InventoryCatalogue { get; set; }
 
         public virtual RequisitionRecord RequisitionRecord { get; set; }

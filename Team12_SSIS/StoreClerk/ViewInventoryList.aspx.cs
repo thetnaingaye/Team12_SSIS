@@ -14,17 +14,23 @@ namespace Team12_SSIS.StoreClerk
         InventoryLogic i = new InventoryLogic();
         List<InventoryCatalogue> iList;
         List<InventoryCatalogue> cList;
-        
+        List<InventoryCatalogue> allList;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             InventoryLogic i = new InventoryLogic();
             if (!IsPostBack)
             {
+                //-------loading the dropdown list with catagoryName--------//
                 DdlCatagory.DataSource = i.getCatalogue();
                 DdlCatagory.DataTextField = "CatalogueName";
                 DdlCatagory.DataValueField = "CatalogueName";
                 DdlCatagory.DataBind();
                 controlVisibleFalse();
+
+                allList = i.GetAllCatalogue();
+                GridViewInventory.DataSource = allList;
+                GridViewInventory.DataBind();
 
             }
           
@@ -42,8 +48,10 @@ namespace Team12_SSIS.StoreClerk
             }
             else if (RbtnFilter.SelectedItem.Value == "2")
             {
+                TxtId.Text = string.Empty;
                 TxtId.Enabled = false;
                 DdlCatagory.Enabled = true;
+
 
             }
             else
@@ -112,13 +120,6 @@ namespace Team12_SSIS.StoreClerk
 
 
         }
-        protected void GridViewInventory_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            e.Row.Cells[4].Visible = false;
-            e.Row.Cells[6].Visible = false;
-            e.Row.Cells[8].Visible = false;
-            e.Row.Cells[9].Visible = false;
-
-        }
+       
     }
 }

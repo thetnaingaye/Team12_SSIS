@@ -348,27 +348,40 @@ namespace Team12_SSIS.BusinessLogic
                         GRNumber = gr.GRNumber,
                     }).Where(x => x.PONumber == POnumber).ToList();
 
-                //If there is no existing GR record for this PO number, return the original PO Detail list
-                if (grRecords.Count == 0)
-                {
-                    return poDetailList;
-                }
-                //If there is existing GR record for the PO, check for remaiaing GR quantity
+                //Check for remaiaing GR quantity
                 foreach (PORecordDetail orderedItem in poDetailList)
                 {
                     //Add the updated Order detail into the fresh list.
                     PORecordDetail prd = CheckForGRQuantity(grRecords, orderedItem);
                     if (prd.Quantity > 0)
-                    {
-                        poDetailListWithGR.Add(prd);
-                    }
-
+                        poDetailListWithGR.Add(prd);                    
                 }
+                //Check for PO completion and if yes, change the PO Status
+                IsPOCompleted(poDetailListWithGR.Count, POnumber);
                 //Return the Order list that has the updated reamining quantity.
                 return poDetailListWithGR;
             }
-        }             
+        }
 
+
+        private bool IsPOCompleted(int itemCount, int poNumber)
+        {
+            bool isCompleted = false;
+            if (itemCount == 0)
+            {
+                using (SA45Team12AD ctx = new SA45Team12AD())
+                {
+                    PORecord poR = ctx.PORecords.Where(x => x.PONumber == poNumber).FirstOrDefault();
+                    poR.Status = "Completed";
+                    ctx.SaveChanges();
+
+                    isCompleted = true;
+                    return isCompleted;
+                }
+            }
+            return isCompleted;
+        }
+        
         private PORecordDetail CheckForGRQuantity(dynamic grRecords, PORecordDetail orderedItem)
         {
             //for each GR record, check if the ItemID matches with the Order item ItemID
@@ -1287,11 +1300,73 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
+		public static List<SupplierList> ListSuppliers()
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				return entities.SupplierLists.ToList();
+			}
+		}
 
+		public static void UpdateOrderLeadTime(int orderLeadTime, string supplierID)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				SupplierList supplier = entities.SupplierLists.Where(p => p.SupplierID == supplierID).First<SupplierList>();
+				supplier.OrderLeadTime = orderLeadTime;
+				entities.SaveChanges();
+			}
+		}
 
 
+		public static int GetCurrentBufferStock(string itemid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				if(entities.InventoryCatalogues.Where(x => x.ItemID == itemid).Select(x => x.BufferStockLevel).Single() != null)
+				{
+					return (int)entities.InventoryCatalogues.Where(x => x.ItemID == itemid).Select(x => x.BufferStockLevel).Single();
+				}
+				else
+				{
+					return -1;
+				}
+			}
+		}
+		public static string GetCurrentAutomationStatus(string itemid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				InventoryCatalogue inventory = entities.InventoryCatalogues.Where(x => x.ItemID == itemid).First<InventoryCatalogue>();
+				if (inventory.BufferStockLevel == null)
+				{
+					return "The buffer stock level is currently calculated automatically for the current item.";
+				}
+				else
+				{
+					return "The buffer stock level for the current item is " + inventory.BufferStockLevel.ToString();
+				}
+			}
+		}
 
+		public static void UpdateBufferStockLevel(string itemid, int newbufferstocklevel)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				InventoryCatalogue inventory = entities.InventoryCatalogues.Where(x => x.ItemID == itemid).Single();
+				inventory.BufferStockLevel = newbufferstocklevel;
+				entities.SaveChanges();
+			}
+		}
 
+		public static int GetCurrentOrderLeadTime(string supplierid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				SupplierList supplier = entities.SupplierLists.Where(x => x.SupplierID == supplierid).First<SupplierList>();
+				return (int)supplier.OrderLeadTime;
+			}
+		}
 
 
 
@@ -1824,243 +1899,257 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public static List<SupplierList> ListSuppliers()
+        //Naing
+        public static List<PORecord> GetListOfPO(String status)
         {
-            using (SA45Team12AD entities = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
-                return entities.SupplierLists.ToList<SupplierList>();
+                return ctx.PORecords.Where(x => x.Status == status).ToList();
             }
         }
+
+
+        public static List<PORecord> GetListOfPO()
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.PORecords.ToList();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public static void DeleteSupplier(string SupplierID)
         {

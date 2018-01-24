@@ -31,13 +31,22 @@ namespace Team12_SSIS.DepartmentEmployee {
         protected global::System.Web.UI.WebControls.Button BtnSearch;
         
         /// <summary>
-        /// LblEmpty control.
+        /// LblCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblEmpty;
+        protected global::System.Web.UI.WebControls.Label LblCount;
+        
+        /// <summary>
+        /// LinkButtonCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButtonCount;
         
         /// <summary>
         /// GridViewAddRequest control.
