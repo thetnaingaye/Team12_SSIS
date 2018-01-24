@@ -35,7 +35,7 @@ namespace Team12_SSIS.WebServices
         List<WCF_StockCard> GetStockCard(string itemId);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/GetRequestsList/", ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "/GetAllRequestsList/", ResponseFormat = WebMessageFormat.Json)]
         List<WCF_RequisitionRecord> GetStationeryRequests();
 
         [OperationContract]
