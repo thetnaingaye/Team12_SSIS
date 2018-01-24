@@ -13,13 +13,13 @@ namespace Team12_SSIS.StoreClerk {
     public partial class ViewPurchaseOrder {
         
         /// <summary>
-        /// VpoLbl control.
+        /// LblVpo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label VpoLbl;
+        protected global::System.Web.UI.WebControls.Label LblVpo;
         
         /// <summary>
         /// LblPON control.
@@ -166,13 +166,31 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label LblSupply;
         
         /// <summary>
-        /// GridVPO control.
+        /// sml control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridVPO;
+        protected global::System.Web.UI.ScriptManager sml;
+        
+        /// <summary>
+        /// Upl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel Upl;
+        
+        /// <summary>
+        /// GridViewVPO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewVPO;
         
         /// <summary>
         /// totLbl control.

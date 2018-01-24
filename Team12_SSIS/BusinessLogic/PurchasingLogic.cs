@@ -673,16 +673,22 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static List<PORecord> GetListOfPurchaseOrder ()
+      
+        public static PORecord GetPurchaseOrderRecord(int poNo)
         {
-            using(SA45Team12AD entities=new SA45Team12AD())
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.PORecords.FirstOrDefault(x => x.PONumber == poNo);
+            }
+        }
+        public static List<PORecord> GetListOfPurchaseOrder()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
             {
                 return entities.PORecords.ToList();
 
-
             }
         }
-
         public static List<PORecord> GetListOfPurchaseOrder(string status)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
@@ -691,22 +697,47 @@ namespace Team12_SSIS.BusinessLogic
 
 
             }
-
         }
-        //public static bool CancelCreatePurchaseOrder(int itemID)
-        //{
-        //    bool success = false;
-        //    using (SA45Team12AD ctx = new SA45Team12AD())
-        //    {
-        //        CPOrder cPOrder = ctx.PORecordDetails.FirstOrDefault(x => x.ItemID == itemID);
-        //        cPOrder.Status = "Cancelled";
-        //        ctx.SaveChanges();
-        //        success = true;
-        //    }
-        //    return success;
-        //}
+        public static List<PORecordDetail> GetListOfPORecorDetails(int poNo)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.PORecordDetails.Where(x => x.PONumber == poNo).ToList();
+            }
+        }
 
 
+
+        public static List<PORecordDetail> GetListOfPurchaseOrderDetails()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.PORecordDetails.ToList();
+
+
+            }
+        }
+        public static int GetPORecordApproveID(int poNo)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.PORecordDetails.Where(x => x.PONumber == poNo).Select(x =>x.ID).FirstOrDefault();
+            }
+        }
+
+
+        public static bool CancelPORecordRequest(int poNo)
+        {
+            bool success = false;
+            using (SA45Team12AD entities= new SA45Team12AD())
+            {
+                PORecord poRecord = entities.PORecords.FirstOrDefault(x => x.PONumber ==poNo);
+                poRecord.Status = "Cancelled";
+                entities.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
 
 
 

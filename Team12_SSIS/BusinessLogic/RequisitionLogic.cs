@@ -1532,5 +1532,151 @@ namespace Team12_SSIS.BusinessLogic
         //    //return bookList;
         //}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public static List<RequisitionRecord> ListRequisitionRecords()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.RequisitionRecords.ToList();
+
+            }
+        }
+        public static List<RequisitionRecord> GetListOfRequisitionRecords()
+        {
+
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.RequisitionRecords.ToList();
+
+            }
+
+        }
+
     }
-    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

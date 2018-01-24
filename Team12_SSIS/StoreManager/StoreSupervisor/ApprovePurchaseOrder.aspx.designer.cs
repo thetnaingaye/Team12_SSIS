@@ -22,148 +22,166 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// PoLbl control.
+        /// LblPo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label PoLbl;
+        protected global::System.Web.UI.WebControls.Label LblPo;
         
         /// <summary>
-        /// NumberLbl control.
+        /// LblNumbeer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NumberLbl;
+        protected global::System.Web.UI.WebControls.Label LblNumbeer;
         
         /// <summary>
-        /// DsmLbl control.
+        /// LblDsm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label DsmLbl;
+        protected global::System.Web.UI.WebControls.Label LblDsm;
         
         /// <summary>
-        /// DateLbl control.
+        /// LblDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label DateLbl;
+        protected global::System.Web.UI.WebControls.Label LblDate;
         
         /// <summary>
-        /// PosLbl control.
+        /// LblPos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label PosLbl;
+        protected global::System.Web.UI.WebControls.Label LblPos;
         
         /// <summary>
-        /// StatusLbl control.
+        /// LblStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label StatusLbl;
+        protected global::System.Web.UI.WebControls.Label LblStatus;
         
         /// <summary>
-        /// DltLbl control.
+        /// LblDlt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label DltLbl;
+        protected global::System.Web.UI.WebControls.Label LblDlt;
         
         /// <summary>
-        /// DeliverLbl control.
+        /// LblDeliver control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label DeliverLbl;
+        protected global::System.Web.UI.WebControls.Label LblDeliver;
         
         /// <summary>
-        /// AdsLbl control.
+        /// LblAds control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label AdsLbl;
+        protected global::System.Web.UI.WebControls.Label LblAds;
         
         /// <summary>
-        /// AddressLbl control.
+        /// LblAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label AddressLbl;
+        protected global::System.Web.UI.WebControls.Label LblAddress;
         
         /// <summary>
-        /// ResLbl control.
+        /// LblRes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ResLbl;
+        protected global::System.Web.UI.WebControls.Label LblRes;
         
         /// <summary>
-        /// RequestLbl control.
+        /// LblRequest control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label RequestLbl;
+        protected global::System.Web.UI.WebControls.Label LblRequest;
         
         /// <summary>
-        /// SlcLbl control.
+        /// LblSlc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SlcLbl;
+        protected global::System.Web.UI.WebControls.Label LblSlc;
         
         /// <summary>
-        /// CodeLbl control.
+        /// LblCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CodeLbl;
+        protected global::System.Web.UI.WebControls.Label LblCode;
         
         /// <summary>
-        /// OdbLbl control.
+        /// LblOdb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label OdbLbl;
+        protected global::System.Web.UI.WebControls.Label LblOdb;
         
         /// <summary>
-        /// OrderLbl control.
+        /// LblOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label OrderLbl;
+        protected global::System.Web.UI.WebControls.Label LblOrder;
+        
+        /// <summary>
+        /// sml control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager sml;
+        
+        /// <summary>
+        /// Upl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel Upl;
         
         /// <summary>
         /// GridViewAPO control.
@@ -175,13 +193,13 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor {
         protected global::System.Web.UI.WebControls.GridView GridViewAPO;
         
         /// <summary>
-        /// RmkLbl control.
+        /// LblRmk control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label RmkLbl;
+        protected global::System.Web.UI.WebControls.Label LblRmk;
         
         /// <summary>
         /// txtRmk control.
