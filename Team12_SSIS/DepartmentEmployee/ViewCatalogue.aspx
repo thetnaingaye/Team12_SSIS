@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewCatalogue.aspx.cs" Inherits="Team12_SSIS.DepartmentEmployee.ViewCatalogue" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" EnableEventValidation="false" CodeBehind="ViewCatalogue.aspx.cs" Inherits="Team12_SSIS.DepartmentEmployee.ViewCatalogue" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -6,7 +6,10 @@
 <h2>Stationery Request</h2>
         <asp:TextBox ID="TxtSearch" placeholder="Search Item" runat="server"></asp:TextBox>
         <asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
-        <asp:Label ID="LblCount" runat="server"></asp:Label>
+        <br />
+        <asp:Label ID="LblCount" runat="server" Text=""></asp:Label>
+        <br />
+        <asp:LinkButton ID="LinkButtonCount" runat="server" OnClick="LinkButtonCount_Click">View Requested Items</asp:LinkButton>
 </div>
 <div>
     <asp:GridView ID="GridViewAddRequest" runat="server" AutoGenerateColumns="False" DataKeyNames="ItemID">
@@ -23,7 +26,7 @@
             </asp:TemplateField>
             <asp:TemplateField>
                 <ItemTemplate>
-                    <asp:Button ID="BtnAddRequest" runat="server" OnClick="BtnAddRequest_Click" Text="Add"/>
+                    <asp:Button ID="BtnAddRequest" runat="server" Text="Add Request" CommandName="AddRequestClicked" CommandArgument='<%# Bind("ItemID") %>' OnClick="BtnAddRequest_Click"/>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>

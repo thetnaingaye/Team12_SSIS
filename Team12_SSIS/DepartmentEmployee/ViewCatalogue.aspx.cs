@@ -19,37 +19,30 @@ namespace Team12_SSIS.DepartmentEmployee
             if (!IsPostBack)
             {
                 BindGrid();
-                //if (Session["CartList"] != null)
-                //{
-                    
-                //    List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
-                //    LblCount.Text = "number of books in cart : " + (temp.Count() + 0).ToString();
-                //    BindGrid();
-                //}
-                //else
-                //{
-                //    List<InventoryCatalogue> temp = new List<InventoryCatalogue>();
-                //    Session["CartList"] = temp;
-                //    LblCount.Text = "number of books in cart : " + (temp.Count() + 0).ToString();
-                //    BindGrid();
-                //}
+                if (Session["CartList"] != null)
+                {
+                    List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
+                    LblCount.Text = "Number of items requested : " + (temp.Count() + 0).ToString();
+                }
+                else
+                {
+                    List<InventoryCatalogue> temp = new List<InventoryCatalogue>();
+                    Session["CartList"] = temp;
+                    LblCount.Text = "Number of items requested : " + (temp.Count() + 0).ToString();
+                }
             }
-            //else
-            //{
-            //    List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
-            //    TxtSearch.Text = (temp.Count() + 1).ToString();
-            //    LblCount.Text =  "number of books in cart : "+(temp.Count() + 1).ToString();
-            //    BindGrid();
-
-            //}
+            else
+            {
+                List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
+                BindGrid();
+                LblCount.Text = "Number of items requested : " + (temp.Count() + 1).ToString();
+            }
         }
         protected void BindGrid()
         {
-            SA45Team12AD entities = new SA45Team12AD();
             GridViewAddRequest.DataSource = entities.InventoryCatalogues.Select(i => new { i.ItemID, i.Description }
             ).ToList();
             GridViewAddRequest.DataBind();
-
         }
 
         RequisitionLogic requisitionLogic = new RequisitionLogic();
@@ -59,20 +52,22 @@ namespace Team12_SSIS.DepartmentEmployee
             GridViewAddRequest.DataSource = requisitionLogic.SearchBy(temp);
             GridViewAddRequest.DataBind();
         }
+
+        protected void LinkButtonCount_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CheckOutRequest.aspx");
+        }
+
         protected void BtnAddRequest_Click(object sender, EventArgs e)
         {
-            //Button btn = (Button)sender;
-            //string tempText = btn.CommandArgument.ToString();
-            //int bookID = Convert.ToInt32(tempText);
-
-            //Book b = context.Books.Where(x => x.BookID == bookID).First();
-
-            ////test
-            ////txtSearchField.Text = b.Title;
-
-            //List<Book> temp = (List<Book>)Session["CartList"];
-            //temp.Add(b);
-            //Session["CartLists"] = temp;
+            Button btn = sender as Button;
+            GridViewRow row = btn.NamingContainer as GridViewRow;
+            string click = GridViewAddRequest.DataKeys[row.RowIndex].Values[0].ToString();
+            string ItemID = click;
+            InventoryCatalogue ic = entities.InventoryCatalogues.Where(x => x.ItemID == ItemID).First();
+            List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
+            temp.Add(ic);
+            Session["CartList"] = temp;
         }
     }
 }

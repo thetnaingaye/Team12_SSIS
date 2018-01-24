@@ -13,6 +13,15 @@ namespace Team12_SSIS.DepartmentEmployee {
     public partial class CheckOutRequest {
         
         /// <summary>
+        /// LinkButtonViewCatalogue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButtonViewCatalogue;
+        
+        /// <summary>
         /// GridViewCheckOut control.
         /// </summary>
         /// <remarks>
@@ -29,14 +38,5 @@ namespace Team12_SSIS.DepartmentEmployee {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnCheckOut;
-        
-        /// <summary>
-        /// LblStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblStatus;
     }
 }

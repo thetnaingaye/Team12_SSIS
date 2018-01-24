@@ -1524,21 +1524,20 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        //public static List<InventoryCatalogue> DeleteOrder(List<InventoryCatalogue> _bookList, int bookID)
-        //{
-        //    //List<Book> bookList = _bookList;
-        //    //Book removeBook = bookList.Where(b => b.BookID == bookID).First<Book>();
-        //    //bookList.Remove(removeBook);
-        //    //return bookList;
-        //}
+        public static List<InventoryCatalogue> DeleteOrder(List<InventoryCatalogue> _itemList, string ItemID)
+        {
+            List<InventoryCatalogue> itemList = _itemList;
+            InventoryCatalogue removeRequest = itemList.Where(i => i.ItemID == ItemID).First();
+            itemList.Remove(removeRequest);
+            return itemList;
+        }
 
-        //public List<InventoryCatalogue> GetRequestedItems(string)
-        //{
-        //    using (SA45Team12AD entities = new SA45Team12AD())
-        //    {
-        //        return entities.InventoryCatalogues.Select(i => new { i.ItemID, i.Description }
-        //    );
-        //    }
-        //}
+        public IQueryable<InventoryCatalogue> GetInventoryCatalogues()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.InventoryCatalogues;
+            }
+        }
     }
     }
