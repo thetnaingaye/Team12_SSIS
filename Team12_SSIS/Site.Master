@@ -76,7 +76,7 @@
                                         <a href="<%= Page.ResolveUrl("~/StoreClerk/CreateDisbursementForm.aspx") %>">Create Disbursement List</a>
                                     </li>
                                     <li class="menu-item dropdown dropdown-submenu">
-                                        <a href="<%= Page.ResolveUrl("~/StoreClerk/ViewDisbursementForm.aspx") %>">View Disbursement List</a>
+                                        <a href="<%= Page.ResolveUrl("~/StoreClerk/ViewDisbursementList.aspx") %>">View Disbursement List</a>
                                     </li>
                                 </ul>
                             </li>

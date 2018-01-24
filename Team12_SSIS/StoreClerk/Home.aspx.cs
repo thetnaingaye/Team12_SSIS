@@ -60,7 +60,7 @@ namespace Team12_SSIS.StoreClerk
             
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
-                return ctx.ReorderRecords.Where(x => x.Status == status).ToList().Count();
+                return ctx.ReorderRecords.ToList().Count();
             }
            
         }

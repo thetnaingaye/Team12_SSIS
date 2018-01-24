@@ -13,93 +13,93 @@ namespace Team12_SSIS.StoreClerk {
     public partial class ViewDisbursementList1 {
         
         /// <summary>
-        /// LblTitle control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblTitle;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// LblId control.
+        /// DdlDept control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblId;
+        protected global::System.Web.UI.WebControls.DropDownList DdlDept;
         
         /// <summary>
-        /// LblIdD control.
+        /// BtnRetrieve control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblIdD;
+        protected global::System.Web.UI.WebControls.Button BtnRetrieve;
         
         /// <summary>
-        /// LblCollectionPoint control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblCollectionPoint;
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// LblCollectionPointD control.
+        /// DdlColPoint control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblCollectionPointD;
+        protected global::System.Web.UI.WebControls.DropDownList DdlColPoint;
         
         /// <summary>
-        /// LblCollectionDate control.
+        /// Label3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblCollectionDate;
+        protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// LblCollectionDateD control.
+        /// DdlStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblCollectionDateD;
+        protected global::System.Web.UI.WebControls.DropDownList DdlStatus;
         
         /// <summary>
-        /// LblRepresentativeName control.
+        /// Label4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblRepresentativeName;
+        protected global::System.Web.UI.WebControls.Label Label4;
         
         /// <summary>
-        /// LblRepresentativeNameD control.
+        /// BtnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblRepresentativeNameD;
+        protected global::System.Web.UI.WebControls.Button BtnSearch;
         
         /// <summary>
-        /// GridViewDisbursementDetails control.
+        /// GridViewDisbList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewDisbursementDetails;
+        protected global::System.Web.UI.WebControls.GridView GridViewDisbList;
     }
 }
