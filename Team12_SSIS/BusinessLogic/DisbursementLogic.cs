@@ -1582,6 +1582,14 @@ namespace Team12_SSIS.BusinessLogic
 				department.CollectionPointID = cpid;
 				entities.SaveChanges();
 			}
+			using (EmailControl em = new EmailControl())
+			{
+				
+				List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+				string newCPID = GetCurrentCPIDByDep(depid);
+				string newCPName = GetCurrentCPWithTimeByID(Int32.Parse(newCPID));
+				em.DisburstmentPointChangeNotification(clerkemails, GetDepNameByDepID(depid), GetDeptRepFullName(depid),newCPName);
+			}
 		}
 
 		public static List<MembershipUser> GetUsersFromDept(string dept)
@@ -1715,7 +1723,19 @@ namespace Team12_SSIS.BusinessLogic
 
 			using(EmailControl em = new EmailControl())
 			{
-				em.CollectionRepChangeNotification("sa45team12ssis@gmail.com", GetDepNameByDepID(dept), newrepfullname);
+				List<string> allemails = new List<string>();
+				List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+				List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
+				foreach(string s in clerkemails)
+				{
+					allemails.Add(s);
+				}
+				foreach(string s in depusersemails)
+				{
+					allemails.Add(s);
+				}
+
+				em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
 			}
 			
 			
