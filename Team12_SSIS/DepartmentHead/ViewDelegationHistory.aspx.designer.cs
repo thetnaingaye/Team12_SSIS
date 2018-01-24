@@ -13,13 +13,31 @@ namespace Team12_SSIS.DepartmentHead {
     public partial class ViewDelegationHistory {
         
         /// <summary>
-        /// EmployeesDdl control.
+        /// SearchTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList EmployeesDdl;
+        protected global::System.Web.UI.WebControls.TextBox SearchTxt;
+        
+        /// <summary>
+        /// SearchBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SearchBtn;
+        
+        /// <summary>
+        /// ViewAllBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ViewAllBtn;
         
         /// <summary>
         /// DelegationHistoryGridView control.
@@ -28,6 +46,6 @@ namespace Team12_SSIS.DepartmentHead {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView DelegationHistoryGridView;
+        protected global::System.Web.UI.WebControls.GridView GridViewDelegationHistory;
     }
 }

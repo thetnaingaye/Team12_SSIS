@@ -1846,6 +1846,14 @@ namespace Team12_SSIS.BusinessLogic
 			return HttpContext.Current.Profile.GetPropertyValue("department").ToString();
 		}
 
+		public static string GetDepNameByDepID(string depid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				return entities.Departments.Where(x => x.DeptID == depid).Select(x => x.DepartmentName).Single().ToString();
+			}
+		}
+
 		public static string GetCurrentCPIDByDep(string dep)
 		{
 			using (SA45Team12AD entities = new SA45Team12AD())
@@ -1859,8 +1867,8 @@ namespace Team12_SSIS.BusinessLogic
 		{
 			using (SA45Team12AD entities = new SA45Team12AD())
 			{
-				string CPName = entities.CollectionPoints.Where(x => x.CollectionPointID == id).Select(x => x.CollectionPoint1).Single().ToString();
-				return CPName;
+				return entities.CollectionPoints.Where(x => x.CollectionPointID == id).Select(x => x.CollectionPoint1).Single().ToString();
+				
 			}
 		}
 
@@ -1871,6 +1879,14 @@ namespace Team12_SSIS.BusinessLogic
 				Department department = entities.Departments.Where(p => p.DeptID == depid).First<Department>();
 				department.CollectionPointID = cpid;
 				entities.SaveChanges();
+			}
+			using (EmailControl em = new EmailControl())
+			{
+				
+				List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+				string newCPID = GetCurrentCPIDByDep(depid);
+				string newCPName = GetCurrentCPWithTimeByID(Int32.Parse(newCPID));
+				em.DisburstmentPointChangeNotification(clerkemails, GetDepNameByDepID(depid), GetDeptRepFullName(depid),newCPName);
 			}
 		}
 
@@ -1996,12 +2012,31 @@ namespace Team12_SSIS.BusinessLogic
 			return null;
 		}
 
-		public static void UpdateDeptRep(string username)
+		public static void UpdateDeptRep(String newrepfullname, String dept)
 		{
-
+			Roles.AddUserToRole(GetDeptRepUserName(GetCurrentDep()), "Employee");
 			Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
-			Roles.AddUserToRole(username, "Rep");
+			Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
+			Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
 
+			using(EmailControl em = new EmailControl())
+			{
+				List<string> allemails = new List<string>();
+				List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+				List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
+				foreach(string s in clerkemails)
+				{
+					allemails.Add(s);
+				}
+				foreach(string s in depusersemails)
+				{
+					allemails.Add(s);
+				}
+
+				em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
+			}
+			
+			
 		}
 	}
 

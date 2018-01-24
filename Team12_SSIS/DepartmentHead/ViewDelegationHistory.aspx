@@ -5,11 +5,12 @@
     <p>
         Delegation History</p>
     <p>
-        Select Employee:<asp:DropDownList ID="EmployeesDdl" runat="server">
-        </asp:DropDownList>
+        Search Employee:<asp:TextBox ID="SearchTxt" runat="server"></asp:TextBox>
+        <asp:Button ID="SearchBtn" runat="server" OnClick="SearchBtn_Click" Text="Search" />
+        <asp:Button ID="ViewAllBtn" runat="server" OnClick="ViewAllBtn_Click" Text="View All" />
     </p>
     <p>
-        <asp:GridView ID="DelegationHistoryGridView" runat="server">
+        <asp:GridView ID="GridViewDelegationHistory" runat="server">
         </asp:GridView>
     </p>
 </asp:Content>

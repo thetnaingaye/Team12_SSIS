@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,22 +12,23 @@ namespace Team12_SSIS.DepartmentEmployee.DepartmentRep
 {
     public partial class ChangeCollectionPoint : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+		Label statusMessage;
+		protected void Page_Load(object sender, EventArgs e)
         {
-			//Label statusLbl;
-			//statusLbl = Master.FindControl("Lblstatus") as Label;
+			
+			statusMessage = Master.FindControl("Lblstatus") as Label;
 
 			if (!IsPostBack)
 			{
+				statusMessage.Visible = false;
 				CollectionPointRbtnl.DataSource = DisbursementLogic.ListCollectionPoints();
 				CollectionPointRbtnl.DataTextField = "CollectionPoint1";
 				CollectionPointRbtnl.DataValueField = "CollectionPointID";
 				CollectionPointRbtnl.DataBind();
-				TextBox1.Text = DisbursementLogic.GetCurrentDep();
 				CurrentCollectionPointLbl.Text = DisbursementLogic.GetCurrentCPWithTimeByID(Int32.Parse(DisbursementLogic.GetCurrentCPIDByDep(DisbursementLogic.GetCurrentDep())));
 			}
-			else
-				ChangedLbl.Visible = true;
+			//else
+			//	ChangedLbl.Visible = true;
 			
         }
 
@@ -35,7 +37,9 @@ namespace Team12_SSIS.DepartmentEmployee.DepartmentRep
 			int newcpid = Int32.Parse(CollectionPointRbtnl.SelectedValue);
 			DisbursementLogic.UpdateCollectionPoint(DisbursementLogic.GetCurrentDep(), newcpid);
 			CurrentCollectionPointLbl.Text = DisbursementLogic.GetCurrentCPWithTimeByID(Int32.Parse(DisbursementLogic.GetCurrentCPIDByDep(DisbursementLogic.GetCurrentDep())));
-			ChangedLbl.Text = "The Collection Point has been updated to " + CurrentCollectionPointLbl.Text;
+			statusMessage.Text = "The Collection Point has been updated to " + CurrentCollectionPointLbl.Text;
+			statusMessage.Visible = true;
+			statusMessage.ForeColor = Color.Green;
 
 		}
 	}
