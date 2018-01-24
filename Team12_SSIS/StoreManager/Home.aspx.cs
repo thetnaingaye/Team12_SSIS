@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Team12_SSIS.BusinessLogic;
+
 
 namespace Team12_SSIS.StoreManager
 {
@@ -27,5 +29,23 @@ namespace Team12_SSIS.StoreManager
         {
 
         }
+
+        protected string GetPendingPO()
+        {
+
+       
+                return PurchasingLogic.GetListOfPO("Pending").Count.ToString();
+     
+           
+        }
+
+        protected string GetPendingAVR()
+        {
+
+                 return InventoryLogic.GetListOfAdjustmentRequests("Pending").Count.ToString();
+  
+        }
+
+
     }
 }

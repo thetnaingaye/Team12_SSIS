@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DynamicInterop, Version=0.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicInterop.0.8.1\lib\netstandard1.2\DynamicInterop.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -98,9 +101,17 @@
       <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RDotNet, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\R.NET.1.7.0\lib\net40\RDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="RDotNet.NativeLibrary, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\R.NET.1.7.0\lib\net40\RDotNet.NativeLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
@@ -122,6 +133,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.aspx" />
+    <Content Include="DepartmentHead\ViewRequisitionFormDetails.aspx" />
+    <Content Include="DepartmentHead\ViewRequisitionFormList.aspx" />
+    <Content Include="Images\2-2-calendar-png-image.png" />
+    <Content Include="Images\birds1.jpg" />
+    <Content Include="Images\birds2.jpg" />
+    <Content Include="Images\birds3.jpg" />
+    <Content Include="Images\brandimg.png" />
     <Content Include="Images\logo.png" />
     <Content Include="DepartmentEmployee\CheckOutRequest.aspx" />
     <Content Include="Logout.aspx" />
@@ -131,6 +149,10 @@
     </Content>
     <Content Include="Site.Master" />
     <Content Include="SSIS_UserPassword.txt" />
+    <Content Include="StoreClerk\CurrentRequisitionOrders.aspx" />
+    <Content Include="StoreClerk\PastRequisitionOrders.aspx" />
+    <Content Include="StoreClerk\ReorderList.aspx" />
+    <Content Include="StoreClerk\RetrievalList.aspx" />
     <Content Include="StoreClerk\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -171,8 +193,6 @@
     <Content Include="DepartmentHead\ViewDisbursementForm.aspx" />
     <Content Include="DepartmentHead\ViewDisbursementList.aspx" />
     <Content Include="DepartmentHead\ViewDeptRepHistory.aspx" />
-    <Content Include="DepartmentHead\ViewRequisitionFormDetails.aspx" />
-    <Content Include="DepartmentHead\ViewRequisitionFormList.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
@@ -183,13 +203,9 @@
     <Content Include="StoreClerk\CreateDisbursementForm.aspx" />
     <Content Include="StoreClerk\CreateGoodsReceipt.aspx" />
     <Content Include="StoreClerk\CreatePurchaseOrder.aspx" />
-    <Content Include="StoreClerk\CurrentRequisitionOrders.aspx" />
     <Content Include="StoreClerk\Home.aspx" />
     <Content Include="StoreClerk\ListOfAdjustmentVouchers.aspx" />
     <Content Include="StoreClerk\ListOfPurchaseOrders.aspx" />
-    <Content Include="StoreClerk\PastRequisitionOrders.aspx" />
-    <Content Include="StoreClerk\ReorderList.aspx" />
-    <Content Include="StoreClerk\RetrievalList.aspx" />
     <Content Include="StoreClerk\ViewAdjustmentVoucherDetails.aspx" />
     <Content Include="StoreClerk\ViewDisbursementForm.aspx" />
     <Content Include="StoreClerk\ViewDisbursementList.aspx" />
@@ -217,6 +233,7 @@
     <Compile Include="BusinessLogic\PurchasingLogic.cs" />
     <Compile Include="BusinessLogic\ReportLogic.cs" />
     <Compile Include="BusinessLogic\RequisitionLogic.cs" />
+    <Compile Include="BusinessLogic\RScripts\TopSecret.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -373,6 +390,7 @@
     <Compile Include="Model\SupplierCatalogue.cs" />
     <Compile Include="Model\SupplierList.cs" />
     <Compile Include="Model\sysdiagram.cs" />
+    <Compile Include="Model\TempInventoryRetrieval.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -425,7 +443,6 @@
     </Compile>
     <Compile Include="StoreClerk\CurrentRequisitionOrders.aspx.cs">
       <DependentUpon>CurrentRequisitionOrders.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="StoreClerk\CurrentRequisitionOrders.aspx.designer.cs">
       <DependentUpon>CurrentRequisitionOrders.aspx</DependentUpon>

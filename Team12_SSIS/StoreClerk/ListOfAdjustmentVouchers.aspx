@@ -6,12 +6,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
         <table style="width: 100%">
-            <tbody style="width: 100%">
                 <tr>
                     <td style="height: 25px">
                         <asp:Label runat="server" Text="List Inventory Adjustment Vouchers" Font-Size="Large"></asp:Label>
                     </td>
-                                        <td>
+                    <td>
                         <asp:Label ID="Label1" runat="server" Text="Show: " Style="padding-right: 10px"></asp:Label>
                         <asp:DropDownList ID="DdlStatus" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DdlStatus_SelectedIndexChanged">
                             <asp:ListItem Selected="True" Value="Pending">Pending</asp:ListItem>
@@ -24,11 +23,11 @@
                 <tr>
                     <td colspan="2">
                         <div>
-                            <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False"
+                            <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False" Style="width:100%"
                                 ShowHeaderWhenEmpty="True"
                                 OnRowDataBound="OnRowDataBound" OnRowCommand="GridViewAdjV_RowCommand"
                                 CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="AVRID" AllowPaging="true"
-                                OnPageIndexChanging="OnPageIndexChanging" PageSize="15">
+                                OnPageIndexChanging="OnPageIndexChanging" PageSize="15" >
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                 <Columns>
                                     <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
@@ -41,14 +40,14 @@
                                     <asp:TemplateField HeaderText="Voucher ID / Request ID" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
                                             <asp:LinkButton ID="LBtnVoucherId" runat="server" Visible="false" CommandName="ViewDetails" CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
-                                            <asp:LinkButton ID="LBtnRequestId" runat="server" CommandName="ViewDetails" Text="" CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
+                                            <asp:LinkButton ID="LBtnRequestId" runat="server" Visable="false" CommandName="ViewDetails" Text='<%# "AVR" + ((int)Eval("AVRID")).ToString("0000") %>' CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
                                         </ItemTemplate>
                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
                                     </asp:TemplateField>
 
                                     <asp:TemplateField HeaderText="Date Created" HeaderStyle-Width="52%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
-                                            <asp:Label ID="LblCreateDate" runat="server" Text='<%# Bind("DateRequested") %>'></asp:Label>
+                                            <asp:Label ID="LblCreateDate" runat="server" Text='<%# ((DateTime)Eval("DateRequested")).ToString("d") %>'></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="52%"></HeaderStyle>
                                     </asp:TemplateField>
@@ -69,7 +68,7 @@
 
                                     <asp:TemplateField HeaderText="Date Processed" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
-                                            <asp:Label ID="LblProcessDate" runat="server" Text='<%# Bind("DateProcessed") %>'></asp:Label>
+                                            <asp:Label ID="LblProcessDate" runat="server" Text='<%# Bind("RequestedBy") %>'></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                     </asp:TemplateField>
@@ -95,7 +94,6 @@
                         </div>
                     </td>
                 </tr>
-            </tbody>
         </table>
     </div>
 </asp:Content>

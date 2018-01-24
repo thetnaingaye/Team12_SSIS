@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,39 +12,54 @@ namespace Team12_SSIS.DepartmentEmployee
 {
     public partial class CheckOutRequest : System.Web.UI.Page
     {
-        List<InventoryCatalogue> itemRequested;
+        SA45Team12AD entities = new SA45Team12AD();
+        List<InventoryCatalogue> icList;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 BindGrid();
-                if (Session["CartList"] == null)
-                {
-                    BtnCheckOut.Visible = false;
-                    LblStatus.Text = "There is no item in shopping cart. Please visit catalogue page to add items to cart";
-                }
             }
         }
-
         protected void BindGrid()
         {
-            itemRequested = (List<InventoryCatalogue>)Session["CartList"];
-            GridViewCheckOut.DataSource = itemRequested;
+            icList = (List<InventoryCatalogue>)Session["CartList"];
+
+            GridViewCheckOut.DataSource = icList;
             GridViewCheckOut.DataBind();
-
         }
-
         protected void BtnCheckOut_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("CreateRequisitionForm.aspx");
         }
-        //protected void GridViewCheckOut_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        protected void GridViewCheckOut_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            string ItemID = Convert.ToString(GridViewCheckOut.DataKeys[e.RowIndex].Values[0]);
+            List<InventoryCatalogue> currentList = (List<InventoryCatalogue>)Session["CartList"];
+            List<InventoryCatalogue> icList2 = BusinessLogic.RequisitionLogic.DeleteOrder(currentList, ItemID);
+            BindGrid();
+            Session["CartList"] = icList2;
+        }
+
+        protected void LinkButtonViewCatalogue_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ViewCatalogue.aspx");
+        }
+        List<RequisitionRecordDetail> rrd;
+
+        //protected void TxtRequestedQuantity_TextChanged(object sender, EventArgs e)
         //{
-        //    string itemID = Convert.ToString(GridViewCheckOut.DataKeys[e.RowIndex].Values[0]);
-        //    List<InventoryCatalogue> currentList = (List<InventoryCatalogue>)Session["CartList"];
-        //    List<InventoryCatalogue> itemRequested2 = BusinessLogic.DeleteOrder(itemRequested2, itemID);
-        //    BindGrid();
-        //    Session["CartList"] = bList2;
+            //    rrd = (List<RequisitionRecordDetail>)Session["CartList"];
+            //    if (rrd == null) return;
+            //    for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
+            //    {
+            //        string ItemID = GridViewCheckOut.Rows[i].Cells[0].Text.ToString();
+            //        string Description = ((Label)GridViewCheckOut.Rows[i].Cells[1].FindControl("LblDescription")).Text.ToString();
+            //        string RequestedQuantity = ((TextBox)GridViewCheckOut.Rows[i].Cells[2].FindControl("TxtRequestedQuantity")).Text;
+
+            //        rrd.Add(ItemID);
+            //    }
+            //    Session["CartList"] = rrd;
         //}
     }
 }

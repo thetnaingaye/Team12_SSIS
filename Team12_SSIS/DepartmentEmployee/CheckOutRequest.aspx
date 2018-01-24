@@ -4,22 +4,26 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
 <h2>Stationery Request Check Out</h2>
-</div>
+<asp:LinkButton ID="LinkButtonViewCatalogue" runat="server" OnClick="LinkButtonViewCatalogue_Click">View Catalogue</asp:LinkButton>
+    </div>
     <div>
         <asp:GridView ID="GridViewCheckOut" runat="server" AutoGenerateColumns="False"
             OnRowDeleting="GridViewCheckOut_RowDeleting" DataKeyNames="ItemID">
             <Columns>
-                <asp:BoundField DataField="ItemID" HeaderText="ItemID" SortExpression="ItemID" />
-                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
-                <asp:TemplateField HeaderText="RequestedQuantity" SortExpression="RequestedQuantity">
+                <asp:TemplateField HeaderText="ItemID" SortExpression="ItemID">
                 <ItemTemplate>
-                    <asp:TextBox ID="TxtRequestedQuantity" runat="server" Text='<%# Bind("RequestedQuantity") %>'></asp:TextBox>
+                    <asp:Label ID="LblItemID" runat="server" Text='<%# Bind("ItemID") %>'></asp:Label>
                 </ItemTemplate>
-                </asp:TemplateField>
+            </asp:TemplateField>
+                <asp:TemplateField HeaderText="Description" SortExpression="Description">
+                <ItemTemplate>
+                    <asp:Label ID="LblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+                
                 <asp:CommandField ButtonType="Button" ShowDeleteButton="True"/>
-            </Columns>
+            </Columns> 
         </asp:GridView>
         <asp:Button ID="BtnCheckOut" runat="server" Text="Check Out" OnClick="BtnCheckOut_Click"/>
-        <asp:Label ID="LblStatus" runat="server" forecolor="red" Text=""></asp:Label>
     </div>
 </asp:Content>

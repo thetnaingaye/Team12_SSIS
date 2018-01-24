@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -311,9 +312,275 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
+        
+        //----------------------------         KHAIR's               ----------------------------// 
+
+        // Retrieve ALL items
+        public List<InventoryCatalogue> ListAllItems()
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                return context.InventoryCatalogues.ToList<InventoryCatalogue>();
+            }
+        }
+
+        // Retrieve ALL items by 
+        public InventoryCatalogue FindItemByItemID(string itemID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                return context.InventoryCatalogues.Where(x => x.ItemID == itemID).First();
+            }
+        }
+
+        // Retrieve specific item name
+        public string GetItemDescription(string itemID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                InventoryCatalogue temp = context.InventoryCatalogues.Where(x => x.ItemID.Equals(itemID)).First();
+                return temp.Description.ToString();
+            }
+        }
+
+        // Retrieve specific item units of measure
+        public string GetUnitsOfMeasure(string itemID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                InventoryCatalogue temp = context.InventoryCatalogues.Where(x => x.ItemID.Equals(itemID)).First();
+                return temp.UOM.ToString();
+            }
+        }
+
+        // Checks if the current inventory is sufficient for the qty specified to be withdrawn by the user.
+        public bool CheckAgainstInventoryQty(string itemID, int neededQty)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                InventoryCatalogue temp = context.InventoryCatalogues.Where(x => x.ItemID.Equals(itemID)).First();
+                if (temp.UnitsInStock >= neededQty) return true;
+                else return false;
+            }
+        }
+
+        // Inventory retrieval processes
+        public string CreateNewInventoryRetrievalEntry(int reqID, int reqDetailID, string itemID, string deptID, int reqQty, int actQty)
+        {
+            bool isFulfilled = true;
+            bool isEnough = true;
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                InventoryRetrievalList i = new InventoryRetrievalList();
+                InventoryCatalogue ic = context.InventoryCatalogues.Where(x => x.ItemID == itemID).First();
+
+                //Check if there is insufficient quantity in the inventory
+                if (ic.UnitsInStock < reqQty || ic.UnitsInStock < actQty)
+                {
+                    isEnough = false;
+
+                    if (!isEnough && ic.UnitsInStock < actQty)
+                    {
+                        return (itemID + ": There are insufficient quantity in the inventory for this item.").ToString();
+                    }
+                }
+
+                //Check if user is withdrawing more than requested 
+                if (reqQty < actQty)
+                {
+                    return (itemID + ": You are not allowed to withdraw beyond the requested quantity.\nPlease seek assistance from the warehouse supervisor. Thank you.").ToString();
+                }
+
+                //Check if user is withdrawing less than requested despite having enough in the inventory
+                if (isEnough && reqQty > actQty)
+                {
+                    return (itemID + ": You are not allowed to withdraw below the requested quantity.\nPlease seek assistance from the warehouse supervisor. Thank you.").ToString();
+                }
+
+                try
+                {
+                    //Creating a new entry in inventory retrieval list    ---    Only insider 
+                    i.ItemID = itemID;
+                    i.DepartmentID = deptID;
+                    i.RequestedQuantity = reqQty;
+                    i.ActualQuantity = actQty;
+                    i.DateRetrieved = DateTime.Now;
+                    if (!isEnough && reqQty > actQty)   // Not enough in inventory and actualqty is less than reqqty
+                    {
+                        i.Status = "Unfulfilled";
+                        isFulfilled = false;
+                    }
+                    else
+                    {
+                        i.Status = "Fulfilled";
+                    }
+                    context.InventoryRetrievalLists.Add(i);
+
+                    //Reducing overall qty in the inventorycatelogue table
+                    int currentQty = ic.UnitsInStock;
+                    ic.UnitsInStock = currentQty - actQty;     //New qty
+
+                    //Updating the requsitionrecord table   --   Need to check if there are any 'approved' item requests under this requestID
+                    RequisitionRecordDetail rr = context.RequisitionRecordDetails.Where(x => x.RequestDetailID == reqDetailID).First();
+                    rr.Status = "Processed";
+
+                    // Checking whether req qty is fulfilled   -   Separate this shit out  [Creating requisition records and details]
+                    if (isFulfilled == false)
+                    {
+                        try
+                        {
+                            AutoCreateRR(reqID);
+                            AutoCreateRRDetails(itemID, (reqQty - actQty));
+                        }
+                        catch (Exception)
+                        {
+                            return (itemID + ": Automated requisition record creation was not succesfully carried out.").ToString();
+                        }
+                    }
+
+                    //Performing check through the MRP model [Create entry in the reorder record table]
+                    //MRPInitialize(itemID);
 
 
+                    //Completing changes to the DB
+                    context.SaveChanges();
 
+                    // Final ;)
+                    return (actQty + " amount of " + itemID + " was successfully withdrawn.").ToString();
+                }
+                catch (Exception)
+                {
+                    return (actQty + " amount of " + itemID + " was unsuccessfully withdrawn from the inventory.").ToString();
+                }
+            }
+        }
+
+        // Creating a new req record - auto by the system
+        public void AutoCreateRR(int reqID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                try
+                {
+                    // Old req record
+                    RequisitionRecord oldReq = context.RequisitionRecords.Where(x => x.RequestID == reqID).First();
+
+                    // Gotta create a new req request and its relevant details
+                    RequisitionRecord newReq = new RequisitionRecord();
+                    newReq.RequestDate = DateTime.Now;
+                    newReq.DepartmentID = oldReq.DepartmentID;
+                    newReq.RequestorName = "System-generated";
+                    newReq.ApproverName = "System-generated";
+                    newReq.ApprovedDate = DateTime.Now;
+                    newReq.Remarks = ("Previous request unfulfilled, RQ" + (oldReq.RequestID).ToString()).ToString();
+                    context.RequisitionRecords.Add(newReq);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
+
+        // Creating a new req record details - auto by the system
+        public void AutoCreateRRDetails(string itemID, int newReqQty)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                try
+                {
+                    // Finding the newly created req record
+                    RequisitionRecord newReq = context.RequisitionRecords.OrderByDescending(x => x.RequestID).First();
+
+                    // Creating our new RRDetails entry
+                    RequisitionRecordDetail nd = new RequisitionRecordDetail();
+                    nd.RequestID = newReq.RequestID;
+                    nd.ItemID = itemID;
+                    nd.RequestedQuantity = newReqQty;
+                    nd.Status = "Approved";
+                    nd.Priority = "Yes";
+                    context.RequisitionRecordDetails.Add(nd);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
+
+        // Materials Resource Planning (MRP) model processes    -    Always using the top priority supplier
+        public void MRPInitialize(string itemID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                // Finding the week no for the year (aka our period currently)
+                DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+                Calendar cal = dfi.Calendar;
+                //Uncomment for final ver: int currentPeriod = cal.GetWeekOfYear(DateTime.Now, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+                DateTime date1 = new DateTime(2018, 1, 2);
+                int currentPeriod = cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+
+
+                // Init the diff tables to retrieve the required variables
+                InventoryCatalogue item = context.InventoryCatalogues.Where(x => x.ItemID.Equals(itemID)).First();
+                SupplierCatalogue supCat = context.SupplierCatalogues.Where(x => x.ItemID.Equals(itemID)).Where(y => y.Priority == 1).First();
+                SupplierList supp = context.SupplierLists.Where(x => x.SupplierID.Equals(supCat.SupplierID)).First();
+                List<ForecastedData> prediction = context.ForecastedDatas.Where(x => x.ItemID.Equals(itemID)).Where(y => y.Season == DateTime.Now.Year).Where(z => z.Period > currentPeriod).ToList();
+
+
+                // Declare all our req variables
+                int existingQty = (int)item.UnitsInStock;
+                int reorderLvl = (int)item.ReorderLevel;
+                int reorderQty = (int)item.ReorderQty;    // aka min qty to make an order for the item
+                int bufferStock = (int)item.BufferStockLevel;
+                int orderLeadTime = (int)supp.OrderLeadTime;
+
+
+                // Since our order of operations is in weeks, gotta convert order lead time to weeks (ideally would be in days tho so no need convert :P)
+                int convertedOLT = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(orderLeadTime) / 7.0) + 1);
+
+                // List to store our forecasted values according to their point of occurence
+                List<int> forecastList = new List<int>();
+
+                // Populating our list
+                for (int i = 0; i < convertedOLT; i++)
+                {
+                    forecastList.Add(prediction[i].ForecastedDemand);
+                }
+
+                // Det the total expected demand up till our forcasting week
+                int totalDd = 0;
+                foreach (var d in forecastList)
+                {
+                    totalDd += d;
+                }
+
+                // Send an order request if incapable of supporting of meeting the forecasted demand for the week after next
+                if (forecastList[forecastList.Count] >= (existingQty - totalDd))
+                {
+                    ReorderRecord r = new ReorderRecord();
+                    r.ItemID = itemID;
+                    r.SupplierID = supCat.SupplierID;
+
+                    int orderQty = (forecastList[forecastList.Count] - (existingQty - totalDd));
+
+                    if (orderQty > reorderQty)
+                    {
+                        r.OrderedQuantity = orderQty;
+                    }
+                    else   // If unable to satisfy the minimum qty in order to make an order for the item, must use the min qty instead lol
+                    {
+                        r.OrderedQuantity = reorderQty;
+                    }
+
+                    context.ReorderRecords.Add(r);
+                    context.SaveChanges();
+                }
+                // If able to meet the demand, then no need do anything liao :)
+            }
+        }
 
 
 
@@ -1285,7 +1552,7 @@ namespace Team12_SSIS.BusinessLogic
         //----Thanisha-------------------------View Stock Card details-----------------------------------------------//
         //------------------------------getting stock card details(ItemID,Date of transaction,Description,UOM,transaction type,quantity,balance)-------------//
 
-        public List<Object> getStockCardList(string itemid)
+        public List<Object> GetStockCardList(string itemid)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
@@ -1293,6 +1560,32 @@ namespace Team12_SSIS.BusinessLogic
                 Select(x => new { x.ItemID, x.Date, x.Description, x.Type, x.Quantity, x.Balance }).Where(x => x.ItemID == itemid);
                 List<Object> sList = q.ToList<Object>();
                 return sList;
+            }
+        }
+        //------------------------get all stockcarditems----------------------------------------//
+        public List<Object> GetAllStockCardList()
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                var q = entity.StockCards.
+                Select(x => new { x.ItemID, x.Date, x.Description, x.Type, x.Quantity, x.Balance });
+                List<Object> sList = q.ToList<Object>();
+                return sList;
+            }
+        }
+
+        public List<StockCard> GetAllStockCard()
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                     return entity.StockCards.ToList<StockCard>();
+            }
+        }
+        public List<StockCard> GetStockcardByItemId(string id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.StockCards.Where(x => x.ItemID == id).ToList<StockCard>();
             }
         }
 
@@ -1312,6 +1605,8 @@ namespace Team12_SSIS.BusinessLogic
                 return entity.SupplierCatalogues.Where(s => s.ItemID == itemid).ToList<SupplierCatalogue>();
             }
         }
+
+
 
 
         //-------------------------------------------------View InventoryList-----------------------------------------//
@@ -1342,15 +1637,62 @@ namespace Team12_SSIS.BusinessLogic
                 return entity.InventoryCatalogues.Where(x => x.CategoryID == catalogue.CategoryID).ToList<InventoryCatalogue>();
             }
         }
+        public List<InventoryCatalogue> GetAllCatalogue()
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.InventoryCatalogues.ToList<InventoryCatalogue>();
+            }
+        }
         public CatalogueCategory getCatalogue(string catagory)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 return entity.CatalogueCategories.Where(x => x.CatalogueName == catagory).First<CatalogueCategory>();
 
-
             }
         }
+
+
+        //---------------------------------AdjustmentVoucher--------------------------------------------------------//
+
+            public static List<AVRequest> GetadvReq(string id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.AVRequests.Where(x => x.HandledBy == id & x.Status == "Pending").ToList<AVRequest>();
+            }
+               
+        }
+        //--------------------Adjustment voucher request approval---status changes to approved-------//
+
+        public static  void ApproveAvRequest(int id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
+                avReq.Status = "Approved";
+                avReq.DateProcessed = DateTime.Today;
+                entity.SaveChanges();
+            }
+        }
+
+        //--------------------Adjustment voucher request rejection---status changes to rejected-------//
+
+        public static void RejectAvRequest(int id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
+                avReq.Status = "Rejected";
+                avReq.DateProcessed = DateTime.Today;
+                entity.SaveChanges();
+            }
+        }
+
+
+
+
 
 
         //---- Chang Siang
@@ -1518,6 +1860,7 @@ namespace Team12_SSIS.BusinessLogic
         {
             List<MembershipUser> userList = Utility.Utility.GetListOfMembershipUsers();
             string[] approveAuthList = isAbove250 ? Roles.GetUsersInRole("Manager") : Roles.GetUsersInRole("Supervisor");
+            UpdateAdjustmentVoucherApprovingOfficer(avRId, isAbove250);
             foreach (string s in approveAuthList)
             {
                 var User = userList.Find(x => x.UserName == s);
@@ -1527,7 +1870,46 @@ namespace Team12_SSIS.BusinessLogic
                     em.NewAdjustmentVoucherRequestNotification(User.Email.ToString(), avRId.ToString(), clerkName);
                 }
             }
+        }
 
+        private void UpdateAdjustmentVoucherApprovingOfficer(int avRId, bool isAbove250)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                AVRequest avR = ctx.AVRequests.Where(x => x.AVRID == avRId).FirstOrDefault();
+                avR.HandledBy = isAbove250 ? "Manager" : "Supervisor";
+                ctx.SaveChanges();
+            }
+        }
+
+        public static List<InventoryRetrievalList> GetListOfInventoryRetrival()
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.InventoryRetrievalLists.ToList();
+            }
+
+        }
+
+        public static List<InventoryRetrievalList> GetListOfInventoryRetrival(string deptId)
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.InventoryRetrievalLists.Where(x => x.DepartmentID == deptId).Where(x => x.Status == "fulfilled" || x.Status == "unfulfilled").ToList();
+            }
+        }
+
+        public static bool UpdateInventoryRetrivalStatus(int retrievalId, string status)
+        {
+            bool success = false;
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryRetrievalList iRL = ctx.InventoryRetrievalLists.Where(x => x.RetrievalID == retrievalId).FirstOrDefault();
+                iRL.Status = status;
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
         }
     }
 }

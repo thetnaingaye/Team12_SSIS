@@ -103,7 +103,7 @@
                                 <asp:Label ID="OdbLbl" runat="server" Text="Ordered by:"></asp:Label>
                             </td>
                             <td class="auto-style2">
-                                <asp:Label ID="Lblorder" runat="server"></asp:Label>
+                                <asp:Label ID="Lblorder" runat="server" Text ="Logic University Stationery Store"></asp:Label>
                             </td>
                     </td>
                 </tr>
@@ -111,12 +111,19 @@
                 <asp:ScriptManager ID="sml" runat="server"></asp:ScriptManager>
                 <asp:UpdatePanel ID="Upl" runat="server" UpdateMode="Conditional" ChildrenAsTriger="true">
                     <ContentTemplate>
-                        <asp:GridView ID="GridViewPO" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="GridView1_SelectedIndexChanged"
+                        <asp:GridView ID="GridViewPO" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="GridViewPO_SelectedIndexChanged"
                              Style="height: 100px; overflow: auto" ShowHeaderWhenEmpty="True"
                                         OnRowDataBound="OnRowDataBound" OnRowDeleting="OnRowDeleting"
                                         CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID">
                                         <AlternatingRowStyle BackColor="White" ForeColor="#284775"/>
                             <Columns>
+                                <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="LblSn" runat="server" CssClass="center-block" Text="<%# Container.DataItemIndex + 1 %>"></asp:Label>
+                                                </ItemTemplate>
+
+                                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                            </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Item ID">
                                     <ItemTemplate>
                                         <asp:UpdatePanel ID="Upid" runat="server" UpdateMode="Conditional" ChildrenAsTriger="true">
@@ -143,7 +150,11 @@
                                 <asp:TemplateField HeaderText="UOM">
                                     <ItemTemplate>
                                         <asp:DropDownList ID="DdlUOM" runat="server">
-                                            <asp:ListItem Text="UOM" Value="string" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Selected="True" Value="Each">Each</asp:ListItem>
+                                            <asp:ListItem Value="Box">Box</asp:ListItem>
+                                            <asp:ListItem Value="Packet">Packet</asp:ListItem>
+                                            <asp:ListItem Value="Dozen">Dozen</asp:ListItem>
+                                            <asp:ListItem Value="Set">Set</asp:ListItem>
                                         </asp:DropDownList>
 
                                     </ItemTemplate>
@@ -170,11 +181,20 @@
                     </td></tr>
                 <tr>
                     <td class="auto-style14">
-                        <asp:Label ID="totLbl" runat="server" Text="Total:"></asp:Label>
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <div>
+                                <asp:Label ID="totLbl" runat="server" Text="Total:"></asp:Label>
+                                <asp:Label ID="Label1" runat="server" Text="" ></asp:Label>
+                            </div>
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="BtnAddItem"/>
+                            </Triggers>
+                        </asp:UpdatePanel>
                     </td>
 
-                    <td class="auto-style15">
-                        <asp:Label ID="totalLbl" runat="server"></asp:Label></td>
+                    <td class="auto-style15"></td>
                 </tr>
 
                 <tr>
@@ -184,7 +204,7 @@
                                 <td>
                                     <td>
                                         <td>
-                                            <asp:Button ID="btnSfa" runat="server" Text="Submit for approval" /></td>
+                                            <asp:Button ID="btnSfa" runat="server" Text="Submit for approval" OnClick="btnSfa_Click" /></td>
                                     </td>
                                 </td>
                             </td>

@@ -13,18 +13,47 @@ namespace Team12_SSIS.StoreClerk
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Populate();
-            string[] supplierID = { "ALPA", "CHEP", "BANE" };
             if (!IsPostBack)
             {
-                ddlShow.DataSource = supplierID;
-                ddlShow.DataBind();
+                BindGrid();
             }
         }
-        protected void Populate()
+        protected void BindGrid()
         {
-            GridViewLPO.DataSource = PurchasingLogic.ListPORecords();
+            List<PORecord> poRecordList = PurchasingLogic.GetListOfPurchaseOrder();
+            GridViewLPO.DataSource = poRecordList;
             GridViewLPO.DataBind();
+        }
+        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            LinkButton LBtnPONumber = (e.Row.FindControl("LBtnPONumber") as LinkButton);
+
+        }
+        protected void GridViewVPO_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "ViewDetails")
+            {
+                Session["PurchaseOrderNo"] = int.Parse(e.CommandArgument.ToString());
+                Server.Transfer("ViewPurchaseOrder.aspx", true);
+            }
+        }
+        protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridViewLPO.PageIndex = e.NewPageIndex;
+            BindGrid();
+        }
+        protected void DdlShow_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<PORecord> poRecordList = DdlShow.SelectedValue == "All" ? PurchasingLogic.GetListOfPurchaseOrder() : PurchasingLogic.GetListOfPurchaseOrder(DdlShow.SelectedValue);
+            GridViewLPO.DataSource = poRecordList;
+            GridViewLPO.DataBind();
+        }
+
+        protected string GetTotal(object poNum)
+        {
+            PurchasingLogic p = new PurchasingLogic();
+            double temp = p.FindTotalByPONum(Convert.ToInt32(poNum.ToString()));
+            return temp.ToString("C0");
         }
     }
 }
