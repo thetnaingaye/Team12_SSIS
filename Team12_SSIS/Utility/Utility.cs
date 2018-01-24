@@ -52,5 +52,17 @@ namespace Team12_SSIS.Utility
             }
             return userList;
         }
+
+        public static string GetEmailAddressByName(string name)
+        {
+            List <MembershipUser> userList = GetListOfMembershipUsers();
+            foreach(MembershipUser u in userList)
+            {
+                ProfileBase user = ProfileBase.Create(u.UserName);
+                if (user.GetPropertyValue("fullname").ToString() == name)
+                    return u.Email;
+            }
+            return "sa45team12ssis+UtilityinGetEmailAddressByName@gmail.com";
+        }
     }
 }

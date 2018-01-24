@@ -49,7 +49,7 @@
                             <asp:UpdatePanel ID="Up1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
                                 <ContentTemplate>
                                     <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False"
-                                        Style="height: 100px; overflow: auto" ShowHeaderWhenEmpty="True"
+                                        Style="width:100%" ShowHeaderWhenEmpty="True"
                                         OnRowDataBound="OnRowDataBound"
                                         CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID">
                                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
