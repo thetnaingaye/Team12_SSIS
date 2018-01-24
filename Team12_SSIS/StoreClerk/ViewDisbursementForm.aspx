@@ -140,7 +140,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:Button id="btnPrintbtn" runat="server" onclick="window.print();" xmlns:asp="#unknown" CssClass="btn btn-group-xs"/>
+                <asp:Button id="btnPrintbtn" runat="server" onclick="window.print();" CssClass="btn btn-group-xs"/>
             </td>
             <td colspan="3" style="align-content: flex-end">
                 <asp:Button ID="BtnCancelDis" runat="server" Text="Cancel Disbursement List" CssClass="btn btn-group-xs" Visible="false" OnClick="BtnCancelDis_Click" />

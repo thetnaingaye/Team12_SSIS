@@ -101,6 +101,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
@@ -598,6 +599,16 @@
     <Compile Include="WebServices\Service.svc.cs">
       <DependentUpon>Service.svc</DependentUpon>
     </Compile>
+    <Compile Include="WebServices\WCF_Model\WCF_AdjustmentVoucher.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_AVRequest.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_AVRequestDetail.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_DisbursementList.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_DisbursementListDetail.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_InventoryCatalogue.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_InventoryRetrievalList.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_RequisitionRecord.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_RequisitionRecordDetail.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_StockCard.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TempImageFiles\" />

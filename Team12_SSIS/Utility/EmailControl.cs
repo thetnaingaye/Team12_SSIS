@@ -73,6 +73,8 @@ namespace Team12_SSIS.Utility
                 string bodyMessage = greeting +
                     twoLineSpacing +
                     collectionRepName +
+                    " from " + departmentName +
+                    " has changed his/her preferred collection point to " +
                     " has changed his/her preferred collection point to " +
                     newDisburstmentPoint +
                     twoLineSpacing +
@@ -101,6 +103,7 @@ namespace Team12_SSIS.Utility
                 string bodyMessage = greeting +
                     twoLineSpacing +
                     collectionRepName +
+                    " from " + departmentName +
                     " has changed his/her preferred collection point to " +
                     newDisburstmentPoint +
                     twoLineSpacing +
