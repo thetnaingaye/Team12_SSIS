@@ -9,361 +9,43 @@ using System.Web.Security;
 
 namespace Team12_SSIS.Utility
 {
-	public static class Utility
-	{
-		public static DataTable ToDataTable<T>(this IList<T> data)
-		{
-			PropertyDescriptorCollection properties =
-				TypeDescriptor.GetProperties(typeof(T));
-			DataTable table = new DataTable();
-			foreach (PropertyDescriptor prop in properties)
-				table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
-			foreach (T item in data)
-			{
-				DataRow row = table.NewRow();
-				foreach (PropertyDescriptor prop in properties)
-					row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
-				table.Rows.Add(row);
-			}
-			return table;
-		}
+    public static class Utility
+    {
+        public static DataTable ToDataTable<T>(this IList<T> data)
+        {
+            PropertyDescriptorCollection properties =
+                TypeDescriptor.GetProperties(typeof(T));
+            DataTable table = new DataTable();
+            foreach (PropertyDescriptor prop in properties)
+                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+            foreach (T item in data)
+            {
+                DataRow row = table.NewRow();
+                foreach (PropertyDescriptor prop in properties)
+                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+                table.Rows.Add(row);
+            }
+            return table;
+        }
+
+        public static List<MembershipUser> GetListOfMembershipUsers()
+        {
+            var users = Membership.GetAllUsers();
+            var userList = new List<MembershipUser>();
+            foreach (MembershipUser u in users)
+            {
+                userList.Add(u);
+            }
+            return userList;
+        }
 
-		public static List<MembershipUser> GetListOfMembershipUsers()
-		{
-			var users = Membership.GetAllUsers();
-			var userList = new List<MembershipUser>();
-			foreach (MembershipUser u in users)
-			{
-				userList.Add(u);
-			}
-			return userList;
-		}
-
-		public static List<MembershipUser> GetListOfMembershipUsersByDept(string dept)
-		{
-			List<MembershipUser> userList = GetListOfMembershipUsers();
-			foreach (MembershipUser u in userList)
-			{
-				ProfileBase user = ProfileBase.Create(u.UserName);
-				if ((string)user.GetPropertyValue("department") != dept)
-				{
-					userList.Remove(u);
-				}
-			}
-			return userList;
-		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		public static List<string> GetClerksEmailAddressList()
-		{
-			List<string> clerkemails = new List<string>();
-			List<MembershipUser> userList = GetListOfMembershipUsers();
-			foreach (MembershipUser u in userList)
-			{
-				if (Roles.GetRolesForUser(u.UserName)[0] == ("Clerk"))
-				{
-					clerkemails.Add(u.Email);
-				}
-
-			}
-			return clerkemails;
-
-		}
-		public static List<string> GetAllUserEmailAddressListForDept(string depid)
-		{
-			List<string> deptuseremails = new List<string>();
-			List<MembershipUser> userList = GetListOfMembershipUsers();
-			foreach (MembershipUser u in userList)
-			{
-				ProfileBase user = ProfileBase.Create(u.UserName);
-				if ((string)user.GetPropertyValue("department") == depid)
-				{
-					deptuseremails.Add(u.Email);
-				}
-			}
-			return deptuseremails;
-
-		}
-	}
         public static List<MembershipUser> GetListOfMembershipUsersByDept(string dept)
         {
-            List<MembershipUser> userList= GetListOfMembershipUsers();
-            foreach(MembershipUser u in userList)
+            List<MembershipUser> userList = GetListOfMembershipUsers();
+            foreach (MembershipUser u in userList)
             {
                 ProfileBase user = ProfileBase.Create(u.UserName);
-                if((string)user.GetPropertyValue("department") != dept)
+                if ((string)user.GetPropertyValue("department") != dept)
                 {
                     userList.Remove(u);
                 }
@@ -371,15 +53,321 @@ namespace Team12_SSIS.Utility
             return userList;
         }
 
-        public static string GetEmailAddressByName(string name)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public static List<string> GetClerksEmailAddressList()
         {
-            List <MembershipUser> userList = GetListOfMembershipUsers();
-            foreach(MembershipUser u in userList)
+            List<string> clerkemails = new List<string>();
+            List<MembershipUser> userList = GetListOfMembershipUsers();
+            foreach (MembershipUser u in userList)
+            {
+                if (Roles.GetRolesForUser(u.UserName)[0] == ("Clerk"))
+                {
+                    clerkemails.Add(u.Email);
+                }
+
+            }
+            return clerkemails;
+
+        }
+        public static List<string> GetAllUserEmailAddressListForDept(string depid)
+        {
+            List<string> deptuseremails = new List<string>();
+            List<MembershipUser> userList = GetListOfMembershipUsers();
+            foreach (MembershipUser u in userList)
+            {
+                ProfileBase user = ProfileBase.Create(u.UserName);
+                if ((string)user.GetPropertyValue("department") == depid)
+                {
+                    deptuseremails.Add(u.Email);
+                }
+            }
+            return deptuseremails;
+
+        }
+
+
+        public static string GetEmailAddressByName(string name)
+        { 
+            List<MembershipUser> userList = GetListOfMembershipUsers();
+            foreach (MembershipUser u in userList)
             {
                 ProfileBase user = ProfileBase.Create(u.UserName);
                 if (user.GetPropertyValue("fullname").ToString() == name)
                     return u.Email;
             }
+            //If error! Send to this email. So we can catch the error by the string after the "+" sign.
             return "sa45team12ssis+UtilityinGetEmailAddressByName@gmail.com";
         }
     }
