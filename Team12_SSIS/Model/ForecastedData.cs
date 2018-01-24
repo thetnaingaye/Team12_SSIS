@@ -16,9 +16,9 @@ namespace Team12_SSIS.Model
         [StringLength(50)]
         public string ItemID { get; set; }
 
-        public int Period { get; set; }
-
         public int Season { get; set; }
+
+        public int Period { get; set; }
 
         public int ForecastedDemand { get; set; }
 

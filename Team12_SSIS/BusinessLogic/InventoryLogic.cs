@@ -1285,7 +1285,7 @@ namespace Team12_SSIS.BusinessLogic
         //----Thanisha-------------------------View Stock Card details-----------------------------------------------//
         //------------------------------getting stock card details(ItemID,Date of transaction,Description,UOM,transaction type,quantity,balance)-------------//
 
-        public List<Object> getStockCardList(string itemid)
+        public List<Object> GetStockCardList(string itemid)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
@@ -1293,6 +1293,32 @@ namespace Team12_SSIS.BusinessLogic
                 Select(x => new { x.ItemID, x.Date, x.Description, x.Type, x.Quantity, x.Balance }).Where(x => x.ItemID == itemid);
                 List<Object> sList = q.ToList<Object>();
                 return sList;
+            }
+        }
+        //------------------------get all stockcarditems----------------------------------------//
+        public List<Object> GetAllStockCardList()
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                var q = entity.StockCards.
+                Select(x => new { x.ItemID, x.Date, x.Description, x.Type, x.Quantity, x.Balance });
+                List<Object> sList = q.ToList<Object>();
+                return sList;
+            }
+        }
+
+        public List<StockCard> GetAllStockCard()
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                     return entity.StockCards.ToList<StockCard>();
+            }
+        }
+        public List<StockCard> GetStockcardByItemId(string id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.StockCards.Where(x => x.ItemID == id).ToList<StockCard>();
             }
         }
 
@@ -1312,6 +1338,8 @@ namespace Team12_SSIS.BusinessLogic
                 return entity.SupplierCatalogues.Where(s => s.ItemID == itemid).ToList<SupplierCatalogue>();
             }
         }
+
+
 
 
         //-------------------------------------------------View InventoryList-----------------------------------------//
@@ -1342,19 +1370,66 @@ namespace Team12_SSIS.BusinessLogic
                 return entity.InventoryCatalogues.Where(x => x.CategoryID == catalogue.CategoryID).ToList<InventoryCatalogue>();
             }
         }
+        public List<InventoryCatalogue> GetAllCatalogue()
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.InventoryCatalogues.ToList<InventoryCatalogue>();
+            }
+        }
         public CatalogueCategory getCatalogue(string catagory)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 return entity.CatalogueCategories.Where(x => x.CatalogueName == catagory).First<CatalogueCategory>();
 
-
             }
         }
 
 
-        //---- Chang Siang
-        public static string GetItemName(string ItemID)
+        //---------------------------------AdjustmentVoucher--------------------------------------------------------//
+
+            public static List<AVRequest> GetadvReq(string id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.AVRequests.Where(x => x.HandledBy == id & x.Status == "Pending").ToList<AVRequest>();
+            }
+               
+        }
+        //--------------------Adjustment voucher request approval---status changes to approved-------//
+
+        public static  void ApproveAvRequest(int id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
+                avReq.Status = "Approved";
+                avReq.DateProcessed = DateTime.Today;
+                entity.SaveChanges();
+            }
+        }
+
+        //--------------------Adjustment voucher request rejection---status changes to rejected-------//
+
+        public static void RejectAvRequest(int id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
+                avReq.Status = "Rejected";
+                avReq.DateProcessed = DateTime.Today;
+                entity.SaveChanges();
+            }
+        }
+
+
+
+
+
+
+//---- Chang Siang
+public static string GetItemName(string ItemID)
         {
             using (SA45Team12AD ctx = new SA45Team12AD())
             {

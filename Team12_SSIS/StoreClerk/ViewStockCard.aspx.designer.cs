@@ -85,22 +85,22 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label LblDesD;
         
         /// <summary>
-        /// LblBin control.
+        /// LblS1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblBin;
+        protected global::System.Web.UI.WebControls.Label LblS1;
         
         /// <summary>
-        /// LblBinD control.
+        /// LblS1D control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblBinD;
+        protected global::System.Web.UI.WebControls.Label LblS1D;
         
         /// <summary>
         /// LblUom control.
@@ -121,24 +121,6 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label LblUomD;
         
         /// <summary>
-        /// LblS1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblS1;
-        
-        /// <summary>
-        /// LblS1D control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblS1D;
-        
-        /// <summary>
         /// LblS2 control.
         /// </summary>
         /// <remarks>
@@ -157,13 +139,31 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label LblS2D;
         
         /// <summary>
-        /// LblsS3 control.
+        /// LblBin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblsS3;
+        protected global::System.Web.UI.WebControls.Label LblBin;
+        
+        /// <summary>
+        /// LblBinD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblBinD;
+        
+        /// <summary>
+        /// LblS3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblS3;
         
         /// <summary>
         /// LblS3D control.
@@ -173,6 +173,24 @@ namespace Team12_SSIS.StoreClerk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblS3D;
+        
+        /// <summary>
+        /// sm1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager sm1;
+        
+        /// <summary>
+        /// Up1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel Up1;
         
         /// <summary>
         /// GridViewStockCard control.

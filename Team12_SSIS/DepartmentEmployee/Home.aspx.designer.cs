@@ -13,22 +13,22 @@ namespace Team12_SSIS.DepartmentEmployee {
     public partial class Home {
         
         /// <summary>
-        /// LblUserName control.
+        /// Xml1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblUserName;
+        protected global::System.Web.UI.WebControls.Xml Xml1;
         
         /// <summary>
-        /// TxtName control.
+        /// TextBox1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtName;
+        protected global::System.Web.UI.WebControls.TextBox TextBox1;
         
         /// <summary>
         /// Button1 control.
@@ -38,23 +38,5 @@ namespace Team12_SSIS.DepartmentEmployee {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1;
-        
-        /// <summary>
-        /// TxtEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtEmail;
-        
-        /// <summary>
-        /// Button2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
     }
 }

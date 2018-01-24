@@ -21,9 +21,6 @@ namespace Team12_SSIS.Model
 
         public int? OrderedQuantity { get; set; }
 
-        [StringLength(255)]
-        public string Status { get; set; }
-
         public virtual InventoryCatalogue InventoryCatalogue { get; set; }
 
         public virtual SupplierList SupplierList { get; set; }

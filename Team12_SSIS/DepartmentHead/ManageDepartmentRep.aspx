@@ -12,7 +12,7 @@
         
     </asp:DropDownList>
     <br />
-    <asp:Button ID="AssignRepBtn" runat="server" OnClick="AssignRepBtn_Click" Text="Assign Representative" />
+    <asp:Button ID="AssignRepBtn" runat="server" OnClick="AssignRepBtn_Click" Text="Assign Representative" OnClientClick="this.disabled=true;" UseSubmitBehavior="false" />
     <br />
     <asp:Label ID="NewRepAssignedLbl" runat="server"></asp:Label>
     <br />

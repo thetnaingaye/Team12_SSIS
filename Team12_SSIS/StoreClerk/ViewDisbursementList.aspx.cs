@@ -46,7 +46,7 @@ namespace Team12_SSIS.StoreClerk
             DdlDept.DataSource = deptList;
             DdlDept.DataBind();
             DdlDept.SelectedIndex = 0;
-            
+
             List<CollectionPoint> colPointList = DisbursementLogic.GetListofColPoint();
             DdlColPoint.DataSource = colPointList;
             DdlColPoint.DataBind();
@@ -81,7 +81,7 @@ namespace Team12_SSIS.StoreClerk
 
         protected void GridViewDisbList_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if(e.CommandName == "ViewForm")
+            if (e.CommandName == "ViewForm")
             {
                 Session["DisbId"] = int.Parse(e.CommandArgument.ToString());
                 Server.Transfer("ViewDisbursementForm.aspx", true);

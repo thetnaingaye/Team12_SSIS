@@ -31,6 +31,15 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.DropDownList SuppliersDdl;
         
         /// <summary>
+        /// LblCurrentOrderLeadTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblCurrentOrderLeadTime;
+        
+        /// <summary>
         /// OrderLeadTimeTxt control.
         /// </summary>
         /// <remarks>

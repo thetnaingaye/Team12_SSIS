@@ -44,77 +44,153 @@
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div><h1>
-         <asp:Label ID="VpoLbl" runat="server" style="text-align: center" Text="View Stationary Purchase Order "></asp:Label></h1>
-        <table><tr>
+         <asp:Label ID="LblVpo" runat="server" style="text-align: center" Text="View Stationary Purchase Order "></asp:Label></h1>
+      <table><tr>
         <td class="auto-style1">
-                    <asp:Label ID="PodLbl" runat="server" Text="PO date:"></asp:Label>
+                    <asp:Label ID="LblPON" runat="server" Text="PO Number:"></asp:Label>
+                    <asp:Label ID="LblNumber" runat="server"></asp:Label>
                 </td>
-             <td class="auto-style2">
-            <asp:Label ID="PODateLbl" runat="server"></asp:Label></td><td></td><td class="auto-style4">
-                    <asp:Label ID="RstLbl" runat="server" Text="Requested By:"></asp:Label>
+            <td></td><td class="auto-style4">
+                    <asp:Label ID="LblRequest" runat="server" Text="Requested By:"></asp:Label>
                 </td>
        
         <td class="auto-style3">
-            <asp:Label ID="RequestLbl" runat="server"></asp:Label></td>
+            <asp:Label ID="LblRst" runat="server"></asp:Label></td>
         </tr>
             <tr>
                 <td class="auto-style14">
-                    <asp:Label ID="PosLbl" runat="server" Text="PO Status:"></asp:Label>
+                    <asp:Label ID="LblPos" runat="server" Text="PO Status:"></asp:Label>
                 </td>
                 <td class="auto-style4">
-            <asp:Label ID="StatusLbl" runat="server"></asp:Label>
+            <asp:Label ID="LblStatus" runat="server"></asp:Label>
 
                 </td><td></td><td class="auto-style4">
-                    <asp:Label ID="SliLbl" runat="server" Text="Supplier ID:"></asp:Label>
+                    <asp:Label ID="LblSli" runat="server" Text="Supplier ID:"></asp:Label>
                 </td>
                  <td class="auto-style6">
-            <asp:Label ID="CodeLbl" runat="server"></asp:Label></td>
+            <asp:Label ID="LblCode" runat="server"></asp:Label></td>
         </tr>
              <tr>
                 <td class="auto-style14">
-                    <asp:Label ID="DltLbl" runat="server" Text="Deliver to:"></asp:Label>
+                    <asp:Label ID="LblDlt" runat="server" Text="Deliver to:"></asp:Label>
                 </td>
                 <td class="auto-style7">
-            <asp:Label ID="DeliverLbl" runat="server"></asp:Label>
+            <asp:Label ID="LblDeliver" runat="server"></asp:Label>
 
                 </td><td></td><td class="auto-style4">
                     <asp:Label ID="OdbLbl" runat="server" Text="Ordered by:"></asp:Label>
                 </td>
                  <td class="auto-style8">
-            <asp:Label ID="OrderLbl" runat="server"></asp:Label></td>
+            <asp:Label ID="OrderLbl" runat="server" Text="Logic University Stationery Store"></asp:Label></td>
         </tr>
              <tr>
                 <td class="auto-style14">
-                    <asp:Label ID="AdsLbl" runat="server" Text="Address:"></asp:Label>
+                    <asp:Label ID="LblAdd" runat="server" Text="Address:"></asp:Label>
                 </td>
                 <td class="auto-style9">
-            <asp:Label ID="AddressLbl" runat="server"></asp:Label>
+            <asp:Label ID="LblAddress" runat="server"></asp:Label>
 
                 </td><td></td><td class="auto-style6">
-                    <asp:Label ID="SibLbl" runat="server" Text="Supply the following items by(date):"></asp:Label>
+                    <asp:Label ID="LblSib" runat="server" Text="Supply the following items by(date):"></asp:Label>
                 </td>
                  <td class="auto-style11">
-            <asp:Label ID="SupplyLbl" runat="server"></asp:Label></td>
+            <asp:Label ID="LblSupply" runat="server"></asp:Label></td>
         </tr>
+          </table>
             <tr>
-                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False">
+                <asp:ScriptManager ID="sml" runat="server"></asp:ScriptManager>
+                            <asp:UpdatePanel ID="Upl" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
+                                <ContentTemplate>
+                                    <asp:GridView ID="GridViewVPO" runat="server" AutoGenerateColumns="False" 
+                                        Style="height: 100px; overflow: auto" ShowHeaderWhenEmpty="True"
+                                        OnRowDataBound="OnRowDataBound"
+                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID">
+                                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns>
-                <asp:BoundField DataField="Item No." HeaderText="Item No." SortExpression="Item No." />
-                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
-                <asp:BoundField DataField="Quantity" HeaderText="Quantity" SortExpression="Quantity" />
-                <asp:BoundField DataField="UOM" HeaderText="UOM" SortExpression="UOM" />
-                <asp:BoundField DataField="Unit Price" HeaderText="Unit Price" SortExpression="Unit Price" />
-                <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" />
+                <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="LblSn" runat="server" CssClass="center-block" Text="<%# Container.DataItemIndex + 1 %>"></asp:Label>
+                                                </ItemTemplate>
+
+                                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                            </asp:TemplateField>
+                <asp:TemplateField HeaderText="Item No." HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                <ItemTemplate>
+                                                    <asp:UpdatePanel runat="server" ID="Upid" UpdateMode="Conditional" ChildrenAsTriggers="true">
+                                                        <ContentTemplate>
+                                                            <asp:Label ID="LblItemNo" runat="server" Text='<%# Bind("ItemID") %>' OnTextChanged="Txtitemid_TextChanged" AutoPostBack="true"></asp:Label>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+
+                                                </ItemTemplate>
+
+                                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Description" HeaderStyle-Width="52%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                <ItemTemplate>
+                                    <asp:Label ID="LblDesc" runat="server"></asp:Label>
+                                </ItemTemplate>
+
+                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="52%"></HeaderStyle>
+                            </asp:TemplateField>
+
+                           <asp:TemplateField HeaderText="Quantity">
+                                    <ItemTemplate>
+                                        <asp:UpdatePanel runat="server" ID="UpValue" UpdateMode="Conditional" ChildrenAsTriggers="true">
+                                                        <ContentTemplate>
+                                        <asp:Label ID="Lblquantity" runat="server" Text='<%# Bind("Quantity") %>' OnTextChanged="Txtquantity_TextChanged" AutoPostBack="true"></asp:Label>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                    </ItemTemplate>
+                               <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="10%"></HeaderStyle>
+                                </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="UOM" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="LblUom" runat="server" Text='<%# Bind("UOM") %>'></asp:Label>
+                                                </ItemTemplate>
+
+                                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Unit Price" HeaderStyle-Width="22%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                <ItemTemplate>
+                                    <asp:Label ID="LblUnp" runat="server" Width="100%" CssClass="center-block" Text=""></asp:Label>
+                                </ItemTemplate>
+                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="22%"></HeaderStyle>
+                            </asp:TemplateField>
+                <asp:TemplateField HeaderText="Price" HeaderStyle-Width="22%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                <ItemTemplate>
+                                    <asp:Label ID="LblPrice" runat="server" Width="100%" CssClass="center-block" Text=""></asp:Label>
+                                </ItemTemplate>
+                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="22%"></HeaderStyle>
+                            </asp:TemplateField>
             </Columns>
-        </asp:GridView></tr>
+                                         <EditRowStyle BackColor="#999999" />
+                                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+
+        </asp:GridView> 
+
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+
+            </tr>
                  <tr>
         <td class="auto-style14">
                     <asp:Label ID="totLbl" runat="server" Text="Total:"></asp:Label>
                 </td>
        
         <td class="auto-style13">
-            <asp:Label ID="totalLbl" runat="server"></asp:Label></td>
+            <asp:Label ID="totalLbl" runat="server"  Text='<%#:GetTotal()%>'></asp:Label></td>
         </tr>
-
+         
         </div>
 </asp:Content>

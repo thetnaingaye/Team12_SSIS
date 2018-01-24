@@ -3,6 +3,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <!-- Print Script -->
+    <style type="text/css" media="screen">
+        .button {
+            border: 1px;
+        }
+    </style>
+    <style type="text/css" media="print">
+        .button {
+            display: none;
+        }
+    </style>
+    <!-- End of Print -->
     <table style="width: 100%" class="center-block">
         <tr>
             <td colspan="5">
@@ -17,8 +29,10 @@
                 <asp:Label ID="LblDisbId" runat="server"></asp:Label>
             </td>
             <td style="width: 40%"></td>
-            <td><asp:Label runat="server" Text="Department: " Font-Size="Small"></asp:Label></td>
-            <td>                <asp:Label ID="LblDeptName" runat="server"></asp:Label></td>
+            <td>
+                <asp:Label runat="server" Text="Department: " Font-Size="Small"></asp:Label></td>
+            <td>
+                <asp:Label ID="LblDeptName" runat="server"></asp:Label></td>
         </tr>
         <tr>
 
@@ -140,7 +154,8 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:Button id="btnPrintbtn" runat="server" onclick="window.print();" CssClass="btn btn-group-xs"/>
+              <asp:Button id="BtnPrint" onclientclick="javascript:window.print();" runat="Server" cssclass="button" xmlns:asp="#unknown" Text="Print"/>
+
             </td>
             <td colspan="3" style="align-content: flex-end">
                 <asp:Button ID="BtnCancelDis" runat="server" Text="Cancel Disbursement List" CssClass="btn btn-group-xs" Visible="false" OnClick="BtnCancelDis_Click" />

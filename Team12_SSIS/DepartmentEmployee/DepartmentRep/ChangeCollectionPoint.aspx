@@ -5,8 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <p>
         Change Collection Point
-        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-    </p>
+        </p>
     <p>
         Current Collection Point: <asp:Label ID="CurrentCollectionPointLbl" runat="server"></asp:Label>
     </p>

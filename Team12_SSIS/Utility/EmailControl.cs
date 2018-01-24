@@ -75,7 +75,6 @@ namespace Team12_SSIS.Utility
                     collectionRepName +
                     " from " + departmentName +
                     " has changed his/her preferred collection point to " +
-                    " has changed his/her preferred collection point to " +
                     newDisburstmentPoint +
                     twoLineSpacing +
                     systemGen;
