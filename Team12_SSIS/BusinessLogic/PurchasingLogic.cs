@@ -1796,8 +1796,23 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
+        //Naing
+        public static List<PORecord> GetListOfPO(String status)
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.PORecords.Where(x => x.Status == status).ToList();
+            }
+        }
 
 
+        public static List<PORecord> GetListOfPO()
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.PORecords.ToList();
+            }
+        }
 
 
 
@@ -2031,7 +2046,7 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-		
+
 
         public static void DeleteSupplier(string SupplierID)
         {
