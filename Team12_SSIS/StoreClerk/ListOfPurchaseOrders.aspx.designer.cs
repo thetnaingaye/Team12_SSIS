@@ -58,22 +58,22 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label RLbl;
         
         /// <summary>
-        /// ShowLbl control.
+        /// LblShow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ShowLbl;
+        protected global::System.Web.UI.WebControls.Label LblShow;
         
         /// <summary>
-        /// ddlShow control.
+        /// DdlShow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlShow;
+        protected global::System.Web.UI.WebControls.DropDownList DdlShow;
         
         /// <summary>
         /// GridViewLPO control.

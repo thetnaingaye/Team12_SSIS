@@ -15,6 +15,20 @@ namespace Team12_SSIS.BusinessLogic
     public class PurchasingLogic
     {
 
+        // Checks if the current inventory is sufficient for the qty specified to be withdrawn by the user.
+        public double FindTotalByPONum(int poNum)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                double opt = 0;
+                List<PORecordDetail> temp = context.PORecordDetails.Where(x => x.PONumber == poNum).ToList();
+                foreach (var item in temp)
+                {
+                    opt += (Convert.ToDouble(item.Quantity) * Convert.ToDouble(item.UnitPrice));
+                }
+                return opt;
+            }
+        }
 
 
 
@@ -313,7 +327,7 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-//This method Returns a list of PO details for Goods Receipt
+        //This method Returns a list of PO details for Goods Receipt
         public List<PORecordDetail> GetPurchaseOrdersForGR(int POnumber)
         {
             using (SA45Team12AD ctx = new SA45Team12AD())
@@ -439,7 +453,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-
+       
 
 
 
@@ -654,21 +668,14 @@ namespace Team12_SSIS.BusinessLogic
                 entities.SaveChanges();
             }
         }
-        public static void AddDescription(string Description)
+        public static double GetUnitPrice(string ItemID, string supplierId)
         {
-            using (SA45Team12AD entities = new SA45Team12AD())
+            using(SA45Team12AD entities=new SA45Team12AD())
             {
-                InventoryCatalogue inventoCatalogue = new InventoryCatalogue();
-                inventoCatalogue.Description = Description;
-                entities.InventoryCatalogues.Add(inventoCatalogue);
-                entities.SaveChanges();
+                return (double)entities.SupplierCatalogues.Where(x => x.ItemID == ItemID).Where(x => x.SupplierID == supplierId).Select(x => x.Price).FirstOrDefault();
+                    
             }
         }
-
-
-
-
-
 
         public static List<PORecord> ListPORecords()
         {
@@ -679,8 +686,71 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+      
+        public static PORecord GetPurchaseOrderRecord(int poNo)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.PORecords.FirstOrDefault(x => x.PONumber == poNo);
+            }
+        }
+        public static List<PORecord> GetListOfPurchaseOrder()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.PORecords.ToList();
+
+            }
+        }
+        public static List<PORecord> GetListOfPurchaseOrder(string status)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.PORecords.Where(x => x.Status == status).ToList();
 
 
+            }
+        }
+        public static List<PORecordDetail> GetListOfPORecorDetails(int poNo)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.PORecordDetails.Where(x => x.PONumber == poNo).ToList();
+            }
+        }
+
+
+
+        public static List<PORecordDetail> GetListOfPurchaseOrderDetails()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.PORecordDetails.ToList();
+
+
+            }
+        }
+        public static int GetPORecordApproveID(int poNo)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.PORecordDetails.Where(x => x.PONumber == poNo).Select(x =>x.ID).FirstOrDefault();
+            }
+        }
+
+
+        public static bool CancelPORecordRequest(int poNo)
+        {
+            bool success = false;
+            using (SA45Team12AD entities= new SA45Team12AD())
+            {
+                PORecord poRecord = entities.PORecords.FirstOrDefault(x => x.PONumber ==poNo);
+                poRecord.Status = "Cancelled";
+                entities.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
 
 
 
