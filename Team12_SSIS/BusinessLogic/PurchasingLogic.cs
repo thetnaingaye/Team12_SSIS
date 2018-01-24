@@ -1248,11 +1248,26 @@ namespace Team12_SSIS.BusinessLogic
 			}
 		}
 
+
+		public static int GetCurrentBufferStock(string itemid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				if(entities.InventoryCatalogues.Where(x => x.ItemID == itemid).Select(x => x.BufferStockLevel).Single() != null)
+				{
+					return (int)entities.InventoryCatalogues.Where(x => x.ItemID == itemid).Select(x => x.BufferStockLevel).Single();
+				}
+				else
+				{
+					return -1;
+				}
+			}
+		}
 		public static string GetCurrentAutomationStatus(string itemid)
 		{
-			using (SA45Team12AD entites = new SA45Team12AD())
+			using (SA45Team12AD entities = new SA45Team12AD())
 			{
-				InventoryCatalogue inventory = entites.InventoryCatalogues.Where(x => x.ItemID == itemid).First<InventoryCatalogue>();
+				InventoryCatalogue inventory = entities.InventoryCatalogues.Where(x => x.ItemID == itemid).First<InventoryCatalogue>();
 				if (inventory.BufferStockLevel == null)
 				{
 					return "The buffer stock level is currently calculated automatically for the current item.";
@@ -1264,6 +1279,24 @@ namespace Team12_SSIS.BusinessLogic
 			}
 		}
 
+		public static void UpdateBufferStockLevel(string itemid, int newbufferstocklevel)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				InventoryCatalogue inventory = entities.InventoryCatalogues.Where(x => x.ItemID == itemid).Single();
+				inventory.BufferStockLevel = newbufferstocklevel;
+				entities.SaveChanges();
+			}
+		}
+
+		public static int GetCurrentOrderLeadTime(string supplierid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				SupplierList supplier = entities.SupplierLists.Where(x => x.SupplierID == supplierid).First<SupplierList>();
+				return (int)supplier.OrderLeadTime;
+			}
+		}
 
 
 

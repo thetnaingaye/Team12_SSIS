@@ -6,8 +6,11 @@
         <strong>Amend Order Lead Time</strong></p>
     <p>
         <asp:Label ID="Label1" runat="server" Text="Supplier Name:"></asp:Label>
-        <asp:DropDownList ID="SuppliersDdl" runat="server">
+        <asp:DropDownList ID="SuppliersDdl" runat="server" OnSelectedIndexChanged="SuppliersDdl_SelectedIndexChanged" AutoPostBack="True">
         </asp:DropDownList>
+    </p>
+    <p>
+        Current Order Lead Time: <asp:Label ID="LblCurrentOrderLeadTime" runat="server" Text="Label"></asp:Label>
     </p>
     <p>
         Order Lead Time (Days):<asp:TextBox ID="OrderLeadTimeTxt" runat="server"></asp:TextBox>

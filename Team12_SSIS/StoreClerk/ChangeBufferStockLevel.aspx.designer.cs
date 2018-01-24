@@ -13,13 +13,31 @@ namespace Team12_SSIS.StoreClerk {
     public partial class ChangeBufferStockLevel {
         
         /// <summary>
-        /// TextBox1 control.
+        /// MultiView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.MultiView MultiView1;
+        
+        /// <summary>
+        /// View1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View View1;
+        
+        /// <summary>
+        /// TxtItemCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtItemCode;
         
         /// <summary>
         /// FindBtn control.
@@ -31,13 +49,31 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Button FindBtn;
         
         /// <summary>
-        /// ItemDescriptionLbl control.
+        /// View2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ItemDescriptionLbl;
+        protected global::System.Web.UI.WebControls.View View2;
+        
+        /// <summary>
+        /// LblItemCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblItemCode;
+        
+        /// <summary>
+        /// LblItemDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblItemDescription;
         
         /// <summary>
         /// AutomationStatusLbl control.
@@ -58,13 +94,13 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.RadioButton ProportionalRbtn;
         
         /// <summary>
-        /// TextBox2 control.
+        /// TxtProportional control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox TxtProportional;
         
         /// <summary>
         /// AbsoluteRbtn control.
@@ -76,13 +112,13 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.RadioButton AbsoluteRbtn;
         
         /// <summary>
-        /// TextBox3 control.
+        /// TxtAbsolute control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        protected global::System.Web.UI.WebControls.TextBox TxtAbsolute;
         
         /// <summary>
         /// AutomationRbtn control.
@@ -101,6 +137,15 @@ namespace Team12_SSIS.StoreClerk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button SaveBtn;
+        
+        /// <summary>
+        /// BtnBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnBack;
         
         /// <summary>
         /// StatusChangedLbl control.
