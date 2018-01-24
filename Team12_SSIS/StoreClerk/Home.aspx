@@ -23,6 +23,7 @@
 
         <div class="row">
             <div class="col-md-6 well col-sm-12" style="background-color: transparent; border: none; box-shadow: none; padding: 5px 30px 0px 30px">
+                 <a href="ReorderList.aspx" style="text-decoration:none"> 
                 <div class="well" style="background-color: transparent; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
 
                     <div class="auto-style2">
@@ -41,6 +42,7 @@
                     </div>
 
                 </div>
+                     </a>
                 <div class="well" style="background-color: transparent; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
 
                     <div class="auto-style2">
@@ -64,6 +66,7 @@
             <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:SA45Team12AD %>" SelectCommand="SELECT CategoryID, COUNT(*) AS TotalItem FROM InventoryCatalogue GROUP BY CategoryID" OnSelecting="SqlDataSource3_Selecting"></asp:SqlDataSource>
 
             <div class="col-md-6 col-sm-12">
+                 <a href="CurrentRequisitionOrders.aspx" style="text-decoration:none"> 
                 <div class="panel panel-default" style="border-color: #006699; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
                     <div class="panel-heading" style="text-align: left; background-color: transparent; color: #1A6ECC";font-weight:600><h4>Requisition Forms</h4><h6>Oustanding requisition forms by department</h6></div>
                     <div class="panel panel-body">
@@ -72,6 +75,7 @@
                                 <asp:AsyncPostBackTrigger ControlID="Timer3" />
                             </Triggers>
                             <ContentTemplate>
+                                
                                 <div class="pre-scrollable" style="height: 150px; width: 100%; overflow-y: scroll;">
 
                                     <asp:GridView ID="GridView1" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" EnableSortingAndPagingCallbacks="True" Height="100%" HorizontalAlign="Center" PageSize="3" Width="100%" AutoGenerateColumns="False"
@@ -106,14 +110,15 @@
                                         <SortedDescendingHeaderStyle BackColor="#00547E" />
                                     </asp:GridView>
                                 </div>
-
+                                       
                             </ContentTemplate>
                         </asp:UpdatePanel>
-
+                        
                     </div>
                 </div>
+                 </a>
             </div>
-
+           
 
         </div>
 

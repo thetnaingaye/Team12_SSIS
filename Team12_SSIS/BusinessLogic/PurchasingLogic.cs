@@ -15,6 +15,8 @@ namespace Team12_SSIS.BusinessLogic
     public class PurchasingLogic
     {
 
+        //----------------------------         KHAIR's               ----------------------------// 
+
         // Checks if the current inventory is sufficient for the qty specified to be withdrawn by the user.
         public double FindTotalByPONum(int poNum)
         {
@@ -27,6 +29,158 @@ namespace Team12_SSIS.BusinessLogic
                     opt += (Convert.ToDouble(item.Quantity) * Convert.ToDouble(item.UnitPrice));
                 }
                 return opt;
+            }
+        }
+
+        // Passess a completely organized list based on data from the ReorderRecord table
+        public List<ReorderRecord> PopulateReorderTable()
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                List<ReorderRecord> opt;
+                List<ReorderRecord> tempList;
+
+                try
+                {
+                    opt = new List<ReorderRecord>();
+                    tempList = context.ReorderRecords.ToList();
+
+                    opt.Add(tempList[0]);
+
+                    // Creating our opt list
+                    for (int i = 1; i < tempList.Count; i++)
+                    {
+                        bool noDuplicates = true;   // There might be duplicates...
+                        for (int j = 0; j < opt.Count; j++)
+                        {
+                            if (tempList[i].ItemID == opt[j].ItemID && tempList[i].SupplierID == opt[j].SupplierID)
+                            {
+                                opt[j].OrderedQuantity += tempList[i].OrderedQuantity;
+                                noDuplicates = false;
+                            }
+                        }
+
+                        if (noDuplicates)
+                        {
+                            opt.Add(tempList[i]);
+                        }
+                    }
+                    return opt;
+                }
+                catch (Exception)
+                {
+                    return null;     // This is to capture instances whereby there are zero records in the reorder table.
+                }
+            }
+        }
+
+        // Retrieving supplier name
+        public string GetSuppilerName(string suppID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                SupplierList s = context.SupplierLists.Where(x => x.SupplierID.Equals(suppID)).First();
+                return s.SupplierName;
+            }
+        }
+
+        // Create multiple PO from a list of reorder records
+        public string CreateMultiplePO(List<ReorderRecord> tempList)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                try
+                {
+                    foreach (var item in tempList)
+                    {
+                        bool res1 = CreateSinglePO(item);
+                        bool res2 = CreateSinglePODetails(item);
+
+                        if (!res1 || !res2)
+                        {
+                            throw new Exception();
+                        }
+
+
+                        // Gotta clear all the reorder records that are in the db according to their itemid
+                        List<ReorderRecord> rList = context.ReorderRecords.Where(x => x.ItemID.Equals(item.ItemID)).ToList();
+                        foreach (var item1 in rList)
+                        {
+                            context.ReorderRecords.Remove(item1);
+                        }
+                        context.SaveChanges();
+                    }
+                    // Finall~
+                    return "All purchase orders were successfully created and has been send to the supervisor for approval.";
+                }
+                catch (Exception)
+                {
+                    return "Failure to create all purchase orders.";
+                }
+            }
+        }
+
+        // Creating a single PO entry
+        public bool CreateSinglePO(ReorderRecord r)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                try
+                {
+                    SupplierList s = context.SupplierLists.Where(x => x.SupplierID.Equals(r.SupplierID)).First();
+
+                    PORecord p = new PORecord();
+                    p.DateRequested = DateTime.Now;
+                    p.RecipientName = "System-generated";
+                    p.DeliveryAddress = "21 Lower Kent Ridge Rd, Singapore 119077";  // Default address
+                    p.SupplierID = r.SupplierID;
+                    p.CreatedBy = "System-generated";
+                    p.ExpectedDelivery = DateTime.Now.AddDays(Convert.ToDouble(s.OrderLeadTime));
+                    p.Status = "Pending";
+
+                    context.PORecords.Add(p);
+                    context.SaveChanges();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
+        // Creating a single PODetails entry
+        public bool CreateSinglePODetails(ReorderRecord r)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                try
+                {
+                    // Finding the newly created PO record
+                    PORecord pr = context.PORecords.OrderByDescending(x => x.PONumber).First();
+
+                    // Req to populate the values for the new entry
+                    InventoryCatalogue iv = context.InventoryCatalogues.Where(x => x.ItemID.Equals(r.ItemID)).First();  // To retrieve UOM
+                    SupplierCatalogue sc = context.SupplierCatalogues.Where(x => x.ItemID.Equals(r.ItemID)).Where(y => y.SupplierID.Equals(r.SupplierID)).First();  // TO retrieve price
+
+                    // Creating our new entry...
+                    PORecordDetail pd = new PORecordDetail();
+                    pd.PONumber = pr.PONumber;
+                    pd.ItemID = r.ItemID;
+                    pd.Quantity = r.OrderedQuantity;
+                    pd.UOM = iv.UOM;
+                    pd.UnitPrice = sc.Price;
+
+                    context.PORecordDetails.Add(pd);
+                    context.SaveChanges();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
         }
 
@@ -1298,9 +1452,7 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-
-
-		public static List<SupplierList> ListSuppliers()
+        public static List<SupplierList> ListSuppliers()
 		{
 			using (SA45Team12AD entities = new SA45Team12AD())
 			{

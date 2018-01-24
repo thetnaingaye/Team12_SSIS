@@ -136,25 +136,4 @@ namespace Team12_SSIS.DepartmentHead
 		}
 	}
 
-
-	//DateTime startdate = CalStartEditDelegate.SelectedDate;
-	//DateTime enddate = CalEndEditDelegate.SelectedDate;
-	//string delegatefullname = EmployeesDdl.Text;
-	//string delegateusername = DisbursementLogic.GetUserName(delegatefullname, DisbursementLogic.GetCurrentDep());
-	//		if (startdate >= DateTime.Today && startdate <= enddate && startdate != null && enddate != null)
-	//		{
-				
-	//			RequisitionLogic.AddDelegate(delegatefullname, startdate, enddate, DisbursementLogic.GetCurrentDep());
-	//			statusMessage.Text = (delegatefullname + " has been delegated as the department head from " + startdate.ToShortDateString() + " to " + enddate.ToShortDateString());
-	//			statusMessage.Visible = true;
-	//			statusMessage.ForeColor = Color.Green;
-	//		}
-
-	//		else
-	//		{
-	//			statusMessage.Text = "Please enter a valid period";
-	//			statusMessage.Visible = true;
-	//			statusMessage.ForeColor = Color.Red;
-
-	//		}
 }

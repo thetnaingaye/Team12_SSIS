@@ -5,6 +5,7 @@
     <asp:Label ID="CurrentRepTextLbl" runat="server" Text="Current Representative:"></asp:Label>
     <asp:Label ID="CurrentRepLbl" runat="server"></asp:Label>
     <br />
+    <br />
     <asp:Label ID="NewRepTextLbl" runat="server" Text="New Representative:"></asp:Label>
     <asp:DropDownList ID="EmployeesDdl" runat="server">
         <asp:ListItem>
@@ -12,8 +13,8 @@
         
     </asp:DropDownList>
     <br />
+    <br />
     <asp:Button ID="AssignRepBtn" runat="server" OnClick="AssignRepBtn_Click" Text="Assign Representative" OnClientClick="this.disabled=true;" UseSubmitBehavior="false" />
     <br />
-    <asp:Label ID="NewRepAssignedLbl" runat="server"></asp:Label>
     <br />
 </asp:Content>
