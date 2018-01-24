@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,10 +12,15 @@ namespace Team12_SSIS.StoreClerk
 {
     public partial class ChangeBufferStockLevel : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+		Label statusMessage;
+		protected void Page_Load(object sender, EventArgs e)
         {
-			if(!IsPostBack)
+			statusMessage = this.Master.FindControl("LblStatus") as Label;
+			if (!IsPostBack)
 			{
+				TxtProportional.Visible = false;
+				TxtAbsolute.Visible = false;
+				statusMessage.Visible = false;
 				MultiView1.ActiveViewIndex = 0;
 			}
         }
@@ -22,15 +28,88 @@ namespace Team12_SSIS.StoreClerk
 		protected void FindBtn_Click(object sender, EventArgs e)
 		{
 			string itemcode = TxtItemCode.Text;
+			int bufferstocklevel;
 			LblItemCode.Text = itemcode;
-			InventoryCatalogue i = InventoryLogic.GetInventoryItem(itemcode);
-			LblItemDescription.Text = i.Description;
-			MultiView1.ActiveViewIndex = 1;
+			try
+			{
+				InventoryCatalogue i = InventoryLogic.GetInventoryItem(itemcode);
+				bufferstocklevel = PurchasingLogic.GetCurrentBufferStock(itemcode);
+				if (bufferstocklevel >= 0)
+				{
+					AutomationStatusLbl.Text = "The current buffer stock level is " + bufferstocklevel + ".";
+				}
+				else
+				{
+					AutomationStatusLbl.Text = "The buffer stock level is currently calculated automatically.";
+				}
+				LblItemDescription.Text = i.Description;
+				MultiView1.ActiveViewIndex = 1;
+				statusMessage.Visible = false;
+			}
+			catch
+			{
+				statusMessage.Text = "Item does not exist.";
+				statusMessage.Visible = true;
+				statusMessage.ForeColor = Color.Red;
+			}
 		}
 
 		protected void BtnBack_Click(object sender, EventArgs e)
 		{
 			MultiView1.ActiveViewIndex = 0;
+		}
+
+		protected void ProportionalRbtn_CheckedChanged(object sender, EventArgs e)
+		{
+			if (ProportionalRbtn.Checked)
+			{
+				TxtProportional.Visible = true;
+				TxtAbsolute.Visible = false;
+			}
+			else if (!ProportionalRbtn.Checked)
+			{
+				TxtProportional.Visible = false;
+			}
+		}
+
+		protected void AbsoluteRbtn_CheckedChanged(object sender, EventArgs e)
+		{
+			if (AbsoluteRbtn.Checked)
+			{
+				TxtAbsolute.Visible = true;
+				TxtProportional.Visible = false;
+
+			}
+			else if (!AbsoluteRbtn.Checked)
+			{
+				TxtAbsolute.Visible = false;
+			}
+		}
+
+		protected void AutomationRbtn_CheckedChanged(object sender, EventArgs e)
+		{
+			TxtProportional.Visible = false;
+			TxtAbsolute.Visible = false;
+		}
+
+		protected void SaveBtn_Click(object sender, EventArgs e)
+		{
+			int newbufferstocklevel;
+			if(AbsoluteRbtn.Checked)
+			{
+				if(Int32.TryParse(TxtAbsolute.Text,out newbufferstocklevel))
+				{
+					PurchasingLogic.UpdateBufferStockLevel(TxtItemCode.Text, newbufferstocklevel);
+					AutomationStatusLbl.Text = "The current buffer stock level is " + newbufferstocklevel.ToString() + ".";
+				}
+				else
+				{
+					statusMessage.Text = "Please enter a positive integer or 0.";
+					statusMessage.Visible = true;
+					statusMessage.ForeColor = Color.Red;
+				}
+
+			}
 		}
 	}
 }

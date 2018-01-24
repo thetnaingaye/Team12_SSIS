@@ -13,9 +13,8 @@ namespace Team12_SSIS.DepartmentHead
         protected void Page_Load(object sender, EventArgs e)
         {
 			if (!IsPostBack)
-			{	//Getting delegate history from database
-				GridViewDelegationHistory.DataSource = RequisitionLogic.ListDelegateDetails(DisbursementLogic.GetCurrentDep());
-				GridViewDelegationHistory.DataBind();
+			{   //Getting delegate history from database
+				BindGrid();
 			}
 
         }

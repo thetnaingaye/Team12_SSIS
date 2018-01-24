@@ -30,18 +30,18 @@
                 <p>
                     Indicate desired buffer stock level:</p>
                 <p>
-                    <asp:RadioButton ID="ProportionalRbtn" runat="server" Text="Proportional" />
-                    (%)<asp:TextBox ID="TxtProportional" runat="server" ReadOnly="True"></asp:TextBox>
+                    <asp:RadioButton ID="ProportionalRbtn" runat="server" Text="Proportional" GroupName ="RadioButtonGroup" AutoPostBack ="true" OnCheckedChanged="ProportionalRbtn_CheckedChanged" />
+                    (%)<asp:TextBox ID="TxtProportional" runat="server"></asp:TextBox>
                 </p>
                 <p>
-                    <asp:RadioButton ID="AbsoluteRbtn" runat="server" Text="Absolute" />
-                    <asp:TextBox ID="TxtAbsolute" runat="server" ReadOnly="True"></asp:TextBox>
+                    <asp:RadioButton ID="AbsoluteRbtn" runat="server" Text="Absolute" GroupName ="RadioButtonGroup" OnCheckedChanged="AbsoluteRbtn_CheckedChanged" AutoPostBack="True" />
+                    <asp:TextBox ID="TxtAbsolute" runat="server"></asp:TextBox>
                 </p>
                 <p>
-                    <asp:RadioButton ID="AutomationRbtn" runat="server" Text="Calculate Automatically" />
+                    <asp:RadioButton ID="AutomationRbtn" runat="server" Text="Calculate Automatically" GroupName ="RadioButtonGroup" AutoPostBack="True" OnCheckedChanged="AutomationRbtn_CheckedChanged"/>
                 </p>
                 <p>
-                    <asp:Button ID="SaveBtn" runat="server" Text="Save" />
+                    <asp:Button ID="SaveBtn" runat="server" Text="Save" OnClick="SaveBtn_Click" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="BtnBack" runat="server" OnClick="BtnBack_Click" Text="Back" />
                 </p>
