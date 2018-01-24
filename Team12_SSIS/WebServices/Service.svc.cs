@@ -25,7 +25,7 @@ namespace Team12_SSIS.WebServices
         public List<WCF_DisbursementList> GetDisbursementList()
         {
 
-            List<DisbursementList> dlist = new DisbursementLogic().getDisbursement();
+            List<DisbursementList> dlist = DisbursementLogic.GetDisbursementList();
             List<WCF_DisbursementList> wcf_dlist = new List<WCF_DisbursementList>();
         
 

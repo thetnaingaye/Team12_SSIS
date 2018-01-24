@@ -38,7 +38,7 @@
     <br />
 
     <%--Gridview formatting--%>
-    <asp:GridView ID="GridViewInventory" runat="server"   AutoGenerateColumns="false" Width="75%" GridLines="None" datakeynames="ItemID" ItemType="Team12_SSIS.Model.InventoryCatalogue" BackColor="White" >
+    <asp:GridView ID="GridViewInventory" runat="server"   AutoGenerateColumns="false" Width="75%" GridLines="None" datakeynames="ItemID" ItemType="Team12_SSIS.Model.InventoryCatalogue" BackColor="White" PageIndex="1" >
         <%-- <HeaderStyle BackColor="#6495ED" Font-Bold="false" Font-Size="Medium" HorizontalAlign="Center" VerticalAlign="Middle" >
           </HeaderStyle>
         --%>

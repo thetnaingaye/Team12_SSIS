@@ -20,7 +20,7 @@ namespace Team12_SSIS.StoreClerk
 
             if (!IsPostBack)
             {
-                uList = disbursement.GetDisbursementList();
+                uList = DisbursementLogic.GetDisbursementList();
                 GridViewDisbursement.DataSource = uList;
                 GridViewDisbursement.DataBind();
 

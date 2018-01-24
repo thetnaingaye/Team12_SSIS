@@ -319,13 +319,13 @@ namespace Team12_SSIS.BusinessLogic
 
         //-------------------------Getting disbursement details------------------------------//
         //-----------------------Entire disbursement List------------------------------------//
-        public List<DisbursementList> GetDisbursementList()
-        {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                return entities.DisbursementLists.ToList<DisbursementList>();
-            }
-        }
+        //public List<DisbursementList> GetDisbursementList()
+        //{
+        //    using (SA45Team12AD entities = new SA45Team12AD())
+        //    {
+        //        return entities.DisbursementLists.ToList<DisbursementList>();
+        //    }
+        //}
 
     
         //-------------------------------Filter the disbursement details  by date range-------------------------------------------------------------------//
