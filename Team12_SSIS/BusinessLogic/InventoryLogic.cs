@@ -1224,12 +1224,23 @@ namespace Team12_SSIS.BusinessLogic
         //----Thanisha-------------------------View Stock Card details-----------------------------------------------//
         //------------------------------getting stock card details(ItemID,Date of transaction,Description,UOM,transaction type,quantity,balance)-------------//
 
-        public List<Object> getStockCardList(string itemid)
+        public List<Object> GetStockCardList(string itemid)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 var q = entity.StockCards.
                 Select(x => new { x.ItemID, x.Date, x.Description, x.Type, x.Quantity, x.Balance }).Where(x => x.ItemID == itemid);
+                List<Object> sList = q.ToList<Object>();
+                return sList;
+            }
+        }
+        //------------------------get all stockcarditems----------------------------------------//
+        public List<Object> GetAllStockCardList()
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                var q = entity.StockCards.
+                Select(x => new { x.ItemID, x.Date, x.Description, x.Type, x.Quantity, x.Balance });
                 List<Object> sList = q.ToList<Object>();
                 return sList;
             }

@@ -45,9 +45,9 @@
     <asp:Label ID="LblDep" runat="server" Text="Department :"></asp:Label>
      
      <asp:DropDownList ID="DdlDep" runat="server">
-         <asp:ListItem>Mr</asp:ListItem>
-         <asp:ListItem>Ms</asp:ListItem>
-         <asp:ListItem>Mrs</asp:ListItem>
+         <asp:ListItem></asp:ListItem>
+         <asp:ListItem></asp:ListItem>
+         <asp:ListItem></asp:ListItem>
      </asp:DropDownList> 
        &nbsp; 
        &nbsp;

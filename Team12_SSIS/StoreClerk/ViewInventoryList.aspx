@@ -1,11 +1,15 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewInventoryList.aspx.cs" Inherits="Team12_SSIS.StoreClerk.ViewInventoryList" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <asp:Label ID="LblTitle" runat="server" Text="Inventory List" Font-Size="Large"></asp:Label>
     <br />
     <br />
-    <asp:Label ID="LblInput" runat="server" Text="Choose item to filter the inventory list:"></asp:Label><asp:RadioButtonList ID="RbtnFilter" runat="server" AutoPostBack="True" CellPadding="2" CellSpacing="2" OnSelectedIndexChanged="Rbtn_SelectedIndexChanged" RepeatDirection="Horizontal">
+    <asp:Label ID="LblInput" runat="server" Text="Choose item to filter the inventory list:"  CellSpacing = "30" ></asp:Label><asp:RadioButtonList ID="RbtnFilter" runat="server" AutoPostBack="True" CellPadding="2" CellSpacing="2" OnSelectedIndexChanged="Rbtn_SelectedIndexChanged" RepeatDirection="Horizontal" Height="24px">
         <asp:ListItem Text="ItemCode" Value="1" />
         <asp:ListItem Text="Catagory" Value="2" />
     </asp:RadioButtonList>
@@ -34,16 +38,19 @@
     <br />
 
     <%--Gridview formatting--%>
-    <asp:GridView ID="GridViewInventory" runat="server"   AutoGenerateColumns="false" Width="75%"  datakeynames="ItemID" ItemType="Team12_SSIS.Model.InventoryCatalogue" BackColor="White" >
-         <HeaderStyle BackColor="#6495ED" Font-Bold="false" Font-Size="Medium" HorizontalAlign="Center" VerticalAlign="Middle" >
+    <asp:GridView ID="GridViewInventory" runat="server"   AutoGenerateColumns="false" Width="75%" GridLines="None" datakeynames="ItemID" ItemType="Team12_SSIS.Model.InventoryCatalogue" BackColor="White" >
+        <%-- <HeaderStyle BackColor="#6495ED" Font-Bold="false" Font-Size="Medium" HorizontalAlign="Center" VerticalAlign="Middle" >
           </HeaderStyle>
-        
-
+        --%>
+        <HeaderStyle CssClass="gridViewHeader" />
+    <RowStyle CssClass="gridViewRow" />
+    <AlternatingRowStyle CssClass="gridViewAltRow" />
     <Columns>
         <asp:TemplateField HeaderText="ItemID">
             <ItemTemplate>
                 <asp:Label ID="LblitemId" runat="server" Text="<%#:Item.ItemID %>"></asp:Label>
             </ItemTemplate>
+              <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
             <ItemStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
         </asp:TemplateField>
          <asp:TemplateField HeaderText="Description">
@@ -51,6 +58,7 @@
                 <asp:Label ID="Lbldes" runat="server" Text="<%#:Item.Description %>"></asp:Label>
             </ItemTemplate>
             <ItemStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
+               <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
         </asp:TemplateField>
 
         <asp:TemplateField HeaderText="BIN">
@@ -58,6 +66,7 @@
                 <asp:Label ID="LblBin" runat="server" Text="<%#:Item.BIN %>"></asp:Label>
             </ItemTemplate>
             <ItemStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
+              <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
         </asp:TemplateField>
 
          <asp:TemplateField HeaderText="Shelf">
@@ -65,6 +74,7 @@
                 <asp:Label ID="LblShelf" runat="server" Text="<%#:Item.Shelf %>"></asp:Label>
             </ItemTemplate>
             <ItemStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
+               <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
         </asp:TemplateField>
 
         
@@ -73,6 +83,8 @@
                 <asp:Label ID="LblLevel" runat="server" Text="<%#:Item.Level %>"></asp:Label>
             </ItemTemplate>
             <ItemStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
+               <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+               
         </asp:TemplateField>
     
         <asp:TemplateField HeaderText="UnitsInStock"> 
@@ -80,6 +92,7 @@
                 <asp:Label ID="LblUIS" runat="server" Text="<%#:Item.UnitsInStock %>"></asp:Label>
             </ItemTemplate>
             <ItemStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
+              <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
         </asp:TemplateField>
 
          <asp:TemplateField HeaderText="UnitsOnOrder"> 
@@ -87,6 +100,7 @@
                 <asp:Label ID="LblUIO" runat="server" Text="<%#:Item.UnitsOnOrder %>"></asp:Label>
             </ItemTemplate>
             <ItemStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
+               <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
         </asp:TemplateField>
 
           <asp:TemplateField HeaderText="BufferStockLevel"> 
@@ -94,6 +108,7 @@
                 <asp:Label ID="LblBuffer" runat="server" Text="<%#:Item.BufferStockLevel %>"></asp:Label>
             </ItemTemplate>
             <ItemStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
+                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
         </asp:TemplateField>
 
          <asp:TemplateField HeaderText="Discontinued"> 
@@ -101,6 +116,7 @@
                 <asp:Label ID="Lbldesc" runat="server" Text="<%#:Item.Discontinued %>"></asp:Label>
             </ItemTemplate>
             <ItemStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
+               <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
         </asp:TemplateField>
     
     </Columns>
@@ -108,4 +124,3 @@
     <br />
     <asp:Label ID="LblMsg" runat="server" Text="" ForeColor="Green"></asp:Label>
     </asp:Content>
-<%--OnRowDataBound="GridViewInventory_RowDataBound"--%>

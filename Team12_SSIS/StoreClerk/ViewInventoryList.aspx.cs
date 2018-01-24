@@ -120,13 +120,6 @@ namespace Team12_SSIS.StoreClerk
 
 
         }
-        //protected void GridViewInventory_RowDataBound(object sender, GridViewRowEventArgs e)
-        //{
-        //    e.Row.Cells[4].Visible = false;
-        //    e.Row.Cells[6].Visible = false;
-        //    e.Row.Cells[8].Visible = false;
-        //    e.Row.Cells[9].Visible = false;
-
-        //}
+       
     }
 }

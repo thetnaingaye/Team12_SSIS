@@ -51,13 +51,6 @@ namespace Team12_SSIS.StoreClerk
 
         }
 
-        //protected void GridViewDisbursement_RowDataBound(object sender, GridViewRowEventArgs e)
-        //{
-        //    e.Row.Cells[2].Visible = false;
-        //    e.Row.Cells[5].Visible = false;
-
-        //}
-
         //-------------------------gridview details link button click event.........//
         //-------------------------  directing to Disbursement detail page---//
         protected void Btndetailclick(Object sender, CommandEventArgs e)

@@ -16,10 +16,14 @@ namespace Team12_SSIS.StoreClerk
     {
         InventoryCatalogue detFromInventory;
         List<SupplierCatalogue> sCatList;
-        
+        InventoryLogic i = new InventoryLogic();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             controlVisibleFalse();
+            GridViewStockCard.DataSource = i.GetAllStockCardList();
+            GridViewStockCard.DataBind();
+
         }
 
         protected void BtnFind_Click(object sender, EventArgs e)
@@ -29,9 +33,9 @@ namespace Team12_SSIS.StoreClerk
 
 
             //--------------Methods from InventoryLogic class------------------------//
-            InventoryLogic i = new InventoryLogic();
+           
             //--------------------------------------stockCard table records-------------//
-            GridViewStockCard.DataSource = i.getStockCardList(TxtId.Text);
+            GridViewStockCard.DataSource = i.GetStockCardList(TxtId.Text);
             GridViewStockCard.DataBind();
 
             //---------------------------from InventoryCatalogue table(BIN,Description,UOM)------//
@@ -49,7 +53,7 @@ namespace Team12_SSIS.StoreClerk
         }
         protected void GridViewStockCard_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-                e.Row.Cells[0].Visible = false;
+               // e.Row.Cells[0].Visible = false;
             
         }
         public void controlVisibleFalse()
@@ -64,7 +68,7 @@ namespace Team12_SSIS.StoreClerk
             LblS1D.Visible = false;
             LblS2.Visible = false;
             LblS2D.Visible = false;
-            LblsS3.Visible = false;
+            LblS3.Visible = false;
             LblS3D.Visible = false;
             LblUom.Visible = false;
             LblUomD.Visible = false;
@@ -83,7 +87,7 @@ namespace Team12_SSIS.StoreClerk
             LblS1D.Visible = true;
             LblS2.Visible = true;
             LblS2D.Visible = true;
-            LblsS3.Visible = true;
+            LblS3.Visible = true;
             LblS3D.Visible = true;
             LblUom.Visible = true;
             LblUomD.Visible = true;
