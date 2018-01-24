@@ -313,7 +313,7 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        //This method Returns a list of PO details for Goods Receipt
+//This method Returns a list of PO details for Goods Receipt
         public List<PORecordDetail> GetPurchaseOrdersForGR(int POnumber)
         {
             using (SA45Team12AD ctx = new SA45Team12AD())
@@ -334,27 +334,40 @@ namespace Team12_SSIS.BusinessLogic
                         GRNumber = gr.GRNumber,
                     }).Where(x => x.PONumber == POnumber).ToList();
 
-                //If there is no existing GR record for this PO number, return the original PO Detail list
-                if (grRecords.Count == 0)
-                {
-                    return poDetailList;
-                }
-                //If there is existing GR record for the PO, check for remaiaing GR quantity
+                //Check for remaiaing GR quantity
                 foreach (PORecordDetail orderedItem in poDetailList)
                 {
                     //Add the updated Order detail into the fresh list.
                     PORecordDetail prd = CheckForGRQuantity(grRecords, orderedItem);
                     if (prd.Quantity > 0)
-                    {
-                        poDetailListWithGR.Add(prd);
-                    }
-
+                        poDetailListWithGR.Add(prd);                    
                 }
+                //Check for PO completion and if yes, change the PO Status
+                IsPOCompleted(poDetailListWithGR.Count, POnumber);
                 //Return the Order list that has the updated reamining quantity.
                 return poDetailListWithGR;
             }
         }
 
+
+        private bool IsPOCompleted(int itemCount, int poNumber)
+        {
+            bool isCompleted = false;
+            if (itemCount == 0)
+            {
+                using (SA45Team12AD ctx = new SA45Team12AD())
+                {
+                    PORecord poR = ctx.PORecords.Where(x => x.PONumber == poNumber).FirstOrDefault();
+                    poR.Status = "Completed";
+                    ctx.SaveChanges();
+
+                    isCompleted = true;
+                    return isCompleted;
+                }
+            }
+            return isCompleted;
+        }
+        
         private PORecordDetail CheckForGRQuantity(dynamic grRecords, PORecordDetail orderedItem)
         {
             //for each GR record, check if the ItemID matches with the Order item ItemID
@@ -363,8 +376,8 @@ namespace Team12_SSIS.BusinessLogic
                 if (orderedItem.ItemID == received.ItemID)
                 {
                     //Minus ordered quantity with received quantity
-                    int qty = (int)orderedItem.Quantity - (int)received.Quantity;
-                    orderedItem.Quantity = qty;
+                    int qty = (int) orderedItem.Quantity - (int)received.Quantity;
+                    orderedItem.Quantity = qty;                    
                 }
             }
             return orderedItem;
@@ -373,7 +386,7 @@ namespace Team12_SSIS.BusinessLogic
         //Method for Posting GR
         public int CreateGoodsReceipt(DateTime dateProcessed, int poNumber, string receivedBy, string doNumber)
         {
-            using (SA45Team12AD ctx = new SA45Team12AD())
+            using(SA45Team12AD ctx = new SA45Team12AD())
             {
                 GoodReceipt goodReceipt = new GoodReceipt
                 {
@@ -386,10 +399,10 @@ namespace Team12_SSIS.BusinessLogic
                 ctx.SaveChanges();
                 return goodReceipt.GRNumber;
             }
-
+            
         }
 
-        public PORecord GetPORecords(int poNumber)
+        public PORecord GetPORecords (int poNumber)
         {
             using (SA45Team12AD ctx = new SA45Team12AD())
                 return ctx.PORecords.FirstOrDefault(x => x.PONumber == poNumber);
@@ -403,7 +416,7 @@ namespace Team12_SSIS.BusinessLogic
             grd.Quantity = quantity;
             grd.UOM = uom;
             grd.Remarks = remarks;
-            using (SA45Team12AD ctx = new SA45Team12AD())
+            using(SA45Team12AD ctx = new SA45Team12AD())
             {
                 ctx.GoodReceiptDetails.Add(grd);
                 ctx.SaveChanges();
@@ -412,7 +425,7 @@ namespace Team12_SSIS.BusinessLogic
 
         public GoodReceipt GetGoodsReceipt(int goodReceiptNumber)
         {
-            using (SA45Team12AD ctx = new SA45Team12AD())
+            using(SA45Team12AD ctx = new SA45Team12AD())
             {
                 return ctx.GoodReceipts.FirstOrDefault(x => x.GRNumber == goodReceiptNumber);
             }
@@ -420,7 +433,7 @@ namespace Team12_SSIS.BusinessLogic
 
         public List<GoodReceiptDetail> GetGoodsReceiptDetails(int goodReceiptNumber)
         {
-            using (SA45Team12AD ctx = new SA45Team12AD())
+            using(SA45Team12AD ctx = new SA45Team12AD())
             {
                 return ctx.GoodReceiptDetails.Where(x => x.GRNumber == goodReceiptNumber).ToList();
             }
@@ -1217,39 +1230,39 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        public static List<SupplierList> ListSuppliers()
-        {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                return entities.SupplierLists.ToList();
-            }
-        }
+		public static List<SupplierList> ListSuppliers()
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				return entities.SupplierLists.ToList();
+			}
+		}
 
-        public static void UpdateOrderLeadTime(int orderLeadTime, string supplierID)
-        {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                SupplierList supplier = entities.SupplierLists.Where(p => p.SupplierID == supplierID).First<SupplierList>();
-                supplier.OrderLeadTime = orderLeadTime;
-                entities.SaveChanges();
-            }
-        }
+		public static void UpdateOrderLeadTime(int orderLeadTime, string supplierID)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				SupplierList supplier = entities.SupplierLists.Where(p => p.SupplierID == supplierID).First<SupplierList>();
+				supplier.OrderLeadTime = orderLeadTime;
+				entities.SaveChanges();
+			}
+		}
 
-        public static string GetCurrentAutomationStatus(string itemid)
-        {
-            using (SA45Team12AD entites = new SA45Team12AD())
-            {
-                InventoryCatalogue inventory = entites.InventoryCatalogues.Where(x => x.ItemID == itemid).First<InventoryCatalogue>();
-                if (inventory.BufferStockLevel == null)
-                {
-                    return "The buffer stock level is currently calculated automatically for the current item.";
-                }
-                else
-                {
-                    return "The buffer stock level for the current item is " + inventory.BufferStockLevel.ToString();
-                }
-            }
-        }
+		public static string GetCurrentAutomationStatus(string itemid)
+		{
+			using (SA45Team12AD entites = new SA45Team12AD())
+			{
+				InventoryCatalogue inventory = entites.InventoryCatalogues.Where(x => x.ItemID == itemid).First<InventoryCatalogue>();
+				if (inventory.BufferStockLevel == null)
+				{
+					return "The buffer stock level is currently calculated automatically for the current item.";
+				}
+				else
+				{
+					return "The buffer stock level for the current item is " + inventory.BufferStockLevel.ToString();
+				}
+			}
+		}
 
 
 
@@ -1819,22 +1832,8 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        public static List<PORecord> GetListOfPO(String status)
-        {
-            using (SA45Team12AD ctx = new SA45Team12AD())
-            {
-                return ctx.PORecords.Where(x => x.Status == status).ToList();
-            }
-        }
 
 
-        public static List<PORecord> GetListOfPO()
-        {
-            using (SA45Team12AD ctx = new SA45Team12AD())
-            {
-                return ctx.PORecords.ToList();
-            }
-        }
 
 
 
@@ -2032,8 +2031,7 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-
-
+		
 
         public static void DeleteSupplier(string SupplierID)
         {
@@ -2085,7 +2083,7 @@ namespace Team12_SSIS.BusinessLogic
                 entities.SupplierLists.Add(supplier);
                 entities.SaveChanges();
             }
-        }
-
+            }
+        
     }
 }
