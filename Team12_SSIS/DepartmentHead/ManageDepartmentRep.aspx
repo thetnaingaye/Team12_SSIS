@@ -17,6 +17,4 @@
     <asp:Button ID="AssignRepBtn" runat="server" OnClick="AssignRepBtn_Click" Text="Assign Representative" OnClientClick="this.disabled=true;" UseSubmitBehavior="false" />
     <br />
     <br />
-    <asp:Label ID="NewRepAssignedLbl" runat="server"></asp:Label>
-    <br />
 </asp:Content>
