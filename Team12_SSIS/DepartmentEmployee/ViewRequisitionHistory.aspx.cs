@@ -11,7 +11,20 @@ namespace Team12_SSIS.DepartmentEmployee
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //        if (!IsPostBack)
+            //        {
+            //            BindGrid();
+            //        }
+            //    }
+            //}
+            //protected void BindGrid()
+            //{
+            //    List<RequisitionRecord> reRecordList = RequisitionLogic.GetListOfRequisitionRecords();
+            //    GridViewVPR.DataSource = reRecordList;
+            //    GridViewVPR.DataBind();
+            //}
 
         }
     }
 }
+    

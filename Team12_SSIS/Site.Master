@@ -44,8 +44,9 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="~/">
-                        <a class="navbar-brand" runat="server" href="~/">SSIS</a>
+                
+                        <a class="navbar-brand" runat="server" href="~/">SSIS
+                        </a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <div id="ClerkMenu" runat="server">
@@ -75,7 +76,7 @@
                                         <a href="<%= Page.ResolveUrl("~/StoreClerk/CreateDisbursementForm.aspx") %>">Create Disbursement List</a>
                                     </li>
                                     <li class="menu-item dropdown dropdown-submenu">
-                                        <a href="<%= Page.ResolveUrl("~/StoreClerk/ViewDisbursementForm.aspx") %>">View Disbursement List</a>
+                                        <a href="<%= Page.ResolveUrl("~/StoreClerk/ViewDisbursementList.aspx") %>">View Disbursement List</a>
                                     </li>
                                 </ul>
                             </li>

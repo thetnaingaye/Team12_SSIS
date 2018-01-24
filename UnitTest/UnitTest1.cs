@@ -53,8 +53,11 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
-            InventoryLogic il = new InventoryLogic();
-            il.SendAdjRequentEmail(12, true, "test");
+			List<string> testlist = Utility.GetClerksEmailAddressList();
+			foreach(string s in testlist)
+			{
+				Console.WriteLine(s);
+			}
 
         }
         [TestMethod]
@@ -65,6 +68,7 @@ namespace UnitTest
                 em.DisburstmentPointChangeNotification("lim.chang.siang@gmail.com", "English", "Naiag", "Science");
             }
         }
+
 
         public void TestMethod7()
         {
