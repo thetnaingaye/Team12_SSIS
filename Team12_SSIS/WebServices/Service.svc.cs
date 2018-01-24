@@ -91,27 +91,27 @@ namespace Team12_SSIS.WebServices
 
         public WCF_StockCard GetStockCard(string itemId)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //Wait for thanisha's method
         }
 
         public List<WCF_RequisitionRecord> GetDeptRequests()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //Wait for Khair's method
         }
 
         public List<WCF_RequisitionRecord> GetDeptRequests(string deptId)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //Wait for Khair's method
         }
 
         public void UpdateDeptRequestStatus(WCF_RequisitionRecord record)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //wait for Khair's method
         }
 
         public void UpdateDisbursementStatus(WCF_DisbursementList disbursementList)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); 
         }
 
         public void CreateInventoryRetrievalList(WCF_InventoryRetrievalList retrievalList)
