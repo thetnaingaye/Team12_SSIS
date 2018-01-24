@@ -35,12 +35,21 @@ namespace Team12_SSIS.DepartmentEmployee.DepartmentRep
 		protected void ChangeCollectionPointBtn_Click(object sender, EventArgs e)
 		{
 			int newcpid = Int32.Parse(CollectionPointRbtnl.SelectedValue);
-			DisbursementLogic.UpdateCollectionPoint(DisbursementLogic.GetCurrentDep(), newcpid);
-			CurrentCollectionPointLbl.Text = DisbursementLogic.GetCurrentCPWithTimeByID(Int32.Parse(DisbursementLogic.GetCurrentCPIDByDep(DisbursementLogic.GetCurrentDep())));
-			statusMessage.Text = "The Collection Point has been updated to " + CurrentCollectionPointLbl.Text;
-			statusMessage.Visible = true;
-			statusMessage.ForeColor = Color.Green;
-			ChangeCollectionPointBtn.Enabled = true;
+			if (CurrentCollectionPointLbl.Text == DisbursementLogic.GetCurrentCPWithTimeByID(newcpid))
+			{
+				statusMessage.Text = "The Collection Point is already " + CurrentCollectionPointLbl.Text;
+				statusMessage.Visible = true;
+				statusMessage.ForeColor = Color.Red;
+			}
+			else
+			{
+				DisbursementLogic.UpdateCollectionPoint(DisbursementLogic.GetCurrentDep(), newcpid);
+				CurrentCollectionPointLbl.Text = DisbursementLogic.GetCurrentCPWithTimeByID(Int32.Parse(DisbursementLogic.GetCurrentCPIDByDep(DisbursementLogic.GetCurrentDep())));
+				statusMessage.Text = "The Collection Point has been updated to " + CurrentCollectionPointLbl.Text;
+				statusMessage.Visible = true;
+				statusMessage.ForeColor = Color.Green;
+				ChangeCollectionPointBtn.Enabled = true;
+			}
 
 		}
 	}
