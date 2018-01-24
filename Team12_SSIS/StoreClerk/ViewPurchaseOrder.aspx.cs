@@ -14,18 +14,10 @@ namespace Team12_SSIS.StoreClerk
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (Session["PONumber"] == null)
-            {
-                Response.Redirect("~/StoreClerk/ListOfPurchaseOrder.aspx");
-            }
-            else
-            {
+            
                 int poNo = (int)Session["poNo"];
                 BindGird(poNo);
-            }
-
-
-
+           
         }
 
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -74,6 +66,11 @@ namespace Team12_SSIS.StoreClerk
             string userName = User.Identity.Name;
             LblRequest.Text = userName;
             LblStatus.Text = poRecord.Status;
+            LblDlt.Text = poRecord.CreatedBy;
+            LblAdd.Text = poRecord.DeliveryAddress;
+            LblSli.Text = poRecord.SupplierID;
+           
+
            
             switch (poRecord.Status)
             {

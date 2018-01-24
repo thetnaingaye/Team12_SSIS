@@ -40,7 +40,7 @@
                                 </ItemTemplate>
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
                             </asp:TemplateField>
-                  <asp:TemplateField HeaderText="Requisition Form ID" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                  <asp:TemplateField HeaderText="Requisition ID" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
                                             <asp:LinkButton ID="LBtnRID" runat="server" Visible="false" CommandName="ViewDetails" CommandArgument='<%# Bind("RequestID") %>'></asp:LinkButton>
                                         </ItemTemplate>

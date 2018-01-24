@@ -13,6 +13,7 @@ namespace Team12_SSIS.StoreClerk
     {
         Label statusMessage;
         double total;
+       
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -33,10 +34,10 @@ namespace Team12_SSIS.StoreClerk
             poRecordDetailsList.Add(poRecordDetails);
             GridViewPO.DataSource = poRecordDetailsList;
             GridViewPO.DataBind();
-          
+
         }
 
-       protected void populate()
+        protected void populate()
         {
             PODateLbl.Text = DateTime.Today.ToString();
             string userName = User.Identity.Name;
@@ -48,9 +49,9 @@ namespace Team12_SSIS.StoreClerk
                 DdlSli.DataBind();
             }
         }
-           
 
-        
+
+
         protected void btnSfa_Click(object sender, EventArgs e)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
@@ -58,14 +59,14 @@ namespace Team12_SSIS.StoreClerk
                 string Deliverto = TxtDlt.Text;
                 string SupplierID = DdlSli.Text;
                 string Address = TxtAds.Text;
-                //BusinessLogic.PurchasingLogic.AddText(Deliverto, Address);
+                BusinessLogic.PurchasingLogic.AddText(Deliverto, Address);
 
 
 
 
-                Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx?Deliverto="+TxtDlt);
-                Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx?SupplierID="+DdlSli);
-                Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx?Address="+TxtAds);
+                //Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx?Deliverto=" + TxtDlt);
+                //Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx?SupplierID=" + DdlSli);
+                //Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx?Address=" + TxtAds);
                 Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx?POnumber=" + 999);
             }
 
@@ -139,7 +140,7 @@ namespace Team12_SSIS.StoreClerk
                     PriceLbl.Text = ((double)(PurchasingLogic.GetUnitPrice(itemId, "BANE") * Quantity)).ToString();
                     total += (PurchasingLogic.GetUnitPrice(itemId, "BANE") * Quantity);
                 }
-                
+
             }
         }
         protected void Txtitemid_TextChanged(object sender, EventArgs e)
@@ -175,7 +176,7 @@ namespace Team12_SSIS.StoreClerk
                 poRecordDetails.ItemID = (r.FindControl("Txtitemid") as TextBox).Text;
                 poRecordDetails.Quantity = Convert.ToInt32((r.FindControl("Txtquantity") as TextBox).Text.ToString());
                 poRecordDetails.UOM = (r.FindControl("DdlUOM") as DropDownList).Text;
-                poRecordDetails.UnitPrice = PurchasingLogic.GetUnitPrice(poRecordDetails.ItemID, "BANE");
+                poRecordDetails.UnitPrice = (double)(PurchasingLogic.GetUnitPrice(poRecordDetails.ItemID, "BANE"));
                 poRecordDetailList.Add(poRecordDetails);
             }
             poRecordDetailList.RemoveAt(sN - 1);
@@ -187,25 +188,29 @@ namespace Team12_SSIS.StoreClerk
         {
             return total.ToString("C0");
         }
-        //protected void BtnSfa_Click(object sender, EventArgs e)
-        //{
-        //    PurchasingLogic pl= new PurchasingLogic();
-        //    List<PORecordDetail> poRecordDetaillist = new List<PORecordDetail>();
-        //    string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
-        //    int poNo = pl.CreatePurchaseOrder(clerkName, DateTime.Now.Date);
-        //    bool isAbove250 = false;
-
-        //    foreach (GridViewRow r in GridViewVPO.Rows)
-        //    {
-        //        string itemID = (r.FindControl("TxtItemCode") as TextBox).Text;
-        //        string type = (r.FindControl("DdlAdjType") as DropDownList).SelectedValue;
-        //        int quantity = int.Parse((r.FindControl("TxtAdjQty") as TextBox).Text);
-        //        string uom = (r.FindControl("LblUOM") as Label).Text;
-        //        string reason = (r.FindControl("TxtReason") as TextBox).Text;
-        //        double unitPrice = InventoryLogic.GetInventoryPrice(itemID);
-        //        il.CreateAdjustmentVoucherRequestDetails(avRId, itemID, type, quantity, uom, reason, unitPrice);
-        //        isAbove250 = (quantity * unitPrice > 250 ? true : false);
+        protected void BtnSfa_Click(object sender, EventArgs e)
+        {
+            PurchasingLogic pl = new PurchasingLogic();
+            List<PORecordDetail> poRecordDetaillist = new List<PORecordDetail>();
+            string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
+           
+            foreach (GridViewRow r in GridViewPO.Rows)
+            {
+                string itemID = (r.FindControl("Txtitemid") as TextBox).Text;
+                int quantity = int.Parse((r.FindControl("Txtquantity") as TextBox).Text);
+                string uom = (r.FindControl("DdlUOM") as Label).Text;
+                double unitPrice = (double)PurchasingLogic.GetUnitPrice(itemID,"BANE");
+                pl.CreatePurchaseOrderDetails(itemID, quantity, uom, unitPrice);
             }
+           
 
+            //Session["PONumber"] = poNo;
+            //Server.Transfer("ViewPurchaseOrder.aspx", true);
+            //statusMessage.ForeColor = System.Drawing.Color.Green;
+            //statusMessage.Text = "PO" + poNo.ToString() + "submitted successfully";
         }
+
+    }
+    }
+
     

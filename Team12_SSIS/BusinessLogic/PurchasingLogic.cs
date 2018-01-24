@@ -676,7 +676,7 @@ namespace Team12_SSIS.BusinessLogic
                     
             }
         }
-
+        
         public static List<PORecord> ListPORecords()
         {
             using (SA45Team12AD entities = new SA45Team12AD())
@@ -686,7 +686,31 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-      
+        public void CreatePurchaseOrderDetails(string itemId, int quantity, string uom,  double unitPrice)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                PORecordDetail poRecordDetail = new PORecordDetail
+                {
+                    ItemID = itemId,
+                   
+                    Quantity = quantity,
+                    UOM = uom,
+                    UnitPrice = unitPrice,
+                };
+                entities.PORecordDetails.Add(poRecordDetail);
+                entities.SaveChanges();
+            }
+        }
+        public void Submitforapproval(string clerk)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+
+            }
+        }
+
+
         public static PORecord GetPurchaseOrderRecord(int poNo)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
