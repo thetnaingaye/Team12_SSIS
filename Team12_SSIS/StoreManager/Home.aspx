@@ -10,7 +10,9 @@
         }
     </style>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <!-- home page for store supervisor and manager -->
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <asp:Timer ID="Timer1" runat="server" Interval="1000"></asp:Timer>
     <asp:Timer ID="Timer2" runat="server" Interval="10000"></asp:Timer>
@@ -92,8 +94,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
 
         <div class="row">
@@ -188,4 +188,6 @@ GROUP BY CC.CatalogueName"></asp:SqlDataSource>
             </div>
         </div>
     </div>
+
+
 </asp:Content>
