@@ -22,13 +22,13 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.Label LblPageTitle;
         
         /// <summary>
-        /// LblRequestIDLabel control.
+        /// LblReqID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblRequestIDLabel;
+        protected global::System.Web.UI.WebControls.Label LblReqID;
         
         /// <summary>
         /// LblRequestID control.
@@ -40,15 +40,6 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.Label LblRequestID;
         
         /// <summary>
-        /// LblHandledByLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblHandledByLabel;
-        
-        /// <summary>
         /// LblHandledBy control.
         /// </summary>
         /// <remarks>
@@ -58,13 +49,13 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.Label LblHandledBy;
         
         /// <summary>
-        /// LblDateReqLabel control.
+        /// LblHandledByD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblDateReqLabel;
+        protected global::System.Web.UI.WebControls.Label LblHandledByD;
         
         /// <summary>
         /// LblDateReq control.
@@ -76,13 +67,13 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.Label LblDateReq;
         
         /// <summary>
-        /// LblStatusLabel control.
+        /// LblDateReqD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblStatusLabel;
+        protected global::System.Web.UI.WebControls.Label LblDateReqD;
         
         /// <summary>
         /// LblStatus control.
@@ -94,13 +85,13 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.Label LblStatus;
         
         /// <summary>
-        /// LblReqByLabel control.
+        /// LblStatusD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblReqByLabel;
+        protected global::System.Web.UI.WebControls.Label LblStatusD;
         
         /// <summary>
         /// LblReqBy control.
@@ -112,13 +103,13 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.Label LblReqBy;
         
         /// <summary>
-        /// LblDateProcessedLabel control.
+        /// LblReqByD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblDateProcessedLabel;
+        protected global::System.Web.UI.WebControls.Label LblReqByD;
         
         /// <summary>
         /// LblDateProcessed control.
@@ -128,6 +119,15 @@ namespace Team12_SSIS.StoreManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblDateProcessed;
+        
+        /// <summary>
+        /// LblDateProcessedD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblDateProcessedD;
         
         /// <summary>
         /// sm1 control.
@@ -148,22 +148,13 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.UpdatePanel Up1;
         
         /// <summary>
-        /// GridViewAdjV control.
+        /// GridViewAdjVoucher control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewAdjV;
-        
-        /// <summary>
-        /// BtnCancelReq control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnCancelReq;
+        protected global::System.Web.UI.WebControls.GridView GridViewAdjVoucher;
         
         /// <summary>
         /// Btnapprove control.
@@ -182,5 +173,14 @@ namespace Team12_SSIS.StoreManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Btnreject;
+        
+        /// <summary>
+        /// LblMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblMsg;
     }
 }

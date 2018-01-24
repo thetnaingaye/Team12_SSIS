@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Team12_SSIS.StoreClerk {
+namespace Team12_SSIS.StoreManager {
     
     
     public partial class ListOfAdjustmentVouchers {
@@ -38,5 +38,14 @@ namespace Team12_SSIS.StoreClerk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridViewAdjV;
+        
+        /// <summary>
+        /// LblMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblMsg;
     }
 }

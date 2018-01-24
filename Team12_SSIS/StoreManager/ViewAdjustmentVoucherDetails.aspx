@@ -12,33 +12,33 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="LblRequestIDLabel" runat="server" Style="padding-right: 10px"></asp:Label>
+                        <asp:Label ID="LblReqID" runat="server" Style="padding-right: 10px"></asp:Label>
                         <asp:Label ID="LblRequestID" runat="server"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="LblHandledByLabel" runat="server" Text="Handled By: " Style="padding-right: 10px"></asp:Label>
-                        <asp:Label ID="LblHandledBy" runat="server"></asp:Label>
+                        <asp:Label ID="LblHandledBy" runat="server" Text="Handled By: " Style="padding-right: 10px"></asp:Label>
+                        <asp:Label ID="LblHandledByD" runat="server"></asp:Label>
 
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="LblDateReqLabel" runat="server" Text="Date of Request: " Style="padding-right: 10px"></asp:Label>
-                        <asp:Label ID="LblDateReq" runat="server"></asp:Label>
+                        <asp:Label ID="LblDateReq" runat="server" Text="Date of Request: " Style="padding-right: 10px"></asp:Label>
+                        <asp:Label ID="LblDateReqD" runat="server"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="LblStatusLabel" runat="server" Text="Status: " Style="padding-right: 10px"></asp:Label>
-                        <asp:Label ID="LblStatus" runat="server"></asp:Label>
+                        <asp:Label ID="LblStatus" runat="server" Text="Status: " Style="padding-right: 10px"></asp:Label>
+                        <asp:Label ID="LblStatusD" runat="server"></asp:Label>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="LblReqByLabel" runat="server" Text="Requested By: " Style="padding-right: 10px"></asp:Label>
-                        <asp:Label ID="LblReqBy" runat="server"></asp:Label>
+                        <asp:Label ID="LblReqBy" runat="server" Text="Requested By: " Style="padding-right: 10px"></asp:Label>
+                        <asp:Label ID="LblReqByD" runat="server"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="LblDateProcessedLabel" runat="server" Text="Date processed: "></asp:Label>
-                        <asp:Label ID="LblDateProcessed" runat="server"></asp:Label>
+                        <asp:Label ID="LblDateProcessed" runat="server" Text="Date processed: "></asp:Label>
+                        <asp:Label ID="LblDateProcessedD" runat="server"></asp:Label>
                     </td>
                 </tr>
                 <tr>
@@ -47,7 +47,7 @@
                             <asp:ScriptManager ID="sm1" runat="server"></asp:ScriptManager>
                             <asp:UpdatePanel ID="Up1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
                                 <ContentTemplate>
-                                    <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False"
+                                    <asp:GridView ID="GridViewAdjVoucher" runat="server" AutoGenerateColumns="False"
                                         Style="width:100%" ShowHeaderWhenEmpty="True"
                                         OnRowDataBound="OnRowDataBound"
                                         CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID">
@@ -67,7 +67,7 @@
                                                 <ItemTemplate>
                                                     <asp:UpdatePanel runat="server" ID="UpId" UpdateMode="Conditional" ChildrenAsTriggers="true">
                                                         <ContentTemplate>
-                                                            <asp:Label ID="LblItemCode" runat="server" Text='<%# Bind("ItemID") %>' OnTextChanged="TxtItemCode_TextChanged" AutoPostBack="true"></asp:Label>
+                                                            <asp:Label ID="LblItemCode" runat="server" Text='<%# Bind("ItemID") %>' OnTextChanged="TxtItemCode_TextChanged" AutoPostBack="true" ></asp:Label>
                                                         </ContentTemplate>
                                                     </asp:UpdatePanel>
 
@@ -148,12 +148,14 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <asp:Button ID="BtnCancelReq" runat="server" Text="Cancel Request" CssClass="btn btn-xs" OnClick="BtnCancelReq_Click" Visible="false"/>
                         <br />
                         <br />
-                        <asp:Button ID="Btnapprove" runat="server" OnClick="Btnapprove_Click" Text="Approve" Width="120px" />
+                        <asp:Button ID="Btnapprove" runat="server" Text="Approve" Width="120px" OnClick="Btnapprove_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:Button ID="Btnreject" runat="server" Text="Reject" Width="101px" />
+                        <asp:Button ID="Btnreject" runat="server" Text="Reject" Width="101px" OnClick="Btnreject_Click" />
+                        <br />
+                        <br />
+                        <asp:Label ID="LblMsg" runat="server" Text="statusMessage" Font-Bold="false" ForeColor="Green"></asp:Label>
                     </td>
                 </tr>
             </tbody>

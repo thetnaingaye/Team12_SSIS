@@ -1300,13 +1300,49 @@ namespace Team12_SSIS.BusinessLogic
         }
 
 
+        //---------------------------------AdjustmentVoucher--------------------------------------------------------//
+
+            public static List<AVRequest> GetadvReq(string id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.AVRequests.Where(x => x.HandledBy == id & x.Status == "Pending").ToList<AVRequest>();
+            }
+               
+        }
+        //--------------------Adjustment voucher request approval---status changes to approved-------//
+
+        public static  void ApproveAvRequest(int id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
+                avReq.Status = "Approved";
+                avReq.DateProcessed = DateTime.Today;
+                entity.SaveChanges();
+            }
+        }
+
+        //--------------------Adjustment voucher request rejection---status changes to rejected-------//
+
+        public static void RejectAvRequest(int id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
+                avReq.Status = "Rejected";
+                avReq.DateProcessed = DateTime.Today;
+                entity.SaveChanges();
+            }
+        }
 
 
 
 
 
-        //---- Chang Siang
-        public static string GetItemName(string ItemID)
+
+//---- Chang Siang
+public static string GetItemName(string ItemID)
         {
             using (SA45Team12AD ctx = new SA45Team12AD())
             {

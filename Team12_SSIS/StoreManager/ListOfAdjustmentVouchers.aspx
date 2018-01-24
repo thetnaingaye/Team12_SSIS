@@ -1,10 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ListOfAdjustmentVouchers.aspx.cs" Inherits="Team12_SSIS.StoreClerk.ListOfAdjustmentVouchers" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ListOfAdjustmentVouchers.aspx.cs" Inherits="Team12_SSIS.StoreManager.ListOfAdjustmentVouchers" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
    
      <div>
         <table style="width: 100%">
+           
                 <tr>
                     <td style="height: 25px">
                         <asp:Label runat="server" Text="List Inventory Adjustment Vouchers" Font-Size="Large"></asp:Label>
@@ -15,7 +16,7 @@
                             <asp:ListItem Selected="True" Value="Pending">Pending</asp:ListItem>
                             <asp:ListItem Value="Approved">Approved</asp:ListItem>
                             <asp:ListItem Value="Rejected">Rejected</asp:ListItem>
-                            <asp:ListItem Value="Rejected">RequestsToHandle</asp:ListItem>
+                            <asp:ListItem Value="ForApproval">ForApproval</asp:ListItem>
                             <asp:ListItem Value="All">All</asp:ListItem>
                         </asp:DropDownList>
                     </td>
@@ -23,6 +24,7 @@
                 <tr>
                     <td colspan="2">
                         <div>
+
                             <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False" Style="width:100%"
                                 ShowHeaderWhenEmpty="True"
                                 OnRowDataBound="OnRowDataBound" OnRowCommand="GridViewAdjV_RowCommand"
@@ -96,5 +98,8 @@
                 </tr>
         </table>
     </div>
+
+     <br />
+     <asp:Label ID="LblMsg" runat="server" Font-Bold="True" Font-Size="Medium" ForeColor="Green" Text="statusMessage"></asp:Label>
 
 </asp:Content>                        
