@@ -35,17 +35,21 @@ namespace Team12_SSIS.WebServices
         List<WCF_StockCard> GetStockCard(string itemId);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/GetDeptRequests/", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_RequisitionRecord> GetDeptRequests();
+        [WebGet(UriTemplate = "/GetRequestsList/", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_RequisitionRecord> GetStationeryRequests();
 
         [OperationContract]
-        [WebGet(UriTemplate = "/GetDeptRequestsById/{deptId}", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_RequisitionRecord> GetDeptRequestsById(string deptId);
+        [WebGet(UriTemplate = "/GetRequestsList/{deptId}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_RequisitionRecord> GetStationeryRequestsById(string deptId);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "/UpdateDeptRequest", Method = "POST",
+        [WebInvoke(UriTemplate = "/UpdateRequestStatus", Method = "POST",
             ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        void UpdateDeptRequestStatus(WCF_RequisitionRecord record);
+        void UpdateStationeryRequestStatus(WCF_RequisitionRecord record);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/GetRequestListDetails/{requestId}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_RequisitionRecordDetail> GetStationeryRequestDetails(string requestId);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "/UpdateDisburse", Method = "POST",

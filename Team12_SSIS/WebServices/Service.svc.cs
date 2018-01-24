@@ -111,19 +111,51 @@ namespace Team12_SSIS.WebServices
             return wcfList;
         }
 
-        public List<WCF_RequisitionRecord> GetDeptRequests()
+        public List<WCF_RequisitionRecord> GetStationeryRequests()
         {
-            throw new NotImplementedException(); //Wait for Khair's method
+            RequisitionLogic rl = new RequisitionLogic();
+            List<RequisitionRecord> rList = rl.ListAllRequisitionRecords();
+            List<WCF_RequisitionRecord> wcfList = new List<WCF_RequisitionRecord>();
+            foreach(RequisitionRecord r in rList)
+            {
+                WCF_RequisitionRecord wcf = WCF_RequisitionRecord.Create(r.RequestID, ((DateTime)r.RequestDate).ToString("d"), r.DepartmentID,
+                    r.RequestorName, ((DateTime)r.ApprovedDate).ToString("d"), r.ApproverName, r.Remarks, GetStationeryRequestDetails((r.RequestID.ToString())));
+                wcfList.Add(wcf);
+            }
+            return wcfList;
         }
 
-        public List<WCF_RequisitionRecord> GetDeptRequestsById(string deptId)
+        public List<WCF_RequisitionRecord> GetStationeryRequestsById(string deptId)
         {
-            throw new NotImplementedException(); //Wait for Khair's method
+            RequisitionLogic rl = new RequisitionLogic();
+            List<RequisitionRecord> rList = rl.ListAllRRBySpecificDept(deptId);
+            List<WCF_RequisitionRecord> wcfList = new List<WCF_RequisitionRecord>();
+            foreach (RequisitionRecord r in rList)
+            {
+                WCF_RequisitionRecord wcf = WCF_RequisitionRecord.Create(r.RequestID, ((DateTime)r.RequestDate).ToString("d"), r.DepartmentID,
+                    r.RequestorName, ((DateTime)r.ApprovedDate).ToString("d"), r.ApproverName, r.Remarks, GetStationeryRequestDetails(r.RequestID.ToString()));
+                wcfList.Add(wcf);
+            }
+            return wcfList;
         }
 
-        public void UpdateDeptRequestStatus(WCF_RequisitionRecord record)
+        public List<WCF_RequisitionRecordDetail> GetStationeryRequestDetails(string requestId)
         {
-            throw new NotImplementedException(); //wait for Khair's method
+            RequisitionLogic rl = new RequisitionLogic();
+            List<WCF_RequisitionRecordDetail> wcfList = new List<WCF_RequisitionRecordDetail>();
+            List<RequisitionRecordDetail> rList = rl.FindRequisitionRecordDetailsByReqID(int.Parse(requestId));
+            foreach(RequisitionRecordDetail r in rList)
+            {
+                WCF_RequisitionRecordDetail wcf = WCF_RequisitionRecordDetail.Create(r.RequestDetailID, r.RequestID, r.ItemID, (int)r.RequestedQuantity, r.Status);
+                wcfList.Add(wcf);
+            }
+            return wcfList;
+        }
+
+        public void UpdateStationeryRequestStatus(WCF_RequisitionRecord record)
+        {
+            RequisitionLogic rl = new RequisitionLogic();
+            rl.ProcessRequsitionRequest(record.RequestID, "", record.ApproverName, record.Remarks);
         }
 
         public void UpdateDisbursementStatus(WCF_DisbursementList disbursementList)
@@ -132,9 +164,11 @@ namespace Team12_SSIS.WebServices
                 (disbursementList.DisbursementID, disbursementList.Status);
         }
 
-        public void CreateInventoryRetrievalList(WCF_InventoryRetrievalList retrievalList)
+        public void CreateInventoryRetrievalList(WCF_InventoryRetrievalList rList)
         {
-            throw new NotImplementedException(); //Wait for Khair method
+            InventoryLogic iL = new InventoryLogic();
+            iL.CreateNewInventoryRetrievalEntry(0, 0, rList.ItemID, rList.DepartmentID, rList.RequestedQuantity, rList.ActualQuantity);
+
         }
 
         public void CreateAdjustmentRequest(WCF_AVRequest request)
@@ -146,6 +180,7 @@ namespace Team12_SSIS.WebServices
                     (i.AVRID, i.ItemID, i.Type, i.Quantity, i.UOM, i.Reason, i.UnitPrice);
             }
         }
+
 
     }
 }

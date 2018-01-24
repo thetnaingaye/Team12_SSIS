@@ -15,6 +15,37 @@ namespace Team12_SSIS.WebServices.WCF_Model
             WCF_RequisitionRecordDetails = new HashSet<WCF_RequisitionRecordDetail>();
         }
 
+        public static WCF_RequisitionRecord Create(int requestId, string requestDate, 
+            string departmentId, string requestorName, string approvedDate, string approverName,
+            string remarks)
+        {
+            WCF_RequisitionRecord r = new WCF_RequisitionRecord();
+            r.RequestID = requestId;
+            r.RequestDate = requestDate;
+            r.DepartmentID = departmentId;
+            r.RequestorName = requestorName;
+            r.ApprovedDate = approvedDate;
+            r.ApproverName = approverName;
+            r.Remarks = remarks;
+            return r;
+        }
+
+        public static WCF_RequisitionRecord Create(int requestId, string requestDate,
+    string departmentId, string requestorName, string approvedDate, string approverName,
+    string remarks, List<WCF_RequisitionRecordDetail> requestDetails)
+        {
+            WCF_RequisitionRecord r = new WCF_RequisitionRecord();
+            r.RequestID = requestId;
+            r.RequestDate = requestDate;
+            r.DepartmentID = departmentId;
+            r.RequestorName = requestorName;
+            r.ApprovedDate = approvedDate;
+            r.ApproverName = approverName;
+            r.Remarks = remarks;
+            r.WCF_RequisitionRecordDetails = requestDetails;
+            return r;
+        }
+
         [DataMember]
         public int RequestID { get; set; }
         [DataMember]
@@ -29,8 +60,6 @@ namespace Team12_SSIS.WebServices.WCF_Model
         public string ApproverName { get; set; }
         [DataMember]
         public string Remarks { get; set; }
-        [DataMember]
-        public string DepartmentName { get; set; }
         [DataMember]
         public virtual ICollection<WCF_RequisitionRecordDetail> WCF_RequisitionRecordDetails { get; set; }
 
