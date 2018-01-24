@@ -10,20 +10,20 @@
         .auto-style2 {
             padding: 5px 15px 0px 15px;
             text-align: center;
-            color: white;
+            color: #1A6ECC;
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <asp:Timer ID="Timer1" runat="server" Interval="1000"></asp:Timer>
-    <asp:Timer ID="Timer2" runat="server" Interval="10000"></asp:Timer>
+
     <asp:Timer ID="Timer3" runat="server" Interval="600000"></asp:Timer>
     <div class="container-fluid" style="padding: 5px 40px 0px 40px">
 
         <div class="row">
             <div class="col-md-6 well col-sm-12" style="background-color: transparent; border: none; box-shadow: none; padding: 5px 30px 0px 30px">
-                <div class="well" style="background-color: steelblue; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+                <div class="well" style="background-color: transparent; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
 
                     <div class="auto-style2">
                         <span>You have</span>
@@ -33,7 +33,7 @@
                                 <asp:AsyncPostBackTrigger ControlID="Timer1" />
                             </Triggers>
                             <ContentTemplate>
-                                <h1 style="color: white"><strong><%= GetReorders("Pending") %></strong></h1>
+                                <h1 ><strong><%= GetReorders("Pending") %></strong></h1>
                             </ContentTemplate>
                         </asp:UpdatePanel>
 
@@ -41,7 +41,7 @@
                     </div>
 
                 </div>
-                <div class="well" style="background-color: steelblue; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+                <div class="well" style="background-color: transparent; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
 
                     <div class="auto-style2">
                         <span>You have</span>
@@ -50,7 +50,7 @@
                                 <asp:AsyncPostBackTrigger ControlID="Timer1" />
                             </Triggers>
                             <ContentTemplate>
-                                <h1 style="color: white"><strong><%=  GetDeliveryOrders("Approved")  %></strong></h1>
+                                <h1 ><strong><%=  GetDeliveryOrders("Approved")  %></strong></h1>
 
                             </ContentTemplate>
                         </asp:UpdatePanel>
@@ -118,7 +118,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-5 col-sm-12">
                 <div class="panel panel-default" style="border-color: #006699; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
                      <div class="panel-heading" style="text-align: left; background-color: transparent; color: #1A6ECC";font-weight:600><h4>Requisition Trend</h4><h6>number of requisitions current and past two months</h6></div>
                     <div class="auto-style2">
@@ -167,13 +167,13 @@ GROUP BY FORMAT(RequestDate, 'MMM_yyyy')
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-7 col-sm-12">
                 <div class="panel panel-default" style="border-color: #006699; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
                      <div class="panel-heading" style="text-align: left; background-color: transparent; color: #1A6ECC";font-weight:600><h4>Requisition Trend</h4><h6>number of requisitions by department for current and past two months</h6></div>
                     <div class="auto-style2">
                         <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
                             <Triggers>
-                                <asp:AsyncPostBackTrigger ControlID="Timer2" />
+                                <asp:AsyncPostBackTrigger ControlID="Timer3" />
                             </Triggers>
                             <ContentTemplate>
                                 <asp:Chart ID="Chart5" runat="server" DataSourceID="SqlDataSource_RequestyByDept" BackColor="Transparent" BackImageTransparentColor="Transparent" BorderlineColor="Transparent" OnLoad="Chart2_Load" Width="500px" Height="325px" Palette="None" PaletteCustomColors="26, 110, 204; 39, 128, 227; 190, 216, 246; 171, 194, 221; 18, 77, 142; 41, 94, 153; 212, 222, 234">

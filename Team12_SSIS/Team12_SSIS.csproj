@@ -126,6 +126,7 @@
     <Content Include="Images\birds1.jpg" />
     <Content Include="Images\birds2.jpg" />
     <Content Include="Images\birds3.jpg" />
+    <Content Include="Images\brandimg.png" />
     <Content Include="Images\logo.png" />
     <Content Include="DepartmentEmployee\CheckOutRequest.aspx" />
     <Content Include="Logout.aspx" />

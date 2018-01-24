@@ -58,6 +58,25 @@ namespace Team12_SSIS.BusinessLogic
         //    }
         //}
 
+        // Retrieve all requisition orders by dept and status [Used by dept head]
+        public List<RequisitionRecord> ListAllRRBySpecificDeptAndStatus(string deptID, string status)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                List<RequisitionRecord> opt = new List<RequisitionRecord>();
+                List<RequisitionRecord> temp = context.Database.SqlQuery<RequisitionRecord>("EXEC [SA45Team12AD].[dbo].[RetrieveRRByStatus] @Status = {0}", status).ToList();
+
+                // Filtering by dept
+                foreach (var item in temp)
+                {
+                    if (item.DepartmentID.Equals(deptID))
+                    {
+                        opt.Add(item);
+                    }
+                }
+                return opt;
+            }
+        }
         // Retrieve all CURRENT requisition records
         public List<RequisitionRecord> ListCurrentRequisitionRecord()
         {
