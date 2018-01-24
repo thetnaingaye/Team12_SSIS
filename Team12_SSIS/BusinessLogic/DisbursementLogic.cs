@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Profile;
+using System.Web.Security;
 using Team12_SSIS.Model;
 using Team12_SSIS.Utility;
 
@@ -317,13 +319,13 @@ namespace Team12_SSIS.BusinessLogic
 
         //-------------------------Getting disbursement details------------------------------//
         //-----------------------Entire disbursement List------------------------------------//
-        public List<DisbursementList> GetDisbursementList()
-        {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                return entities.DisbursementLists.ToList<DisbursementList>();
-            }
-        }
+        //public List<DisbursementList> GetDisbursementList()
+        //{
+        //    using (SA45Team12AD entities = new SA45Team12AD())
+        //    {
+        //        return entities.DisbursementLists.ToList<DisbursementList>();
+        //    }
+        //}
 
     
         //-------------------------------Filter the disbursement details  by date range-------------------------------------------------------------------//
@@ -740,6 +742,178 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
+        //-- Jane not using.. Chang Siang will write here first..
+        public static List<Department> GetListofDepartments()
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.Departments.ToList();
+            }
+        }
+
+        public static List<CollectionPoint> GetListofColPoint()
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.CollectionPoints.ToList();
+            }
+        }
+
+        public int CreateDisbursementList(string deptId, int collectPtId, DateTime collectionDate, string deptRep)
+        {
+            DisbursementList dList = new DisbursementList();
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                dList.DepartmentID = deptId;
+                dList.CollectionPointID = collectPtId;
+                dList.CollectionDate = collectionDate;
+                dList.RepresentativeName = deptRep;
+                dList.Status = "Pending Collection";
+                ctx.DisbursementLists.Add(dList);
+                ctx.SaveChanges();
+            }
+            using (EmailControl em = new EmailControl())
+            {
+                em.NewStationeryCollectionNotification(Utility.Utility.GetEmailAddressByName(deptRep), GetCurrentCPWithTimeByID(collectPtId), collectionDate.ToString("d"));
+            }
+            return dList.DisbursementID;
+        }
+
+        public void CreateDisbursementListDetails(int disbursementId, string itemId, int actualQuantity, int quantityRequested, int quantityCollected, string uom, string remarks)
+        {
+            DisbursementListDetail dListDetails = new DisbursementListDetail();
+            dListDetails.DisbursementID = disbursementId;
+            dListDetails.ItemID = itemId;
+            dListDetails.ActualQuantity = actualQuantity;
+            dListDetails.QuantityRequested = quantityRequested;
+            dListDetails.QuantityCollected = quantityCollected;
+            dListDetails.UOM = uom;
+            dListDetails.Remarks = remarks;
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                ctx.DisbursementListDetails.Add(dListDetails);
+                ctx.SaveChanges();
+            }
+        }
+
+        public bool UpdateDisbursementListDetails(int id, int quantityCollected, string remarks)
+        {
+            bool success = false;
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                DisbursementListDetail dListDetails = ctx.DisbursementListDetails.Where(x => x.ID == id).FirstOrDefault();
+                CheckForOutstandingItem(quantityCollected, dListDetails, remarks);
+                dListDetails.QuantityCollected = quantityCollected;
+                dListDetails.Remarks = remarks;
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
+
+        public int CreateSystemStationeryRequest(DateTime requestDate, string deptId, string remarks)
+        {
+            RequisitionRecord rRecord = new RequisitionRecord();
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                ctx.RequisitionRecords.Add(rRecord);
+                ctx.SaveChanges();
+                return rRecord.RequestID;
+            }
+        }
+
+        public void CreateStationeryRequestDetails(int requestId, string itemId, int requestedQuantity)
+        {
+            RequisitionRecordDetail rRDetails = new RequisitionRecordDetail();
+            rRDetails.RequestID = requestId;
+            rRDetails.ItemID = itemId;
+            rRDetails.RequestedQuantity = requestedQuantity;
+            rRDetails.Status = "Pending";
+
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                ctx.RequisitionRecordDetails.Add(rRDetails);
+                ctx.SaveChanges();
+            }
+        }
+
+        private void CheckForOutstandingItem(int quantityCollected, DisbursementListDetail dListDetails, string remarks)
+        {
+            if (quantityCollected < dListDetails.QuantityCollected)
+            {
+                int Reqid = CreateSystemStationeryRequest(DateTime.Now.Date, dListDetails.DisbursementList.DepartmentID, remarks);
+                CreateStationeryRequestDetails(Reqid, dListDetails.ItemID, (int)dListDetails.QuantityCollected - quantityCollected);
+            }
+        }
+
+        public static DisbursementList GetDisbursementList(int disbursementId)
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.DisbursementLists.Where(x => x.DisbursementID == disbursementId).FirstOrDefault();
+            }
+        }
+
+        public static List<DisbursementList> GetDisbursementList()
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.DisbursementLists.ToList();
+            }
+        }
+
+        public static List<DisbursementListDetail> GetDisbursementListDetails()
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.DisbursementListDetails.ToList();
+            }
+        }
+
+        public static List<DisbursementListDetail> GetDisbursementListDetails(int disbursementId)
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.DisbursementListDetails.Where(x => x.DisbursementID == disbursementId).ToList();
+            }
+        }
+
+        public bool UpdateDisbursementStatus(int disbursementId, string status)
+        {
+            bool success = false;
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                DisbursementList dL = ctx.DisbursementLists.Where(x => x.DisbursementID == disbursementId).FirstOrDefault();
+                dL.Status = status;
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
+
+        public static List<DisbursementList> GetListOfDisbursements()
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.DisbursementLists.ToList();
+            }
+        }
+
+        public static List<DisbursementList> GetListOfDisbursements(string columnName, string query)
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                switch (columnName)
+                {
+                    case ("DepartmentID"):
+                        return ctx.DisbursementLists.Where(x => x.DepartmentID == query).ToList();
+                    case ("Status"):
+                        return ctx.DisbursementLists.Where(x => x.Status == query).ToList();
+                    default:
+                        return ctx.DisbursementLists.ToList();
+                }
+            }
+        }
 
 
 
@@ -767,5 +941,1103 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public static List<CollectionPoint> ListCollectionPoints()
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				return entities.CollectionPoints.ToList();
+			}
+		}
+
+		public static List<string> ListCollectionPointsWithTime()
+		{
+			List<CollectionPoint> cpList = new List<CollectionPoint>();
+			cpList = DisbursementLogic.ListCollectionPoints();
+			List<string> cpWithTimeList = new List<string>();
+			foreach (CollectionPoint C in cpList)
+			{
+				string s = C.CollectionPoint1;
+				cpWithTimeList.Add(s);
+			}
+			return cpWithTimeList;
+		}
+
+		public static string GetCurrentDep()
+		{
+			return HttpContext.Current.Profile.GetPropertyValue("department").ToString();
+		}
+
+		public static string GetDepNameByDepID(string depid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				return entities.Departments.Where(x => x.DeptID == depid).Select(x => x.DepartmentName).Single().ToString();
+			}
+		}
+
+		public static string GetCurrentCPIDByDep(string dep)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				return entities.Departments.Where(x => x.DeptID == dep).Select(x => x.CollectionPointID).Single().ToString();
+
+			}
+		}
+
+		public static string GetCurrentCPWithTimeByID(int id)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				return entities.CollectionPoints.Where(x => x.CollectionPointID == id).Select(x => x.CollectionPoint1).Single().ToString();
+				
+			}
+		}
+
+		public static void UpdateCollectionPoint(string depid, int cpid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				Department department = entities.Departments.Where(p => p.DeptID == depid).First<Department>();
+				department.CollectionPointID = cpid;
+				entities.SaveChanges();
+			}
+			using (EmailControl em = new EmailControl())
+			{
+				
+				List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+				string newCPID = GetCurrentCPIDByDep(depid);
+				string newCPName = GetCurrentCPWithTimeByID(Int32.Parse(newCPID));
+				em.DisburstmentPointChangeNotification(clerkemails, GetDepNameByDepID(depid), GetDeptRepFullName(depid),newCPName);
+			}
+		}
+
+		public static List<MembershipUser> GetUsersFromDept(string dept)
+		{
+			List<MembershipUser> currentdepusers = new List<MembershipUser>();
+			var users = Membership.GetAllUsers();
+
+			foreach (MembershipUser u in users)
+			{
+
+
+				ProfileBase profile = ProfileBase.Create(u.UserName);
+				if (profile.GetPropertyValue("department").ToString() == dept)
+				{
+					currentdepusers.Add(u);
+				}
+
+
+			}
+
+
+			return currentdepusers;
+		}
+		public static List<String> GetFullNamesFromDept(string dept)
+		{
+			List<String> currentdep = new List<String>();
+			var users = Membership.GetAllUsers();
+
+			foreach (MembershipUser u in users)
+			{
+
+
+				ProfileBase profile = ProfileBase.Create(u.UserName);
+				if (profile.GetPropertyValue("department").ToString() == dept)
+				{
+					currentdep.Add(profile.GetPropertyValue("fullname").ToString());
+				}
+
+
+			}
+
+
+			return currentdep;
+		}
+
+		public static List<String> GetAllEmployeeFullNamesFromDept(string dept)
+		{
+			String employeeFullName = "";
+			List<MembershipUser> users = GetUsersFromDept(dept);
+			List<String> repusers = Roles.GetUsersInRole("Employee").ToList();
+			List<string> employees = new List<string>();
+			foreach (MembershipUser u in users)
+			{
+				foreach (string username in repusers)
+				{
+					if (u.UserName == username)
+					{
+						ProfileBase p = ProfileBase.Create(username);
+						employeeFullName = p.GetPropertyValue("fullname").ToString();
+						employees.Add(employeeFullName);
+
+
+					}
+				}
+			}
+
+			return employees;
+		}
+		public static string GetDeptRepFullName(String dept)
+		{
+			String repFullName = "";
+			List<MembershipUser> users = GetUsersFromDept(dept);
+			List<String> repusers = Roles.GetUsersInRole("Rep").ToList();
+			foreach (MembershipUser u in users)
+			{
+				foreach (string username in repusers)
+				{
+					if (u.UserName == username)
+					{
+						ProfileBase p = ProfileBase.Create(username);
+						repFullName = p.GetPropertyValue("fullname").ToString();
+
+					}
+				}
+			}
+
+			return repFullName;
+		}
+
+		public static string GetDeptRepUserName(String dept)
+		{
+
+			List<MembershipUser> users = GetUsersFromDept(dept);
+			List<String> repusers = Roles.GetUsersInRole("Rep").ToList();
+			foreach (MembershipUser u in users)
+			{
+				foreach (string username in repusers)
+				{
+					if (u.UserName == username)
+					{
+						return u.UserName;
+
+					}
+				}
+			}
+
+			return null;
+		}
+
+		public static string GetUserName(String fullname, String dept)
+		{
+
+			List<MembershipUser> users = GetUsersFromDept(dept);
+			foreach (MembershipUser u in users)
+			{
+				ProfileBase p = ProfileBase.Create(u.UserName);
+				if (p.GetPropertyValue("fullname").ToString() == fullname)
+				{
+					return u.UserName;
+				}
+			}
+			return null;
+		}
+
+		public static void UpdateDeptRep(String newrepfullname, String dept)
+		{
+			Roles.AddUserToRole(GetDeptRepUserName(GetCurrentDep()), "Employee");
+			Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
+			Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
+			Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
+
+			using(EmailControl em = new EmailControl())
+			{
+				List<string> allemails = new List<string>();
+				List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+				List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
+				foreach(string s in clerkemails)
+				{
+					allemails.Add(s);
+				}
+				foreach(string s in depusersemails)
+				{
+					allemails.Add(s);
+				}
+
+				em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
+			}
+			
+			
+		}
+	}
+
 }

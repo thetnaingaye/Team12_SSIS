@@ -1413,7 +1413,7 @@ html {
 
 body {
     font-family: "Open Sans", "Roboto", sans-serif;
-    font-size: 12px; /*changd from 15px*/
+    font-size: 14px; /*changd from 15px*/
     line-height: 1.42857143;
     color: #333333;
     background-color: #ffffff;
@@ -2006,6 +2006,7 @@ pre {
     margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;
+    justify-content: center;
 }
 
 @media (min-width: 768px) {
@@ -2036,6 +2037,16 @@ pre {
 .row {
     margin-left: -15px;
     margin-right: -15px;
+}
+
+.row-full {
+    width: 1667px;
+    position: relative;
+    margin-left: -50vw;
+    height: 100px;
+    margin-top: 100px;
+    left: 12%;
+    top: -14px;
 }
 
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
@@ -3237,7 +3248,7 @@ output {
     background-color: #ffffff;
     background-image: none;
     border: 1px solid #cccccc;
-    border-radius: 0;
+    border-radius: 2px;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
@@ -4255,7 +4266,7 @@ fieldset[disabled] a.btn {
     padding: 18px 30px;
     font-size: 19px;
     line-height: 1.3333333;
-    border-radius: 0;
+    border-radius: 2px;
 }
 
 .btn-sm,
@@ -4263,7 +4274,7 @@ fieldset[disabled] a.btn {
     padding: 5px 10px;
     font-size: 13px;
     line-height: 1.5;
-    border-radius: 0;
+    border-radius: 2px;
 }
 
 .btn-xs,
@@ -4271,7 +4282,7 @@ fieldset[disabled] a.btn {
     padding: 1px 5px;
     font-size: 13px;
     line-height: 1.5;
-    border-radius: 0;
+    border-radius: 1px;
 }
 
 .btn-block {
@@ -4396,6 +4407,7 @@ tbody.collapse.in {
         line-height: 1.42857143;
         color: #1a6ecc; /*changed from #333333*/
         white-space: nowrap;
+        text-transform: none;
     }
 
         .dropdown-menu > li > a:hover,
@@ -7604,6 +7616,33 @@ button.close {
         border-left-color: #ffffff;
         bottom: -10px;
     }
+
+
+.position {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.square {
+    /*This is the magic bit height: 0;*/
+    padding-bottom: 100%;
+    position: relative;
+    background: coral;
+    text-align: center;
+    overflow: hidden;
+}
+
+.square-inn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    padding: .75em;
+    font-size: 2.5vw;
+}
+
 
 .carousel {
     position: relative;

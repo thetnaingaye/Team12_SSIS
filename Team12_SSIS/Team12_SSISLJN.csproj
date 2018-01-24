@@ -1,0 +1,592 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4490A1DF-A7BF-47FD-9F69-B07C9104128F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Team12_SSIS</RootNamespace>
+    <AssemblyName>Team12_SSIS</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\2-2-calendar-png-image.png" />
+    <Content Include="NewUser.aspx" />
+    <Content Include="packages.config" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Site.Master" />
+    <Content Include="StoreClerk\Web.config" />
+    <Content Include="StoreClerk\WebForm2.aspx" />
+    <Content Include="StoreManager\Web.config" />
+    <Content Include="StoreManager\StoreSupervisor\Web.config" />
+    <Content Include="DepartmentHead\Web.config" />
+    <Content Include="DepartmentEmployee\Web.config" />
+    <Content Include="DepartmentEmployee\DepartmentRep\Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="WebForm1.aspx" />
+    <Content Include="WebServices\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DepartmentEmployee\CreateRequisitionForm.aspx" />
+    <Content Include="DepartmentEmployee\DepartmentRep\ChangeCollectionPoint.aspx" />
+    <Content Include="DepartmentEmployee\Home.aspx" />
+    <Content Include="DepartmentEmployee\ViewCatalogue.aspx" />
+    <Content Include="DepartmentEmployee\ViewRequisitionHistory.aspx" />
+    <Content Include="DepartmentHead\Home.aspx" />
+    <Content Include="DepartmentHead\ManageDelegation.aspx" />
+    <Content Include="DepartmentHead\ManageDepartmentRep.aspx" />
+    <Content Include="DepartmentHead\ViewDelegationHistory.aspx" />
+    <Content Include="DepartmentHead\ViewDisbursementForm.aspx" />
+    <Content Include="DepartmentHead\ViewDisbursementList.aspx" />
+    <Content Include="DepartmentHead\ViewDeptRepHistory.aspx" />
+    <Content Include="DepartmentHead\ViewRequisitionFormDetails.aspx" />
+    <Content Include="DepartmentHead\ViewRequisitionFormList.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Login.aspx" />
+    <Content Include="scripts\ai.0.22.9-build00167.js" />
+    <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="StoreClerk\ChangeBufferStockLevel.aspx" />
+    <Content Include="StoreClerk\ChangeOrderLeadTime.aspx" />
+    <Content Include="StoreClerk\CreateAdjustmentVoucherRequest.aspx" />
+    <Content Include="StoreClerk\CreateDisbursementForm.aspx" />
+    <Content Include="StoreClerk\CreateGoodsReceipt.aspx" />
+    <Content Include="StoreClerk\CreatePurchaseOrder.aspx" />
+    <Content Include="StoreClerk\CurrentRequisitionOrders.aspx" />
+    <Content Include="StoreClerk\Home.aspx" />
+    <Content Include="StoreClerk\ListOfAdjustmentVouchers.aspx" />
+    <Content Include="StoreClerk\ListOfPurchaseOrders.aspx" />
+    <Content Include="StoreClerk\PastRequisitionOrders.aspx" />
+    <Content Include="StoreClerk\ReorderList.aspx" />
+    <Content Include="StoreClerk\RetrievalList.aspx" />
+    <Content Include="StoreClerk\ViewAdjustmentVoucherDetails.aspx" />
+    <Content Include="StoreClerk\ViewDisbursementForm.aspx" />
+    <Content Include="StoreClerk\ViewDisbursementList.aspx" />
+    <Content Include="StoreClerk\ViewGoodsReceipt.aspx" />
+    <Content Include="StoreClerk\ViewInventoryList.aspx" />
+    <Content Include="StoreClerk\ViewPurchaseOrder.aspx" />
+    <Content Include="StoreClerk\ViewStockCard.aspx" />
+    <Content Include="StoreManager\CreateCatalogue.aspx" />
+    <Content Include="StoreManager\CreateSupplier.aspx" />
+    <Content Include="StoreManager\EditCatalogue.aspx" />
+    <Content Include="StoreManager\EditSupplier.aspx" />
+    <Content Include="StoreManager\Home.aspx" />
+    <Content Include="StoreManager\IssueAdjustmentVoucher.aspx" />
+    <Content Include="StoreManager\StoreSupervisor\ApprovePurchaseOrder.aspx" />
+    <Content Include="StoreManager\ViewAdjustmentVoucherDetails.aspx" />
+    <Content Include="StoreManager\ViewCatalogue.aspx" />
+    <Content Include="StoreManager\ViewSupplierList.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="WebServices\Service.svc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessLogic\AutomationLogic.cs" />
+    <Compile Include="BusinessLogic\DisbursementLogic.cs" />
+    <Compile Include="BusinessLogic\InventoryLogic.cs" />
+    <Compile Include="BusinessLogic\PurchasingLogic.cs" />
+    <Compile Include="BusinessLogic\ReportLogic.cs" />
+    <Compile Include="BusinessLogic\RequisitionLogic.cs" />
+    <Compile Include="DepartmentEmployee\CreateRequisitionForm.aspx.cs">
+      <DependentUpon>CreateRequisitionForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentEmployee\CreateRequisitionForm.aspx.designer.cs">
+      <DependentUpon>CreateRequisitionForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentEmployee\DepartmentRep\ChangeCollectionPoint.aspx.cs">
+      <DependentUpon>ChangeCollectionPoint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentEmployee\DepartmentRep\ChangeCollectionPoint.aspx.designer.cs">
+      <DependentUpon>ChangeCollectionPoint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentEmployee\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentEmployee\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentEmployee\ViewCatalogue.aspx.cs">
+      <DependentUpon>ViewCatalogue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentEmployee\ViewCatalogue.aspx.designer.cs">
+      <DependentUpon>ViewCatalogue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentEmployee\ViewRequisitionHistory.aspx.cs">
+      <DependentUpon>ViewRequisitionHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentEmployee\ViewRequisitionHistory.aspx.designer.cs">
+      <DependentUpon>ViewRequisitionHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentHead\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentHead\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentHead\ManageDelegation.aspx.cs">
+      <DependentUpon>ManageDelegation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentHead\ManageDelegation.aspx.designer.cs">
+      <DependentUpon>ManageDelegation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentHead\ManageDepartmentRep.aspx.cs">
+      <DependentUpon>ManageDepartmentRep.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentHead\ManageDepartmentRep.aspx.designer.cs">
+      <DependentUpon>ManageDepartmentRep.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentHead\ViewDelegationHistory.aspx.cs">
+      <DependentUpon>ViewDelegationHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentHead\ViewDelegationHistory.aspx.designer.cs">
+      <DependentUpon>ViewDelegationHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentHead\ViewDisbursementForm.aspx.cs">
+      <DependentUpon>ViewDisbursementForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentHead\ViewDisbursementForm.aspx.designer.cs">
+      <DependentUpon>ViewDisbursementForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentHead\ViewDisbursementList.aspx.cs">
+      <DependentUpon>ViewDisbursementList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentHead\ViewDisbursementList.aspx.designer.cs">
+      <DependentUpon>ViewDisbursementList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentHead\ViewDeptRepHistory.aspx.cs">
+      <DependentUpon>ViewDeptRepHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentHead\ViewDeptRepHistory.aspx.designer.cs">
+      <DependentUpon>ViewDeptRepHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentHead\ViewRequisitionFormDetails.aspx.cs">
+      <DependentUpon>ViewRequisitionFormDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentHead\ViewRequisitionFormDetails.aspx.designer.cs">
+      <DependentUpon>ViewRequisitionFormDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentHead\ViewRequisitionFormList.aspx.cs">
+      <DependentUpon>ViewRequisitionFormList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentHead\ViewRequisitionFormList.aspx.designer.cs">
+      <DependentUpon>ViewRequisitionFormList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewUser.aspx.cs">
+      <DependentUpon>NewUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewUser.aspx.designer.cs">
+      <DependentUpon>NewUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\ChangeBufferStockLevel.aspx.cs">
+      <DependentUpon>ChangeBufferStockLevel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ChangeBufferStockLevel.aspx.designer.cs">
+      <DependentUpon>ChangeBufferStockLevel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\ChangeOrderLeadTime.aspx.cs">
+      <DependentUpon>ChangeOrderLeadTime.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ChangeOrderLeadTime.aspx.designer.cs">
+      <DependentUpon>ChangeOrderLeadTime.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\CreateAdjustmentVoucherRequest.aspx.cs">
+      <DependentUpon>CreateAdjustmentVoucherRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\CreateAdjustmentVoucherRequest.aspx.designer.cs">
+      <DependentUpon>CreateAdjustmentVoucherRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\CreateDisbursementForm.aspx.cs">
+      <DependentUpon>CreateDisbursementForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\CreateDisbursementForm.aspx.designer.cs">
+      <DependentUpon>CreateDisbursementForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\CreateGoodsReceipt.aspx.cs">
+      <DependentUpon>CreateGoodsReceipt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\CreateGoodsReceipt.aspx.designer.cs">
+      <DependentUpon>CreateGoodsReceipt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\CreatePurchaseOrder.aspx.cs">
+      <DependentUpon>CreatePurchaseOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\CreatePurchaseOrder.aspx.designer.cs">
+      <DependentUpon>CreatePurchaseOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\CurrentRequisitionOrders.aspx.cs">
+      <DependentUpon>CurrentRequisitionOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\CurrentRequisitionOrders.aspx.designer.cs">
+      <DependentUpon>CurrentRequisitionOrders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\ListOfAdjustmentVouchers.aspx.cs">
+      <DependentUpon>ListOfAdjustmentVouchers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ListOfAdjustmentVouchers.aspx.designer.cs">
+      <DependentUpon>ListOfAdjustmentVouchers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\ListOfPurchaseOrders.aspx.cs">
+      <DependentUpon>ListOfPurchaseOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ListOfPurchaseOrders.aspx.designer.cs">
+      <DependentUpon>ListOfPurchaseOrders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\PastRequisitionOrders.aspx.cs">
+      <DependentUpon>PastRequisitionOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\PastRequisitionOrders.aspx.designer.cs">
+      <DependentUpon>PastRequisitionOrders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\ReorderList.aspx.cs">
+      <DependentUpon>ReorderList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ReorderList.aspx.designer.cs">
+      <DependentUpon>ReorderList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\RetrievalList.aspx.cs">
+      <DependentUpon>RetrievalList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\RetrievalList.aspx.designer.cs">
+      <DependentUpon>RetrievalList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\ViewAdjustmentVoucherDetails.aspx.cs">
+      <DependentUpon>ViewAdjustmentVoucherDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ViewAdjustmentVoucherDetails.aspx.designer.cs">
+      <DependentUpon>ViewAdjustmentVoucherDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\ViewDisbursementForm.aspx.cs">
+      <DependentUpon>ViewDisbursementForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ViewDisbursementForm.aspx.designer.cs">
+      <DependentUpon>ViewDisbursementForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\ViewDisbursementList.aspx.cs">
+      <DependentUpon>ViewDisbursementList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ViewDisbursementList.aspx.designer.cs">
+      <DependentUpon>ViewDisbursementList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\ViewGoodsReceipt.aspx.cs">
+      <DependentUpon>ViewGoodsReceipt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ViewGoodsReceipt.aspx.designer.cs">
+      <DependentUpon>ViewGoodsReceipt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\ViewInventoryList.aspx.cs">
+      <DependentUpon>ViewInventoryList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ViewInventoryList.aspx.designer.cs">
+      <DependentUpon>ViewInventoryList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\ViewPurchaseOrder.aspx.cs">
+      <DependentUpon>ViewPurchaseOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ViewPurchaseOrder.aspx.designer.cs">
+      <DependentUpon>ViewPurchaseOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\ViewStockCard.aspx.cs">
+      <DependentUpon>ViewStockCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ViewStockCard.aspx.designer.cs">
+      <DependentUpon>ViewStockCard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreClerk\WebForm2.aspx.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\WebForm2.aspx.designer.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreManager\CreateCatalogue.aspx.cs">
+      <DependentUpon>CreateCatalogue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\CreateCatalogue.aspx.designer.cs">
+      <DependentUpon>CreateCatalogue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreManager\CreateSupplier.aspx.cs">
+      <DependentUpon>CreateSupplier.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\CreateSupplier.aspx.designer.cs">
+      <DependentUpon>CreateSupplier.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreManager\EditCatalogue.aspx.cs">
+      <DependentUpon>EditCatalogue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\EditCatalogue.aspx.designer.cs">
+      <DependentUpon>EditCatalogue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreManager\EditSupplier.aspx.cs">
+      <DependentUpon>EditSupplier.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\EditSupplier.aspx.designer.cs">
+      <DependentUpon>EditSupplier.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreManager\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreManager\IssueAdjustmentVoucher.aspx.cs">
+      <DependentUpon>IssueAdjustmentVoucher.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\IssueAdjustmentVoucher.aspx.designer.cs">
+      <DependentUpon>IssueAdjustmentVoucher.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreManager\StoreSupervisor\ApprovePurchaseOrder.aspx.cs">
+      <DependentUpon>ApprovePurchaseOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\StoreSupervisor\ApprovePurchaseOrder.aspx.designer.cs">
+      <DependentUpon>ApprovePurchaseOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreManager\ViewAdjustmentVoucherDetails.aspx.cs">
+      <DependentUpon>ViewAdjustmentVoucherDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\ViewAdjustmentVoucherDetails.aspx.designer.cs">
+      <DependentUpon>ViewAdjustmentVoucherDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreManager\ViewCatalogue.aspx.cs">
+      <DependentUpon>ViewCatalogue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\ViewCatalogue.aspx.designer.cs">
+      <DependentUpon>ViewCatalogue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreManager\ViewSupplierList.aspx.cs">
+      <DependentUpon>ViewSupplierList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreManager\ViewSupplierList.aspx.designer.cs">
+      <DependentUpon>ViewSupplierList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\Validator.cs" />
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebServices\IService.cs" />
+    <Compile Include="WebServices\Service.svc.cs">
+      <DependentUpon>Service.svc</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Code\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>39006</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:39006/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

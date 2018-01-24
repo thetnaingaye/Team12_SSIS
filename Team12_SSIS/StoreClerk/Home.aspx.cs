@@ -10,6 +10,8 @@ using System.Configuration;
 using System.Web.Profile;
 using System.Web.Security;
 using Team12_SSIS.Utility;
+using Team12_SSIS.BusinessLogic;
+using Team12_SSIS.Model;
 
 namespace Team12_SSIS.StoreClerk
 {
@@ -19,52 +21,73 @@ namespace Team12_SSIS.StoreClerk
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-  
-            LblUserName.Text = "Welcome : " + User.Identity.Name + " : " + (User.IsInRole("Clerk") ? "Clerk Role" : "No Role");
-            String name = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
-            String salutation = HttpContext.Current.Profile.GetPropertyValue("salutation").ToString();
-            String department = HttpContext.Current.Profile.GetPropertyValue("department").ToString();
-            LblUserName.Text += " : " + salutation;
-            LblUserName.Text += "." + name;
-            LblUserName.Text += " : " + department;
-
-            var users = Membership.GetAllUsers();
-            var userList = new List<MembershipUser>();
-            foreach (MembershipUser u in users)
+            if(!IsPostBack)
             {
-                userList.Add(u);
-            
+                BindGrid();
             }
-            //  GridView1.DataSource = userList;
-            GridView1.DataSource = Roles.GetUsersInRole("HOD");
-                        GridView1.DataBind();
-
-            //var user = (MembershipUser)userList.Find(x => x.UserName == "clerk1");
-
-            //getting user with supervisor role
-            var user = (MembershipUser)userList.Find(x => x.UserName == Roles.GetUsersInRole("Supervisor").First());
-            ProfileBase profile = ProfileBase.Create(user.UserName);
-
-            LblEmail.Text = user.Email.ToString() + "full name " + profile.GetPropertyValue("fullname");
-
+            
+         
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            Roles.RemoveUserFromRole(User.Identity.Name, "Clerk");
-            Roles.AddUserToRole(User.Identity.Name, "Supervisor");
+
             
         }
 
         protected void Button2_Click(object sender, EventArgs e)
         {
-            Roles.RemoveUserFromRole(User.Identity.Name, "Supervisor");
-            Roles.AddUserToRole(User.Identity.Name, "Clerk");
-            ProfileBase profile = new ProfileBase();
-            profile.GetPropertyValue("department");
-            var userList = new List<MembershipUser>();
 
+        }
 
+        protected void Chart2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void SqlDataSource3_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
+        {
+
+        }
+
+        protected void Chart4_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected int GetReorders(String status)
+        {
+            
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.ReorderRecords.ToList().Count();
+            }
+           
+        }
+        protected int GetDeliveryOrders(String status)
+        {
+            List<PORecord> plist = PurchasingLogic.GetListOfPO(status);
+            return plist.Count;
+        }
+
+        private void BindGrid()
+        {
+            GridView1.DataSource = new RequisitionLogic().ListCurrentRequisitionRecord();
+            GridView1.DataBind();
+        }
+        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+
+                Label l = e.Row.FindControl("LblDept") as Label;
+                string id = l.Text;
+
+                string deptname = new RequisitionLogic().GetDepartmentName(id);
+                l.Text = deptname;
+            }
+
+            
         }
     }
 }

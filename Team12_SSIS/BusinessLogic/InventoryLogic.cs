@@ -16,7 +16,68 @@ namespace Team12_SSIS.BusinessLogic
     public class InventoryLogic
     {
 
+        public static List<InventoryCatalogue> ListCatalogues()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.InventoryCatalogues.ToList<InventoryCatalogue>();
+            }
+        }
 
+        public static void DeleteCatalogue(string ItemID)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                InventoryCatalogue catalogue = entities.InventoryCatalogues.Where(c => c.ItemID == ItemID).First<InventoryCatalogue>();
+                entities.InventoryCatalogues.Remove(catalogue);
+                entities.SaveChanges();
+            }
+        }
+
+        public static void UpdateCatalogue(string ItemID, string Description, int ReorderLevel, int ReorderQty, string UOM)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                InventoryCatalogue catalogue = entities.InventoryCatalogues.Where(c => c.ItemID == ItemID).First<InventoryCatalogue>();
+                catalogue.Description = Description;
+                catalogue.ReorderLevel = ReorderLevel;
+                catalogue.ReorderQty = ReorderQty;
+                catalogue.UOM = UOM;
+                entities.SaveChanges();
+            }
+        }
+
+        public static List<CatalogueCategory> CategoryID()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.CatalogueCategories.ToList<CatalogueCategory>();
+            }
+        }
+
+        public static void AddCatalogue(string ItemID, string CategoryID, string Description, int ReorderLevel, int ReorderQty, string UOM)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                InventoryCatalogue inventoryCatalogue = new InventoryCatalogue();
+                inventoryCatalogue.ItemID = ItemID;
+                inventoryCatalogue.CategoryID = CategoryID;
+                inventoryCatalogue.Description = Description;
+                inventoryCatalogue.ReorderLevel = ReorderLevel;
+                inventoryCatalogue.ReorderQty = ReorderQty;
+                inventoryCatalogue.UOM = UOM;
+                entities.InventoryCatalogues.Add(inventoryCatalogue);
+                entities.SaveChanges();
+            }
+        }
+
+        public List<InventoryCatalogue> SearchBy(string value)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.InventoryCatalogues.Where(i => i.ItemID.Contains(value) || i.CategoryID.Contains(value)).ToList();
+            }
+        }
 
 
 
@@ -1532,6 +1593,7 @@ public static string GetItemName(string ItemID)
         {
             List<MembershipUser> userList = Utility.Utility.GetListOfMembershipUsers();
             string[] approveAuthList = isAbove250 ? Roles.GetUsersInRole("Manager") : Roles.GetUsersInRole("Supervisor");
+            UpdateAdjustmentVoucherApprovingOfficer(avRId, isAbove250);
             foreach (string s in approveAuthList)
             {
                 var User = userList.Find(x => x.UserName == s);
@@ -1541,7 +1603,46 @@ public static string GetItemName(string ItemID)
                     em.NewAdjustmentVoucherRequestNotification(User.Email.ToString(), avRId.ToString(), clerkName);
                 }
             }
+        }
 
+        private void UpdateAdjustmentVoucherApprovingOfficer(int avRId, bool isAbove250)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                AVRequest avR = ctx.AVRequests.Where(x => x.AVRID == avRId).FirstOrDefault();
+                avR.HandledBy = isAbove250 ? "Manager" : "Supervisor";
+                ctx.SaveChanges();
+            }
+        }
+
+        public static List<InventoryRetrievalList> GetListOfInventoryRetrival()
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.InventoryRetrievalLists.ToList();
+            }
+
+        }
+
+        public static List<InventoryRetrievalList> GetListOfInventoryRetrival(string deptId)
+        {
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                return ctx.InventoryRetrievalLists.Where(x => x.DepartmentID == deptId).Where(x => x.Status == "fulfilled" || x.Status == "unfulfilled").ToList();
+            }
+        }
+
+        public static bool UpdateInventoryRetrivalStatus(int retrievalId, string status)
+        {
+            bool success = false;
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryRetrievalList iRL = ctx.InventoryRetrievalLists.Where(x => x.RetrievalID == retrievalId).FirstOrDefault();
+                iRL.Status = status;
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
         }
     }
 }
