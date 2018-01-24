@@ -105,6 +105,8 @@ namespace Team12_SSIS.StoreClerk
             TxtPONumber.Text = string.Empty;
             TxtDoNumber.Text = string.Empty;
             DisplayEmptyGrid();
+
+            
         }
     }
 }

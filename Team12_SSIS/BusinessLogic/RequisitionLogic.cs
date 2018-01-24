@@ -2104,13 +2104,14 @@ namespace Team12_SSIS.BusinessLogic
 
         //Yishu will be here
 
-        public static int CreateRequisitionRecord(string requestorName, string departmentId)
+        public static int CreateRequisitionRecord(string requestorName, string departmentId, DateTime requestDate)
         {
             using(SA45Team12AD ctx = new SA45Team12AD())
             {
                 RequisitionRecord r = new RequisitionRecord();
                 r.RequestorName = requestorName;
                 r.DepartmentID = departmentId;
+                r.RequestDate = requestDate;
                 ctx.RequisitionRecords.Add(r);
                 ctx.SaveChanges();
 
@@ -2118,7 +2119,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static RequisitionRecordDetail CreateRequisitionRecordDetail(int requestId, string itemCode, int quantity)
+        public static RequisitionRecordDetail CreateRequisitionRecordDetail(int requestId, string itemCode, int quantity, string status, string priority)
         {
             using(SA45Team12AD ctx = new SA45Team12AD())
             {
@@ -2126,6 +2127,8 @@ namespace Team12_SSIS.BusinessLogic
                 r.RequestID = requestId;
                 r.ItemID = itemCode;
                 r.RequestedQuantity = quantity;
+                r.Status = status;
+                r.Priority = priority;
                 ctx.RequisitionRecordDetails.Add(r);
                 ctx.SaveChanges();
                 return r;

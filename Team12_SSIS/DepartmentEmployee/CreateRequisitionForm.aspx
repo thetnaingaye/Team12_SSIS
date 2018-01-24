@@ -7,7 +7,7 @@
 </div>
     <div>
         <asp:GridView ID="GridViewRequisitionForm" runat="server" AutoGenerateColumns="False"
-             DataKeyNames="ItemID">
+             DataKeyNames="ItemID" OnRowDataBound="GridViewRequisitionForm_RowDataBound">
             <Columns>
                 <asp:TemplateField HeaderText="ItemID" SortExpression="ItemID">
                 <ItemTemplate>
@@ -16,7 +16,7 @@
             </asp:TemplateField>
                 <asp:TemplateField HeaderText="Description" SortExpression="Description">
                 <ItemTemplate>
-                    <asp:Label ID="LblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
+                    <asp:Label ID="LblDescription" runat="server"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
                 <asp:TemplateField HeaderText="RequestedQuantity" SortExpression="RequestedQuantity">

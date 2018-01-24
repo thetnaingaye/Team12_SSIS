@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
 
 namespace Team12_SSIS.DepartmentEmployee
@@ -34,12 +35,12 @@ namespace Team12_SSIS.DepartmentEmployee
 
         protected void BtnSubmitForm_Click(object sender, EventArgs e)
         {
-            string itemID = (GridViewRequisitionForm.FindControl("LblItemID") as Label).Text;
-            statusMessage.Text = "Stationery Requisition Form " + itemID + " Posted Successfully.";
+            statusMessage.Text = "Stationery Requisition Form Submitted Successfully.";
             statusMessage.ForeColor = Color.Green;
             statusMessage.Visible = true;
             BtnSubmitForm.Visible = false;
             DisplayEmptyGrid();
+            Session["CartList"] = null;
         }
 
         protected void DisplayEmptyGrid()
@@ -49,6 +50,19 @@ namespace Team12_SSIS.DepartmentEmployee
             emptyList.Add(n);
             GridViewRequisitionForm.DataSource = emptyList;
             GridViewRequisitionForm.DataBind();
+        }
+
+        protected void GridViewRequisitionForm_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            List<RequisitionRecordDetail> rList = (List<RequisitionRecordDetail>) Session["CartList"];
+            if(e.Row.RowType == DataControlRowType.DataRow && (RequisitionRecordDetail)e.Row.DataItem != null 
+                && rList.Count < 2)
+            {
+                RequisitionRecordDetail r = (RequisitionRecordDetail)e.Row.DataItem;
+                Label lblDesc = e.Row.FindControl("LblDescription") as Label;
+                if (lblDesc != null)
+                    lblDesc.Text = InventoryLogic.GetItemName(r.ItemID);
+            }
         }
     }
 }

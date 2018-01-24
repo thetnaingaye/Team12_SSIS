@@ -25,12 +25,32 @@ namespace Team12_SSIS.DepartmentEmployee
         }
         protected void BindGrid()
         {
+
             icList = (List<InventoryCatalogue>)Session["CartList"];
             GridViewCheckOut.DataSource = icList;
             GridViewCheckOut.DataBind();
         }
         protected void BtnCheckOut_Click(object sender, EventArgs e)
         {
+            List<RequisitionRecordDetail> rrd = new List<RequisitionRecordDetail>();
+            string deptId = HttpContext.Current.Profile.GetPropertyValue("department").ToString();
+            string fullName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
+            DateTime requestDate = DateTime.Now;
+            int requestId = RequisitionLogic.CreateRequisitionRecord(fullName, deptId, requestDate);
+            if (rrd == null) return;
+            for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
+            {
+                string ItemID = (GridViewCheckOut.Rows[i].FindControl("LblItemID") as Label).Text;
+                string Description = (GridViewCheckOut.Rows[i].FindControl("LblDescription") as Label).Text;
+                int RequestedQuantity;
+                bool isNumber = int.TryParse((GridViewCheckOut.Rows[i].FindControl("TxtRequestedQuantity") as TextBox).Text, out RequestedQuantity);
+
+                string Status = "Pending";
+                string Priority = "No";
+                RequisitionRecordDetail r = RequisitionLogic.CreateRequisitionRecordDetail(requestId, ItemID, RequestedQuantity, Status, Priority);
+                rrd.Add(r);
+            }
+            Session["CartList"] = rrd;
             Response.Redirect("CreateRequisitionForm.aspx");
         }
         protected void GridViewCheckOut_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -49,20 +69,32 @@ namespace Team12_SSIS.DepartmentEmployee
 
         protected void TxtRequestedQuantity_TextChanged(object sender, EventArgs e)
         {
-            List<RequisitionRecordDetail> rrd = new List<RequisitionRecordDetail>();
-            int requestId = RequisitionLogic.CreateRequisitionRecord("Me", "COMM");
-            if (rrd == null) return;
+            List<InventoryCatalogue> rrd = new List<InventoryCatalogue>();
+            List<int> iid = new List<int>();
             for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
             {
                 string ItemID = (GridViewCheckOut.Rows[i].FindControl("LblItemID") as Label).Text;
                 string Description = (GridViewCheckOut.Rows[i].FindControl("LblDescription") as Label).Text;
-                int RequestedQuantity = Convert.ToInt32((GridViewCheckOut.Rows[i].FindControl("TxtRequestedQuantity") as TextBox).Text);
-                RequisitionRecordDetail r = RequisitionLogic.CreateRequisitionRecordDetail(requestId, ItemID, RequestedQuantity);
+                int RequestedQuantity;
+                bool isNumber = int.TryParse((GridViewCheckOut.Rows[i].FindControl("TxtRequestedQuantity") as TextBox).Text, out RequestedQuantity);
+                RequestedQuantity = isNumber ? RequestedQuantity : 0;
+
+                InventoryCatalogue r = new InventoryCatalogue();
+                r.ItemID = ItemID;
+                r.Description = Description;
+
                 rrd.Add(r);
+                iid.Add(RequestedQuantity);
             }
 
+            GridViewCheckOut.DataSource = rrd;
+            GridViewCheckOut.DataBind();
+            for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
+            {
+                TextBox txtReqQty = GridViewCheckOut.Rows[i].FindControl("TxtRequestedQuantity") as TextBox;
+                txtReqQty.Text = iid.ElementAt(i).ToString();
+            }
 
-            Session["CartList"] = rrd;
         }
     }
 }
