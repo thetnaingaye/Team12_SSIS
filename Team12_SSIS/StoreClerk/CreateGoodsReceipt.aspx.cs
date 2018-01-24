@@ -73,7 +73,7 @@ namespace Team12_SSIS.StoreClerk
 
         protected void BtnPostGR_Click(object sender, EventArgs e)
         {
-            DateTime date = DateTime.ParseExact(Request.Form["datepicker"], "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            DateTime date = DateTime.ParseExact(Request.Form["datepicker"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
             string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
             string doNumber = TxtDoNumber.Text;
             int poNumber = int.Parse(HiddenFieldPONumber.Value.ToString());
@@ -93,8 +93,11 @@ namespace Team12_SSIS.StoreClerk
                 string stockCardDesc = "Goods Receipt - " + grNumber + " Supplier " + pr.SupplierID;
                 il.UpdateStockCard(stockCardDesc, itemID, date, "Add", quantity, uom);
             }
+            //Here will check if the PO is already completed
+            pl.GetPurchaseOrdersForGR(poNumber);
 
             poNumber = -1;
+
             statusMessage.Text = "Goods Receipt " + grNumber + " Posted Successfully.";
             statusMessage.ForeColor = Color.Green;
             statusMessage.Visible = true;

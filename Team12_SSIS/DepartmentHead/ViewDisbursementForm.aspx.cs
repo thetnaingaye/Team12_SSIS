@@ -21,7 +21,7 @@ namespace Team12_SSIS.DepartmentHead
         {
             if (!IsPostBack)
             {
-                uList = disbursement.GetDisbursementList();
+                uList = DisbursementLogic.GetDisbursementList();
                 GridViewDisbursement.DataSource = uList;
                 GridViewDisbursement.DataBind();
 
