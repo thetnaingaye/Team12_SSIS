@@ -121,7 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.aspx" />
-    <Content Include="Images\logo.png" />
+    <Content Include="Images\birds1.jpg" />
+    <Content Include="Images\birds2.jpg" />
+    <Content Include="Images\birds3.jpg" />
     <Content Include="Logout.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
