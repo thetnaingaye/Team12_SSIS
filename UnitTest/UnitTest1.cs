@@ -53,8 +53,11 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
-            InventoryLogic il = new InventoryLogic();
-            il.SendAdjRequentEmail(12, true, "test");
+            List<DisbursementList> d = DisbursementLogic.GetListOfDisbursements();
+            foreach(DisbursementList dd in d)
+            {
+                Console.WriteLine(dd.DisbursementID.ToString());
+            }
 
         }
         [TestMethod]

@@ -39,6 +39,9 @@ namespace Team12_SSIS.Model
 
         public int? OrderLeadTime { get; set; }
 
+        [StringLength(50)]
+        public string Discontinued { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PORecord> PORecords { get; set; }
 
