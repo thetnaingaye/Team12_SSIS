@@ -53,11 +53,11 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
-            List<DisbursementList> d = DisbursementLogic.GetListOfDisbursements();
-            foreach(DisbursementList dd in d)
-            {
-                Console.WriteLine(dd.DisbursementID.ToString());
-            }
+			List<string> testlist = Utility.GetClerksEmailAddressList();
+			foreach(string s in testlist)
+			{
+				Console.WriteLine(s);
+			}
 
         }
         [TestMethod]
