@@ -93,9 +93,16 @@
                                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                         <Columns>
 
+                                        <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                        <ItemTemplate>
+                                        <asp:Label ID="LblSn" runat="server" CssClass="center-block" Text="<%# Container.DataItemIndex + 1 %>"></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                        </asp:TemplateField>
+
                                           <asp:TemplateField HeaderText="TransactionDate" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
-                                                    <asp:Label ID="LblDate" runat="server" CssClass="center-block" Text='<%# Eval("Date") %>'></asp:Label>
+                                                    <asp:Label ID="LblDate" runat="server" CssClass="center-block" Text='<%# Eval("Date","{0:d}")%>'></asp:Label>
                                                 </ItemTemplate>
 
                                                 <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
