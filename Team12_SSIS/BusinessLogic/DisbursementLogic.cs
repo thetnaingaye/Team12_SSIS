@@ -318,37 +318,68 @@ namespace Team12_SSIS.BusinessLogic
 
 
         //-------------------------Getting disbursement details------------------------------//
-        public List<DisbursementList> getDisbursement()
+        //-----------------------Entire disbursement List------------------------------------//
+        public List<DisbursementList> GetDisbursementList()
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 return entities.DisbursementLists.ToList<DisbursementList>();
             }
-
         }
 
-
-        public List<DisbursementList> getDisbursementByRep(string rep)
+    
+        //-------------------------------Filter the disbursement details  by date range-------------------------------------------------------------------//
+        public List<DisbursementList> GetDisbursementByDate(DateTime startDate, DateTime enddate)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
-                return entities.DisbursementLists.Where(x => x.RepresentativeName == rep).ToList<DisbursementList>();
-            }
+                var q = (from di in entities.DisbursementLists
+                         where di.CollectionDate >= startDate && di.CollectionDate <= enddate
+                         select di);
 
-        }
-        public List<DisbursementList> getDisbursementByDate(DateTime startDate, DateTime enddate)
-        {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                var q = from x in entities.DisbursementLists where x.CollectionDate >= startDate && x.CollectionDate <= enddate select x;
                 List<DisbursementList> dList = q.ToList<DisbursementList>();
                 return dList;
             }
         }
 
+        //-------------------------------Filter the disbursement details  by rep-------------------------------------------------------------------//
+        public List<DisbursementList> GetDisbursementByRep(string rep)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                var q = (from di in entities.DisbursementLists
+                        where di.RepresentativeName == rep
+                         select di);
+                List<DisbursementList> dList = q.ToList<DisbursementList>();
+                return dList;
+            }
+        }
 
-        //-----------------------------using join --------//
-        //public List<Object> getDisbursementForm()
+        //-------------------------------get departments()-------------------------------------------------------------------//
+
+        public List<Department> GetDepartmentList()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.Departments.ToList<Department>();
+            }
+        }
+
+        //-------------------------------filter disbursement by department------------------------------------------------------------------//
+
+        public List<DisbursementList> GetDepartmentListByDep(string dep)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                var q = (from di in entities.DisbursementLists
+                         join de in entities.Departments on di.DepartmentID equals de.DeptID
+                         where de.DepartmentName==dep select di);
+                return q.ToList<DisbursementList>();
+            }
+        }
+
+        //-----------------------------using join to get disbursement form details from 3 tables:1)DisbursementLists 2)Departments 3)CollectionPoints --------//
+        //public List<Object> GetDisbursementForm()
         //{
         //    using (SA45Team12AD entities = new SA45Team12AD())
         //    {
@@ -357,18 +388,114 @@ namespace Team12_SSIS.BusinessLogic
         //                 join co in entities.CollectionPoints on di.CollectionPointID equals co.CollectionPointID
         //                 select new
         //                 {
+        //                  DisbursementID =di.DisbursementID,
+        //        DepartmentName = de.DepartmentName,
+        //       CollectionDate = di.CollectionDate,
+        //       CollectionPoint1 = co.CollectionPoint1,
+        //        RepresentativeName = di.RepresentativeName,
+        //       status = di.Status
+        //    });
+        //        List<Object> dList = q.ToList<Object>();
+        //        return dList;
+        //    }
+        //}
+
+        //public List<Object> GetDisbursementByRep(string rep)
+        //{
+        //    using (SA45Team12AD entities = new SA45Team12AD())
+        //    {
+        //                 var q = (from di in entities.DisbursementLists
+        //                 join de in entities.Departments on di.DepartmentID equals de.DeptID
+        //                 join co in entities.CollectionPoints on di.CollectionPointID equals co.CollectionPointID
+        //                 where di.RepresentativeName == rep
+        //                 select new
+        //                 {
         //                     DisbursementID = di.DisbursementID,
         //                     DepartmentName = de.DepartmentName,
+        //                     CollectionDate = di.CollectionDate,
         //                     CollectionPoint = co.CollectionPoint1,
-        //                     Representative = di.RepresentativeName,
+        //                     RepresentativeName = di.RepresentativeName,
         //                     status = di.Status
         //                 });
-        //        return 
-        //        }
+        //        List<Object> dList = q.ToList<Object>();
+        //        return dList;
         //    }
+        //}
 
+        //-----------------------------using join to get disbursement form details from 3 tables:1). DisbursementLists 2).Departments 3).CollectionPoints----------------//
+        //-------------------------------Filter the disbursement details  by date range-------------------------------------------------------------------//
+        //public List<Object> GetDisbursementByDate(DateTime startDate, DateTime enddate)
+        //{
+        //    using (SA45Team12AD entities = new SA45Team12AD())
+        //    {
+        //        var q = (from di in entities.DisbursementLists
+        //                 join de in entities.Departments on di.DepartmentID equals de.DeptID
+        //                 join co in entities.CollectionPoints on di.CollectionPointID equals co.CollectionPointID
+        //                 where di.CollectionDate >= startDate && di.CollectionDate <= enddate
+        //                 select new
+        //                 {
+        //                     DisbursementID = di.DisbursementID,
+        //                     DepartmentName = de.DepartmentName,
+        //                     CollectionDate = di.CollectionDate,
+        //                     CollectionPoint = co.CollectionPoint1,
+        //                     RepresentativeName = di.RepresentativeName,
+        //                     status = di.Status
+        //                 });
+        //        List<Object> dList = q.ToList<Object>();
+        //        return dList;
+        //    }
+        //}
 
+        //----------------------------------for Disbursement Details page--------------------------//
 
+        public List<Object> GetDisbursementDetails(int id)
+        {
+
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                var q = (from dl in entities.DisbursementListDetails
+                         join i in entities.InventoryCatalogues on dl.ItemID equals i.ItemID
+                         where dl.DisbursementID == id
+
+                         select new
+                         {
+                             ItemDescription = i.Description,
+                             QuantityRequested = dl.QuantityRequested,
+                             QuantityCollected = dl.QuantityCollected,
+                             UnitOfMeasurement = dl.UOM,
+                             status = dl.Remarks
+                         });
+                List<Object> dList = q.ToList<Object>();
+                return dList;
+            }
+        }
+
+        public DisbursementList GetDisbursementtextDetails(int id)
+        {
+
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                var q = (from df in entities.DisbursementLists
+                         join co in entities.CollectionPoints on df.CollectionPointID equals co.CollectionPointID
+                         where df.DisbursementID == id select df);
+                DisbursementList ddetail = q.First<DisbursementList>();
+                return ddetail;
+            }
+        }
+
+        public CollectionPoint GetDisbursementCollectionDetails(int id)
+        {
+
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                var q = (from df in entities.DisbursementLists
+                         join co in entities.CollectionPoints on df.CollectionPointID equals co.CollectionPointID
+                         where df.DisbursementID == id
+                         select co);
+                CollectionPoint ddetail = q.First<CollectionPoint>();
+                return ddetail;
+            }
+        }
 
 
 

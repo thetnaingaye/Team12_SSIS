@@ -1,100 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
-
+using Team12_SSIS.BusinessLogic;
+using System.Globalization;
 
 namespace Team12_SSIS.StoreClerk
 {
     public partial class ViewDisbursementList : System.Web.UI.Page
     {
-        Label statusMessage;
+        List<DisbursementList> dsList;
+        List<DisbursementList> uList;
+        DisbursementLogic disbursement = new DisbursementLogic();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["DisbId"] == null)
-            {
-                Response.Redirect("~/StoreClerk/ViewDisbursementList.aspx");
-            }
-            else
-            {
-                int disbId = (int)Session["DisbId"];
-                SetStatusLabel();
-                BindGrid(disbId);
-            }
-        }
-        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow && ((DisbursementListDetail)e.Row.DataItem).ItemID != null)
-            {
-                DisbursementListDetail dLD = (DisbursementListDetail)e.Row.DataItem;
-                string itemId = dLD.ItemID;
-                string itemName = InventoryLogic.GetItemName(itemId);
-                string uom = InventoryLogic.GetInventoryItem(itemId).UOM;
 
-                Label LblDesc = (e.Row.FindControl("LblDesc") as Label);
-                if (LblDesc != null)
-                    LblDesc.Text = itemName;
-                Label LblUom = (e.Row.FindControl("LblUom") as Label);
-                if (LblUom != null)
-                    LblUom.Text = uom;
+            if (!IsPostBack)
+            {
+                uList = disbursement.GetDisbursementList();
+                GridViewDisbursement.DataSource = uList;
+                GridViewDisbursement.DataBind();
+
+                DdlDep.DataSource = disbursement.GetDepartmentList();
+                DdlDep.DataTextField = "DepartmentName";
+                DdlDep.DataValueField = "DepartmentName";
+                DdlDep.DataBind();
+               
             }
         }
-        protected void BtnCancelDis_Click(object sender, EventArgs e)
+        //-------------------------Filter by dep-----------//
+        protected void BtnFindrep_Click(object sender, EventArgs e)
         {
-            int disbursementId = (int)Session["DisbId"];
-            DisbursementLogic dL = new DisbursementLogic();
-            dL.UpdateDisbursementStatus(disbursementId, "Cancelled");
-            statusMessage.ForeColor = Color.Green;
-            statusMessage.Text = "Disbursement List DL" + disbursementId.ToString("0000") + " Cancelled.";
+           string dep = DdlDep.SelectedItem.Text;
+           dsList = disbursement.GetDepartmentListByDep(dep);
+           GridViewDisbursement.DataSource = dsList;
+           GridViewDisbursement.DataBind();
 
-            BindLabels(disbursementId);
         }
-        private void BindGrid(int disbursementId)
+        //-------------------------filter by date range----------//
+        protected void BtnFindDate_Click(object sender, EventArgs e)
         {
-            List<DisbursementListDetail> dList = DisbursementLogic.GetDisbursementListDetails(disbursementId);
-            GridViewDisbList.DataSource = dList;
-            GridViewDisbList.DataBind();
+            DateTime d1 = DateTime.ParseExact(Request.Form["datepicker"], "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            DateTime d2 = DateTime.ParseExact(Request.Form["datepicker2"], "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            dsList = disbursement.GetDisbursementByDate(d1, d2);
+            GridViewDisbursement.DataSource = dsList;
+            GridViewDisbursement.DataBind();
 
-            BindLabels(disbursementId);
-
-            GridViewDisbList.Visible = true;
         }
-        private void BindLabels(int disbursementId)
+
+        //-------------------------gridview details link button click event.........//
+        //-------------------------  directing to Disbursement detail page---//
+        protected void Btndetailclick(Object sender, CommandEventArgs e)
         {
-            DisbursementList dL = DisbursementLogic.GetDisbursementList(disbursementId);
+            int dId = Convert.ToInt32(e.CommandArgument.ToString());
+            Response.Redirect("ViewDisbursementList.aspx?DisbursementID=" + dId);
 
-            LblDisbId.Text = "DL" + disbursementId.ToString("0000");
-            LblColDate.Text = ((DateTime)dL.CollectionDate).ToString("d");
-            LblCollectPoint.Text = DisbursementLogic.GetCurrentCPWithTimeByID(dL.CollectionPointID);
-            LblDeptRep.Text = dL.RepresentativeName;
-            LblDeptName.Text = DisbursementLogic.GetListofDepartments().Where(x => x.DeptID == dL.DepartmentID).Select(x => x.DepartmentName).FirstOrDefault();
-            LblStatus.Text = dL.Status;
+        }
 
-            if (dL.Status == "Pending Collection")
-            {
-                BtnCancelDis.Visible = true;
-            }
-            else
-                BtnCancelDis.Visible = false;
-        }
-        private void SetStatusLabel()
-        {
-            statusMessage = this.Master.FindControl("LblStatus") as Label;
-            if (Session["statusMsg"] != null)
-            {
-                statusMessage.Text = (string) Session["statusMsg"];
-                statusMessage.ForeColor = Color.Green;
-                statusMessage.Visible = true;
-            }
-            else
-                statusMessage.Visible = false;
-        }
+
     }
-
-
 }
+        
+    
