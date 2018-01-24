@@ -187,5 +187,25 @@ namespace Team12_SSIS.StoreClerk
         {
             return total.ToString("C0");
         }
-    }
-}
+        //protected void BtnSfa_Click(object sender, EventArgs e)
+        //{
+        //    PurchasingLogic pl= new PurchasingLogic();
+        //    List<PORecordDetail> poRecordDetaillist = new List<PORecordDetail>();
+        //    string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
+        //    int poNo = pl.CreatePurchaseOrder(clerkName, DateTime.Now.Date);
+        //    bool isAbove250 = false;
+
+        //    foreach (GridViewRow r in GridViewVPO.Rows)
+        //    {
+        //        string itemID = (r.FindControl("TxtItemCode") as TextBox).Text;
+        //        string type = (r.FindControl("DdlAdjType") as DropDownList).SelectedValue;
+        //        int quantity = int.Parse((r.FindControl("TxtAdjQty") as TextBox).Text);
+        //        string uom = (r.FindControl("LblUOM") as Label).Text;
+        //        string reason = (r.FindControl("TxtReason") as TextBox).Text;
+        //        double unitPrice = InventoryLogic.GetInventoryPrice(itemID);
+        //        il.CreateAdjustmentVoucherRequestDetails(avRId, itemID, type, quantity, uom, reason, unitPrice);
+        //        isAbove250 = (quantity * unitPrice > 250 ? true : false);
+            }
+
+        }
+    

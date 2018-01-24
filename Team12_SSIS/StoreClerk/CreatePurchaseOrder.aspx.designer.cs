@@ -229,13 +229,13 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// btnSfa control.
+        /// BtnSfa control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSfa;
+        protected global::System.Web.UI.WebControls.Button BtnSfa;
         
         /// <summary>
         /// btcancel control.

@@ -204,7 +204,7 @@
                                 <td>
                                     <td>
                                         <td>
-                                            <asp:Button ID="btnSfa" runat="server" Text="Submit for approval" OnClick="btnSfa_Click" /></td>
+                                            <asp:Button ID="BtnSfa" runat="server" Text="Submit for approval" OnClick="BtnSfa_Click" /></td>
                                     </td>
                                 </td>
                             </td>
