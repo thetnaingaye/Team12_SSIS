@@ -101,6 +101,9 @@ namespace Team12_SSIS.StoreClerk
 				{
 					PurchasingLogic.UpdateBufferStockLevel(TxtItemCode.Text, newbufferstocklevel);
 					AutomationStatusLbl.Text = "The current buffer stock level is " + newbufferstocklevel.ToString() + ".";
+					statusMessage.Text = "The buffer stock level has been changed to "+newbufferstocklevel+".";
+					statusMessage.Visible = true;
+					statusMessage.ForeColor = Color.Green;
 				}
 				else
 				{

@@ -32,18 +32,20 @@ namespace Team12_SSIS.DepartmentHead
 		}
 		protected void AssignRepBtn_Click(object sender, EventArgs e)
 		{
+			
 			//Getting new representative name from dropdown list
 			string newrepfullname = EmployeesDdl.SelectedValue;
 			//Update new rep and delete old rep by passing in new representative name and current department
-			
 			DisbursementLogic.UpdateDeptRep(newrepfullname,DisbursementLogic.GetCurrentDep());
+			
 			//Update current representative
 			CurrentRepLbl.Text = DisbursementLogic.GetDeptRepFullName(DisbursementLogic.GetCurrentDep());
 			statusMessage.Text = newrepfullname + " has been assigned as the new representative.";
 			statusMessage.Visible = true;
 			statusMessage.ForeColor = Color.Green;
 			BindDdl();
-			
+			AssignRepBtn.Enabled = true;
+
 
 		}
 	}

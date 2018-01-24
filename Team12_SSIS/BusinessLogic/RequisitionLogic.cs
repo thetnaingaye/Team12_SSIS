@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using Team12_SSIS.Model;
+using Team12_SSIS.Utility;
 
 namespace Team12_SSIS.BusinessLogic
 {
@@ -1324,8 +1325,14 @@ namespace Team12_SSIS.BusinessLogic
 					dDelegate.EndDate = newenddate;
 					entities.SaveChanges();
 				}
+				using (EmailControl em = new EmailControl())
+				{
+					List<string> depuseremails = new List<string>();
+					depuseremails = Utility.Utility.GetAllUserEmailAddressListForDept(dDelegateinput.DepartmentID);
+				}
+
 			}
-			
+
 		}
 
 		public static void CancelDelegate(DDelegateDetail dDelegateinput)
@@ -1365,6 +1372,8 @@ namespace Team12_SSIS.BusinessLogic
 			Roles.RemoveUserFromRole(username, "HOD");
 			Roles.AddUserToRole(username, "Employee");
 		}
+
+
 		
 
 

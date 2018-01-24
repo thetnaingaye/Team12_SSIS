@@ -17,12 +17,12 @@
             </asp:View>
             <br />
             <asp:View ID="View2" runat="server">
-                <strong>Ammend Buffer Stock Level<br /> Item Code:
+                <strong>Ammend Buffer Stock Level<br /> <br /> Item Code:
                 <asp:Label ID="LblItemCode" runat="server"></asp:Label>
                 <br />
                 Item Description:<asp:Label ID="LblItemDescription" runat="server"></asp:Label>
-                </strong>
                 <br />
+                </strong>
                 <br />
                 <p>
                     <asp:Label ID="AutomationStatusLbl" runat="server"></asp:Label>
