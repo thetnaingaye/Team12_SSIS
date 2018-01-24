@@ -15,6 +15,10 @@ namespace Team12_SSIS.BusinessLogic
     //Yishu Line 1519 to 1820
     public class RequisitionLogic
     {
+
+        //----------------------------         KHAIR's               ----------------------------// 
+
+
         // Retrieve requisition order by RequestID
         public RequisitionRecord FindRequisitionRecord(int reqID)
         {
@@ -24,12 +28,21 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        // Retrieve requisition order details by RequestID
+        // Retrieve requisition order details by RequestDetailID
         public RequisitionRecordDetail FindRequisitionRecordDetails(int reqDetailID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
                 return context.RequisitionRecordDetails.Where(x => x.RequestDetailID == reqDetailID).First();
+            }
+        }
+
+        // Retrieve requisition order details by RequestID
+        public List<RequisitionRecordDetail> FindRequisitionRecordDetailsByReqID(int reqID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                return context.RequisitionRecordDetails.Where(x => x.RequestID == reqID).ToList();
             }
         }
 
@@ -51,15 +64,6 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        // Retrieve all requisition orders by dept and status
-        //public List<RequisitionRecord> ListAllRRBySpecificDeptAndStatus(string deptID, string status)
-        //{
-        //    using (SA45Team12AD context = new SA45Team12AD())
-        //    {
-        //        return context.RequisitionRecords.Where(x => x.DepartmentID.Equals(deptID)).Where(x => x.Status.Equals(status)).ToList<RequisitionRecord>();
-        //    }
-        //}
-
         // Retrieve all requisition orders by dept and status [Used by dept head]
         public List<RequisitionRecord> ListAllRRBySpecificDeptAndStatus(string deptID, string status)
         {
@@ -79,6 +83,45 @@ namespace Team12_SSIS.BusinessLogic
                 return opt;
             }
         }
+
+        // Processing requisition requests by DEPARTMENT HEAD
+        public string ProcessRequsitionRequest(int reqID, string status, string approverName, string remarks)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                // Updating the status of all items in the request
+                List<RequisitionRecordDetail> rd = context.RequisitionRecordDetails.Where(x => x.RequestID == reqID).ToList();
+                RequisitionRecord r = context.RequisitionRecords.Where(x => x.RequestID == reqID).First();
+
+                try
+                {
+                    // Updating the status in the ReqDetails table
+                    foreach (var item in rd)
+                    {
+                        item.Status = status;
+                    }
+
+                    // Updating the reques in ReqRecords table
+                    r.ApprovedDate = DateTime.Now;
+                    r.ApproverName = approverName;
+                    if (!String.IsNullOrWhiteSpace(remarks))
+                    {
+                        r.Remarks = remarks;
+                    }
+
+                    // Confirming changes to the DB
+                    context.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    return ("Procedure was unsuccessful.").ToString();
+                }
+
+                if (status.Equals("Approved")) return ("Request R" + reqID + ", was successfully approved.").ToString();
+                else return ("Request R" + reqID + ", was successfully rejected.").ToString();
+            }
+        }
+
         // Retrieve all CURRENT requisition records
         public List<RequisitionRecord> ListCurrentRequisitionRecord()
         {
@@ -160,6 +203,16 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        // Retrieving deptID from the requisition record table
+        public string GetReqRemarks(int reqID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                RequisitionRecord rd = context.RequisitionRecords.Where(x => x.RequestID.Equals(reqID)).First();
+                return (string)rd.Remarks;
+            }
+        }
+
         // Retrieving status for each reqrecorddetails item
         public string GetStatus(int reqID)
         {
@@ -226,8 +279,7 @@ namespace Team12_SSIS.BusinessLogic
                     //Populating the priority list if any
                     foreach (var item in tempList)
                     {
-                        //to wait for next database modificaiton 
-                        //if (item.Priority.Equals("Yes")) priorityList.Add(item);
+                        if (item.Priority.Equals("Yes")) priorityList.Add(item);
                     }
 
                     // If none are remarked to be priority by the system, remaining qty will be divided equally between all the products.
@@ -270,16 +322,16 @@ namespace Team12_SSIS.BusinessLogic
 
                                 foreach (var item in tempList)
                                 {
-                                    //if (item.Priority.Equals("Yes"))    // Partially satisfy priority's requested qty
-                                    //{
-                                    //    TempInventoryRetrieval t = new TempInventoryRetrieval(item.RequestID, item.RequestDetailID, itemID, GetDeptID(item.RequestID), (int)item.RequestedQuantity, dividedQty);
-                                    //    result.Add(t);
-                                    //}
-                                    //else
-                                    //{
-                                    //    TempInventoryRetrieval t = new TempInventoryRetrieval(item.RequestID, item.RequestDetailID, itemID, GetDeptID(item.RequestID), (int)item.RequestedQuantity, 0);  // zero for non-priority
-                                    //    result.Add(t);
-                                    //}
+                                    if (item.Priority.Equals("Yes"))    // Partially satisfy priority's requested qty
+                                    {
+                                        TempInventoryRetrieval t = new TempInventoryRetrieval(item.RequestID, item.RequestDetailID, itemID, GetDeptID(item.RequestID), (int)item.RequestedQuantity, dividedQty);
+                                        result.Add(t);
+                                    }
+                                    else
+                                    {
+                                        TempInventoryRetrieval t = new TempInventoryRetrieval(item.RequestID, item.RequestDetailID, itemID, GetDeptID(item.RequestID), (int)item.RequestedQuantity, 0);  // zero for non-priority
+                                        result.Add(t);
+                                    }
                                 }
                             }
                             else
@@ -289,16 +341,16 @@ namespace Team12_SSIS.BusinessLogic
                                 // If priority's total req is not more than the existing inventory level
                                 foreach (var item in tempList)
                                 {
-                                    //if (item.Priority.Equals("Yes"))    // Satisfy priority's requested qty
-                                    //{
-                                    //    TempInventoryRetrieval t = new TempInventoryRetrieval(item.RequestID, item.RequestDetailID, itemID, GetDeptID(item.RequestID), (int)item.RequestedQuantity, (int)item.RequestedQuantity);
-                                    //    result.Add(t);
-                                    //}
-                                    //else
-                                    //{
-                                    //    TempInventoryRetrieval t = new TempInventoryRetrieval(item.RequestID, item.RequestDetailID, itemID, GetDeptID(item.RequestID), (int)item.RequestedQuantity, rmd);
-                                    //    result.Add(t);
-                                    //}
+                                    if (item.Priority.Equals("Yes"))    // Satisfy priority's requested qty
+                                    {
+                                        TempInventoryRetrieval t = new TempInventoryRetrieval(item.RequestID, item.RequestDetailID, itemID, GetDeptID(item.RequestID), (int)item.RequestedQuantity, (int)item.RequestedQuantity);
+                                        result.Add(t);
+                                    }
+                                    else
+                                    {
+                                        TempInventoryRetrieval t = new TempInventoryRetrieval(item.RequestID, item.RequestDetailID, itemID, GetDeptID(item.RequestID), (int)item.RequestedQuantity, rmd);
+                                        result.Add(t);
+                                    }
                                 }
                             }
                         }
@@ -922,7 +974,7 @@ namespace Team12_SSIS.BusinessLogic
 
         //Naing
 
-    
+
 
 
 
