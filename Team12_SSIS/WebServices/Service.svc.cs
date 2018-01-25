@@ -118,8 +118,9 @@ namespace Team12_SSIS.WebServices
             List<WCF_RequisitionRecord> wcfList = new List<WCF_RequisitionRecord>();
             foreach(RequisitionRecord r in rList)
             {
+                string approvedDate = r.ApprovedDate == null ? "null" : ((DateTime)r.ApprovedDate).ToString("d");
                 WCF_RequisitionRecord wcf = WCF_RequisitionRecord.Create(r.RequestID, ((DateTime)r.RequestDate).ToString("d"), r.DepartmentID,
-                    r.RequestorName, ((DateTime)r.ApprovedDate).ToString("d"), r.ApproverName, r.Remarks, GetStationeryRequestDetails((r.RequestID.ToString())));
+                    r.RequestorName, approvedDate, r.ApproverName, r.Remarks, GetStationeryRequestDetails(r.RequestID.ToString()));
                 wcfList.Add(wcf);
             }
             return wcfList;
@@ -132,8 +133,9 @@ namespace Team12_SSIS.WebServices
             List<WCF_RequisitionRecord> wcfList = new List<WCF_RequisitionRecord>();
             foreach (RequisitionRecord r in rList)
             {
+                string approvedDate = r.ApprovedDate == null ? "null" : ((DateTime)r.ApprovedDate).ToString("d");
                 WCF_RequisitionRecord wcf = WCF_RequisitionRecord.Create(r.RequestID, ((DateTime)r.RequestDate).ToString("d"), r.DepartmentID,
-                    r.RequestorName, ((DateTime)r.ApprovedDate).ToString("d"), r.ApproverName, r.Remarks, GetStationeryRequestDetails(r.RequestID.ToString()));
+                    r.RequestorName, approvedDate, r.ApproverName, r.Remarks, GetStationeryRequestDetails(r.RequestID.ToString()));
                 wcfList.Add(wcf);
             }
             return wcfList;

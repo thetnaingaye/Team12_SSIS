@@ -8,12 +8,7 @@ namespace Team12_SSIS.WebServices.WCF_Model
 {
     [DataContract]
     public class WCF_RequisitionRecord
-    {
-        
-        public WCF_RequisitionRecord()
-        {
-            WCF_RequisitionRecordDetails = new HashSet<WCF_RequisitionRecordDetail>();
-        }
+    {      
 
         public static WCF_RequisitionRecord Create(int requestId, string requestDate, 
             string departmentId, string requestorName, string approvedDate, string approverName,
