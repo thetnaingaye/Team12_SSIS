@@ -7,7 +7,7 @@
 </div>
     <div>
         <asp:GridView ID="GridViewRequisitionForm" runat="server" AutoGenerateColumns="False"
-            OnRowDeleting="GridViewCheckOut_RowDeleting" DataKeyNames="ItemID">
+             DataKeyNames="ItemID">
             <Columns>
                 <asp:BoundField DataField="ItemID" HeaderText="ItemID" SortExpression="ItemID" />
                 <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />

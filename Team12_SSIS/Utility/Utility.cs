@@ -31,7 +31,7 @@ namespace Team12_SSIS.Utility
         public static List<MembershipUser> GetListOfMembershipUsers()
         {
             var users = Membership.GetAllUsers();
-            var userList = new List<MembershipUser>();
+            List<MembershipUser> userList = new List<MembershipUser>();
             foreach (MembershipUser u in users)
             {
                 userList.Add(u);
