@@ -12,15 +12,19 @@
             Current Delegate:
             <asp:Label ID="LblCurrentDelegate" runat="server"></asp:Label>
             <br />
+            <br />
             From:<asp:Label ID="LblCurrentDelStartDate" runat="server"></asp:Label>
             &nbsp;&nbsp; To:<asp:Label ID="LblCurrentDelEndDate" runat="server"></asp:Label>
             <br />
+            <br />
             <asp:Button ID="BtnEdit" runat="server" OnClick="BtnEdit_Click" Text="Edit" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Button ID="CancelDelegationBtn" runat="server" OnClick="CancelDelegationBtn_Click" Text="Cancel Delegation" />
         </asp:View>
         <br />
         <asp:View ID="View2" runat="server">
             Delegate:<asp:Label ID="LblCurrentDelegateView2" runat="server"></asp:Label>
+            <br />
             <br />
             From:
             <asp:Calendar ID="CalStartEditDelegate" runat="server"></asp:Calendar>
@@ -35,9 +39,11 @@
             Delegate:<asp:DropDownList ID="EmployeesDdl" runat="server">
             </asp:DropDownList>
             <br />
+            <br />
             From:<asp:Calendar ID="CalStartAddDelegate" runat="server"></asp:Calendar>
             <br />
             To:<asp:Calendar ID="CalEndAddDelegate" runat="server"></asp:Calendar>
+            <br />
             <asp:Button ID="BtnAddDelegate" runat="server" OnClick="BtnAddDelegate_Click" Text="Add Delegate" />
             <br />
         </asp:View>

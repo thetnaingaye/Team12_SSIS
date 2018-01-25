@@ -17,7 +17,7 @@
         </asp:RadioButtonList>
     </p>
     <p>
-        <asp:Button ID="ChangeCollectionPointBtn" runat="server" Text="Change Collection Point" OnClick="ChangeCollectionPointBtn_Click" />
+        <asp:Button ID="ChangeCollectionPointBtn" runat="server" Text="Change Collection Point" OnClick="ChangeCollectionPointBtn_Click" OnClientClick="this.disabled=true;" UseSubmitBehavior="false" />
     </p>
     <p>
         <asp:Label ID="ChangedLbl" runat="server" Visible="False"></asp:Label>
