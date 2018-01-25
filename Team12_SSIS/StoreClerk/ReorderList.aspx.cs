@@ -45,6 +45,12 @@ namespace Team12_SSIS.StoreClerk
             return temp.ToString();
         }
 
+        public string GetQuantity(string itemID)
+        {
+            int temp = i.GetQuantity(itemID);
+            return temp.ToString();
+        }
+
         public string GetUnitsOfMeasure(string itemID)
         {
             string temp = i.GetUnitsOfMeasure(itemID);

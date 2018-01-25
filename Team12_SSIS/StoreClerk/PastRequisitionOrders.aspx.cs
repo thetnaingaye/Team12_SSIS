@@ -42,12 +42,6 @@ namespace Team12_SSIS.StoreClerk
             return temp.ToString();
         }
 
-        public string GetStatus(int reqID)
-        {
-            string temp = r.GetStatus(reqID);
-            return temp.ToString();
-        }
-
         public string GetItemDescription(string itemID)
         {
             string temp = i.GetItemDescription(itemID);
@@ -58,12 +52,6 @@ namespace Team12_SSIS.StoreClerk
         {
             string temp = i.GetUnitsOfMeasure(itemID);
             return temp.ToString();
-        }
-        
-        protected string GetRemarks(string remarks)
-        {
-            if (remarks == null || remarks.Equals("") || remarks.Equals(" ")) return "Nil";
-            else return remarks;
         }
 
 
@@ -81,7 +69,7 @@ namespace Team12_SSIS.StoreClerk
             {
                 // Populating the labels associated with the gridview
                 LblSelected.Text = "Request ID: ";
-                LblItemIDInfo.Text = tempText;
+                LblItemIDInfo.Text = "RQ" + tempText;
                 LblDetails.Text = "Details";
             } else
             {

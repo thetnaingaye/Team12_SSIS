@@ -184,8 +184,23 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        // Retrieving supplier name
+        public bool SetProportionalBFS(string suppID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                return true;
+            }
+        }
 
-
+        // Retrieving supplier name
+        public bool SetAutomatedlBFS(string suppID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                return true;
+            }
+        }
 
 
 
