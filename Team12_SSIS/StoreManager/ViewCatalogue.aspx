@@ -12,6 +12,7 @@
 </div>
 <div>
 <asp:GridView ID="GridViewCatalogue" runat="server" AutoGenerateColumns="False"
+    AllowPaging="true" PageSize="10" OnPageIndexChanging="GridViewCatalogue_PageIndexChanging"
 OnRowCancelingEdit="GridViewCatalogue_RowCancelingEdit"
 OnRowDataBound="GridViewCatalogue_RowDataBound"
 OnRowDeleting="GridViewCatalogue_RowDeleting"
@@ -61,7 +62,7 @@ DataKeyNames="ItemID">
 <asp:Label ID="LblUOM" runat="server" Text='<%# Bind("UOM") %>'></asp:Label>
 </ItemTemplate>
 </asp:TemplateField>
-<asp:CommandField ButtonType="Button" ShowDeleteButton="True" ShowEditButton="True" />
+<asp:CommandField ButtonType="Button" ShowDeleteButton="True"  DeleteText="Discontinue" ShowEditButton="True" EditText="Edit"/>
 </Columns>
 </asp:GridView>
 </div>

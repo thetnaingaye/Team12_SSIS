@@ -12,6 +12,7 @@
 
     <div>
 <asp:GridView ID="GridViewSupplier" runat="server" AutoGenerateColumns="False"
+    AllowPaging="true" PageSize="10" OnPageIndexChanging="GridViewSupplier_PageIndexChanging"
 OnRowCancelingEdit="GridViewSupplier_RowCancelingEdit"
 OnRowDataBound="GridViewSupplier_RowDataBound"
 OnRowDeleting="GridViewSupplier_RowDeleting"
@@ -80,7 +81,7 @@ DataKeyNames="SupplierID">
 <asp:Label ID="LblOrderLeadTime" runat="server" Text='<%# Bind("OrderLeadTime") %>'></asp:Label>
 </ItemTemplate>
 </asp:TemplateField>
-<asp:CommandField ButtonType="Button" ShowDeleteButton="True" ShowEditButton="True" />
+<asp:CommandField ButtonType="Button" ShowDeleteButton="True" DeleteText="Discontinue" ShowEditButton="True" EditText="Edit" />
 </Columns>
 </asp:GridView>
 </div>

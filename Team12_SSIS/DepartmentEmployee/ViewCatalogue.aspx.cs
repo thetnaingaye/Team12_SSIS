@@ -47,6 +47,12 @@ namespace Team12_SSIS.DepartmentEmployee
             GridViewAddRequest.DataBind();
         }
 
+        protected void GridViewAddRequest_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridViewAddRequest.PageIndex = e.NewPageIndex;
+            GridViewAddRequest.DataBind();
+        }
+
         RequisitionLogic requisitionLogic = new RequisitionLogic();
         protected void BtnSearch_Click(object sender, EventArgs e)
         {

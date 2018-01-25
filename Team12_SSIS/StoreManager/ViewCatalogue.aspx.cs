@@ -82,6 +82,12 @@ namespace Team12_SSIS.StoreManager
             GridViewCatalogue.DataBind();
         }
 
+        protected void GridViewCatalogue_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridViewCatalogue.PageIndex= e.NewPageIndex;
+            BindGrid();
+        }
+
         //protected void BtnPrint_Click(object sender, EventArgs e)
         //{
         //    Response.Redirect("CatalogueReport.aspx");

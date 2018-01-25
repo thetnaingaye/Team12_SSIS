@@ -12,7 +12,7 @@
         <asp:LinkButton ID="LinkButtonCount" runat="server" OnClick="LinkButtonCount_Click">View Requested Items</asp:LinkButton>
 </div>
 <div>
-    <asp:GridView ID="GridViewAddRequest" runat="server" AutoGenerateColumns="False" DataKeyNames="ItemID">
+    <asp:GridView ID="GridViewAddRequest" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10" OnPageIndexChanging="GridViewAddRequest_PageIndexChanging" DataKeyNames="ItemID">
         <Columns>
             <asp:TemplateField HeaderText="ItemID" SortExpression="ItemID">
                 <ItemTemplate>
