@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -19,11 +20,9 @@ namespace Team12_SSIS.StoreClerk
             if (!IsPostBack)
             {
                 BindGrid();
+                DisplayLabel();
             }
             Upl.Update();
-            DisplayLabel();
-           LblTotal.Text = total.ToString("C0");
-            //Response.Redirect("ViewPurchaseOrder?Name=Pandian");
         }
         protected void BindGrid()
         {
@@ -42,39 +41,9 @@ namespace Team12_SSIS.StoreClerk
             DdlSli.DataSource = sList;
             DdlSli.DataBind();
             DdlSli.SelectedIndex = 0;
-        }
-
-        //protected void btnSfa_Click(object sender, EventArgs e)
-        //{
-        //    using (SA45Team12AD entities = new SA45Team12AD())
-        //    {
-        //        PODateLbl.Text = DateTime.Today.ToString();
-        //        string userName = User.Identity.Name;
-        //        RstLbl.Text = userName;
-        //        string Deliverto = TxtDlt.Text;
-        //        string SupplierID = DdlSli.Text;
-        //        string Address = TxtAds.Text;
-        //        BusinessLogic.PurchasingLogic.AddText(Deliverto, Address);
-
-
-
-
-                //Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx?Deliverto=" + TxtDlt);
-                //Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx?SupplierID=" + DdlSli);
-        //        //Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx?Address=" + TxtAds);
-        //        Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx?POnumber=" + 999);
-        //    }
-           
-        //}
-        protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
-        {
-            //Calendar1.Visible = true;
-        }
-
-        protected void Calendar1_SelectionChanged(object sender, EventArgs e)
-        {
-            //txtSid.Text = Calendar1.SelectedDate.ToShortDateString();
-            //Calendar1.Visible = false;
+            TxtDlt.Text = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
+            TxtAds.Text = "21 Lower Kent Ridge Rd, Singapore 119077";
+            LblTotal.Text = total.ToString("c");
         }
 
         protected void GridViewPO_SelectedIndexChanged(object sender, EventArgs e)
@@ -97,15 +66,13 @@ namespace Team12_SSIS.StoreClerk
                 poRecordDetails.ItemID = (r.FindControl("Txtitemid") as TextBox).Text;
                 poRecordDetails.UOM = (r.FindControl("DdlUOM") as DropDownList).SelectedValue;
                 poRecordDetails.Quantity = int.Parse((r.FindControl("Txtquantity") as TextBox).Text);
+                poRecordDetails.UnitPrice = PurchasingLogic.GetUnitPrice(poRecordDetails.ItemID, DdlSli.SelectedValue);
                 poRecordDetailsList.Add(poRecordDetails);
             }
             PORecordDetail poRecordDetailsNew = new PORecordDetail();
             poRecordDetailsList.Add(poRecordDetailsNew);
             GridViewPO.DataSource = poRecordDetailsList;
             GridViewPO.DataBind();
-
-            Label temp = (Label)UpdatePanel1.FindControl("LabelTotal");
-            temp.Text = total.ToString("C0");
         }
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -114,30 +81,28 @@ namespace Team12_SSIS.StoreClerk
                 PORecordDetail poR = (PORecordDetail)e.Row.DataItem;
 
                 string itemId = poR.ItemID;
-                double poRPrice = (double)(PurchasingLogic.GetUnitPrice(itemId, "SupplierID") * poR.Quantity);
+                double poRPrice = (double)(PurchasingLogic.GetUnitPrice(itemId, DdlSli.SelectedValue) * poR.Quantity);
 
-                Label DesLbl = (e.Row.FindControl("DesLbl") as Label);
+                Label DesLbl = (e.Row.FindControl("LblDes") as Label);
                 if (DesLbl != null)
                     DesLbl.Text = InventoryLogic.GetItemName(itemId);
-                Label UnpLbl = (e.Row.FindControl("UnpLbl") as Label);
+                Label UnpLbl = (e.Row.FindControl("LblUnp") as Label);
                 if (UnpLbl != null)
-                    UnpLbl.Text = PurchasingLogic.GetUnitPrice(itemId, "SupplierID").ToString();
+                    UnpLbl.Text = PurchasingLogic.GetUnitPrice(itemId, DdlSli.SelectedValue).ToString("c");
                 DropDownList DdlUOM = (e.Row.FindControl("DdlUOM") as DropDownList);
                 if (DdlUOM != null)
                     DdlUOM.Text = poR.UOM;
+                Label LblPrice = (e.Row.FindControl("LblPrice") as Label);
+                if (LblPrice != null)
+                    LblPrice.Text = ((double)(poR.Quantity * PurchasingLogic.GetUnitPrice(itemId, DdlSli.SelectedValue))).ToString("c");
 
                 TextBox Txtquantity = e.Row.FindControl("Txtquantity") as TextBox;
                 int Quantity = int.Parse(Txtquantity.Text);
-                Label PriceLbl = (e.Row.FindControl("PriceLbl") as Label);
-                if (PriceLbl != null)
-                {
-
-                    PriceLbl.Text = ((double)(PurchasingLogic.GetUnitPrice(itemId, "SupplierID") * Quantity)).ToString();
-                    total += (PurchasingLogic.GetUnitPrice(itemId, "SupplierID") * Quantity);
-                }
-
+                total += (PurchasingLogic.GetUnitPrice(itemId, DdlSli.SelectedValue) * Quantity);
+                LblTotal.Text = total.ToString("c");
             }
         }
+
         protected void Txtitemid_TextChanged(object sender, EventArgs e)
         {
             GridViewRow currentRow = (GridViewRow)((TextBox)sender).Parent.Parent.Parent.Parent;
@@ -151,17 +116,14 @@ namespace Team12_SSIS.StoreClerk
             Label DesLbl = currentRow.FindControl("LblDes") as Label;
             DesLbl.Text = inventoryItem;
             Label UnpLbl = currentRow.FindControl("LblUnp") as Label;
-            UnpLbl.Text = PurchasingLogic.GetUnitPrice(ItemID, DdlSli.SelectedValue).ToString();
+            UnpLbl.Text = PurchasingLogic.GetUnitPrice(ItemID, DdlSli.SelectedValue).ToString("C");
 
             if (int.TryParse(TxtQuantity.Text, out quantity))
             {
                 Label LblPrice = currentRow.FindControl("LblPrice") as Label;
-                LblPrice.Text = (quantity * unitPrice).ToString();
-
+                LblPrice.Text = (quantity * unitPrice).ToString("c");
+                total += (quantity * unitPrice);
             }
-
-            
-
         }
         protected void Txtquantity_TextChanged(object sender, EventArgs e)
         {
@@ -182,7 +144,7 @@ namespace Team12_SSIS.StoreClerk
                 poRecordDetails.ItemID = (r.FindControl("Txtitemid") as TextBox).Text;
                 poRecordDetails.Quantity = Convert.ToInt32((r.FindControl("Txtquantity") as TextBox).Text.ToString());
                 poRecordDetails.UOM = (r.FindControl("DdlUOM") as DropDownList).Text;
-                poRecordDetails.UnitPrice = (double)(PurchasingLogic.GetUnitPrice(poRecordDetails.ItemID, "SupplierID"));
+                poRecordDetails.UnitPrice = (double)(PurchasingLogic.GetUnitPrice(poRecordDetails.ItemID, DdlSli.SelectedValue));
                 poRecordDetailList.Add(poRecordDetails);
             }
             poRecordDetailList.RemoveAt(sN - 1);
@@ -195,34 +157,28 @@ namespace Team12_SSIS.StoreClerk
             return total.ToString("C0");
         }
 
-       
+
         protected void BtnSfa_Click(object sender, EventArgs e)
-        {  
+        {
             PurchasingLogic pl = new PurchasingLogic();
-            //PODateLbl.Text = DateTime.Today.ToString();
-            string userName = User.Identity.Name;
-            //RstLbl.Text = userName;
+            string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
             string Deliverto = TxtDlt.Text;
             string SupplierID = DdlSli.Text;
             string Address = TxtAds.Text;
-            //DateTime ExpectedBy = DateTime.Parse(txtSid.Text);
-            //
-            //int poNumber = BusinessLogic.PurchasingLogic.AddText(Deliverto, Address,SupplierID,DateTime.Now.Date,userName,ExpectedBy);
-
-
-            List<PORecordDetail> poRecordDetaillist = new List<PORecordDetail>();
-            string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
+            //Get Date from Http Input Textbox
+            DateTime ExpectedBy = DateTime.ParseExact(Request.Form["datepicker"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            //Remember to rename AddText method.
+            int poNumber = BusinessLogic.PurchasingLogic.AddText(Deliverto, Address, SupplierID, DateTime.Now.Date, clerkName, ExpectedBy);
 
             foreach (GridViewRow r in GridViewPO.Rows)
             {
                 string itemID = (r.FindControl("Txtitemid") as TextBox).Text;
                 int quantity = int.Parse((r.FindControl("Txtquantity") as TextBox).Text);
                 string uom = (r.FindControl("DdlUOM") as DropDownList).Text;
-                double unitPrice = (double)PurchasingLogic.GetUnitPrice(itemID, "SupplierID");
-               
-                //pl.CreatePurchaseOrderDetails( poNumber,itemID, quantity, uom, unitPrice);
+                double unitPrice = (double)PurchasingLogic.GetUnitPrice(itemID, DdlSli.SelectedValue);
+                pl.CreatePurchaseOrderDetails(poNumber, itemID, quantity, uom, unitPrice);
             }
-            //Session["PONumber"] = poNumber;
+            Session["PONumber"] = poNumber;
             Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx");
 
             // pl.Submitforapproval(poNo, clerkName);
@@ -232,8 +188,7 @@ namespace Team12_SSIS.StoreClerk
             // statusMessage.ForeColor = System.Drawing.Color.Green;
             // statusMessage.Text = "PO" + poNo.ToString() + "submitted successfully";
         }
-
     }
-    }
+}
 
-    
+

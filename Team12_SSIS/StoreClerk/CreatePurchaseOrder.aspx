@@ -10,13 +10,13 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(function () {
-            $("#datepicker").datepicker({dateFormat: "dd/mm/yy"}).datepicker("setDate", new Date());
+            $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" }).datepicker("setDate", new Date());
         });
     </script>
     <div>
         <h1>
             <asp:Label ID="LblRpo" runat="server" Style="text-align: center" Text="Raise Stationary Purchase Order "></asp:Label></h1>
-        <table style="width:100%">
+        <table style="width: 100%">
             <tr>
                 <td>
                     <asp:Label ID="LblPod" runat="server" Text="PO date:"></asp:Label>
@@ -42,7 +42,7 @@
                     <asp:Label ID="LblSli" runat="server" Text="Supplier ID:"></asp:Label>
                 </td>
                 <td>
-                    <asp:DropDownList ID="DdlSli" runat="server" DataTextField = "SupplierName" DataValueField = "SupplierID"></asp:DropDownList></td>
+                    <asp:DropDownList ID="DdlSli" runat="server" DataTextField="SupplierName" DataValueField="SupplierID"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td>
@@ -56,7 +56,7 @@
                 <td>
                     <asp:Label ID="LblSid" runat="server" Text="Please supply the items by(date):"></asp:Label></td>
                 <td>
-                <input type="text" id="datepicker" name="datepicker" readonly="true" />
+                    <input type="text" id="datepicker" name="datepicker" readonly="true" />
                 </td>
                 <td class="auto-style4">
                     <asp:Label ID="OdbLbl" runat="server" Text="Ordered by:"></asp:Label>
@@ -128,8 +128,8 @@
                                             <asp:Label ID="LblPrice" runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:CommandField ButtonType="Button" ShowDeleteButton="True" ControlStyle-CssClass="btn btn-danger" >
-                                    <ControlStyle CssClass="btn btn-danger" />
+                                    <asp:CommandField ButtonType="Button" ShowDeleteButton="True" ControlStyle-CssClass="btn btn-danger">
+                                        <ControlStyle CssClass="btn btn-danger" />
                                     </asp:CommandField>
                                 </Columns>
                                 <EditRowStyle BackColor="#999999" />
@@ -151,22 +151,11 @@
                 <td>
                     <asp:Button ID="BtnAddItem" runat="server" Text="Add Item" CssClass="btn btn-success" OnClick="BtnAddItem_Click" />
                 </td>
+                <td colspan="3" align="center">Total Price: 
+                    <asp:Label ID="LblTotal" runat="server"></asp:Label>
+                </td>
             </tr>
             <tr>
-                <td class="auto-style14">
-                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <div>
-                                <asp:Label ID="Lbltot" runat="server" Text="Total:"></asp:Label>
-                                <asp:Label ID="LblTotal" runat="server"></asp:Label>
-                            </div>
-                        </ContentTemplate>
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="BtnAddItem" />
-                        </Triggers>
-                    </asp:UpdatePanel>
-                </td>
-
                 <td class="auto-style15"></td>
             </tr>
 
@@ -179,6 +168,7 @@
                     <asp:Button ID="Btncancel" runat="server" Text="Cancel" />
 
                 </td>
+            </tr>
         </table>
 
     </div>
