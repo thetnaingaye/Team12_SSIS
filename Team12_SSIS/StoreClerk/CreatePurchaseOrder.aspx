@@ -157,7 +157,7 @@
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <div>
-                                <asp:Label ID="totLbl" runat="server" Text="Total:"></asp:Label>
+                                <asp:Label ID="Lbltot" runat="server" Text="Total:"></asp:Label>
                                 <asp:Label ID="LblTotal" runat="server"></asp:Label>
                             </div>
                         </ContentTemplate>
@@ -176,7 +176,7 @@
 
                 </td>
                 <td>
-                    <asp:Button ID="btcancel" runat="server" Text="Cancel" />
+                    <asp:Button ID="Btncancel" runat="server" Text="Cancel" />
 
                 </td>
         </table>

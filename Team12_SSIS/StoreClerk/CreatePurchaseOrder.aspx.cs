@@ -22,7 +22,7 @@ namespace Team12_SSIS.StoreClerk
             }
             Upl.Update();
             DisplayLabel();
-            //totalLbl.Text = total.ToString("C0");
+           LblTotal.Text = total.ToString("C0");
             //Response.Redirect("ViewPurchaseOrder?Name=Pandian");
         }
         protected void BindGrid()
@@ -104,7 +104,7 @@ namespace Team12_SSIS.StoreClerk
             GridViewPO.DataSource = poRecordDetailsList;
             GridViewPO.DataBind();
 
-            Label temp = (Label)UpdatePanel1.FindControl("Label1");
+            Label temp = (Label)UpdatePanel1.FindControl("LabelTotal");
             temp.Text = total.ToString("C0");
         }
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -157,6 +157,7 @@ namespace Team12_SSIS.StoreClerk
             {
                 Label LblPrice = currentRow.FindControl("LblPrice") as Label;
                 LblPrice.Text = (quantity * unitPrice).ToString();
+
             }
 
             

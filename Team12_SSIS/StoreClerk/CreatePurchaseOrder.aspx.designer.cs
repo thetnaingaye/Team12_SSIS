@@ -184,13 +184,13 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// totLbl control.
+        /// Lbltot control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label totLbl;
+        protected global::System.Web.UI.WebControls.Label Lbltot;
         
         /// <summary>
         /// LblTotal control.
@@ -211,12 +211,12 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Button BtnSfa;
         
         /// <summary>
-        /// btcancel control.
+        /// Btncancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btcancel;
+        protected global::System.Web.UI.WebControls.Button Btncancel;
     }
 }
