@@ -343,6 +343,16 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        // Retrieving status for each reqrecorddetails item
+        public int GetQuantity(string itemID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                InventoryCatalogue ic = context.InventoryCatalogues.Where(x => x.ItemID.Equals(itemID)).First();
+                return (int)ic.UnitsInStock;
+            }
+        }
+
         // Retrieve specific item units of measure
         public string GetUnitsOfMeasure(string itemID)
         {

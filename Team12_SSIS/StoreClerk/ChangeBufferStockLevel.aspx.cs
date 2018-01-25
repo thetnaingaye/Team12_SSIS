@@ -113,6 +113,15 @@ namespace Team12_SSIS.StoreClerk
 				}
 
 			}
-		}
+            else if (ProportionalRbtn.Checked)
+            {
+
+            }
+            else if (AutomationRbtn.Checked)
+            {
+
+            }
+
+        }
 	}
 }

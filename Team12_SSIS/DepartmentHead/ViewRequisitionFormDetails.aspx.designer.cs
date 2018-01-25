@@ -100,7 +100,7 @@ namespace Team12_SSIS.DepartmentHead {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText TxtRemarks;
+        protected global::System.Web.UI.WebControls.TextBox TxtRemarks;
         
         /// <summary>
         /// BtnApprove control.
