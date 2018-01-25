@@ -12,8 +12,16 @@
             </tr>
         <tr>
             <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <asp:TextBox ID="TxtSearch" placeholder="Search Item" runat="server"></asp:TextBox>
                 <asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
+            </td>
+        </tr>
+        <tr>
+            <td>
             </td>
         </tr>
         <tr>

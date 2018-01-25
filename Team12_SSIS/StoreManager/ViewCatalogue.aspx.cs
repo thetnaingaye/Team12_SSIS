@@ -74,8 +74,7 @@ namespace Team12_SSIS.StoreManager
                 }
             }
         }
-
-
+       
         InventoryLogic inventoryLogic = new InventoryLogic();
 
         protected void BtnSearch_Click(object sender, EventArgs e)

@@ -48,7 +48,7 @@ namespace Team12_SSIS.StoreManager
             if (ddl != null)
             {
                 ddl.DataSource = BusinessLogic.InventoryLogic.CategoryID();
-                ddl.DataTextField = "CategoryID";
+                ddl.DataTextField = "CatalogueName";
                 ddl.DataValueField = "CategoryID";
                 ddl.DataBind();
             }
