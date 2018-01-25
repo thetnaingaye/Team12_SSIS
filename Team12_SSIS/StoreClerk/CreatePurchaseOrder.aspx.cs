@@ -120,14 +120,14 @@ namespace Team12_SSIS.StoreClerk
                 PORecordDetail poR = (PORecordDetail)e.Row.DataItem;
 
                 string itemId = poR.ItemID;
-                double poRPrice = (double)(PurchasingLogic.GetUnitPrice(itemId, "BANE") * poR.Quantity);
+                double poRPrice = (double)(PurchasingLogic.GetUnitPrice(itemId, "SupplierID") * poR.Quantity);
 
                 Label DesLbl = (e.Row.FindControl("DesLbl") as Label);
                 if (DesLbl != null)
                     DesLbl.Text = InventoryLogic.GetItemName(itemId);
                 Label UnpLbl = (e.Row.FindControl("UnpLbl") as Label);
                 if (UnpLbl != null)
-                    UnpLbl.Text = PurchasingLogic.GetUnitPrice(itemId, "BANE").ToString();
+                    UnpLbl.Text = PurchasingLogic.GetUnitPrice(itemId, "SupplierID").ToString();
                 DropDownList DdlUOM = (e.Row.FindControl("DdlUOM") as DropDownList);
                 if (DdlUOM != null)
                     DdlUOM.Text = poR.UOM;
@@ -138,8 +138,8 @@ namespace Team12_SSIS.StoreClerk
                 if (PriceLbl != null)
                 {
 
-                    PriceLbl.Text = ((double)(PurchasingLogic.GetUnitPrice(itemId, "BANE") * Quantity)).ToString();
-                    total += (PurchasingLogic.GetUnitPrice(itemId, "BANE") * Quantity);
+                    PriceLbl.Text = ((double)(PurchasingLogic.GetUnitPrice(itemId, "SupplierID") * Quantity)).ToString();
+                    total += (PurchasingLogic.GetUnitPrice(itemId, "SupplierID") * Quantity);
                 }
 
             }
@@ -155,7 +155,7 @@ namespace Team12_SSIS.StoreClerk
             Label DesLbl = currentRow.FindControl("DesLbl") as Label;
             DesLbl.Text = InventoryLogic.GetItemName(ItemID);
             Label UnpLbl = currentRow.FindControl("UnpLbl") as Label;
-            UnpLbl.Text = PurchasingLogic.GetUnitPrice(ItemID, "BANE").ToString();
+            UnpLbl.Text = PurchasingLogic.GetUnitPrice(ItemID, "SupplierID").ToString();
 
         }
         protected void Txtquantity_TextChanged(object sender, EventArgs e)
@@ -177,7 +177,7 @@ namespace Team12_SSIS.StoreClerk
                 poRecordDetails.ItemID = (r.FindControl("Txtitemid") as TextBox).Text;
                 poRecordDetails.Quantity = Convert.ToInt32((r.FindControl("Txtquantity") as TextBox).Text.ToString());
                 poRecordDetails.UOM = (r.FindControl("DdlUOM") as DropDownList).Text;
-                poRecordDetails.UnitPrice = (double)(PurchasingLogic.GetUnitPrice(poRecordDetails.ItemID, "BANE"));
+                poRecordDetails.UnitPrice = (double)(PurchasingLogic.GetUnitPrice(poRecordDetails.ItemID, "SupplierID"));
                 poRecordDetailList.Add(poRecordDetails);
             }
             poRecordDetailList.RemoveAt(sN - 1);
