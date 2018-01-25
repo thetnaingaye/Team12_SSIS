@@ -13,7 +13,12 @@ namespace Team12_SSIS.StoreClerk
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //string Name = Request.QueryString["Name"];
+            
+            if (Session["PONumber"] != null)
+            {
+                int PONumber = (int)Session["PONumber"];
+                BindGird(PONumber);
+            }
 
 
         }
@@ -26,19 +31,19 @@ namespace Team12_SSIS.StoreClerk
             {
                 PORecordDetail poR = (PORecordDetail)e.Row.DataItem;
                 string itemId = poR.ItemID;
-                double poRPrice = (double)(PurchasingLogic.GetUnitPrice(itemId, "BANE") * poR.Quantity);
+                double poRPrice = (double)(PurchasingLogic.GetUnitPrice(itemId, "SupplierID") * poR.Quantity);
 
                 Label LblDesc = (e.Row.FindControl("LblDesc") as Label);
                 if (LblDesc != null)
                     LblDesc.Text = InventoryLogic.GetItemName(itemId);
                 Label UnpLbl = (e.Row.FindControl("UnpLbl") as Label);
                 if (UnpLbl != null)
-                    UnpLbl.Text = PurchasingLogic.GetUnitPrice(itemId, "BANE").ToString();
+                    UnpLbl.Text = PurchasingLogic.GetUnitPrice(itemId, "SupplierID").ToString();
                 Label PriceLbl = (e.Row.FindControl("PriceLbl") as Label);
                 if (PriceLbl != null)
                 {
 
-                    PriceLbl.Text = ((double)(PurchasingLogic.GetUnitPrice(itemId, "BANE") * poR.Quantity)).ToString();
+                    PriceLbl.Text = ((double)(PurchasingLogic.GetUnitPrice(itemId, "SupplierID") * poR.Quantity)).ToString();
 
                 }
             }

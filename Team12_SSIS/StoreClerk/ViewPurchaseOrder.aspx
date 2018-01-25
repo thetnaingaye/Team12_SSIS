@@ -105,6 +105,9 @@
                                         Style="height: 100px; overflow: auto" ShowHeaderWhenEmpty="True"
                                         OnRowDataBound="OnRowDataBound"
                                         CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID">
+
+
+
                                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns>
                 <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
@@ -116,14 +119,12 @@
                                             </asp:TemplateField>
                 <asp:TemplateField HeaderText="Item No." HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                 <ItemTemplate>
-                                                    <asp:UpdatePanel runat="server" ID="UpValue" UpdateMode="Conditional" ChildrenAsTriggers="true">
-                                                        <ContentTemplate>
+                                                   
                                                             <asp:Label ID="LblItemNo" runat="server" Text='<%# Bind("ItemID") %>' OnTextChanged="Txtitemid_TextChanged" AutoPostBack="true"></asp:Label>
                                                         
 
                                                 
-                                                             </ContentTemplate>
-                                                    </asp:UpdatePanel>
+                                                             
                                     </ItemTemplate>
                                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
                             </asp:TemplateField>
@@ -138,12 +139,10 @@
 
                            <asp:TemplateField HeaderText="Quantity">
                                     <ItemTemplate>
-                                         <asp:UpdatePanel runat="server" ID="UpValue" UpdateMode="Conditional" ChildrenAsTriggers="true">
-                                                        <ContentTemplate>
+                                         
                                        
                                         <asp:Label ID="Lblquantity" runat="server" Text='<%# Bind("Quantity") %>' OnTextChanged="Txtquantity_TextChanged" AutoPostBack="true"></asp:Label>
-                                                        </ContentTemplate>
-                                                    </asp:UpdatePanel>
+                                                       
                                     </ItemTemplate>
                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="10%"></HeaderStyle>
                                 </asp:TemplateField>

@@ -2131,7 +2131,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
 
-     
+
 
 
 
@@ -2201,5 +2201,13 @@ namespace Team12_SSIS.BusinessLogic
                 return entities.InventoryCatalogues;
             }
         }
+        public static string GetRequestStatus(int RequestID)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.RequisitionRecordDetails.Where(x => x.RequestID.Equals(RequestID)).Select(x => x.Status).First();
+            }
+        }
+
     }
 }

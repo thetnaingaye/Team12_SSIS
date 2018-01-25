@@ -580,6 +580,15 @@ namespace Team12_SSIS.BusinessLogic
                 return ctx.PORecords.FirstOrDefault(x => x.PONumber == poNumber);
         }
 
+        //public int GetPendingPONumber(string status)
+        //{
+        //    using (SA45Team12AD context = new SA45Team12AD())
+
+
+                // return (context.PORecords.FirstOrDefault(x => x.PONumber == poNumber));
+                //return context.PORecords.Where(x => x.Status.Equals("Pending"));
+
+        //}
         public void CreateGoodsReceiptDetails(int grNumber, string itemID, int quantity, string uom, string remarks)
         {
             GoodReceiptDetail grd = new GoodReceiptDetail();
@@ -800,15 +809,21 @@ namespace Team12_SSIS.BusinessLogic
 
 
         //--- Jianing Here
-        public static void AddText(string Deliverto, string Address)
+        public static int AddText(string Deliverto, string Address ,string SupplierID,DateTime RequestedDate,string userName,DateTime ExpectedBy)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 PORecord poRecord = new PORecord();
                 poRecord.RecipientName = Deliverto;
                 poRecord.DeliveryAddress = Address;
+                poRecord.SupplierID = SupplierID;
+                poRecord.Status = "Pending";
+                poRecord.DateRequested = RequestedDate;
+                poRecord.CreatedBy = userName;
+                poRecord.ExpectedDelivery = ExpectedBy;
                 entities.PORecords.Add(poRecord);
                 entities.SaveChanges();
+                return poRecord.PONumber;
 
 
             }
@@ -844,12 +859,13 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public void CreatePurchaseOrderDetails(string itemId, int quantity, string uom,  double unitPrice)
+        public void CreatePurchaseOrderDetails(int poNumber,string itemId, int quantity, string uom,  double unitPrice)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 PORecordDetail poRecordDetail = new PORecordDetail
-                {
+                { PONumber = poNumber,
+
                     ItemID = itemId,
                    
                     Quantity = quantity,

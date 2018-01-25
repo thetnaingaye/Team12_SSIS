@@ -28,8 +28,15 @@ namespace Team12_SSIS.DepartmentEmployee
         }
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
+            
             LinkButton LBtnRID = (e.Row.FindControl("LBtnRID") as LinkButton);
-
+            if (e.Row.RowType == DataControlRowType.DataRow && (RequisitionRecord)e.Row.DataItem != null)
+            {
+                RequisitionRecord r = (RequisitionRecord)e.Row.DataItem;
+                Label lblStatus = e.Row.FindControl("LblStatus") as Label;
+                if (lblStatus != null)
+                    lblStatus.Text = RequisitionLogic.GetRequestStatus(r.RequestID);
+            }
         }
 
         protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
