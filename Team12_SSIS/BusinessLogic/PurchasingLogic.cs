@@ -4,6 +4,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using Team12_SSIS.Model;
+using Team12_SSIS.Utility;
 
 namespace Team12_SSIS.BusinessLogic
 {
@@ -891,19 +892,24 @@ namespace Team12_SSIS.BusinessLogic
                 entities.SaveChanges();
             }
         }
-        public void Submitforapproval(string clerk,string poDate,string deliverTo,string supplierId,string address,string date)
+        public static void UpdatePurchaseOrderStatus(int poNumber, string status ,DateTime dateProcessed, string handledBy)
         {
+            string email = "";
             using (SA45Team12AD entities = new SA45Team12AD())
             {
-                PORecord poRecord = new PORecord
-                {
-                  
+                PORecord po = entities.PORecords.Where(x => x.PONumber == poNumber).FirstOrDefault();
+                po.Status = status;
+                po.DateProcessed = dateProcessed;
+                po.HandledBy = handledBy;
+                entities.SaveChanges();
+                email = Utility.Utility.GetUserEmailAddress(po.CreatedBy);
+            }
 
-                };
-
+            using (EmailControl em = new EmailControl())
+            {
+                em.ChangeInPurchaseOrderStatusNotification(email, poNumber.ToString(), dateProcessed.ToString("d"), status);
             }
         }
-
 
         public static PORecord GetPurchaseOrderRecord(int poNo)
         {

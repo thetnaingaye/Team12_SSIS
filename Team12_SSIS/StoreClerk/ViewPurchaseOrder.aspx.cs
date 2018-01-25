@@ -19,33 +19,26 @@ namespace Team12_SSIS.StoreClerk
                 int PONumber = (int)Session["PONumber"];
                 BindGird(PONumber);
             }
-
-
         }
-
-       
-
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
+            double totalPrice = 0;
             if (e.Row.RowType == DataControlRowType.DataRow && ((PORecordDetail)e.Row.DataItem).ItemID != null)
             {
                 PORecordDetail poR = (PORecordDetail)e.Row.DataItem;
                 string itemId = poR.ItemID;
-                double poRPrice = (double)(PurchasingLogic.GetUnitPrice(itemId, "SupplierID") * poR.Quantity);
+                double poRPrice = (double) (poR.UnitPrice * poR.Quantity);
 
                 Label LblDesc = (e.Row.FindControl("LblDesc") as Label);
                 if (LblDesc != null)
                     LblDesc.Text = InventoryLogic.GetItemName(itemId);
-                Label UnpLbl = (e.Row.FindControl("UnpLbl") as Label);
-                if (UnpLbl != null)
-                    UnpLbl.Text = PurchasingLogic.GetUnitPrice(itemId, "SupplierID").ToString();
-                Label PriceLbl = (e.Row.FindControl("PriceLbl") as Label);
+                Label PriceLbl = (e.Row.FindControl("LblPrice") as Label);
                 if (PriceLbl != null)
                 {
-
-                    PriceLbl.Text = ((double)(PurchasingLogic.GetUnitPrice(itemId, "SupplierID") * poR.Quantity)).ToString();
-
+                    PriceLbl.Text = ((double)(poR.UnitPrice * poR.Quantity)).ToString("c");
                 }
+                PurchasingLogic pl = new PurchasingLogic();
+                LblTotal.Text = pl.FindTotalByPONum(poR.PONumber).ToString("c");
             }
         }
         protected void BindGird(int poNo)
@@ -58,61 +51,19 @@ namespace Team12_SSIS.StoreClerk
             GridViewVPO.DataBind();
         }
 
-
-        protected string GetTotal()
-        {
-            PurchasingLogic p = new PurchasingLogic();
-            int temp = Convert.ToInt32(LblNumber.Text);
-            double res = p.FindTotalByPONum(temp);
-            return res.ToString("C0");
-        }
         protected void RequestOrProcessedView(PORecord poRecord)
         {
-            string userName = User.Identity.Name;
-            LblRequest.Text = userName;
+            LblRst.Text = poRecord.CreatedBy;
             LblStatus.Text = poRecord.Status;
-            LblDlt.Text = poRecord.CreatedBy;
-            LblAdd.Text = poRecord.DeliveryAddress;
-            LblSli.Text = poRecord.SupplierID;
-           
-
-           
-            switch (poRecord.Status)
-            {
-                case ("Approved"):
-                    {
-                        LblVpo.Text = "View Stationary Purchase Order ";
-                        LblPON.Text = "PO Number: ";
-                        LblNumber.Text = PurchasingLogic.GetPORecordApproveID(poRecord.PONumber).ToString();
-                        break;
-                    }
-                case ("Rejected"):
-                    {
-                        LblVpo.Text = "Inventory Adjustment Voucher Request";
-                        LblPON.Text = "PO Number: ";
-                        LblNumber.Text = poRecord.PONumber.ToString();
-                        break;
-                    }
-                case ("Cancelled"):
-                    {
-                        LblVpo.Text = "Inventory Adjustment Voucher Request";
-                        LblPON.Text = "PO Number: ";
-                        LblNumber.Text = poRecord.PONumber.ToString();
-                        break;
-                    }
-                default:
-                    {
-                        LblVpo.Text = "Inventory Adjustment Voucher Request";
-                        LblPON.Text = "PO Number: ";
-                        LblNumber.Text = poRecord.PONumber.ToString();
-                        LblRequest.Visible = false;
-                        
-                        break;
-                    }
+            LblDeliver.Text = poRecord.CreatedBy;
+            LblAddress.Text = poRecord.DeliveryAddress;
+            LblSupplier.Text = PurchasingLogic.ListSuppliers().Where(x => x.SupplierID == poRecord.SupplierID).Select(x => x.SupplierName).FirstOrDefault();
+            LblSupply.Text = ((DateTime)poRecord.ExpectedDelivery).ToString("d");
+            LblNumber.Text = poRecord.PONumber.ToString();
             }
         }
     }
-}
+
 
 
         

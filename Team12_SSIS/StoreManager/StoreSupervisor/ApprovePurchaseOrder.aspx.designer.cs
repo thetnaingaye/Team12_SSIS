@@ -166,24 +166,6 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor {
         protected global::System.Web.UI.WebControls.Label LblOrder;
         
         /// <summary>
-        /// sml control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager sml;
-        
-        /// <summary>
-        /// Upl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel Upl;
-        
-        /// <summary>
         /// GridViewAPO control.
         /// </summary>
         /// <remarks>
@@ -227,14 +209,5 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btncancel;
-        
-        /// <summary>
-        /// btnback control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnback;
     }
 }
