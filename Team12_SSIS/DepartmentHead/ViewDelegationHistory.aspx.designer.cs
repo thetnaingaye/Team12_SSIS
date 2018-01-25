@@ -40,7 +40,7 @@ namespace Team12_SSIS.DepartmentHead {
         protected global::System.Web.UI.WebControls.Button ViewAllBtn;
         
         /// <summary>
-        /// DelegationHistoryGridView control.
+        /// GridViewDelegationHistory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

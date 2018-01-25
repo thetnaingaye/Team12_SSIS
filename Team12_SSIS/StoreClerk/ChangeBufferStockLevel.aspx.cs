@@ -15,6 +15,7 @@ namespace Team12_SSIS.StoreClerk
 		Label statusMessage;
 		protected void Page_Load(object sender, EventArgs e)
         {
+			
 			statusMessage = this.Master.FindControl("LblStatus") as Label;
 			if (!IsPostBack)
 			{
@@ -95,6 +96,7 @@ namespace Team12_SSIS.StoreClerk
 		protected void SaveBtn_Click(object sender, EventArgs e)
 		{
 			int newbufferstocklevel;
+			int proportional;
 			if(AbsoluteRbtn.Checked)
 			{
 				if(Int32.TryParse(TxtAbsolute.Text,out newbufferstocklevel))
@@ -113,15 +115,34 @@ namespace Team12_SSIS.StoreClerk
 				}
 
 			}
-            else if (ProportionalRbtn.Checked)
-            {
-
-            }
-            else if (AutomationRbtn.Checked)
-            {
-
-            }
-
-        }
+			else if(ProportionalRbtn.Checked)
+			{
+				if (Int32.TryParse(TxtProportional.Text, out proportional))
+				{
+					//Write Code for proportional buffer stock here
+					statusMessage.Text = "The buffer stock level has been changed to ";
+					statusMessage.Visible = true;
+					statusMessage.ForeColor = Color.Green;
+				}
+				else
+				{
+					statusMessage.Text = "Please enter a positive integer or 0.";
+					statusMessage.Visible = true;
+					statusMessage.ForeColor = Color.Red;
+				}
+			}
+			else if(AutomationRbtn.Checked)
+			{
+				//Write code for automation here
+			}
+			else
+			{
+				statusMessage.Text = "Please choose an option.";
+				statusMessage.Visible = true;
+				statusMessage.ForeColor = Color.Red;
+			}
+			TxtAbsolute.Text = "";
+			TxtProportional.Text = "";
+		}
 	}
 }
