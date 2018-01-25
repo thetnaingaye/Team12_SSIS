@@ -10,12 +10,24 @@
                 </td>
             </tr>
             <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
                 <!--ItemID-->
                 <td>Item ID:
                 </td>
                 <td>
                     <asp:TextBox ID="TxtItemID" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
             </tr>
             <tr>
                 <!--ItemDescription-->
@@ -26,12 +38,24 @@
                 </td>
             </tr>
             <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
                 <!--CatalogueName DDL-->
                 <td>Category Name:
                 </td>
                 <td>
                     <asp:DropDownList ID="DdlCategoryID" runat="server" CssClass="form-control"></asp:DropDownList>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
             </tr>
             <tr>
                 <!--BIN-->
@@ -42,12 +66,24 @@
                 </td>
             </tr>
             <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
                 <!--Shelf-->
                 <td>Shelf:
                 </td>
                 <td>
                     <asp:TextBox ID="TxtShelf" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
             </tr>
             <tr>
                 <!--Level-->
@@ -58,12 +94,24 @@
                 </td>
             </tr>
             <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
                 <!--ReorderLevel-->
                 <td>Reorder Level:
                 </td>
                 <td>
                     <asp:TextBox ID="TxtReorderLevel" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
             </tr>
             <tr>
                 <!--ReorderQty-->
@@ -74,12 +122,24 @@
                 </td>
             </tr>
             <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
                 <!--UOM-->
                 <td>Unit of Measure:
                 </td>
                 <td>
                     <asp:TextBox ID="TxtUOM" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
             </tr>
             <tr>
                 <!--Btn Submit-->
