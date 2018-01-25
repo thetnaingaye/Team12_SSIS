@@ -20,9 +20,36 @@
                     </td>
                 </tr>
 
+    <tr>
+                    <!--BIN-->
+                    <td>BIN:
+                    </td>
+                    <td>
+                        <asp:TextBox ID="TxtBIN" runat="server" CssClass="form-control"></asp:TextBox>
+                        
+                    </td>
+                </tr>
+    <tr>
+                    <!--Shelf-->
+                    <td>Shelf:
+                    </td>
+                    <td>
+                        <asp:TextBox ID="TxtShelf" runat="server" CssClass="form-control"></asp:TextBox>
+                        
+                    </td>
+                </tr>
+    <tr>
+                    <!--Level-->
+                    <td>Level:
+                    </td>
+                    <td>
+                        <asp:TextBox ID="TxtLevel" runat="server" CssClass="form-control"></asp:TextBox>
+                        
+                    </td>
+                </tr>
                 <tr>
                     <!--CatalogueName DDL-->
-                    <td>Category Name: 
+                    <td>Category ID: 
                     </td>
                     <td>
                         <asp:DropDownList ID="DdlCategoryID" runat="server" CssClass="form-control"></asp:DropDownList>

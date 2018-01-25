@@ -26,13 +26,16 @@ namespace Team12_SSIS.StoreManager
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 string ItemID = TxtItemID.Text;
+                string BIN = TxtBIN.Text;
+                string Shelf = TxtShelf.Text;
+                int Level = Convert.ToInt32(TxtLevel.Text);
                 string CategoryID = Convert.ToString(DdlCategoryID.SelectedValue);
                 string Description = TxtDescription.Text;
                 int ReorderLevel = Convert.ToInt32(TxtReorderLevel.Text);
                 int ReorderQty = Convert.ToInt32(TxtReorderQty.Text);
                 string UOM = TxtUOM.Text;
-                
-                BusinessLogic.InventoryLogic.AddCatalogue(ItemID, CategoryID, Description, ReorderLevel, ReorderQty, UOM);
+                string Discontinued = "N";
+                BusinessLogic.InventoryLogic.AddCatalogue(ItemID, BIN, Shelf, Level, CategoryID, Description, ReorderLevel, ReorderQty, UOM, Discontinued);
                 Response.Redirect("ViewCatalogue.aspx");
             }
 

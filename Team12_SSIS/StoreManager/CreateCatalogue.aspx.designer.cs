@@ -22,6 +22,33 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtItemID;
         
         /// <summary>
+        /// TxtBIN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtBIN;
+        
+        /// <summary>
+        /// TxtShelf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtShelf;
+        
+        /// <summary>
+        /// TxtLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtLevel;
+        
+        /// <summary>
         /// DdlCategoryID control.
         /// </summary>
         /// <remarks>

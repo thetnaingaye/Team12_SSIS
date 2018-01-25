@@ -24,25 +24,20 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void DeleteCatalogue(string ItemID)
-        {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                InventoryCatalogue catalogue = entities.InventoryCatalogues.Where(c => c.ItemID == ItemID).First<InventoryCatalogue>();
-                entities.InventoryCatalogues.Remove(catalogue);
-                entities.SaveChanges();
-            }
-        }
-
-        public static void UpdateCatalogue(string ItemID, string Description, int ReorderLevel, int ReorderQty, string UOM)
+        public static void UpdateCatalogue(string ItemID, string Description,string CategoryID,string BIN, string Shelf, int Level, int ReorderLevel, int ReorderQty, string UOM, string Discontinued)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 InventoryCatalogue catalogue = entities.InventoryCatalogues.Where(c => c.ItemID == ItemID).First<InventoryCatalogue>();
                 catalogue.Description = Description;
+                catalogue.CategoryID = CategoryID;
+                catalogue.BIN = BIN;
+                catalogue.Shelf = Shelf;
+                catalogue.Level = Level;
                 catalogue.ReorderLevel = ReorderLevel;
                 catalogue.ReorderQty = ReorderQty;
                 catalogue.UOM = UOM;
+                catalogue.Discontinued = Discontinued;
                 entities.SaveChanges();
             }
         }
@@ -55,17 +50,21 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void AddCatalogue(string ItemID, string CategoryID, string Description, int ReorderLevel, int ReorderQty, string UOM)
+        public static void AddCatalogue(string ItemID, string BIN, string Shelf, int Level, string CategoryID, string Description, int ReorderLevel, int ReorderQty, string UOM, string Discontinued)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 InventoryCatalogue inventoryCatalogue = new InventoryCatalogue();
                 inventoryCatalogue.ItemID = ItemID;
+                inventoryCatalogue.BIN = BIN;
+                inventoryCatalogue.Shelf = Shelf;
+                inventoryCatalogue.Level = Level;
                 inventoryCatalogue.CategoryID = CategoryID;
                 inventoryCatalogue.Description = Description;
                 inventoryCatalogue.ReorderLevel = ReorderLevel;
                 inventoryCatalogue.ReorderQty = ReorderQty;
                 inventoryCatalogue.UOM = UOM;
+                inventoryCatalogue.Discontinued = Discontinued;
                 entities.InventoryCatalogues.Add(inventoryCatalogue);
                 entities.SaveChanges();
             }
@@ -76,6 +75,14 @@ namespace Team12_SSIS.BusinessLogic
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 return entities.InventoryCatalogues.Where(i => i.ItemID.Contains(value) || i.CategoryID.Contains(value)).ToList();
+            }
+        }
+
+        public static string GetCatalogueName(string CategoryID)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.CatalogueCategories.Where(x => x.CategoryID == CategoryID).Select(x => x.CatalogueName).First();
             }
         }
 

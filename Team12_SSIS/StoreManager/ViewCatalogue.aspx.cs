@@ -17,23 +17,16 @@ namespace Team12_SSIS.StoreManager
             {
                 BindGrid();
             }
+            
         }
 
         protected void BindGrid()
         {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                GridViewCatalogue.DataSource = entities.InventoryCatalogues.ToList<InventoryCatalogue>();
-                GridViewCatalogue.DataBind();
-            }
+            List<InventoryCatalogue> cList = inventoryLogic.GetAllCatalogue();
+            GridViewCatalogue.DataSource = cList;
+            GridViewCatalogue.DataBind();
         }
 
-        protected void GridViewCatalogue_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            string ItemID = Convert.ToString(GridViewCatalogue.DataKeys[e.RowIndex].Values[0]);
-            BusinessLogic.InventoryLogic.DeleteCatalogue(ItemID);
-            BindGrid();
-        }
 
         protected void GridViewCatalogue_RowEditing(object sender, GridViewEditEventArgs e)
         {
@@ -46,19 +39,19 @@ namespace Team12_SSIS.StoreManager
             GridViewRow row = GridViewCatalogue.Rows[e.RowIndex];
             string ItemID = Convert.ToString(GridViewCatalogue.DataKeys[e.RowIndex].Values[0]);
             string Description = Convert.ToString((row.FindControl("TxtDescription") as TextBox).Text);
+            string CategoryID = Convert.ToString((row.FindControl("DdlCategoryID") as DropDownList).Text);
+            string BIN= Convert.ToString((row.FindControl("TxtBIN") as TextBox).Text);
+            string Shelf= Convert.ToString((row.FindControl("TxtShelf") as TextBox).Text);
+            int Level=Convert.ToInt32((row.FindControl("TxtLevel") as TextBox).Text);
             int ReorderLevel = Convert.ToInt32((row.FindControl("TxtReorderLevel") as TextBox).Text);
             int ReorderQty = Convert.ToInt32((row.FindControl("TxtReorderQty") as TextBox).Text);
             string UOM = Convert.ToString((row.FindControl("TxtUOM") as TextBox).Text);
-            BusinessLogic.InventoryLogic.UpdateCatalogue(ItemID, Description, ReorderLevel, ReorderQty, UOM);
+            string Discontinued=Convert.ToString((row.FindControl("DdlDiscontinued") as DropDownList).Text);
+            InventoryLogic.UpdateCatalogue(ItemID, Description, CategoryID, BIN, Shelf, Level, ReorderLevel, ReorderQty, UOM, Discontinued);
             GridViewCatalogue.EditIndex = -1;
             BindGrid();
         }
-
-        protected void GridViewCatalogue_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-        {
-            GridViewCatalogue.EditIndex = -1;
-            BindGrid();
-        }
+        
 
         protected void GridViewCatalogue_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -66,15 +59,25 @@ namespace Team12_SSIS.StoreManager
             {
                 InventoryCatalogue catalogue = (InventoryCatalogue)e.Row.DataItem;
                 string ItemID = catalogue.ItemID;
+
+                Label lblCatName = e.Row.FindControl("LblCatalogueName") as Label;
+                if (lblCatName != null)
+                    lblCatName.Text = InventoryLogic.GetCatalogueName(catalogue.CategoryID);
+
+                DropDownList ddl = e.Row.FindControl("DdlCategoryID") as DropDownList;
+                if (ddl != null)
+                {
+                    ddl.DataSource = InventoryLogic.CategoryID();
+                    ddl.DataTextField = "CategoryID";
+                    ddl.DataValueField = "CategoryID";
+                    ddl.DataBind();
+                }
             }
         }
 
-        protected void BtnCreate_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("CreateCatalogue.aspx");
-        }
 
         InventoryLogic inventoryLogic = new InventoryLogic();
+
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             string temp= TxtSearch.Text;
@@ -88,9 +91,26 @@ namespace Team12_SSIS.StoreManager
             BindGrid();
         }
 
-        //protected void BtnPrint_Click(object sender, EventArgs e)
-        //{
-        //    Response.Redirect("CatalogueReport.aspx");
-        //}
+        protected void LinkButtonCreate_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CreateCatalogue.aspx");
+        }
+
+        protected void GridViewCatalogue_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            GridViewCatalogue.EditIndex = -1;
+            BindGrid();
+        }
+
+        protected void DdlCategoryID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddl = (DropDownList)sender;
+            GridViewRow row = (GridViewRow)ddl.NamingContainer;
+            ddl = row.FindControl("DdlCategoryID") as DropDownList;
+            Label LblCatalogueNameAuto = row.FindControl("LblCatalogueNameAuto") as Label;
+            string CategoryID = Convert.ToString(ddl.SelectedItem);
+            if (LblCatalogueNameAuto != null)
+                LblCatalogueNameAuto.Text = InventoryLogic.GetCatalogueName(CategoryID);
+        }
     }
 }

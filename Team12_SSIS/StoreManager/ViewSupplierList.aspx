@@ -4,26 +4,38 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
 <h2>Supplier List</h2>
-        <asp:Button ID="BtnCreate" runat="server" Text="Create" OnClick="BtnCreate_Click" />
+        </div>
+    <div>
+        <asp:LinkButton ID="LinkButtonCreate" runat="server" Text="Create New Supplier" OnClick="LinkButtonCreate_Click" />
+        <br />
         <br />
         <asp:TextBox ID="TxtSearch" placeholder="Search Supplier" runat="server"></asp:TextBox>
 <asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
+        <br /><br />
 </div>
 
     <div>
-<asp:GridView ID="GridViewSupplier" runat="server" AutoGenerateColumns="False"
-    AllowPaging="true" PageSize="10" OnPageIndexChanging="GridViewSupplier_PageIndexChanging"
+<asp:GridView ID="GridViewSupplier" runat="server" AutoGenerateColumns="False" BackColor="White"
+Width="75%" Height="132px"
+    AllowPaging="true" PageSize="8" OnPageIndexChanging="GridViewSupplier_PageIndexChanging"
+    CellPadding="4" ForeColor="#333333" 
 OnRowCancelingEdit="GridViewSupplier_RowCancelingEdit"
 OnRowDataBound="GridViewSupplier_RowDataBound"
-OnRowDeleting="GridViewSupplier_RowDeleting"
 OnRowEditing="GridViewSupplier_RowEditing"
 OnRowUpdating="GridViewSupplier_RowUpdating"
 DataKeyNames="SupplierID">
+    <HeaderStyle CssClass="gridViewHeader" />
+    <RowStyle CssClass="gridViewRow" />
+    <AlternatingRowStyle CssClass="gridViewAltRow" />
+    <pagersettings mode="Numeric"
+          position="Bottom"   />
 <Columns>
 <asp:TemplateField HeaderText="SupplierID" SortExpression="SupplierID">
 <ItemTemplate>
 <asp:Label ID="LblSupplierID" runat="server" Text='<%# Bind("SupplierID") %>'></asp:Label>
 </ItemTemplate>
+    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" CssClass="text-center" Font-Size="Medium" Width="20%"></HeaderStyle>
+            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
 </asp:TemplateField>
 <asp:TemplateField HeaderText="SupplierName" SortExpression="SupplierName">
 <EditItemTemplate>
@@ -32,6 +44,8 @@ DataKeyNames="SupplierID">
 <ItemTemplate>
 <asp:Label ID="LblSupplierName" runat="server" Text='<%# Bind("SupplierName") %>'></asp:Label>
 </ItemTemplate>
+    <HeaderStyle CssClass="text-center" Font-Size="Medium" Width="20%"></HeaderStyle>
+            <ItemStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
 </asp:TemplateField>
 <asp:TemplateField HeaderText="GSTRegistrationNo" SortExpression="GSTRegistrationNo">
 <EditItemTemplate>
@@ -40,6 +54,8 @@ DataKeyNames="SupplierID">
 <ItemTemplate>
 <asp:Label ID="LblGSTRegistrationNo" runat="server" Text='<%# Bind("GSTRegistrationNo") %>'></asp:Label>
 </ItemTemplate>
+    <HeaderStyle CssClass="text-center" Font-Size="Medium" Width="50%"></HeaderStyle>
+            <ItemStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
 </asp:TemplateField>
 <asp:TemplateField HeaderText="ContactName" SortExpression="ContactName">
 <EditItemTemplate>
@@ -48,6 +64,8 @@ DataKeyNames="SupplierID">
 <ItemTemplate>
 <asp:Label ID="LblContactName" runat="server" Text='<%# Bind("ContactName") %>'></asp:Label>
 </ItemTemplate>
+    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" CssClass="text-center" Font-Size="Medium" Width="45%"/>
+            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
 </asp:TemplateField>
 <asp:TemplateField HeaderText="PhoneNo" SortExpression="PhoneNo">
 <EditItemTemplate>
@@ -56,6 +74,8 @@ DataKeyNames="SupplierID">
 <ItemTemplate>
 <asp:Label ID="LblPhoneNo" runat="server" Text='<%# Bind("PhoneNo") %>'></asp:Label>
 </ItemTemplate>
+     <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" CssClass="text-center" Font-Size="Medium" Width="45%"></HeaderStyle>
+            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
 </asp:TemplateField>
 <asp:TemplateField HeaderText="FaxNo" SortExpression="FaxNo">
 <EditItemTemplate>
@@ -64,6 +84,8 @@ DataKeyNames="SupplierID">
 <ItemTemplate>
 <asp:Label ID="LblFaxNo" runat="server" Text='<%# Bind("FaxNo") %>'></asp:Label>
 </ItemTemplate>
+       <HeaderStyle  VerticalAlign="Middle" HorizontalAlign="Center" CssClass="text-center" Font-Size="Medium" Width="45%"></HeaderStyle>
+            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center"  />
 </asp:TemplateField>
 <asp:TemplateField HeaderText="Address" SortExpression="Address">
 <EditItemTemplate>
@@ -72,16 +94,33 @@ DataKeyNames="SupplierID">
 <ItemTemplate>
 <asp:Label ID="LblAddress" runat="server" Text='<%# Bind("Address") %>'></asp:Label>
 </ItemTemplate>
+        <HeaderStyle  VerticalAlign="Middle" HorizontalAlign="Center" CssClass="text-center" Font-Size="Medium" Width="45%"></HeaderStyle>
+            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center"  />
 </asp:TemplateField>
-<asp:TemplateField HeaderText="OLT" SortExpression="OLT">
+<asp:TemplateField HeaderText="Order Lead Time" SortExpression="OLT">
 <EditItemTemplate>
 <asp:TextBox ID="TxtOrderLeadTime" runat="server" Text='<%# Bind("OrderLeadTime") %>'></asp:TextBox>
 </EditItemTemplate>
 <ItemTemplate>
 <asp:Label ID="LblOrderLeadTime" runat="server" Text='<%# Bind("OrderLeadTime") %>'></asp:Label>
 </ItemTemplate>
+        <HeaderStyle  VerticalAlign="Middle" HorizontalAlign="Center" CssClass="text-center" Font-Size="Medium" Width="45%"></HeaderStyle>
+            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center"  />
 </asp:TemplateField>
-<asp:CommandField ButtonType="Button" ShowDeleteButton="True" DeleteText="Discontinue" ShowEditButton="True" EditText="Edit" />
+    <asp:TemplateField HeaderText="Discontinued" SortExpression="Discontinued">
+    <EditItemTemplate>
+        <asp:DropDownList ID="DdlDiscontinued" runat="server" AutoPostBack="true">
+            <asp:ListItem Selected="True" Value="N"> N </asp:ListItem>
+            <asp:ListItem Value="Y"> Y </asp:ListItem>
+        </asp:DropDownList>
+    </EditItemTemplate>
+    <ItemTemplate>
+        <asp:Label ID="LblDiscontinued" runat="server" Text='<%# Bind("Discontinued") %>'></asp:Label>
+    </ItemTemplate>
+    <HeaderStyle  VerticalAlign="Middle" HorizontalAlign="Center" CssClass="text-center" Font-Size="Medium" Width="45%"></HeaderStyle>
+            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center"  />
+</asp:TemplateField>
+<asp:CommandField ButtonType="Button"  ShowEditButton="True" EditText="Edit" CancelText="Cancel"/>
 </Columns>
 </asp:GridView>
 </div>
