@@ -443,6 +443,7 @@
     </Compile>
     <Compile Include="StoreClerk\CurrentRequisitionOrders.aspx.cs">
       <DependentUpon>CurrentRequisitionOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="StoreClerk\CurrentRequisitionOrders.aspx.designer.cs">
       <DependentUpon>CurrentRequisitionOrders.aspx</DependentUpon>
