@@ -126,8 +126,8 @@
     <Content Include="Images\birds1.jpg" />
     <Content Include="Images\birds2.jpg" />
     <Content Include="Images\birds3.jpg" />
-    <Content Include="Images\logo.png" />
     <Content Include="DepartmentEmployee\CheckOutRequest.aspx" />
+    <Content Include="Images\logosmall.png" />
     <Content Include="Logout.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
