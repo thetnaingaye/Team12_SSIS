@@ -62,6 +62,7 @@
                                             <asp:Label ID="LblDeptID" runat="server" Text='<%#:Item.DepartmentID %>' Visible="false"></asp:Label>
                                             <asp:Label ID="LblReqID" runat="server" Text='<%#:Item.RequestID %>' Visible="false"></asp:Label>
                                             <asp:Label ID="LblReqDetailID" runat="server" Text='<%#:Item.RequestDetailID %>' Visible="false"></asp:Label>
+                                            <asp:Label ID="LblIsOverride" runat="server" Text='<%#:Item.IsOverride %>' Visible="false"></asp:Label>
                                         </ItemTemplate>
                                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="30%"/>
                                     </asp:TemplateField>
@@ -100,11 +101,11 @@
     <asp:Label ID="LblNote" runat="server" Text="*Quantity displayed here has been pre-calculated by the system."></asp:Label>
     <br /><br />
     <div>
-        <asp:TextBox ID="TbxResult" runat="server" TextMode="MultiLine" Width="40%" BorderStyle="Ridge" Height="80px" ReadOnly="True" Visible="False"></asp:TextBox>
-        <asp:HiddenField ID="HdParam" runat="server" />
+        <asp:Button ID="BtnCumulativeSubmit" runat="server" Text="Submit" style="position: relative; left:82%;" OnClientClick = "SetSource(this.id)" OnClick="BtnCumulativeSubmit_Click" />
     </div>
     <div>
-        <asp:Button ID="BtnCumulativeSubmit" runat="server" Text="Submit" style="position: relative; left:82%;" OnClientClick = "SetSource(this.id)" OnClick="BtnCumulativeSubmit_Click" />
+        <asp:TextBox ID="TbxResult" runat="server" TextMode="MultiLine" Width="40%" BorderStyle="Ridge" Height="95px" ReadOnly="True" Visible="False"></asp:TextBox>
+        <asp:HiddenField ID="HdParam" runat="server" />
     </div>
 
 

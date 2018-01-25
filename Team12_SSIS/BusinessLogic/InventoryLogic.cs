@@ -375,7 +375,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Inventory retrieval processes
-        public string CreateNewInventoryRetrievalEntry(int reqID, int reqDetailID, string itemID, string deptID, int reqQty, int actQty)
+        public string CreateNewInventoryRetrievalEntry(int reqID, int reqDetailID, string itemID, string deptID, int reqQty, int actQty, bool isOverride)
         {
             bool isFulfilled = true;
             bool isEnough = true;
@@ -395,6 +395,12 @@ namespace Team12_SSIS.BusinessLogic
                     }
                 }
 
+                //If inventory is not enough and isOverride is true
+                if (isOverride && ic.UnitsInStock > actQty)
+                {
+                    isEnough = false;
+                }
+
                 //Check if user is withdrawing more than requested 
                 if (reqQty < actQty)
                 {
@@ -402,7 +408,7 @@ namespace Team12_SSIS.BusinessLogic
                 }
 
                 //Check if user is withdrawing less than requested despite having enough in the inventory
-                if (isEnough && reqQty > actQty)
+                if (isEnough && reqQty > actQty && !isOverride)
                 {
                     return (itemID + ": You are not allowed to withdraw below the requested quantity.\nPlease seek assistance from the warehouse supervisor. Thank you.").ToString();
                 }
