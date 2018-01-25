@@ -698,7 +698,7 @@
     <Compile Include="WebServices\WCF_Model\WCF_StockCard.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TempImageFiles\" />
+    <Folder Include="Utility\TempImageFiles\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

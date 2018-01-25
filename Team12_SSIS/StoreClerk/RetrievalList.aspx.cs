@@ -14,16 +14,17 @@ namespace Team12_SSIS.StoreClerk
         //string ReqID = "10";
         RequisitionLogic r = new RequisitionLogic();
         InventoryLogic i = new InventoryLogic();
-        List<int> currentReqIDs = new List<int>();
-        List<RequisitionRecord> tempReqList = new List<RequisitionRecord>();
         List<RequisitionRecordDetail> tempListDetails = new List<RequisitionRecordDetail>();
-        List<InventoryCatalogue> tempListItems = new List<InventoryCatalogue>();
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                List<int> currentReqIDs = new List<int>();
+                List<RequisitionRecord> tempReqList = new List<RequisitionRecord>();
+                List<InventoryCatalogue> tempListItems = new List<InventoryCatalogue>();
+
                 // Retrieve all the req IDs of all current requisition orders
                 tempReqList = r.ListCurrentRequisitionRecord();
 
@@ -65,13 +66,22 @@ namespace Team12_SSIS.StoreClerk
                 // Bind data to the list
                 GridViewMainList.DataSource = tempListItems;
                 GridViewMainList.DataBind();
+
+                // If there are zero retrieved items from the DB
+                if (tempListItems == null || tempListItems.Count == 0)
+                {
+                    TbxResult.Visible = false;
+                    BtnCumulativeSubmit.Visible = false;
+                }
             }
 
 
             // Populating our message
             if (Session["RetrievalListMessage"] != null)
             {
+                TbxResult.Visible = true;
                 TbxResult.Text = (string)Session["RetrievalListMessage"];
+                Session["RetrievalListMessage"] = null;   // This resets the session.
             }
         }
 
@@ -113,6 +123,14 @@ namespace Team12_SSIS.StoreClerk
             LblMessage.Text = "Invalid quantity selected";
         }
 
+        // Identifying the priority for each req per item
+        public string GetPriority(int reqDetailID)
+        {
+            var temp = r.GetPriority(reqDetailID);
+            if (temp.Equals("Yes")) return "Priority Given";
+            else return "None";
+        }
+
         // Populating the nested gridview
         protected void GridViewMainList_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -120,6 +138,11 @@ namespace Team12_SSIS.StoreClerk
             {
                 // Retreiving the row's item ID
                 string itemID = GridViewMainList.DataKeys[e.Row.RowIndex].Value.ToString();
+
+                // Specifyingother attrs
+                Label temp = (Label)GridViewMainList.FindControl("LblTotalQtyNeeded");
+                int totalReqQty = Convert.ToInt32(temp);
+                int totalAct = 0;
 
                 // Intialize our list
                 List<RequisitionRecordDetail> tempList = new List<RequisitionRecordDetail>();
@@ -136,6 +159,24 @@ namespace Team12_SSIS.StoreClerk
 
                 // Creating our TempInvRetrieval list with the needed quantities
                 ti = r.CreateTempList(tempList, itemID);
+
+                // Setting the appropriate isOverride value for each item using to diff sets of foreach
+                // This takes the overall qty requested per item (combines all relevant req together) and compares it to the existing inventory
+                foreach (var item in ti)
+                {
+                    totalAct += item.ActualQty;
+                }
+                foreach (var item in ti)
+                {
+                    if (totalAct <= i.GetQuantity(itemID))
+                    {
+                        item.IsOverride = true;
+                    }
+                    else
+                    {
+                        item.IsOverride = false;
+                    }
+                }
 
                 // Binding data to the nested gridview
                 GridView gridViewSubList = (GridView)e.Row.FindControl("GridViewSubList");
@@ -154,20 +195,20 @@ namespace Team12_SSIS.StoreClerk
             // Retrieving values from each cell in the gridviews
             foreach (GridViewRow row1 in GridViewMainList.Rows)
             {
-                //Retrieving the itemID of this specific row
+                // Retrieving the itemID of this specific row
                 Label LblItemID1 = (Label)row1.FindControl("LblItemID1");
 
-
-                //Finding the nested GridView
+                // Finding the nested GridView
                 GridView GridViewSubList = (GridView)row1.FindControl("GridViewSubList");
 
-                //Retrieving the values from the nested GridView
+                // Retrieving the main values from the nested GridView
                 foreach (GridViewRow row2 in GridViewSubList.Rows)
                 {
                     Label LblReqID = (Label)row2.FindControl("LblReqID");
                     Label LblReqDetailID = (Label)row2.FindControl("LblReqDetailID");
                     Label LblDeptID = (Label)row2.FindControl("LblDeptID");
                     Label LblQtyNeeded = (Label)row2.FindControl("LblQtyNeeded");
+                    Label LblIsOverride = (Label)row2.FindControl("LblIsOverride");
                     TextBox TbxActualQty = (TextBox)row2.FindControl("TbxActualQty");
 
                     if (TbxActualQty.Text == "" || string.IsNullOrWhiteSpace(TbxActualQty.Text))          // SERVER-SIDE VALIDATION
@@ -188,11 +229,11 @@ namespace Team12_SSIS.StoreClerk
                             }
                             else
                             {
-                                //Processing our inventory withdrawal process
+                                // Processing our inventory withdrawal process
                                 string result = i.CreateNewInventoryRetrievalEntry(Convert.ToInt32(LblReqID.Text.ToString()), Convert.ToInt32(LblReqDetailID.Text.ToString()), LblItemID1.Text.ToString(),
-                                    LblDeptID.Text.ToString(), Convert.ToInt32(LblQtyNeeded.Text), Convert.ToInt32(TbxActualQty.Text));
+                                    LblDeptID.Text.ToString(), Convert.ToInt32(LblQtyNeeded.Text), Convert.ToInt32(TbxActualQty.Text), Boolean.Parse(LblIsOverride.Text));
 
-                                //Displaying its result
+                                // Displaying its result
                                 tempStr += result + "\n\n";
                             }
                         }

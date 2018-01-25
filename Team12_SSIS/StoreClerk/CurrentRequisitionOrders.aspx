@@ -19,9 +19,10 @@
                 <Columns>
                     <asp:TemplateField HeaderText="RequestID">
                         <ItemTemplate>
-                            <asp:Label ID="LblReqID" runat="server" Text='<%#:Item.RequestID %>'></asp:Label>
+                            <asp:Label ID="LblReqID" runat="server" Text='<%#:"RQ"+Item.RequestID %>'></asp:Label>
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
                     </asp:TemplateField>
 
                     <asp:TemplateField HeaderText="Department">
@@ -29,6 +30,7 @@
                             <asp:Label ID="LblDeptName" runat="server" Text='<%#:GetDepartmentName(Item.DepartmentID)%>'></asp:Label>
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
                     </asp:TemplateField>
 
                     <asp:TemplateField HeaderText="Requestor">
@@ -36,6 +38,7 @@
                             <asp:Label ID="LblReqName" runat="server" Text='<%#:Item.RequestorName %>'></asp:Label>
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
                     </asp:TemplateField>
 
                     <asp:TemplateField HeaderText="Date Requested">
@@ -43,13 +46,7 @@
                             <asp:Label ID="LblReqDate" runat="server" Text='<%#:Item.RequestDate.Value.ToString("MM/dd/yyyy") %>'></asp:Label>
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                    </asp:TemplateField>
-
-                    <asp:TemplateField HeaderText="Status">
-                        <ItemTemplate>
-                            <asp:Label ID="LblStatus" runat="server" Text='<%#:GetStatus(Item.RequestID) %>'></asp:Label>
-                        </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
                     </asp:TemplateField>
 
                     <asp:TemplateField HeaderText="View">
@@ -57,6 +54,7 @@
                             <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument="<%#:Item.RequestID %>" CommandName="ThisBtnClick" OnClick="btnView_Click"/>
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
                     </asp:TemplateField>
 
                 </Columns>
@@ -86,35 +84,44 @@
                 <asp:GridView ID="GridViewDetails" runat="server" AutoGenerateColumns="False" Width="75%" DataKeyNames="RequestDetailID" ItemType="Team12_SSIS.Model.RequisitionRecordDetail"
                     BackColor="White" BorderColor="#CCCCCC" BorderStyle="Inset" >
                     <Columns>
-                        <asp:TemplateField HeaderText="RequestDetailID">
-                            <ItemTemplate>
-                                <asp:Label ID="LblReqID" runat="server" Text='<%#:Item.RequestDetailID %>'></asp:Label>
-                            </ItemTemplate>
-                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Item ID">
                             <ItemTemplate>
                                 <asp:Label ID="LblReqID" runat="server" Text='<%#:Item.ItemID %>'></asp:Label>
                             </ItemTemplate>
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
                         </asp:TemplateField>
+
                         <asp:TemplateField HeaderText="Item Name">
                             <ItemTemplate>
                                 <asp:Label ID="LblReqID" runat="server" Text='<%#:GetItemName(Item.ItemID) %>'></asp:Label>
                             </ItemTemplate>
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
                         </asp:TemplateField>
+
                         <asp:TemplateField HeaderText="Requested Quantity">
                             <ItemTemplate>
                                 <asp:Label ID="LblReqID" runat="server" Text='<%#:Item.RequestedQuantity %>'></asp:Label>
                             </ItemTemplate>
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
                         </asp:TemplateField>
+
                         <asp:TemplateField HeaderText="Units Of Measure">
                             <ItemTemplate>
                                 <asp:Label ID="LblReqID" runat="server" Text='<%#:GetUnitsOfMeasure(Item.ItemID) %>'></asp:Label>
                             </ItemTemplate>
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Status">
+                            <ItemTemplate>
+                                <asp:Label ID="LblStatus" runat="server" Text='<%#:Item.Status %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
                         </asp:TemplateField>
                     </Columns>
                      <EmptyDataRowStyle Font-Italic="True" Font-Size="Medium" ForeColor="Red" />

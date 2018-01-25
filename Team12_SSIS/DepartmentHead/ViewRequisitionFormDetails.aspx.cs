@@ -14,56 +14,52 @@ namespace Team12_SSIS.DepartmentHead
         RequisitionLogic r = new RequisitionLogic();
         InventoryLogic i = new InventoryLogic();
         string reqID;
-        string deptHeadName;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // Retrieving from the link our req ID
             reqID = Request.QueryString["RequestID"];
 
-            // Retrieving the DeptHead's name
-            deptHeadName = RequisitionLogic.GetCurrentDeptUserName();
-            LblCurrentUser.Text = deptHeadName;
-
             // Retrieving our req record using the reqID retrieved
             RequisitionRecord tempR = r.FindRequisitionRecord(Convert.ToInt32(reqID));
 
-            // Populating the labels...
-            LblReqFormID.Text = Convert.ToString("R" + tempR.RequestID);
-            LblEmployeeName.Text = tempR.RequestorName;
-            LblDateCreated.Text = tempR.RequestDate.Value.ToString("MM/dd/yyyy");
-            LblStatus.Text = r.GetStatus(Convert.ToInt32(reqID));
-            if (String.IsNullOrWhiteSpace(tempR.Remarks))
+            if (!IsPostBack)
             {
-                TxtRemarks.Value = "No remarks.";
-            }
-            else
-            {
-                TxtRemarks.Value = tempR.Remarks;
+                // Populating the labels...
+                LblReqFormID.Text = Convert.ToString("RQ" + tempR.RequestID);
+                LblEmployeeName.Text = tempR.RequestorName;
+                LblDateCreated.Text = tempR.RequestDate.Value.ToString("MM/dd/yyyy");
+                LblStatus.Text = r.GetStatus(Convert.ToInt32(reqID));
+                if (String.IsNullOrWhiteSpace(tempR.Remarks))
+                {
+                    TxtRemarks.Text = "No remarks.";
+                }
+                else
+                {
+                    TxtRemarks.Text = tempR.Remarks;
+                }
+
+                // Toggling the visibilty of the "Approve" and "Reject" controls   ---    If "Pending", will still remain invisible
+                if (r.GetStatus(Convert.ToInt32(reqID)).Equals("Pending"))
+                {
+                    TxtRemarks.Text = "";
+                    BtnApprove.Visible = true;
+                    BtnReject.Visible = true;
+                    LblDateApproved.Text = "Pending";
+                    LblMessage.Text = "To approve or reject this request, kindly select one of the following options below.";
+                }
+                else
+                {
+                    // Other attrs
+                    LblMessage.Text = "";    // For previously approved request
+                    LblDateApproved.Text = tempR.ApprovedDate.Value.ToString("MM/dd/yyyy");
+                    TxtRemarks.Attributes.Add("readonly", "readonly");
+                }
             }
 
             // Populating the gridview
             GridViewDetails.DataSource = r.FindRequisitionRecordDetailsByReqID(Convert.ToInt32(reqID));
             GridViewDetails.DataBind();
-
-            // Toggling the visibilty of the "Approve" and "Reject" controls   ---    If "Pending", will still remain invisible
-            if (r.GetStatus(Convert.ToInt32(reqID)).Equals("Pending"))
-            {
-                TxtRemarks.Value = "";
-                BtnApprove.Visible = true;
-                BtnReject.Visible = true;
-                LblDateApproved.Text = "Pending";
-                LblMessage.Text = "To approve or reject this request, kindly select one of the following options below.";
-            }
-            else
-            {
-                // Other attrs
-                LblMessage.Text = "";    // For previously approved request
-                LblDateApproved.Text = tempR.ApprovedDate.Value.ToString("MM/dd/yyyy");
-                TxtRemarks.Attributes.Add("readonly", "readonly");
-            }
-
-            
         }
 
 
@@ -83,13 +79,13 @@ namespace Team12_SSIS.DepartmentHead
         // Approving the requisition record
         protected void BtnApprove_Click(object sender, EventArgs e)
         {
-            string temp = r.ProcessRequsitionRequest(Convert.ToInt32(reqID), "Approved", deptHeadName, TxtRemarks.Value);
+            string temp = r.ProcessRequsitionRequest(Convert.ToInt32(reqID), "Approved", RequisitionLogic.GetCurrentDeptUserName(), TxtRemarks.Text);
             LblMessage.Text = temp;
 
             // Modifying the textbox if successful
             if (temp.Contains("successfully"))
             {
-                TxtRemarks.Value = r.GetReqRemarks(Convert.ToInt32(reqID));
+                TxtRemarks.Text = r.GetReqRemarks(Convert.ToInt32(reqID));
                 TxtRemarks.Attributes.Add("readonly", "readonly");
                 BtnApprove.Visible = false;
                 BtnReject.Visible = false;
@@ -102,16 +98,19 @@ namespace Team12_SSIS.DepartmentHead
         // Rejecting the requisition record
         protected void BtnReject_Click(object sender, EventArgs e)
         {
-            string temp = r.ProcessRequsitionRequest(Convert.ToInt32(reqID), "Rejected", deptHeadName, TxtRemarks.Value);
+            string temp = r.ProcessRequsitionRequest(Convert.ToInt32(reqID), "Rejected", RequisitionLogic.GetCurrentDeptUserName(), TxtRemarks.Text);
             LblMessage.Text = temp;
 
             // Modifying the textbox if successful
             if (temp.Contains("successfully"))
             {
-                TxtRemarks.Value = r.GetReqRemarks(Convert.ToInt32(reqID));
+                RequisitionLogic rr = new RequisitionLogic();
                 TxtRemarks.Attributes.Add("readonly", "readonly");
                 BtnApprove.Visible = false;
                 BtnReject.Visible = false;
+                RequisitionRecord tR = rr.FindRequisitionRecord(Convert.ToInt32(reqID));
+                LblDateApproved.Text = tR.ApprovedDate.Value.ToString("MM/dd/yyyy");
+                LblStatus.Text = r.GetStatus(Convert.ToInt32(reqID));
             }
 
             // Sending a pop up message

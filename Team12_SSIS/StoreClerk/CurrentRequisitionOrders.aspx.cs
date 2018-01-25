@@ -40,12 +40,6 @@ namespace Team12_SSIS.StoreClerk
             return temp.ToString();
         }
 
-        public string GetStatus(int reqID)
-        {
-            string temp = r.GetStatus(reqID);
-            return temp.ToString();
-        }
-
         public string GetItemName(string itemID)
         {
             string temp = i.GetItemDescription(itemID);
@@ -67,7 +61,7 @@ namespace Team12_SSIS.StoreClerk
             
             // Populating the labels associated with the gridview
             LblSelected.Text = "Request ID: ";
-            LblItemIDInfo.Text = tempText;
+            LblItemIDInfo.Text = "RQ" + tempText;
             LblDetails.Text = "Details";
 
             // Changing the visibility of the button

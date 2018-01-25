@@ -343,6 +343,16 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        // Retrieving status for each reqrecorddetails item
+        public int GetQuantity(string itemID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                InventoryCatalogue ic = context.InventoryCatalogues.Where(x => x.ItemID.Equals(itemID)).First();
+                return (int)ic.UnitsInStock;
+            }
+        }
+
         // Retrieve specific item units of measure
         public string GetUnitsOfMeasure(string itemID)
         {
@@ -365,7 +375,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Inventory retrieval processes
-        public string CreateNewInventoryRetrievalEntry(int reqID, int reqDetailID, string itemID, string deptID, int reqQty, int actQty)
+        public string CreateNewInventoryRetrievalEntry(int reqID, int reqDetailID, string itemID, string deptID, int reqQty, int actQty, bool isOverride)
         {
             bool isFulfilled = true;
             bool isEnough = true;
@@ -385,6 +395,12 @@ namespace Team12_SSIS.BusinessLogic
                     }
                 }
 
+                //If inventory is not enough and isOverride is true
+                if (isOverride && ic.UnitsInStock > actQty)
+                {
+                    isEnough = false;
+                }
+
                 //Check if user is withdrawing more than requested 
                 if (reqQty < actQty)
                 {
@@ -392,7 +408,7 @@ namespace Team12_SSIS.BusinessLogic
                 }
 
                 //Check if user is withdrawing less than requested despite having enough in the inventory
-                if (isEnough && reqQty > actQty)
+                if (isEnough && reqQty > actQty && !isOverride)
                 {
                     return (itemID + ": You are not allowed to withdraw below the requested quantity.\nPlease seek assistance from the warehouse supervisor. Thank you.").ToString();
                 }
