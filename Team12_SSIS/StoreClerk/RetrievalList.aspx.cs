@@ -65,13 +65,22 @@ namespace Team12_SSIS.StoreClerk
                 // Bind data to the list
                 GridViewMainList.DataSource = tempListItems;
                 GridViewMainList.DataBind();
+
+                // If there are zero retrieved items from the DB
+                if (tempListItems == null || tempListItems.Count == 0)
+                {
+                    TbxResult.Visible = false;
+                    BtnCumulativeSubmit.Visible = false;
+                }
             }
 
 
             // Populating our message
             if (Session["RetrievalListMessage"] != null)
             {
+                TbxResult.Visible = true;
                 TbxResult.Text = (string)Session["RetrievalListMessage"];
+                Session["RetrievalListMessage"] = null;   // This resets the session.
             }
         }
 
@@ -111,6 +120,14 @@ namespace Team12_SSIS.StoreClerk
         public void GetErrorMessage()
         {
             LblMessage.Text = "Invalid quantity selected";
+        }
+
+        // Identifying the priority for each req per item
+        public string GetPriority(int reqDetailID)
+        {
+            var temp = r.GetPriority(reqDetailID);
+            if (temp.Equals("Yes")) return "Priority Given";
+            else return "None";
         }
 
         // Populating the nested gridview

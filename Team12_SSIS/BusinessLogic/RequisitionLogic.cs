@@ -213,6 +213,16 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        // Retrieving priority for each reqrecorddetails item
+        public string GetPriority(int reqDetailID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                RequisitionRecordDetail rd = context.RequisitionRecordDetails.Where(x => x.RequestDetailID == reqDetailID).First();
+                return (string)rd.Priority;
+            }
+        }
+
         // Retrieving status for each reqrecorddetails item
         public string GetStatus(int reqID)
         {
@@ -368,9 +378,11 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-
-
-
+        // Retrieves the name of the current user that is logged in
+        public static string GetCurrentDeptUserName()
+        {
+            return HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
+        }
 
 
 
