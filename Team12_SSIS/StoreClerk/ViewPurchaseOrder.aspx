@@ -116,20 +116,21 @@
                                             </asp:TemplateField>
                 <asp:TemplateField HeaderText="Item No." HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                 <ItemTemplate>
-                                                    <asp:UpdatePanel runat="server" ID="Upid" UpdateMode="Conditional" ChildrenAsTriggers="true">
+                                                    <asp:UpdatePanel runat="server" ID="UpValue" UpdateMode="Conditional" ChildrenAsTriggers="true">
                                                         <ContentTemplate>
                                                             <asp:Label ID="LblItemNo" runat="server" Text='<%# Bind("ItemID") %>' OnTextChanged="Txtitemid_TextChanged" AutoPostBack="true"></asp:Label>
-                                                        </ContentTemplate>
+                                                        
+
+                                                
+                                                             </ContentTemplate>
                                                     </asp:UpdatePanel>
-
-                                                </ItemTemplate>
-
+                                    </ItemTemplate>
                                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Description" HeaderStyle-Width="52%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                 <ItemTemplate>
-                                    <asp:Label ID="LblDesc" runat="server"></asp:Label>
+                                    <asp:Label ID="LblDesc" runat="server" ></asp:Label>
                                 </ItemTemplate>
 
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="52%"></HeaderStyle>
@@ -137,8 +138,9 @@
 
                            <asp:TemplateField HeaderText="Quantity">
                                     <ItemTemplate>
-                                        <asp:UpdatePanel runat="server" ID="UpValue" UpdateMode="Conditional" ChildrenAsTriggers="true">
+                                         <asp:UpdatePanel runat="server" ID="UpValue" UpdateMode="Conditional" ChildrenAsTriggers="true">
                                                         <ContentTemplate>
+                                       
                                         <asp:Label ID="Lblquantity" runat="server" Text='<%# Bind("Quantity") %>' OnTextChanged="Txtquantity_TextChanged" AutoPostBack="true"></asp:Label>
                                                         </ContentTemplate>
                                                     </asp:UpdatePanel>

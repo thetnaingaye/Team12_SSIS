@@ -363,6 +363,10 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        internal static PORecord GetPurchaseOrderRecord(object poNo)
+        {
+            throw new NotImplementedException();
+        }
 
         private bool IsPOCompleted(int itemCount, int poNumber)
         {
@@ -702,10 +706,15 @@ namespace Team12_SSIS.BusinessLogic
                 entities.SaveChanges();
             }
         }
-        public void Submitforapproval(string clerk)
+        public void Submitforapproval(string clerk,string poDate,string deliverTo,string supplierId,string address,string date)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
+                PORecord poRecord = new PORecord
+                {
+                  
+
+                };
 
             }
         }
@@ -762,6 +771,18 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        public static bool Submitforapproval(int poNo)
+        {
+            bool success = true;
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                PORecord poRecord = entities.PORecords.FirstOrDefault(x => x.PONumber == poNo);
+                
+                entities.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
 
         public static bool CancelPORecordRequest(int poNo)
         {

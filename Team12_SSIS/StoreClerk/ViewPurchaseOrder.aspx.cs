@@ -13,12 +13,12 @@ namespace Team12_SSIS.StoreClerk
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //string Name = Request.QueryString["Name"];
 
-            
-                int poNo = (int)Session["poNo"];
-                BindGird(poNo);
-           
+
         }
+
+       
 
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {

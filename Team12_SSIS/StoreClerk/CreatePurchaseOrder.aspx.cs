@@ -25,7 +25,7 @@ namespace Team12_SSIS.StoreClerk
             Upl.Update();
             populate();
             //totalLbl.Text = total.ToString("C0");
-
+            //Response.Redirect("ViewPurchaseOrder?Name=Pandian");
         }
         protected void BindGrid()
         {
@@ -39,9 +39,7 @@ namespace Team12_SSIS.StoreClerk
 
         protected void populate()
         {
-            PODateLbl.Text = DateTime.Today.ToString();
-            string userName = User.Identity.Name;
-            RstLbl.Text = userName;
+
             string[] supplierID = { "ALPA", "CHEP", "BANE" };
             if (!IsPostBack)
             {
@@ -56,6 +54,9 @@ namespace Team12_SSIS.StoreClerk
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
+                PODateLbl.Text = DateTime.Today.ToString();
+                string userName = User.Identity.Name;
+                RstLbl.Text = userName;
                 string Deliverto = TxtDlt.Text;
                 string SupplierID = DdlSli.Text;
                 string Address = TxtAds.Text;
@@ -69,7 +70,7 @@ namespace Team12_SSIS.StoreClerk
                 //Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx?Address=" + TxtAds);
                 Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx?POnumber=" + 999);
             }
-
+           
         }
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
         {
@@ -202,12 +203,13 @@ namespace Team12_SSIS.StoreClerk
                 double unitPrice = (double)PurchasingLogic.GetUnitPrice(itemID,"BANE");
                 pl.CreatePurchaseOrderDetails(itemID, quantity, uom, unitPrice);
             }
-           
 
-            //Session["PONumber"] = poNo;
-            //Server.Transfer("ViewPurchaseOrder.aspx", true);
-            //statusMessage.ForeColor = System.Drawing.Color.Green;
-            //statusMessage.Text = "PO" + poNo.ToString() + "submitted successfully";
+           // pl.Submitforapproval(poNo, clerkName);
+
+           //Session["PONumber"] = poNo;
+           // Server.Transfer("ViewPurchaseOrder.aspx", true);
+           // statusMessage.ForeColor = System.Drawing.Color.Green;
+           // statusMessage.Text = "PO" + poNo.ToString() + "submitted successfully";
         }
 
     }

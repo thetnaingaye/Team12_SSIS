@@ -19,10 +19,11 @@ namespace Team12_SSIS.DepartmentEmployee
             }
         }
 
-        private void BindGrid()
+        public void BindGrid()
         {
-            List<RequisitionRecord> requisitionRecord = RequisitionLogic.GetListOfRequisitionRecords();
-            GridViewVPR.DataSource = requisitionRecord;
+            List<RequisitionRecord> reRecordList = RequisitionLogic.GetListOfRequisitionRecords();
+            reRecordList = reRecordList.ToList();
+            GridViewVPR.DataSource = reRecordList;
             GridViewVPR.DataBind();
         }
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -30,11 +31,14 @@ namespace Team12_SSIS.DepartmentEmployee
             LinkButton LBtnRID = (e.Row.FindControl("LBtnRID") as LinkButton);
 
         }
+
         protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridViewVPR.PageIndex = e.NewPageIndex;
             BindGrid();
         }
+
+        
     }
    
   
