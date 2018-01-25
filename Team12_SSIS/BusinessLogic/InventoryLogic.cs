@@ -1404,6 +1404,39 @@ namespace Team12_SSIS.BusinessLogic
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
+              List<AVRequestDetail> avReqDetail= entity.AVRequestDetails.Where(x => x.AVRID == id).ToList<AVRequestDetail>();
+
+                //--------------------Iterating through each item to adjust the inventory stock------//
+                for (int i = 0; i < avReqDetail.Count; i++)
+                {
+                    string type = avReqDetail[i].Type;
+                    int quantity = (int)avReqDetail[i].Quantity;
+                    string itemId = avReqDetail[i].ItemID;
+                    InventoryCatalogue inventory = entity.InventoryCatalogues.Where(X => X.ItemID == itemId).First<InventoryCatalogue>();
+                    int stock = inventory.UnitsInStock;
+                    switch (type)
+                    {
+
+                        case ("Add"):
+                            {
+                                stock = stock + quantity;
+                                break;
+                            }
+                        case ("Minus"):
+                            {
+                                stock = stock - quantity;
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
+                    inventory.UnitsInStock = stock;
+                    entity.SaveChanges();
+
+                }
+
                 avReq.Status = "Approved";
                 avReq.DateProcessed = DateTime.Today;
                 avReq.Remarks = remarks;
