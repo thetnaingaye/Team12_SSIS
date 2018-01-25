@@ -61,6 +61,8 @@ namespace Team12_SSIS.Model
 
         public int? BufferStockLevel { get; set; }
 
+        public int? BFSProportion { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActualData> ActualDatas { get; set; }
 
