@@ -12,8 +12,10 @@ namespace Team12_SSIS.StoreManager
 {
     public partial class ViewAdjustmentVoucherDetails : System.Web.UI.Page
     {
+        string remarks;
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             int avID = (int)Session["AdjustVID"];
             BindGrid(avID);
         }
@@ -143,19 +145,27 @@ namespace Team12_SSIS.StoreManager
 
         protected void Btnapprove_Click(object sender, EventArgs e)
         {
+            Btnreject.Visible = false;
+            Btnapprove.Visible = false;
             int avID = (int)Session["AdjustVID"];
-            InventoryLogic.ApproveAvRequest(avID);
+            remarks = TxtRemarks.Text;
+            InventoryLogic.ApproveAvRequest(avID,remarks);
             LblMsg.Visible = true;
             LblMsg.Text = "*Successfully approved the adjustment voucher request";
-
+            LblStatusD.Text = "Approved";
+        
         }
 
         protected void Btnreject_Click(object sender, EventArgs e)
         {
+            Btnreject.Visible = false;
+            Btnapprove.Visible = false;
             int avID = (int)Session["AdjustVID"];
-            InventoryLogic.RejectAvRequest(avID);
+            remarks = TxtRemarks.Text;
+            InventoryLogic.RejectAvRequest(avID,remarks);
             LblMsg.Visible = true;
             LblMsg.Text = "*Adjustment voucher request is rejected";
+            LblStatusD.Text = "Rejected";
 
         }
     }

@@ -1399,26 +1399,28 @@ namespace Team12_SSIS.BusinessLogic
         }
         //--------------------Adjustment voucher request approval---status changes to approved-------//
 
-        public static  void ApproveAvRequest(int id)
+        public static  void ApproveAvRequest(int id,string remarks)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
                 avReq.Status = "Approved";
                 avReq.DateProcessed = DateTime.Today;
+                avReq.Remarks = remarks;
                 entity.SaveChanges();
             }
         }
 
         //--------------------Adjustment voucher request rejection---status changes to rejected-------//
 
-        public static void RejectAvRequest(int id)
+        public static void RejectAvRequest(int id, string remarks)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
                 avReq.Status = "Rejected";
                 avReq.DateProcessed = DateTime.Today;
+                avReq.Remarks = remarks;
                 entity.SaveChanges();
             }
         }
