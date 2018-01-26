@@ -48,7 +48,7 @@ namespace Team12_SSIS
 		}
 
         //Send reminder email to department rep 2 days before the collection date
-        //This Thread will trigger every 24 hours
+        //This Thread will trigger every 24 hours 
         protected void ThreadFuncForCollectionReminder()
         {
             System.Timers.Timer t = new System.Timers.Timer();
