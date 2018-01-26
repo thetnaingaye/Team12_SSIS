@@ -153,15 +153,13 @@ namespace Team12_SSIS
 		}
 
         protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+
+        }
 
 
 		protected void Session_Start(object sender, EventArgs e)
         {
-        }
-
-        protected void Session_Start(object sender, EventArgs e)
-        {
-
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)

@@ -124,7 +124,7 @@ namespace Team12_SSIS.StoreClerk
             InventoryLogic il = new InventoryLogic();
             List<AVRequestDetail> adjDetailList = new List<AVRequestDetail>();
             string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
-            int avRId = il.CreateAdjustmentVoucherRequest(clerkName, DateTime.Now.Date);
+            int avRId = InventoryLogic.CreateAdjustmentVoucherRequest(clerkName, DateTime.Now.Date);
             bool isAbove250 = false;
             try
             {
@@ -146,9 +146,9 @@ namespace Team12_SSIS.StoreClerk
                         return;
                     }
 
-                    il.CreateAdjustmentVoucherRequestDetails(avRId, itemID, type, quantity, uom, reason, unitPrice);
+                    InventoryLogic.CreateAdjustmentVoucherRequestDetails(avRId, itemID, type, quantity, uom, reason, unitPrice);
                     isAbove250 = (quantity * unitPrice > 250 ? true : false);
-                    il.SendAdjRequentEmail(avRId, isAbove250, clerkName);
+                    InventoryLogic.SendAdjRequentEmail(avRId, isAbove250, clerkName);
                 }
             }catch (Exception ex)
             {
