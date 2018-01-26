@@ -25,25 +25,20 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void DeleteCatalogue(string ItemID)
-        {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                InventoryCatalogue catalogue = entities.InventoryCatalogues.Where(c => c.ItemID == ItemID).First<InventoryCatalogue>();
-                entities.InventoryCatalogues.Remove(catalogue);
-                entities.SaveChanges();
-            }
-        }
-
-        public static void UpdateCatalogue(string ItemID, string Description, int ReorderLevel, int ReorderQty, string UOM)
+        public static void UpdateCatalogue(string ItemID, string Description,string CategoryID,string BIN, string Shelf, int Level, int ReorderLevel, int ReorderQty, string UOM, string Discontinued)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 InventoryCatalogue catalogue = entities.InventoryCatalogues.Where(c => c.ItemID == ItemID).First<InventoryCatalogue>();
                 catalogue.Description = Description;
+                catalogue.CategoryID = CategoryID;
+                catalogue.BIN = BIN;
+                catalogue.Shelf = Shelf;
+                catalogue.Level = Level;
                 catalogue.ReorderLevel = ReorderLevel;
                 catalogue.ReorderQty = ReorderQty;
                 catalogue.UOM = UOM;
+                catalogue.Discontinued = Discontinued;
                 entities.SaveChanges();
             }
         }
@@ -56,17 +51,21 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void AddCatalogue(string ItemID, string CategoryID, string Description, int ReorderLevel, int ReorderQty, string UOM)
+        public static void AddCatalogue(string ItemID, string BIN, string Shelf, int Level, string CategoryID, string Description, int ReorderLevel, int ReorderQty, string UOM, string Discontinued)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 InventoryCatalogue inventoryCatalogue = new InventoryCatalogue();
                 inventoryCatalogue.ItemID = ItemID;
+                inventoryCatalogue.BIN = BIN;
+                inventoryCatalogue.Shelf = Shelf;
+                inventoryCatalogue.Level = Level;
                 inventoryCatalogue.CategoryID = CategoryID;
                 inventoryCatalogue.Description = Description;
                 inventoryCatalogue.ReorderLevel = ReorderLevel;
                 inventoryCatalogue.ReorderQty = ReorderQty;
                 inventoryCatalogue.UOM = UOM;
+                inventoryCatalogue.Discontinued = Discontinued;
                 entities.InventoryCatalogues.Add(inventoryCatalogue);
                 entities.SaveChanges();
             }
@@ -76,7 +75,15 @@ namespace Team12_SSIS.BusinessLogic
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
-                return entities.InventoryCatalogues.Where(i => i.ItemID.Contains(value) || i.CategoryID.Contains(value)).ToList();
+                return entities.InventoryCatalogues.Where(i => i.ItemID.Contains(value) || i.Description.Contains(value) || i.CategoryID.Contains(value)).ToList();
+            }
+        }
+
+        public static string GetCatalogueName(string CategoryID)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.CatalogueCategories.Where(x => x.CategoryID == CategoryID).Select(x => x.CatalogueName).First();
             }
         }
 
@@ -1803,8 +1810,23 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        public static List<InventoryCatalogue> GetInventoryByIdandCategory(string id,string category)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                CatalogueCategory cat = entity.CatalogueCategories.Where(x => x.CatalogueName == category).ToList<CatalogueCategory>().First();
+                string catId = cat.CategoryID;
+                var q = (from di in entity.InventoryCatalogues
+                             join de in entity.CatalogueCategories on di.CategoryID equals de.CategoryID
+                             where di.ItemID == id && di.CategoryID == catId
+                         select di);
 
-        //---------------------------------AdjustmentVoucher--------------------------------------------------------//
+                return q.ToList<InventoryCatalogue>();
+            }
+        }
+
+
+            //---------------------------------AdjustmentVoucher--------------------------------------------------------//
 
             public static List<AVRequest> GetadvReq(string id)
         {
@@ -1823,14 +1845,16 @@ namespace Team12_SSIS.BusinessLogic
                 AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
               List<AVRequestDetail> avReqDetail= entity.AVRequestDetails.Where(x => x.AVRID == id).ToList<AVRequestDetail>();
 
-                //--------------------Iterating through each item to adjust the inventory stock------//
+                //--------------------Iterating through each item in the adjustment voucher request to adjust the inventory stock------//
                 for (int i = 0; i < avReqDetail.Count; i++)
                 {
                     string type = avReqDetail[i].Type;
                     int quantity = (int)avReqDetail[i].Quantity;
                     string itemId = avReqDetail[i].ItemID;
+                    string UOM = avReqDetail[i].UOM;
                     InventoryCatalogue inventory = entity.InventoryCatalogues.Where(X => X.ItemID == itemId).First<InventoryCatalogue>();
                     int stock = inventory.UnitsInStock;
+                    string Stockcarddescription = "Stock Adjustment";
                     switch (type)
                     {
 
@@ -1851,6 +1875,8 @@ namespace Team12_SSIS.BusinessLogic
                     }
                     inventory.UnitsInStock = stock;
                     entity.SaveChanges();
+                    //-----------------------------add the transaction to stock card-----------------------------------//
+                    CreatestockCard(itemId, DateTime.Today, Stockcarddescription, type, quantity, UOM, stock);
 
                 }
 
@@ -1858,6 +1884,30 @@ namespace Team12_SSIS.BusinessLogic
                 avReq.DateProcessed = DateTime.Today;
                 avReq.Remarks = remarks;
                 entity.SaveChanges();
+            }
+        }
+
+
+        //---------------------------------------------Create stockCard-----------------------------------------------------
+
+        public static void CreatestockCard(string itemid, DateTime transactionDate,string description,string type,int quantity,string uom,int balance)
+        {
+            using (SA45Team12AD entitiy = new SA45Team12AD())
+            {
+                StockCard stockcard = new StockCard
+                {
+                    ItemID= itemid,
+                    Date= transactionDate,
+                    Description= description,
+                    Type= type,
+                    Quantity= quantity,
+                    UOM=uom,
+                    Balance= balance
+
+                };
+                entitiy.StockCards.Add(stockcard);
+                entitiy.SaveChanges();
+              
             }
         }
 
@@ -1874,6 +1924,8 @@ namespace Team12_SSIS.BusinessLogic
                 entity.SaveChanges();
             }
         }
+
+        
 
 
 
@@ -2091,6 +2143,19 @@ namespace Team12_SSIS.BusinessLogic
             {
                 InventoryRetrievalList iRL = ctx.InventoryRetrievalLists.Where(x => x.RetrievalID == retrievalId).FirstOrDefault();
                 iRL.Status = status;
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
+
+        public static bool UpdateUnitsOnOrder(string itemId, int quantity)
+        {
+            bool success = false;
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryCatalogue ic = ctx.InventoryCatalogues.Where(x => x.ItemID.Equals(itemId)).FirstOrDefault();
+                ic.UnitsOnOrder += quantity;
                 ctx.SaveChanges();
                 success = true;
             }

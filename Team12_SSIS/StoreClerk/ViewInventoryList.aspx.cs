@@ -13,8 +13,9 @@ namespace Team12_SSIS.StoreClerk
     {
         InventoryLogic i = new InventoryLogic();
         List<InventoryCatalogue> iList;
-        List<InventoryCatalogue> cList;
+        List<CatalogueCategory> cList;
         List<InventoryCatalogue> allList;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,82 +23,33 @@ namespace Team12_SSIS.StoreClerk
             if (!IsPostBack)
             {
                 //-------loading the dropdown list with catagoryName--------//
-                DdlCatagory.DataSource = i.getCatalogue();
+
+                cList = i.getCatalogue();
+                CatalogueCategory cat = new CatalogueCategory();
+                cat.CatalogueName = "All";
+                cat.CategoryID = "All";
+                cList.Add(cat);
+                DdlCatagory.DataSource = cList;
+
                 DdlCatagory.DataTextField = "CatalogueName";
                 DdlCatagory.DataValueField = "CatalogueName";
                 DdlCatagory.DataBind();
                 controlVisibleFalse();
                 gridBind();
-
-
+                DdlCatagory.SelectedValue = "All";
 
             }
 
         }
+
+        //-------------------------------------Binding all the records from inventory table to datagrid view-----------------------------//
         public void gridBind()
         {
             allList = i.GetAllCatalogue();
             datagridBind(allList);
         }
-        protected void Rbtn_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            if (RbtnFilter.SelectedItem.Value == "1")
-            {
-
-                DdlCatagory.Enabled = false;
-                TxtId.Enabled = true;
-
-
-            }
-            else if (RbtnFilter.SelectedItem.Value == "2")
-            {
-                TxtId.Text = string.Empty;
-                TxtId.Enabled = false;
-                DdlCatagory.Enabled = true;
-
-
-            }
-            else if (RbtnFilter.SelectedItem.Value == "3")
-            {
-                LblMsg.Visible = false; ;
-                gridBind();
-            }
-            else
-            {
-                LblMsg.Text = "Please Select";
-            }
-        }
-
-
-        protected void BtnCatagory_Click(object sender, EventArgs e)
-        {
-
-            controlVisibleTrue();
-            LblMsg.Text = "*Catagory" + " " + "\"" + DdlCatagory.SelectedItem.Text + "\" " + "is selected";
-            cList = i.getInventoryByCatagory(DdlCatagory.SelectedItem.Text);
-
-            LblReorderQtyD.Text = Convert.ToString(cList[0].ReorderQty);
-            LblReorderD.Text = Convert.ToString(cList[0].ReorderLevel);
-            LblUOMD.Text = cList[0].UOM;
-            LblIdD.Text = cList[0].CategoryID;
-            LblCatNameD.Text = i.getCatalogue(DdlCatagory.SelectedItem.Text).CatalogueName;
-
-            datagridBind(cList);
-        }
-
-
-
-
-        protected void BtnId_Click(object sender, EventArgs e)
-        {
-
-            LblMsg.Text = "*Item Code" + " " + "\" " + TxtId.Text + "\"" + " " + "is selected";
-            iList = i.getInventoryByItemcode(TxtId.Text);
-            datagridBind(iList);
-
-        }
-
+      
+        //-----------------------------------Controlling the visiblility og controls----based on user selection diffrent view----------//
         public void controlVisibleFalse()
         {
             LblId.Visible = false;
@@ -127,6 +79,7 @@ namespace Team12_SSIS.StoreClerk
 
 
         }
+        //--------------------------------datagrid view binding method-----------------------------//
         public void datagridBind(List<InventoryCatalogue> bList)
         {
             GridViewInventory.DataSource = bList;
@@ -139,6 +92,7 @@ namespace Team12_SSIS.StoreClerk
             this.gridBind();
         }
 
+        //------------------------------dataGridview footer and header text control on row bind event----------------//
         protected void GridViewInventory_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.Footer)
@@ -159,5 +113,52 @@ namespace Team12_SSIS.StoreClerk
             }
 
         }
+        //-------------------------------------Rowcommand event.ItemId is stored in session.redirect to stockcard page--------//
+        protected void GridViewDisbList_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "show")
+            {
+                Session["Itemid"] = e.CommandArgument.ToString();
+                Response.Redirect("ViewStockCard.aspx");
+            }
+        }
+
+        //----------------------------------------search button click event.---------------------------------------------------//
+        protected void Btnsearch_Click(object sender, EventArgs e)
+        {
+            if (ChbId.Checked == true && ChbCatagory.Checked == true && DdlCatagory.SelectedValue != "All")
+            {
+                string status = DdlCatagory.SelectedValue;
+                iList = InventoryLogic.GetInventoryByIdandCategory(TxtId.Text, status);
+
+                GridViewInventory.DataSource = iList;
+                GridViewInventory.DataBind();
+            }
+            else if (ChbId.Checked == true && ChbCatagory.Checked == false)
+            {
+                LblMsg.Text = "*Item Code" + " " + "\" " + TxtId.Text + "\"" + " " + "is selected";
+                iList = i.getInventoryByItemcode(TxtId.Text);
+                datagridBind(iList);
+            }
+            else if (ChbId.Checked == false && ChbCatagory.Checked == true && DdlCatagory.SelectedValue != "All")
+            {
+                LblMsg.Text = "*Catagory" + " " + "\"" + DdlCatagory.SelectedItem.Text + "\" " + "is selected";
+                iList = i.getInventoryByCatagory(DdlCatagory.SelectedItem.Text);
+
+                LblReorderQtyD.Text = Convert.ToString(iList[0].ReorderQty);
+                LblReorderD.Text = Convert.ToString(iList[0].ReorderLevel);
+                LblUOMD.Text = iList[0].UOM;
+                LblIdD.Text = iList[0].CategoryID;
+                LblCatNameD.Text = i.getCatalogue(DdlCatagory.SelectedItem.Text).CatalogueName;
+
+                datagridBind(iList);
+            }
+            else if (ChbId.Checked == false && ChbCatagory.Checked == true && DdlCatagory.SelectedValue == "All")
+            {
+                gridBind();
+            }
+        }
+
+        
     }
 }

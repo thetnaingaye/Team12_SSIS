@@ -29,7 +29,9 @@
                       <asp:Label ID="LblInput" runat="server"   Text="Enter Item Code:" Style="padding-right: 10px" ></asp:Label>
                       <asp:TextBox ID="TxtId" runat="server" Height="20px" Width="180px"></asp:TextBox>
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <asp:Button ID="BtnFind" runat="server" CssClass="auto-style1" Text="Find Transaction Details" OnClick="BtnFind_Click" Width="180px"  />
+                      <asp:Button ID="BtnFind" runat="server" CssClass="btn btn-primary btn-xs" Text="Find Transaction Details" OnClick="BtnFind_Click" Width="180px"  />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="..." />
                         <br />
                       </td>
                       <td>
@@ -86,11 +88,11 @@
                             <asp:UpdatePanel ID="Up1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
                                 <ContentTemplate>
                
-                  <asp:GridView ID="GridViewStockCard" runat="server" AutoGenerateColumns="False"
+                  <asp:GridView ID="GridViewStockCard" Class="table" runat="server" AutoGenerateColumns="False"
                                         Style="width:100%;padding-top:50px" ShowHeaderWhenEmpty="True"
                                         OnRowDataBound="GridViewStockCard_RowDataBound"
                                         CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID" >
-                                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                        <AlternatingRowStyle BackColor="#f9f9f9"  />
                                         <Columns>
 
                                         <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
@@ -138,7 +140,7 @@
                                             <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
                                          </Columns>
-                      <EditRowStyle BackColor="#999999" />
+                     <%-- <EditRowStyle BackColor="#999999" />
                                         <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
                                         <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
                                         <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
@@ -147,7 +149,7 @@
                                         <SortedAscendingCellStyle BackColor="#E9E7E2" />
                                         <SortedAscendingHeaderStyle BackColor="#506C8C" />
                                         <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />--%>
 
 
                                     </asp:GridView>
