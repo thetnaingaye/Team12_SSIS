@@ -1820,7 +1820,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public int CreateAdjustmentVoucherRequest(string clerkName, DateTime dateRequested)
+        public static int CreateAdjustmentVoucherRequest(string clerkName, DateTime dateRequested)
         {
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
@@ -1835,7 +1835,7 @@ namespace Team12_SSIS.BusinessLogic
                 return aVRequest.AVRID;
             }
         }
-        public void CreateAdjustmentVoucherRequestDetails(int avrId, string itemId, string type, int quantity, string uom, string reason, double unitPrice)
+        public static void CreateAdjustmentVoucherRequestDetails(int avrId, string itemId, string type, int quantity, string uom, string reason, double unitPrice)
         {
             using(SA45Team12AD ctx = new SA45Team12AD())
             {
@@ -1907,7 +1907,7 @@ namespace Team12_SSIS.BusinessLogic
             return success;
         }
 
-        public void SendAdjRequentEmail(int avRId, bool isAbove250, string clerkName)
+        public static void SendAdjRequentEmail(int avRId, bool isAbove250, string clerkName)
         {
             List<MembershipUser> userList = Utility.Utility.GetListOfMembershipUsers();
             string[] approveAuthList = isAbove250 ? Roles.GetUsersInRole("Manager") : Roles.GetUsersInRole("Supervisor");
@@ -1923,7 +1923,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        private void UpdateAdjustmentVoucherApprovingOfficer(int avRId, bool isAbove250)
+        private static void UpdateAdjustmentVoucherApprovingOfficer(int avRId, bool isAbove250)
         {
             using(SA45Team12AD ctx = new SA45Team12AD())
             {

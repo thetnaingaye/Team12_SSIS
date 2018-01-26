@@ -99,10 +99,9 @@ namespace Team12_SSIS.StoreClerk
 
         protected void BtnSendReq_Click(object sender, EventArgs e)
         {
-            InventoryLogic il = new InventoryLogic();
             List<AVRequestDetail> adjDetailList = new List<AVRequestDetail>();
             string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
-            int avRId = il.CreateAdjustmentVoucherRequest(clerkName, DateTime.Now.Date);
+            int avRId = InventoryLogic.CreateAdjustmentVoucherRequest(clerkName, DateTime.Now.Date);
             bool isAbove250 = false;
 
             foreach (GridViewRow r in GridViewAdjV.Rows)
@@ -113,11 +112,11 @@ namespace Team12_SSIS.StoreClerk
                 string uom = (r.FindControl("LblUOM") as Label).Text;
                 string reason = (r.FindControl("TxtReason") as TextBox).Text;
                 double unitPrice = InventoryLogic.GetInventoryPrice(itemID); 
-                il.CreateAdjustmentVoucherRequestDetails(avRId, itemID, type, quantity, uom, reason, unitPrice);
+                InventoryLogic.CreateAdjustmentVoucherRequestDetails(avRId, itemID, type, quantity, uom, reason, unitPrice);
                 isAbove250 = (quantity * unitPrice > 250 ? true : false);
             }
 
-            il.SendAdjRequentEmail(avRId, isAbove250, clerkName);
+            InventoryLogic.SendAdjRequentEmail(avRId, isAbove250, clerkName);
 
             Session["AdjustVID"] = avRId;
             Server.Transfer("ViewAdjustmentVoucherDetails.aspx", true);
