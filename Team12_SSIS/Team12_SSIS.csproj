@@ -141,7 +141,6 @@
     <Content Include="Images\birds3.jpg" />
     <Content Include="Images\brandimg.png" />
     <Content Include="Images\logo.png" />
-    <Content Include="DepartmentEmployee\CheckOutRequest.aspx" />
     <Content Include="Images\logosmall.png" />
     <Content Include="Logout.aspx" />
     <Content Include="packages.config" />
@@ -242,13 +241,6 @@
     </Compile>
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DepartmentEmployee\CheckOutRequest.aspx.cs">
-      <DependentUpon>CheckOutRequest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DepartmentEmployee\CheckOutRequest.aspx.designer.cs">
-      <DependentUpon>CheckOutRequest.aspx</DependentUpon>
     </Compile>
     <Compile Include="DepartmentEmployee\CreateRequisitionForm.aspx.cs">
       <DependentUpon>CreateRequisitionForm.aspx</DependentUpon>

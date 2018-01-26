@@ -25,7 +25,7 @@
         </tr>
         <tr>
             <td colspan="12">
-                <asp:GridView ID="GridViewSupplier" runat="server" AutoGenerateColumns="False"
+                <asp:GridView ID="GridViewSupplier" class="table" runat="server" AutoGenerateColumns="False" 
                     Style="width: 100%"
                     AllowPaging="True" PageSize="8" OnPageIndexChanging="GridViewSupplier_PageIndexChanging"
                     CellPadding="4" ForeColor="#333333" 
@@ -34,7 +34,7 @@
                     OnRowEditing="GridViewSupplier_RowEditing"
                     OnRowUpdating="GridViewSupplier_RowUpdating"
                     DataKeyNames="SupplierID">
-                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                    <AlternatingRowStyle BackColor="#f9f9f9"  />
                     <pagersettings mode="Numeric" position="Bottom"   />
                     <Columns>
                         
