@@ -618,7 +618,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TempImageFiles\" />
+    <Folder Include="Utility\TempImageFiles\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

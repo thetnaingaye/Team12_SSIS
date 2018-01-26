@@ -119,9 +119,11 @@ namespace Team12_SSIS.StoreClerk
 			{
 				if (Int32.TryParse(TxtProportional.Text, out proportional))
 				{
-					//Write Code for proportional buffer stock here
-					statusMessage.Text = "The buffer stock level has been changed to ";
-					statusMessage.Visible = true;
+                    // From Khair with love ~
+                    PurchasingLogic.SetProportionalBFS(TxtItemCode.Text, proportional);
+                    AutomationStatusLbl.Text = "The current buffer stock level is " + PurchasingLogic.GetCurrentBufferStock(TxtItemCode.Text) + ".";
+                    statusMessage.Text = "The buffer stock level has been changed to be " + proportional + "% of the item's forecasted value.";
+                    statusMessage.Visible = true;
 					statusMessage.ForeColor = Color.Green;
 				}
 				else
@@ -133,8 +135,13 @@ namespace Team12_SSIS.StoreClerk
 			}
 			else if(AutomationRbtn.Checked)
 			{
-				//Write code for automation here
-			}
+                // From Khair with love ~
+                AutomationLogic.SetAutomatedlBFS(TxtItemCode.Text);
+                AutomationStatusLbl.Text = "The current buffer stock level is " + PurchasingLogic.GetCurrentBufferStock(TxtItemCode.Text) + ".";
+                statusMessage.Text = "The buffer stock level has been changed to be 10% of the item's forecasted value.";
+                statusMessage.Visible = true;
+                statusMessage.ForeColor = Color.Green;
+            }
 			else
 			{
 				statusMessage.Text = "Please choose an option.";

@@ -14,6 +14,7 @@ namespace Team12_SSIS.Model
         private string departmentID;
         private int requestedQty;
         private int actualQty;
+        private bool isOverride = false;
 
 
         // Constructor
@@ -63,6 +64,12 @@ namespace Team12_SSIS.Model
         {
             get { return actualQty; }
             set { actualQty = value; }
+        }
+
+        public bool IsOverride
+        {
+            get { return isOverride; }
+            set { isOverride = value; }
         }
     }
 }
