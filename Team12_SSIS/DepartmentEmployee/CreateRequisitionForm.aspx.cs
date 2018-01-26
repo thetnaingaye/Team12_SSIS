@@ -55,7 +55,7 @@ namespace Team12_SSIS.DepartmentEmployee
         protected void GridViewRequisitionForm_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             List<RequisitionRecordDetail> rList = (List<RequisitionRecordDetail>) Session["CartList"];
-            if(e.Row.RowType == DataControlRowType.DataRow && (RequisitionRecordDetail)e.Row.DataItem != null 
+            if(e.Row.RowType == DataControlRowType.DataRow && (RequisitionRecordDetail)e.Row.DataItem != null
                 && rList.Count < 2)
             {
                 RequisitionRecordDetail r = (RequisitionRecordDetail)e.Row.DataItem;

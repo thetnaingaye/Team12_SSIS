@@ -74,7 +74,7 @@ namespace Team12_SSIS.BusinessLogic
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
-                return entities.InventoryCatalogues.Where(i => i.ItemID.Contains(value) || i.CategoryID.Contains(value)).ToList();
+                return entities.InventoryCatalogues.Where(i => i.ItemID.Contains(value) || i.Description.Contains(value) || i.CategoryID.Contains(value)).ToList();
             }
         }
 
