@@ -109,6 +109,25 @@ namespace Team12_SSIS.DepartmentEmployee
                 LblCount.Text = "You cannot request this item twice.";
                 LblCount.ForeColor = Color.Red;
             }
+
+            //On click of Add Request button. We want to collect the qty information into a List.
+            List<RequisitionRecordDetail> reqQtyList = new List<RequisitionRecordDetail>();
+            foreach (GridViewRow r in GridViewCheckOut.Rows)
+            {
+                RequisitionRecordDetail rrd = new RequisitionRecordDetail();
+                TextBox txtReqQty = r.FindControl("TxtRequestedQuantity") as TextBox;
+                Label lblitemDesc = r.FindControl("LblItemID") as Label;
+                int reqQtyInt;
+                bool isInteger = int.TryParse(txtReqQty.Text, out reqQtyInt);
+
+                if (!isInteger)
+                    return;
+
+                rrd.ItemID = txtReqQty.Text;
+                rrd.RequestedQuantity = isInteger == true ? reqQtyInt : 0;
+                reqQtyList.Add(rrd);
+                Session["ReqQuantity"] = reqQtyList;
+            }
         }
 
         protected void BtnCheckOut_Click(object sender, EventArgs e)
@@ -175,29 +194,16 @@ namespace Team12_SSIS.DepartmentEmployee
 
         protected void GridViewCheckOut_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            List<RequisitionRecordDetail> reqQtyList = (List<RequisitionRecordDetail>)Session["ReqQuantity"];
             //To cheat
             //Loop through the GridViewRow
             //Create List<int>, assign the quantity into the list.
             //OnRowDataBound for botton GridView, foreach int in List<int>, assign the value back to the TxtBox
-            
-            
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                List<int> QuantityList = new List<int>();
-                for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
-                {
-                    TextBox txtReqQty = GridViewCheckOut.Rows[i].FindControl("TxtRequestedQuantity") as TextBox;
-                    int inputQty = Convert.ToInt32(txtReqQty.Text);
-                    QuantityList.Add(inputQty);
-                }
-
-            
-
-                for (int n = 0; n < QuantityList.Count; n++)
-                {
-                    int quantity = QuantityList[n];
-                    (GridViewCheckOut.Rows[n].FindControl("TxtRequestedQuantity") as TextBox).Text = quantity.ToString();
-                }
+                Label lblItemId = e.Row.FindControl("LblItemID") as Label;
+                TextBox txtReqQty = e.Row.FindControl("TxtRequestedQuantity") as TextBox;
+                txtReqQty.Text = reqQtyList.Where(x => x.ItemID == lblItemId.Text).Select(x => x.RequestedQuantity).FirstOrDefault().ToString();
             }
         }
     }

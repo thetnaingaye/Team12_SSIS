@@ -6,7 +6,7 @@
     <table style="width: 100%">
         <tr>
             <td>
-                <asp:LinkButton ID="LinkButtonCreate" runat="server" Text="Create New Supplier" OnClick="LinkButtonCreate_Click" />
+                <asp:Button ID="BtnCreate" cssclass="btn btn-primary" runat="server" Text="Create" OnClick="LinkButtonCreate_Click" />
                 </td>
             </tr>
         <tr>
@@ -15,8 +15,10 @@
         </tr>
         <tr>
             <td>
+                <div style="float: right"; vertical-align: middle" >
                 <asp:TextBox ID="TxtSearch" placeholder="Search Supplier" runat="server"></asp:TextBox>
-                <asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
+                <asp:Button ID="BtnSearch" cssclass="btn btn-primary" runat="server" Text="Search" OnClick="BtnSearch_Click" />
+                </div>
             </td>
         </tr>
         <tr>
@@ -129,9 +131,9 @@
                         </asp:TemplateField>
                         
                         <asp:CommandField ButtonType="Button"  ShowEditButton="True" HeaderText ="Edit" 
-                            EditText="Edit" UpdateText="Update" CancelText="Cancel">
-                            <HeaderStyle CssClass="text-center" />
+                            EditText="Edit" UpdateText="Update" CancelText="Cancel"><ControlStyle cssClass="btn btn-primary btn-xs" />
                         </asp:CommandField>
+
                     </Columns>
                     
                     <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
