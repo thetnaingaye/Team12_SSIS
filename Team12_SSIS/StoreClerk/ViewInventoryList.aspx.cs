@@ -39,35 +39,35 @@ namespace Team12_SSIS.StoreClerk
             allList = i.GetAllCatalogue();
             datagridBind(allList);
         }
-        protected void Rbtn_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        //protected void Rbtn_SelectedIndexChanged(object sender, EventArgs e)
+        //{
 
-            if (RbtnFilter.SelectedItem.Value == "1")
-            {
+        //    if (RbtnFilter.SelectedItem.Value == "1")
+        //    {
 
-                DdlCatagory.Enabled = false;
-                TxtId.Enabled = true;
-
-
-            }
-            else if (RbtnFilter.SelectedItem.Value == "2")
-            {
-                TxtId.Text = string.Empty;
-                TxtId.Enabled = false;
-                DdlCatagory.Enabled = true;
+        //        DdlCatagory.Enabled = false;
+        //        TxtId.Enabled = true;
 
 
-            }
-            else if (RbtnFilter.SelectedItem.Value == "3")
-            {
-                LblMsg.Visible = false; ;
-                gridBind();
-            }
-            else
-            {
-                LblMsg.Text = "Please Select";
-            }
-        }
+        //    }
+        //    else if (RbtnFilter.SelectedItem.Value == "2")
+        //    {
+        //        TxtId.Text = string.Empty;
+        //        TxtId.Enabled = false;
+        //        DdlCatagory.Enabled = true;
+
+
+        //    }
+        //    else if (RbtnFilter.SelectedItem.Value == "3")
+        //    {
+        //        LblMsg.Visible = false; ;
+        //        gridBind();
+        //    }
+        //    else
+        //    {
+        //        LblMsg.Text = "Please Select";
+        //    }
+        //}
 
 
         protected void BtnCatagory_Click(object sender, EventArgs e)

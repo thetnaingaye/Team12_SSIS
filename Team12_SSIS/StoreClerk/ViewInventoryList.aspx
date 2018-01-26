@@ -30,41 +30,53 @@
         {
             color: Red;
         }
+         .auto-style2 {
+             width: 179px;
+         }
+         .auto-style4 {
+             width: 211px;
+         }
+         .auto-style5 {
+             width: 757px;
+         }
     </style>
 </asp:Content>
 
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-    <asp:Label ID="LblTitle" runat="server" Text="Inventory List" Font-Size="Large"></asp:Label>
-    <br />
-    <br />
-    <asp:Label ID="LblInput" runat="server" Text="Choose item to filter the inventory list:"   CellPadding="10" CellSpacing="10"></asp:Label>
-    <asp:RadioButtonList ID="RbtnFilter" runat="server" AutoPostBack="True"  CellSpacing="30" 
-        OnSelectedIndexChanged="Rbtn_SelectedIndexChanged" RepeatDirection="Horizontal" margin-rigt="80px">
-          <asp:ListItem Text="Item Code" Value="1"    />
-         <asp:ListItem Text="Catagory" Value="2"    />
-      
-        <asp:ListItem Value="3" >All</asp:ListItem>
-    </asp:RadioButtonList>
+    <div>
+        <asp:Label ID="LblTitle" runat="server" Text="Inventory List" Font-Size="Large"></asp:Label>
+    </div>
+     
+    <table class="auto-style5">
+        <tr>
+            <td >
+                 <asp:Label ID="LblItemCode" runat="server" Text="Item Code:"></asp:Label>
    
-
+    &nbsp;
    
-    <br />
-    <asp:Label ID="LblItemCode" runat="server" Text="Item Code:"></asp:Label>
-    <asp:TextBox ID="TxtId" runat="server"></asp:TextBox>
-    &nbsp;&nbsp;&nbsp;
-    <asp:Button ID="BtnId" runat="server" Text="SUBMIT" OnClick="BtnId_Click"  />
-    <br />
-      <br />
-      <asp:Label ID="LblCatagory" runat="server" Text="Catagory:"></asp:Label>
-    &nbsp;<asp:DropDownList ID="DdlCatagory" runat="server">
+    <asp:TextBox ID="TxtId" runat="server" Width="189px"></asp:TextBox>
+            </td>
+            <td class="auto-style4">
+                <asp:Label ID="LblCatagory" runat="server" Text="Catagory:"></asp:Label>
+  &nbsp;
+  <asp:DropDownList ID="DdlCatagory" runat="server">
     </asp:DropDownList>
-&nbsp;&nbsp;&nbsp;
-    <asp:Button ID="BtnCatagory" runat="server" Text="SUBMIT" OnClick="BtnCatagory_Click" />
-    <br />
-    <br />
+            </td>
+            <td>
+                <asp:Button ID="BtnSearch" runat="server" Text="SEARCH" OnClick="BtnCatagory_Click" Width="100px" />
+            </td>
+        </tr>
+        
+    </table>
+
+
+
+
+
+
+
 
       <div>
         <table style="width: 100%">
@@ -210,3 +222,37 @@
     <br />
     <asp:Label ID="LblMsg" runat="server" Text="" ForeColor="Green"></asp:Label>
     </asp:Content>
+
+
+
+
+
+
+   
+   <%-- <br />
+    <br />
+    <asp:Label ID="LblInput" runat="server" Text="Choose item to filter the inventory list:"   CellPadding="10" CellSpacing="10"></asp:Label>
+    <asp:RadioButtonList ID="RbtnFilter" runat="server" AutoPostBack="True"  CellSpacing="30" 
+        OnSelectedIndexChanged="Rbtn_SelectedIndexChanged" RepeatDirection="Horizontal" margin-rigt="80px">
+          <asp:ListItem Text="Item Code" Value="1"    />
+         <asp:ListItem Text="Catagory" Value="2"    />
+      
+        <asp:ListItem Value="3" >All</asp:ListItem>
+    </asp:RadioButtonList>
+   
+
+   
+    <br />
+    <asp:Label ID="LblItemCode" runat="server" Text="Item Code:"></asp:Label>
+    <asp:TextBox ID="TxtId" runat="server"></asp:TextBox>
+    &nbsp;&nbsp;&nbsp;
+    <asp:Button ID="BtnId" runat="server" Text="SUBMIT" OnClick="BtnId_Click"  />
+    <br />
+      <br />
+      <asp:Label ID="LblCatagory" runat="server" Text="Catagory:"></asp:Label>
+    &nbsp;<asp:DropDownList ID="DdlCatagory" runat="server">
+    </asp:DropDownList>
+&nbsp;&nbsp;&nbsp;
+    <asp:Button ID="BtnCatagory" runat="server" Text="SUBMIT" OnClick="BtnCatagory_Click" />
+    <br />
+    <br />--%>
