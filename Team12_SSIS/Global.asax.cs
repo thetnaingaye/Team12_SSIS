@@ -17,8 +17,7 @@ namespace Team12_SSIS
     public class Global : System.Web.HttpApplication
     {
 
-
-        protected void Application_Start(object sender, EventArgs e)
+		protected void Application_Start(object sender, EventArgs e)
 		{
 			Application["count"] = 0;
 			Thread thread = new Thread(new ThreadStart(ThreadFunc));
@@ -152,14 +151,15 @@ namespace Team12_SSIS
 			}
 		}
 
-        protected void Application_BeginRequest(object sender, EventArgs e)
+
+		protected void Session_Start(object sender, EventArgs e)
         {
 
         }
 
-
-		protected void Session_Start(object sender, EventArgs e)
+        protected void Application_BeginRequest(object sender, EventArgs e)
         {
+
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
