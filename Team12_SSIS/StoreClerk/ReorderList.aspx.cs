@@ -64,7 +64,7 @@ namespace Team12_SSIS.StoreClerk
 
             if (temp != null && temp.Count > 0)
             {
-                string s = p.CreateMultiplePO(temp);
+                string s = PurchasingLogic.CreateMultiplePO(temp);
 
                 if (s.Contains("successfully"))
                 {

@@ -54,6 +54,11 @@ namespace Team12_SSIS.StoreClerk
             return InventoryLogic.GetTotalQtyNeeded(itemID).ToString();
         }
 
+        public string GetExistingQuantity(string itemID)
+        {
+            return InventoryLogic.GetQuantity(itemID).ToString();
+        }
+
         // Identifying dept name
         public string GetDepartmentName(string deptID)
         {

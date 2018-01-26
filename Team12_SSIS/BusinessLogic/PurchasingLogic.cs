@@ -87,7 +87,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Create multiple PO from a list of reorder records
-        public string CreateMultiplePO(List<ReorderRecord> tempList)
+        public static string CreateMultiplePO(List<ReorderRecord> tempList)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -123,7 +123,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Creating a single PO entry
-        public bool CreateSinglePO(ReorderRecord r)
+        public static bool CreateSinglePO(ReorderRecord r)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -153,7 +153,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Creating a single PODetails entry
-        public bool CreateSinglePODetails(ReorderRecord r)
+        public static bool CreateSinglePODetails(ReorderRecord r)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {

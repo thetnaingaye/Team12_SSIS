@@ -36,12 +36,28 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // End of business day method
-        public static void BeginEndOfDayProcesses()
+        public static void BeginEndOfDayProcesses(object sender, System.Timers.ElapsedEventArgs e)
         {
-            using (SA45Team12AD context = new SA45Team12AD())
+            int x = 26;
+            bool s = false;
+            do
             {
-
+                if (DateTime.Now.Minute.Equals(x))
+                {
+                    using (SA45Team12AD context = new SA45Team12AD())
+                    {
+                        List<ReorderRecord> r = context.ReorderRecords.ToList();
+                        PurchasingLogic.CreateMultiplePO(r);
+                    }
+                }
+                else
+                {
+                    int tempN = DateTime.Now.Minute;
+                    int rem = (x - tempN) * 60;
+                    System.Threading.Thread.Sleep(1000 * rem);
+                }
             }
+            while (!s);
         }
 
     }
