@@ -85,13 +85,13 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label LblSli;
         
         /// <summary>
-        /// LblCode control.
+        /// LblSupplier control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblCode;
+        protected global::System.Web.UI.WebControls.Label LblSupplier;
         
         /// <summary>
         /// LblDlt control.
@@ -202,12 +202,12 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label totLbl;
         
         /// <summary>
-        /// totalLbl control.
+        /// LblTotal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label totalLbl;
+        protected global::System.Web.UI.WebControls.Label LblTotal;
     }
 }

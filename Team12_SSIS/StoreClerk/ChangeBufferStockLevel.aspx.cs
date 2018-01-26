@@ -15,6 +15,7 @@ namespace Team12_SSIS.StoreClerk
 		Label statusMessage;
 		protected void Page_Load(object sender, EventArgs e)
         {
+			
 			statusMessage = this.Master.FindControl("LblStatus") as Label;
 			if (!IsPostBack)
 			{
@@ -95,6 +96,7 @@ namespace Team12_SSIS.StoreClerk
 		protected void SaveBtn_Click(object sender, EventArgs e)
 		{
 			int newbufferstocklevel;
+			int proportional;
 			if(AbsoluteRbtn.Checked)
 			{
 				if(Int32.TryParse(TxtAbsolute.Text,out newbufferstocklevel))
@@ -113,6 +115,41 @@ namespace Team12_SSIS.StoreClerk
 				}
 
 			}
+			else if(ProportionalRbtn.Checked)
+			{
+				if (Int32.TryParse(TxtProportional.Text, out proportional))
+				{
+                    // From Khair with love ~
+                    PurchasingLogic.SetProportionalBFS(TxtItemCode.Text, proportional);
+                    AutomationStatusLbl.Text = "The current buffer stock level is " + PurchasingLogic.GetCurrentBufferStock(TxtItemCode.Text) + ".";
+                    statusMessage.Text = "The buffer stock level has been changed to be " + proportional + "% of the item's forecasted value.";
+                    statusMessage.Visible = true;
+					statusMessage.ForeColor = Color.Green;
+				}
+				else
+				{
+					statusMessage.Text = "Please enter a positive integer or 0.";
+					statusMessage.Visible = true;
+					statusMessage.ForeColor = Color.Red;
+				}
+			}
+			else if(AutomationRbtn.Checked)
+			{
+                // From Khair with love ~
+                AutomationLogic.SetAutomatedlBFS(TxtItemCode.Text);
+                AutomationStatusLbl.Text = "The current buffer stock level is " + PurchasingLogic.GetCurrentBufferStock(TxtItemCode.Text) + ".";
+                statusMessage.Text = "The buffer stock level has been changed to be 10% of the item's forecasted value.";
+                statusMessage.Visible = true;
+                statusMessage.ForeColor = Color.Green;
+            }
+			else
+			{
+				statusMessage.Text = "Please choose an option.";
+				statusMessage.Visible = true;
+				statusMessage.ForeColor = Color.Red;
+			}
+			TxtAbsolute.Text = "";
+			TxtProportional.Text = "";
 		}
 	}
 }

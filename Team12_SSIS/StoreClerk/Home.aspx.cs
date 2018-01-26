@@ -57,12 +57,18 @@ namespace Team12_SSIS.StoreClerk
 
         protected int GetReorders(String status)
         {
-            
-            using (SA45Team12AD ctx = new SA45Team12AD())
+
+            List<ReorderRecord> list = new PurchasingLogic().PopulateReorderTable();
+
+            if (list == null)
+            { return 0; }
+            else
             {
-                return ctx.ReorderRecords.ToList().Count();
+                return list.Count;
             }
-           
+
+
+
         }
         protected int GetDeliveryOrders(String status)
         {
