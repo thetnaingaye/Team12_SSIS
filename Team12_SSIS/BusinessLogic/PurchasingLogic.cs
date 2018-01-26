@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using Team12_SSIS.Model;
+using Team12_SSIS.Utility;
 
 namespace Team12_SSIS.BusinessLogic
 {
@@ -539,6 +540,10 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        internal static PORecord GetPurchaseOrderRecord(object poNo)
+        {
+            throw new NotImplementedException();
+        }
 
         private bool IsPOCompleted(int itemCount, int poNumber)
         {
@@ -598,6 +603,15 @@ namespace Team12_SSIS.BusinessLogic
                 return ctx.PORecords.FirstOrDefault(x => x.PONumber == poNumber);
         }
 
+        //public int GetPendingPONumber(string status)
+        //{
+        //    using (SA45Team12AD context = new SA45Team12AD())
+
+
+                // return (context.PORecords.FirstOrDefault(x => x.PONumber == poNumber));
+                //return context.PORecords.Where(x => x.Status.Equals("Pending"));
+
+        //}
         public void CreateGoodsReceiptDetails(int grNumber, string itemID, int quantity, string uom, string remarks)
         {
             GoodReceiptDetail grd = new GoodReceiptDetail();
@@ -818,15 +832,21 @@ namespace Team12_SSIS.BusinessLogic
 
 
         //--- Jianing Here
-        public static void AddText(string Deliverto, string Address)
+        public static int AddText(string Deliverto, string Address ,string SupplierID,DateTime RequestedDate,string userName,DateTime ExpectedBy)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 PORecord poRecord = new PORecord();
                 poRecord.RecipientName = Deliverto;
                 poRecord.DeliveryAddress = Address;
+                poRecord.SupplierID = SupplierID;
+                poRecord.Status = "Pending";
+                poRecord.DateRequested = RequestedDate;
+                poRecord.CreatedBy = userName;
+                poRecord.ExpectedDelivery = ExpectedBy;
                 entities.PORecords.Add(poRecord);
                 entities.SaveChanges();
+                return poRecord.PONumber;
 
 
             }
@@ -852,7 +872,7 @@ namespace Team12_SSIS.BusinessLogic
                     
             }
         }
-
+        
         public static List<PORecord> ListPORecords()
         {
             using (SA45Team12AD entities = new SA45Team12AD())
@@ -862,7 +882,42 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-      
+        public void CreatePurchaseOrderDetails(int poNumber,string itemId, int quantity, string uom,  double unitPrice)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                PORecordDetail poRecordDetail = new PORecordDetail
+                { PONumber = poNumber,
+
+                    ItemID = itemId,
+                   
+                    Quantity = quantity,
+                    UOM = uom,
+                    UnitPrice = unitPrice,
+                };
+                entities.PORecordDetails.Add(poRecordDetail);
+                entities.SaveChanges();
+            }
+        }
+        public static void UpdatePurchaseOrderStatus(int poNumber, string status ,DateTime dateProcessed, string handledBy)
+        {
+            string email = "";
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                PORecord po = entities.PORecords.Where(x => x.PONumber == poNumber).FirstOrDefault();
+                po.Status = status;
+                po.DateProcessed = dateProcessed;
+                po.HandledBy = handledBy;
+                entities.SaveChanges();
+                email = Utility.Utility.GetUserEmailAddress(po.CreatedBy);
+            }
+
+            using (EmailControl em = new EmailControl())
+            {
+                em.ChangeInPurchaseOrderStatusNotification(email, poNumber.ToString(), dateProcessed.ToString("d"), status);
+            }
+        }
+
         public static PORecord GetPurchaseOrderRecord(int poNo)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
@@ -914,6 +969,18 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        public static bool Submitforapproval(int poNo)
+        {
+            bool success = true;
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                PORecord poRecord = entities.PORecords.FirstOrDefault(x => x.PONumber == poNo);
+                
+                entities.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
 
         public static bool CancelPORecordRequest(int poNo)
         {

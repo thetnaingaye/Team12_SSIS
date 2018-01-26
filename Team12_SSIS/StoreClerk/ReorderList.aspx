@@ -4,7 +4,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
-        <h1>Reorder List</h1>
+        <h1>System-Generated Order List</h1>
         <h5><%#:DateTime.Now %></h5>
         <asp:Label ID="LblMessage" runat="server" Text=""></asp:Label>
     </div>

@@ -57,7 +57,7 @@
                                     <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False"
                                         Style="width:100%" ShowHeaderWhenEmpty="True"
                                         OnRowDataBound="OnRowDataBound"
-                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID" OnSelectedIndexChanged="GridViewAdjV_SelectedIndexChanged">
+                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID">
                                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                         <Columns>
 

@@ -47,8 +47,7 @@ namespace Team12_SSIS.StoreClerk
         protected void BtnCancelDis_Click(object sender, EventArgs e)
         {
             int disbursementId = (int)Session["DisbId"];
-            DisbursementLogic dL = new DisbursementLogic();
-            dL.UpdateDisbursementStatus(disbursementId, "Cancelled");
+            DisbursementLogic.UpdateDisbursementStatus(disbursementId, "Cancelled");
             statusMessage.ForeColor = Color.Green;
             statusMessage.Text = "Disbursement List DL" + disbursementId.ToString("0000") + " Cancelled.";
 

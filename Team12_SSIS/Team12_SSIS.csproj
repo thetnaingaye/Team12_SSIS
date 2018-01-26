@@ -178,6 +178,7 @@
     <Content Include="Style\bootstrap.css" />
     <Content Include="Style\bootstrap.min.css" />
     <Content Include="Style\Site.css" />
+    <Content Include="WebServices\AuthService.svc" />
     <Content Include="WebServices\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -612,13 +613,28 @@
     <Compile Include="Utility\Utility.cs" />
     <Compile Include="Utility\EmailControl.cs" />
     <Compile Include="Utility\Validator.cs" />
+    <Compile Include="WebServices\AuthService.svc.cs">
+      <DependentUpon>AuthService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WebServices\IAuthService.cs" />
     <Compile Include="WebServices\IService.cs" />
     <Compile Include="WebServices\Service.svc.cs">
       <DependentUpon>Service.svc</DependentUpon>
     </Compile>
+    <Compile Include="WebServices\UserIdentity.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_AdjustmentVoucher.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_AVRequest.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_AVRequestDetail.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_DisbursementList.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_DisbursementListDetail.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_InventoryCatalogue.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_InventoryRetrievalList.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_RequisitionRecord.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_RequisitionRecordDetail.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_StockCard.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TempImageFiles\" />
+    <Folder Include="Utility\TempImageFiles\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

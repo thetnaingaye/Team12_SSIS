@@ -20,7 +20,7 @@ namespace Team12_SSIS.StoreClerk
         }
         protected void BindGrid()
         {
-            List<PORecord> poRecordList = PurchasingLogic.GetListOfPurchaseOrder();
+            List<PORecord> poRecordList = PurchasingLogic.GetListOfPurchaseOrder("Pending");
             GridViewLPO.DataSource = poRecordList;
             GridViewLPO.DataBind();
         }
@@ -33,7 +33,7 @@ namespace Team12_SSIS.StoreClerk
         {
             if (e.CommandName == "ViewDetails")
             {
-                Session["PurchaseOrderNo"] = int.Parse(e.CommandArgument.ToString());
+                Session["PONumber"] = e.CommandArgument;
                 Server.Transfer("ViewPurchaseOrder.aspx", true);
             }
         }
@@ -55,5 +55,7 @@ namespace Team12_SSIS.StoreClerk
             double temp = p.FindTotalByPONum(Convert.ToInt32(poNum.ToString()));
             return temp.ToString("C0");
         }
+
+
     }
 }
