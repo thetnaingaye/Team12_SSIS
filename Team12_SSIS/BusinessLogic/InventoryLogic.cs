@@ -548,19 +548,19 @@ namespace Team12_SSIS.BusinessLogic
 
                 // Declare all our req variables
                 int existingQty = (int)item.UnitsInStock;
-                int reorderLvl = (int)item.ReorderLevel;
+                int unitsOnOrder = (int)item.UnitsOnOrder;
                 int reorderQty = (int)item.ReorderQty;    // aka min qty to make an order for the item
                 int bufferStock = (int)item.BufferStockLevel;
                 int orderLeadTime = (int)supp.OrderLeadTime;
 
 
                 // Since our order of operations is in weeks, gotta convert order lead time to weeks (ideally would be in days tho so no need convert :P)
-                int convertedOLT = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(orderLeadTime) / 7.0) + 1);
+                int convertedOLT = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(orderLeadTime) / 7.0) + 1);     // We add '1' cos we are looking up to the week after it.
 
                 // List to store our forecasted values according to their point of occurence
                 List<int> forecastList = new List<int>();
 
-                // Populating our list
+                // Populating our list with the relevant forecasted value
                 for (int i = 0; i < convertedOLT; i++)
                 {
                     forecastList.Add(prediction[i].ForecastedDemand);
@@ -574,13 +574,14 @@ namespace Team12_SSIS.BusinessLogic
                 }
 
                 // Send an order request if incapable of supporting of meeting the forecasted demand for the week after next
-                if (forecastList[forecastList.Count] >= (existingQty - totalDd))
+                if (forecastList[forecastList.Count - 1] >= ((existingQty - bufferStock) - totalDd))
                 {
+                    // Det how much to order
+                    int orderQty = (forecastList[forecastList.Count - 1] - ((existingQty - bufferStock) - totalDd));
+
                     ReorderRecord r = new ReorderRecord();
                     r.ItemID = itemID;
                     r.SupplierID = supCat.SupplierID;
-
-                    int orderQty = (forecastList[forecastList.Count] - (existingQty - totalDd));
 
                     if (orderQty > reorderQty)
                     {

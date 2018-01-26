@@ -1529,6 +1529,7 @@ namespace Team12_SSIS.BusinessLogic
 			{
 				InventoryCatalogue inventory = entities.InventoryCatalogues.Where(x => x.ItemID == itemid).Single();
 				inventory.BufferStockLevel = newbufferstocklevel;
+                inventory.BFSProportion = 0;
 				entities.SaveChanges();
 			}
 		}
