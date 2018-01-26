@@ -64,7 +64,7 @@ namespace Team12_SSIS.StoreClerk
 
             
             // Retrieve details list
-            var tempList = r.RetrieveRequisitionRecordDetails(reqID, "Processed");
+            var tempList = RequisitionLogic.RetrieveRequisitionRecordDetails(reqID, "Processed");
             if (tempList.Count() != 0)
             {
                 // Populating the labels associated with the gridview
