@@ -2010,32 +2010,32 @@ namespace Team12_SSIS.BusinessLogic
 			return null;
 		}
 
-		public static void UpdateDeptRep(String newrepfullname, String dept)
-		{
-			Roles.AddUserToRole(GetDeptRepUserName(GetCurrentDep()), "Employee");
-			Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
-			Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
-			Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
+        public static void UpdateDeptRep(String newrepfullname, String dept)
+        {
+            Roles.AddUserToRole(GetDeptRepUserName(GetCurrentDep()), "Employee");
+            Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
+            Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
+            Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
 
-			using(EmailControl em = new EmailControl())
-			{
-				List<string> allemails = new List<string>();
-				List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
-				List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
-				foreach(string s in clerkemails)
-				{
-					allemails.Add(s);
-				}
-				foreach(string s in depusersemails)
-				{
-					allemails.Add(s);
-				}
+            using (EmailControl em = new EmailControl())
+            {
+                List<string> allemails = new List<string>();
+                List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+                List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
+                foreach (string s in clerkemails)
+                {
+                    allemails.Add(s);
+                }
+                foreach (string s in depusersemails)
+                {
+                    allemails.Add(s);
+                }
 
-				em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
-			}
-			
-			
-		}
-	}
+                em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
+            }
+
+
+        }
+    }
 
 }

@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(function () {
-            $("#datepicker").datepicker({dateFormat: "dd/mm/yy"}).datepicker("setDate", new Date());
+            $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" }).datepicker("setDate", new Date());
         });
     </script>
     <table style="width: 100%" class="center-block">
@@ -90,7 +90,6 @@
                                 <ItemTemplate>
                                     <asp:TextBox ID="TxtQty" runat="server" Width="100%" CssClass="center-block" Text='<%# Eval("Quantity") %>'></asp:TextBox>
                                 </ItemTemplate>
-
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
                             </asp:TemplateField>
 
@@ -129,7 +128,8 @@
             </td>
         </tr>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="3">
+                <asp:Label ID="LblQtyValid" runat="server"></asp:Label></td>
             <td colspan="2" style="align-items: center">
                 <asp:ValidationSummary ID="ValidatorSummary1" runat="server" ValidationGroup="BtnCreateGR" ForeColor="Red" />
                 <br />

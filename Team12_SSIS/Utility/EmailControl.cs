@@ -146,16 +146,16 @@ namespace Team12_SSIS.Utility
                 {
                     mail.To.Add(storeClerk);
                     client.Send(mail);
-
+                    success = true;
                 }
-                success = true;
-                return success;
             }
             catch (Exception e)
             {
                 throw new EmailControlException("CollectionRepChangeNotification Exception\n" + e.Message);
             }
+            return success;
         }
+
         public bool CollectionRepChangeNotification(string storeClerkEmailAddress, string departmentName, string newDepartmentRepName)
         {
             try
