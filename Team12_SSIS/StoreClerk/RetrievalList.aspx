@@ -34,7 +34,15 @@
                     <HeaderStyle CssClass="text-center" Font-Size="Smaller" Height="8%"></HeaderStyle>
                 </asp:TemplateField>
 
-                <asp:TemplateField HeaderText="Total Quantity">
+                <asp:TemplateField HeaderText="Existing Quantity">
+                    <ItemTemplate>
+                        <asp:Label ID="LblTotalExistingQuantity" runat="server" Text='<%#:GetExistingQuantity(Item.ItemID) %>'></asp:Label>
+                    </ItemTemplate>
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                    <HeaderStyle CssClass="text-center" Font-Size="Smaller" Height="8%"></HeaderStyle>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="Needed Quantity">
                     <ItemTemplate>
                         <asp:Label ID="LblTotalQtyNeeded" runat="server" Text='<%#:GetTotalQtyNeeded(Item.ItemID) %>'></asp:Label>
                     </ItemTemplate>

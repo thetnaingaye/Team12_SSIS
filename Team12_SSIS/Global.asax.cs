@@ -27,7 +27,7 @@ namespace Team12_SSIS
 			thread.Start();
 
             // Thread for auto running the reorder list
-            //Thread threadEndOfDay = new Thread(new ThreadStart(AutomationLogic.BeginEndOfDayProcesses));
+            //Thread threadEndOfDay = new Thread(new ThreadStart(ThreadFuncParam));
             //threadEndOfDay.IsBackground = true;
             //threadEndOfDay.Name = "ThreadEndOfDay";
             //threadEndOfDay.Start();
@@ -46,7 +46,17 @@ namespace Team12_SSIS
 			t.AutoReset = true;
 			t.Start();
 		}
-		protected void AddDeptHeadRoleToUserWithDateCheck(object sender, System.Timers.ElapsedEventArgs e)
+        protected void ThreadFuncParam()
+        {
+            System.Timers.Timer t = new System.Timers.Timer();
+            t.Elapsed += new System.Timers.ElapsedEventHandler(AutomationLogic.BeginEndOfDayProcesses);
+
+            t.Interval = 5000;
+            t.Enabled = true;
+            t.AutoReset = true;
+            t.Start();
+        }
+        protected void AddDeptHeadRoleToUserWithDateCheck(object sender, System.Timers.ElapsedEventArgs e)
 		{
 			List<Department> depwithdelegateslist = new List<Department>();
 			List<Department> deplist = new List<Department>();
