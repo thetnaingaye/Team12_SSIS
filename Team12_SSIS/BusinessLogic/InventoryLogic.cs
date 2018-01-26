@@ -1962,5 +1962,18 @@ namespace Team12_SSIS.BusinessLogic
             }
             return success;
         }
+
+        public static bool UpdateUnitsOnOrder(string itemId, int quantity)
+        {
+            bool success = false;
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryCatalogue ic = ctx.InventoryCatalogues.Where(x => x.ItemID.Equals(itemId)).FirstOrDefault();
+                ic.UnitsOnOrder += quantity;
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
     }
 }
