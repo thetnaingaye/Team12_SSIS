@@ -63,6 +63,16 @@ namespace Team12_SSIS
         {
             DisbursementLogic.SendCollectionReminder(DateTime.Now.Date);
         }
+        protected void ThreadFuncParam()
+        {
+            System.Timers.Timer t = new System.Timers.Timer();
+            t.Elapsed += new System.Timers.ElapsedEventHandler(AutomationLogic.BeginEndOfDayProcesses);
+
+            t.Interval = 5000;
+            t.Enabled = true;
+            t.AutoReset = true;
+            t.Start();
+        }
         protected void AddDeptHeadRoleToUserWithDateCheck(object sender, System.Timers.ElapsedEventArgs e)
 		{
 			List<Department> depwithdelegateslist = new List<Department>();
