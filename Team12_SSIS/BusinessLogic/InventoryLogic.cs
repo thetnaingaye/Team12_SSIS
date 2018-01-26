@@ -1689,14 +1689,16 @@ namespace Team12_SSIS.BusinessLogic
                 AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
               List<AVRequestDetail> avReqDetail= entity.AVRequestDetails.Where(x => x.AVRID == id).ToList<AVRequestDetail>();
 
-                //--------------------Iterating through each item to adjust the inventory stock------//
+                //--------------------Iterating through each item in the adjustment voucher request to adjust the inventory stock------//
                 for (int i = 0; i < avReqDetail.Count; i++)
                 {
                     string type = avReqDetail[i].Type;
                     int quantity = (int)avReqDetail[i].Quantity;
                     string itemId = avReqDetail[i].ItemID;
+                    string UOM = avReqDetail[i].UOM;
                     InventoryCatalogue inventory = entity.InventoryCatalogues.Where(X => X.ItemID == itemId).First<InventoryCatalogue>();
                     int stock = inventory.UnitsInStock;
+                    string Stockcarddescription = "Stock Adjustment";
                     switch (type)
                     {
 
@@ -1717,6 +1719,8 @@ namespace Team12_SSIS.BusinessLogic
                     }
                     inventory.UnitsInStock = stock;
                     entity.SaveChanges();
+                    //-----------------------------add the transaction to stock card-----------------------------------//
+                    CreatestockCard(itemId, DateTime.Today, Stockcarddescription, type, quantity, UOM, stock);
 
                 }
 
@@ -1724,6 +1728,30 @@ namespace Team12_SSIS.BusinessLogic
                 avReq.DateProcessed = DateTime.Today;
                 avReq.Remarks = remarks;
                 entity.SaveChanges();
+            }
+        }
+
+
+        //---------------------------------------------Create stockCard-----------------------------------------------------
+
+        public static void CreatestockCard(string itemid, DateTime transactionDate,string description,string type,int quantity,string uom,int balance)
+        {
+            using (SA45Team12AD entitiy = new SA45Team12AD())
+            {
+                StockCard stockcard = new StockCard
+                {
+                    ItemID= itemid,
+                    Date= transactionDate,
+                    Description= description,
+                    Type= type,
+                    Quantity= quantity,
+                    UOM=uom,
+                    Balance= balance
+
+                };
+                entitiy.StockCards.Add(stockcard);
+                entitiy.SaveChanges();
+              
             }
         }
 
