@@ -20,7 +20,8 @@ namespace Team12_SSIS.WebServices
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service.svc or Service.svc.cs at the Solution Explorer and start debugging.
     public class Service : IService
     {
-
+        //Chang Siang Codes 1-299
+        //Khiar Codes 300-999
         public List<string> GetUsersFromDept(string dept)
         {
             return DisbursementLogic.GetFullNamesFromDept(dept);
@@ -166,12 +167,12 @@ namespace Team12_SSIS.WebServices
                 (disbursementList.DisbursementID, disbursementList.Status);
         }
 
-        public void CreateInventoryRetrievalList(WCF_InventoryRetrievalList rList)
-        {
-            InventoryLogic iL = new InventoryLogic();
-            iL.CreateNewInventoryRetrievalEntry(rList.RequestID, rList.RequestDetailID, rList.ItemID, rList.DepartmentID, rList.RequestedQuantity, rList.ActualQuantity);
+        //public void CreateInventoryRetrievalList(WCF_InventoryRetrievalList rList)
+        //{
+        //    InventoryLogic iL = new InventoryLogic();
+        //    iL.CreateNewInventoryRetrievalEntry(rList.RequestID, rList.RequestDetailID, rList.ItemID, rList.DepartmentID, rList.RequestedQuantity, rList.ActualQuantity);
 
-        }
+        //}
 
         public void CreateAdjustmentRequest(WCF_AVRequest request)
         {
@@ -182,6 +183,131 @@ namespace Team12_SSIS.WebServices
                     (i.AVRID, i.ItemID, i.Type, i.Quantity, i.UOM, i.Reason, i.UnitPrice);
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //Khiar Codes
+
+
+
+
+
+
+
+
+
 
 
     }

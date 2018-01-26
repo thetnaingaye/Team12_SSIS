@@ -57,11 +57,11 @@ namespace Team12_SSIS.WebServices
             ResponseFormat = WebMessageFormat.Json)]
         void UpdateDisbursementStatus(WCF_DisbursementList disbursementList);
 
-        [OperationContract]
-        [WebInvoke(UriTemplate = "/CreateRetrievalList", Method = "POST",
-            RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json)]
-        void CreateInventoryRetrievalList(WCF_InventoryRetrievalList retrievalList);
+        //[OperationContract]
+        //[WebInvoke(UriTemplate = "/CreateRetrievalList", Method = "POST",
+        //    RequestFormat = WebMessageFormat.Json,
+        //    ResponseFormat = WebMessageFormat.Json)]
+        ////void CreateInventoryRetrievalList(WCF_InventoryRetrievalList retrievalList);
         [OperationContract]
         [WebInvoke(UriTemplate = "/CreateAVRequest", Method = "POST",
             RequestFormat = WebMessageFormat.Json,
