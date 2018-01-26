@@ -950,31 +950,6 @@ namespace Team12_SSIS.Utility
             }
         }
 
-        public bool RemindStationeryCollectionNotification(string deptRepEmailAddress, string collectionPoint, string dateTime)
-        {
-            try
-            {
-                string bodyMessage = greeting +
-                    twoLineSpacing +
-                    "Please be reminded that the stationery request for your department is ready for collection\n";
-                string bodyEnd = twoLineSpacing + systemGen;
-                SmtpClient client = new SmtpClient();
-                MailMessage mail = new MailMessage();
-                mail.Subject = "Reminder: Stationery collection on " + dateTime + " at " + collectionPoint;
-                bodyMessage += "Please make collection arragement on " + dateTime + " at " + collectionPoint;
-                bodyMessage += twoLineSpacing + systemGen;
-                mail.Body = bodyMessage;
-                mail.To.Add(deptRepEmailAddress);
-                client.Send(mail);
-                success = true;
-                return success;
-            }
-            catch (Exception e)
-            {
-                throw new EmailControlException("RemindStationeryCollectionNotification Exception\n" + e.Message);
-            }
-        }
-
         public bool CancelStationeryCollectionNotification(string deptRepEmailAddress, string collectionPoint, string dateTime)
         {
             try
