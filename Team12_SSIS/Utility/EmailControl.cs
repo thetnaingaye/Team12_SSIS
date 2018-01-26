@@ -146,16 +146,16 @@ namespace Team12_SSIS.Utility
                 {
                     mail.To.Add(storeClerk);
                     client.Send(mail);
-
+                    success = true;
                 }
-                success = true;
-                return success;
             }
             catch (Exception e)
             {
                 throw new EmailControlException("CollectionRepChangeNotification Exception\n" + e.Message);
             }
+            return success;
         }
+
         public bool CollectionRepChangeNotification(string storeClerkEmailAddress, string departmentName, string newDepartmentRepName)
         {
             try
@@ -422,6 +422,7 @@ namespace Team12_SSIS.Utility
             }
 
         }
+
         public bool ChangeInPurchaseOrderStatusNotification(string storeClerkEmailAddress, string poNumber, string dateTime, string status)
         {
             try
@@ -879,6 +880,8 @@ namespace Team12_SSIS.Utility
             }
 
         }
+
+        
         #endregion
 
         #region Email Notification For Department Representative
@@ -947,6 +950,55 @@ namespace Team12_SSIS.Utility
             catch (Exception e)
             {
                 throw new EmailControlException("NewStationeryCollectionNotification Exception\n" + e.Message);
+            }
+        }
+
+        public bool CancelStationeryCollectionNotification(string deptRepEmailAddress, string collectionPoint, string dateTime)
+        {
+            try
+            {
+                string bodyMessage = greeting +
+                    twoLineSpacing +
+                    "The collection appointment on " + dateTime +
+                    " at " + collectionPoint +
+                    " has been cancelled. ";
+                SmtpClient client = new SmtpClient();
+                MailMessage mail = new MailMessage();
+                mail.Subject = "Stationery collection on " + dateTime + " at " + collectionPoint + " has been cancelled.";
+                bodyMessage += twoLineSpacing + systemGen;
+                mail.Body = bodyMessage;
+                mail.To.Add(deptRepEmailAddress);
+                client.Send(mail);
+                success = true;
+                return success;
+            }
+            catch (Exception e)
+            {
+                throw new EmailControlException("CancelStationeryCollectionNotification Exception\n" + e.Message);
+            }
+        }
+        public bool RemindStationeryCollectionNotification(string deptRepEmailAddress, string collectionPoint, string dateTime)
+        {
+            try
+            {
+                string bodyMessage = greeting +
+                    twoLineSpacing +
+                    "Please be reminded that the stationery request for your department is ready for collection\n";
+                string bodyEnd = twoLineSpacing + systemGen;
+                SmtpClient client = new SmtpClient();
+                MailMessage mail = new MailMessage();
+                mail.Subject = "Reminder: Stationery collection on " + dateTime + " at " + collectionPoint;
+                bodyMessage += "Please make collection arragement on " + dateTime + " at " + collectionPoint;
+                bodyMessage += twoLineSpacing + systemGen;
+                mail.Body = bodyMessage;
+                mail.To.Add(deptRepEmailAddress);
+                client.Send(mail);
+                success = true;
+                return success;
+            }
+            catch (Exception e)
+            {
+                throw new EmailControlException("RemindStationeryCollectionNotification Exception\n" + e.Message);
             }
         }
 

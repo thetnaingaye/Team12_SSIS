@@ -893,15 +893,27 @@ namespace Team12_SSIS.BusinessLogic
 
         public static bool UpdateDisbursementStatus(int disbursementId, string status)
         {
+            string email;
+            string collectPoint;
+            string dateTime;
             bool success = false;
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 DisbursementList dL = ctx.DisbursementLists.Where(x => x.DisbursementID == disbursementId).FirstOrDefault();
+                email = Utility.Utility.GetEmailAddressByName(dL.RepresentativeName);
+                collectPoint = GetCurrentCPWithTimeByID(dL.CollectionPointID);
+                dateTime = ((DateTime)dL.CollectionDate).ToString("d");
                 dL.Status = status;
                 ctx.SaveChanges();
                 success = true;
             }
-            return success;
+            if (status == "Cancelled")
+                using(EmailControl em = new EmailControl())
+                {
+                    em.CancelStationeryCollectionNotification(email, collectPoint, dateTime);
+                }
+
+                return success;
         }
 
         public static List<DisbursementList> GetListOfDisbursements()
@@ -924,6 +936,28 @@ namespace Team12_SSIS.BusinessLogic
                         return ctx.DisbursementLists.Where(x => x.Status == query).ToList();
                     default:
                         return ctx.DisbursementLists.ToList();
+                }
+            }
+        }
+
+        //Send reminder email to department rep 2 days before the collection date
+        public static void SendCollectionReminder(DateTime date)
+        {
+            string email;
+            string collectPoint;
+            string dateTime;
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                List<DisbursementList> dList = ctx.DisbursementLists.Where(x => x.CollectionDate == date.Add(TimeSpan.FromDays(2))).ToList();
+                foreach (DisbursementList d in dList)
+                {
+                    email = Utility.Utility.GetEmailAddressByName(d.RepresentativeName);
+                    collectPoint = GetCurrentCPWithTimeByID(d.CollectionPointID);
+                    dateTime = ((DateTime)d.CollectionDate).ToString("d");
+                    using (EmailControl em = new EmailControl())
+                    {
+                        em.RemindStationeryCollectionNotification(email, collectPoint, dateTime);
+                    }
                 }
             }
         }
@@ -1371,7 +1405,6 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        
 
 
 
@@ -2023,32 +2056,32 @@ namespace Team12_SSIS.BusinessLogic
 			return null;
 		}
 
-		public static void UpdateDeptRep(String newrepfullname, String dept)
-		{
-			Roles.AddUserToRole(GetDeptRepUserName(GetCurrentDep()), "Employee");
-			Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
-			Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
-			Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
+        public static void UpdateDeptRep(String newrepfullname, String dept)
+        {
+            Roles.AddUserToRole(GetDeptRepUserName(GetCurrentDep()), "Employee");
+            Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
+            Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
+            Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
 
-			using(EmailControl em = new EmailControl())
-			{
-				List<string> allemails = new List<string>();
-				List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
-				List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
-				foreach(string s in clerkemails)
-				{
-					allemails.Add(s);
-				}
-				foreach(string s in depusersemails)
-				{
-					allemails.Add(s);
-				}
+            using (EmailControl em = new EmailControl())
+            {
+                List<string> allemails = new List<string>();
+                List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+                List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
+                foreach (string s in clerkemails)
+                {
+                    allemails.Add(s);
+                }
+                foreach (string s in depusersemails)
+                {
+                    allemails.Add(s);
+                }
 
-				em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
-			}
-			
-			
-		}
-	}
+                em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
+            }
+
+
+        }
+    }
 
 }

@@ -16,7 +16,7 @@
             <td style="width: 10%">
                 <asp:TextBox ID="TxtGRNumber" runat="server"></asp:TextBox>
             </td>
-            <asp:RegularExpressionValidator ID="RegularExpressionValidatorPoNumber" ValidationGroup="BtnRetrieveGR" ControlToValidate="TxtGRNumber" ValidationExpression="^[1-9]\d*$" runat="server" ErrorMessage="Please enter a valid GR number." Display="None"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidatorPoNumber" ValidationGroup="BtnRetrieveGR" ControlToValidate="TxtGRNumber" ValidationExpression="[Gg][Rr][0-9]\d*" runat="server" ErrorMessage="Please enter a valid GR number." Display="None"></asp:RegularExpressionValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidatorPoNumber" runat="server" ValidationGroup="BtnRetrieveGR" ControlToValidate="TxtGRNumber" ErrorMessage="Please enter a GR number." Display="None"></asp:RequiredFieldValidator>
             <td style="width: 60%">
                 <asp:Button ID="BtnRetrievePO" runat="server" Text="Retrieve GR" OnClick="BtnRetrieveGR_Click" CssClass="btn btn-xs" ValidationGroup="BtnRetrieveGR" />

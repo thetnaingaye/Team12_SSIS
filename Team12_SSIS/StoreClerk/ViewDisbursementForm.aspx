@@ -18,7 +18,7 @@
     <table style="width: 100%" class="center-block">
         <tr>
             <td colspan="5">
-                <asp:Label runat="server" Text="Create Disbursement Form" Font-Size="Large"></asp:Label>
+                <asp:Label runat="server" Text="View Disbursement Form" Font-Size="Large"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -158,7 +158,7 @@
 
             </td>
             <td colspan="3" style="align-content: flex-end">
-                <asp:Button ID="BtnCancelDis" runat="server" Text="Cancel Disbursement List" CssClass="btn btn-group-xs" Visible="false" OnClick="BtnCancelDis_Click" />
+                <asp:Button ID="BtnCancelDis" runat="server" Text="Cancel Disbursement List" CssClass="btn btn-group-xs" Visible="false" OnClick="BtnCancelDis_Click" OnClientClick="this.disabled=true;" UseSubmitBehavior="false"/>
             </td>
         </tr>
     </table>

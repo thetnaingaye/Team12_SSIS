@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using Team12_SSIS.Model;
 using System.Web.Security;
+using System.Text.RegularExpressions;
 
 namespace UnitTest
 {
@@ -53,19 +54,25 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
-			List<string> testlist = Utility.GetClerksEmailAddressList();
-			foreach(string s in testlist)
-			{
-				Console.WriteLine(s);
-			}
+            int i = Team12_SSIS.Utility.Utility.GetValidPrimaryKeyInt("GR00010");
+            Console.WriteLine(i.ToString());
+
 
         }
         [TestMethod]
         public void TestMail()
         {
-            using(EmailControl em = new EmailControl())
+            string s = "GR00010";
+            Regex regex = new Regex("[0-9]");
+            int x;
+            for (int i = 0; i < s.Length; i++)
             {
-                em.DisburstmentPointChangeNotification("lim.chang.siang@gmail.com", "English", "Naiag", "Science");
+                if (regex.IsMatch(s.Substring(i, 1)))
+                {                    
+                    bool isValid = int.TryParse(s.Substring(2, 5), out x);
+                    Console.WriteLine(i.ToString(),x.ToString());
+                    break;
+                }
             }
         }
 

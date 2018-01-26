@@ -625,6 +625,7 @@ namespace Team12_SSIS.BusinessLogic
                 ctx.GoodReceiptDetails.Add(grd);
                 ctx.SaveChanges();
             }
+            InventoryLogic.LessUnitsOnOrder(itemID, quantity);
         }
 
         public GoodReceipt GetGoodsReceipt(int goodReceiptNumber)

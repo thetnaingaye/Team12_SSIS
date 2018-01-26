@@ -68,7 +68,7 @@
 
                                     <asp:TemplateField HeaderText="Date Processed" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
-                                            <asp:Label ID="LblProcessDate" runat="server" Text='<%# Bind("RequestedBy") %>'></asp:Label>
+                                            <asp:Label ID="LblProcessDate" runat="server"></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                     </asp:TemplateField>

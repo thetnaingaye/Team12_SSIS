@@ -17,8 +17,7 @@ namespace Team12_SSIS
     public class Global : System.Web.HttpApplication
     {
 
-
-        protected void Application_Start(object sender, EventArgs e)
+		protected void Application_Start(object sender, EventArgs e)
 		{
 			Application["count"] = 0;
 			Thread thread = new Thread(new ThreadStart(ThreadFunc));
@@ -46,15 +45,23 @@ namespace Team12_SSIS
 			t.AutoReset = true;
 			t.Start();
 		}
-        protected void ThreadFuncParam()
+
+        //Send reminder email to department rep 2 days before the collection date
+        //This Thread will trigger every 24 hours 
+        protected void ThreadFuncForCollectionReminder()
         {
             System.Timers.Timer t = new System.Timers.Timer();
-            t.Elapsed += new System.Timers.ElapsedEventHandler(AutomationLogic.BeginEndOfDayProcesses);
+            t.Elapsed += new System.Timers.ElapsedEventHandler(SendCollectionReminder);
 
-            t.Interval = 5000;
+            t.Interval = 86400000;
             t.Enabled = true;
             t.AutoReset = true;
             t.Start();
+        }
+
+        protected void SendCollectionReminder(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            DisbursementLogic.SendCollectionReminder(DateTime.Now.Date);
         }
         protected void AddDeptHeadRoleToUserWithDateCheck(object sender, System.Timers.ElapsedEventArgs e)
 		{
@@ -144,11 +151,13 @@ namespace Team12_SSIS
 			}
 		}
 
-        protected void Application_BeginRequest(object sender, EventArgs e)
+
+		protected void Session_Start(object sender, EventArgs e)
         {
+
         }
 
-        protected void Session_Start(object sender, EventArgs e)
+        protected void Application_BeginRequest(object sender, EventArgs e)
         {
 
         }
