@@ -58,24 +58,6 @@ namespace Team12_SSIS.DepartmentHead {
         protected global::System.Web.UI.WebControls.Label LblCollectionPointD;
         
         /// <summary>
-        /// LblCollectionDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblCollectionDate;
-        
-        /// <summary>
-        /// LblCollectionDateD control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblCollectionDateD;
-        
-        /// <summary>
         /// LblRepresentativeName control.
         /// </summary>
         /// <remarks>
@@ -92,6 +74,24 @@ namespace Team12_SSIS.DepartmentHead {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblRepresentativeNameD;
+        
+        /// <summary>
+        /// LblCollectionDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblCollectionDate;
+        
+        /// <summary>
+        /// LblCollectionDateD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblCollectionDateD;
         
         /// <summary>
         /// GridViewDisbursementDetails control.

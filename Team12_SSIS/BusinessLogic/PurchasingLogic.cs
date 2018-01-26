@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using Team12_SSIS.Model;
@@ -185,21 +186,27 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        // Retrieving supplier name
-        public bool SetProportionalBFS(string suppID)
+        // Setting a proportional level for buffer stock
+        public static void SetProportionalBFS(string itemID, int propValue)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
-                return true;
-            }
-        }
+                // Finding the week no for the year (aka our period currently)
+                DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+                Calendar cal = dfi.Calendar;
+                //Uncomment for final ver: int currentPeriod = cal.GetWeekOfYear(DateTime.Now, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+                DateTime date1 = new DateTime(2018, 2, 1);   
+                int currentPeriod = cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
 
-        // Retrieving supplier name
-        public bool SetAutomatedlBFS(string suppID)
-        {
-            using (SA45Team12AD context = new SA45Team12AD())
-            {
-                return true;
+                // Creating our obj from DB
+                ForecastedData f = context.ForecastedDatas.Where(x => x.ItemID.Equals(itemID)).Where(y => y.Season == DateTime.Now.Year).Where(z => z.Period == currentPeriod + 1).First();  // +1 to capture the next period
+                InventoryCatalogue i = context.InventoryCatalogues.Where(x => x.ItemID.Equals(itemID)).First();
+
+                // Changing our values
+                i.BFSProportion = propValue;
+                i.BufferStockLevel = Convert.ToInt32(Math.Ceiling((Convert.ToDouble(propValue) * Convert.ToDouble(f.ForecastedDemand)) / 100));
+
+                context.SaveChanges();
             }
         }
 
