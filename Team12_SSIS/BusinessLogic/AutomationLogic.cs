@@ -29,8 +29,8 @@ namespace Team12_SSIS.BusinessLogic
                 InventoryCatalogue i = context.InventoryCatalogues.Where(x => x.ItemID.Equals(itemID)).First();
 
                 // Changing our values
-                i.BFSProportion = null;
-                i.BufferStockLevel = Convert.ToInt32(Math.Ceiling((10.0 * Convert.ToDouble(f.ForecastedDemand)) / 100));
+                i.BFSProportion = 10;
+                i.BufferStockLevel = Convert.ToInt32(Math.Ceiling((10.0 * Convert.ToDouble(f.High95)) / 100));   // We take high95 cos it possesses the expected Dd with the highest confidence interval determinable (just to be safe)
 
                 context.SaveChanges();
             }

@@ -46,6 +46,15 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        // Retrieve requisition order by 
+        public static List<RequisitionRecord> FindRequisitionRecordByReqName(string reqName)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                return context.RequisitionRecords.Where(x => x.RequestorName.Equals(reqName)).ToList();
+            }
+        }
+
         // Retrieve ALL requisition orders
         public List<RequisitionRecord> ListAllRequisitionRecords()
         {
