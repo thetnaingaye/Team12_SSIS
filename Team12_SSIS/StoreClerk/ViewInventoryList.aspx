@@ -34,10 +34,21 @@
              width: 179px;
          }
          .auto-style4 {
-             width: 211px;
+             width: 324px;
          }
          .auto-style5 {
-             width: 757px;
+             width: 1038px;
+         }
+         .auto-style6 {
+             width: 179px;
+             height: 20px;
+         }
+         .auto-style7 {
+             margin-left: 142;
+             margin-top: 0;
+         }
+         .auto-style8 {
+             width: 498px;
          }
     </style>
 </asp:Content>
@@ -51,21 +62,25 @@
      
     <table class="auto-style5">
         <tr>
-            <td >
+            <td class="auto-style8" >
                  <asp:Label ID="LblItemCode" runat="server" Text="Item Code:"></asp:Label>
    
     &nbsp;
    
     <asp:TextBox ID="TxtId" runat="server" Width="189px"></asp:TextBox>
+                 <asp:CheckBox ID="ChbId" runat="server" />
             </td>
             <td class="auto-style4">
-                <asp:Label ID="LblCatagory" runat="server" Text="Catagory:"></asp:Label>
+                <asp:Label ID="LblCatagory" runat="server" Text="Category:"></asp:Label>
   &nbsp;
-  <asp:DropDownList ID="DdlCatagory" runat="server">
+  <asp:DropDownList ID="DdlCatagory" runat="server" Height="22px" Width="74px">
+      <asp:ListItem></asp:ListItem>
+      <asp:ListItem>All</asp:ListItem>
     </asp:DropDownList>
+                <asp:CheckBox ID="ChbCatagory" runat="server"  />
             </td>
             <td>
-                <asp:Button ID="BtnSearch" runat="server" Text="SEARCH" OnClick="BtnCatagory_Click" Width="100px" />
+                <asp:Button ID="BtnSearch" runat="server" Text="SEARCH" OnClick="Btnsearch_Click" Width="100px" CssClass="auto-style7" />
             </td>
         </tr>
         
@@ -95,13 +110,13 @@
                      </td>
                      </tr>
                  
-                   <tr style="height:20px">
-                     <td class="auto-style2">
+                   <tr>
+                     <td class="auto-style6">
                       <asp:Label ID="LblId" runat="server" Text="Catagory ID: " Style="padding-right: 10px"></asp:Label>
                       <asp:Label ID="LblIdD" runat="server" Font-Bold="true"></asp:Label>
                          <br />
                       </td>
-                      <td class="auto-style2">
+                      <td class="auto-style6">
                       <asp:Label ID="LblReorderQty" runat="server" Text="Reorder Quantity: " Style="padding-right: 10px"></asp:Label>
                       <asp:Label ID="LblReorderQtyD" runat="server" Font-Bold="true"></asp:Label>
                      </td>
@@ -122,7 +137,33 @@
    
     <br />
 
-    <%--Gridview formatting--%>
+    <%-- <br />
+    <br />
+    <asp:Label ID="LblInput" runat="server" Text="Choose item to filter the inventory list:"   CellPadding="10" CellSpacing="10"></asp:Label>
+    <asp:RadioButtonList ID="RbtnFilter" runat="server" AutoPostBack="True"  CellSpacing="30" 
+        OnSelectedIndexChanged="Rbtn_SelectedIndexChanged" RepeatDirection="Horizontal" margin-rigt="80px">
+          <asp:ListItem Text="Item Code" Value="1"    />
+         <asp:ListItem Text="Catagory" Value="2"    />
+      
+        <asp:ListItem Value="3" >All</asp:ListItem>
+    </asp:RadioButtonList>
+   
+
+   
+    <br />
+    <asp:Label ID="LblItemCode" runat="server" Text="Item Code:"></asp:Label>
+    <asp:TextBox ID="TxtId" runat="server"></asp:TextBox>
+    &nbsp;&nbsp;&nbsp;
+    <asp:Button ID="BtnId" runat="server" Text="SUBMIT" OnClick="BtnId_Click"  />
+    <br />
+      <br />
+      <asp:Label ID="LblCatagory" runat="server" Text="Catagory:"></asp:Label>
+    &nbsp;<asp:DropDownList ID="DdlCatagory" runat="server">
+    </asp:DropDownList>
+&nbsp;&nbsp;&nbsp;
+    <asp:Button ID="BtnCatagory" runat="server" Text="SUBMIT" OnClick="BtnCatagory_Click" />
+    <br />
+    <br />--%>
     <asp:GridView ID="GridViewInventory" runat="server"   AutoGenerateColumns="false" Width="100%" GridLines="None" datakeynames="ItemID" ItemType="Team12_SSIS.Model.InventoryCatalogue" BackColor="White"  AllowPaging="true"  PageSize="10"  OnPageIndexChanging="OnPaging" OnRowDataBound="GridViewInventory_RowDataBound" ShowHeaderWhenEmpty="True" OnRowCommand="GridViewDisbList_RowCommand"> 
        <%-- <HeaderStyle BackColor="#6495ED" Font-Bold="false" Font-Size="Medium" HorizontalAlign="Center" VerticalAlign="Middle" >
           </HeaderStyle>

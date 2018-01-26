@@ -1669,8 +1669,23 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        public static List<InventoryCatalogue> GetInventoryByIdandCategory(string id,string category)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                CatalogueCategory cat = entity.CatalogueCategories.Where(x => x.CatalogueName == category).ToList<CatalogueCategory>().First();
+                string catId = cat.CategoryID;
+                var q = (from di in entity.InventoryCatalogues
+                             join de in entity.CatalogueCategories on di.CategoryID equals de.CategoryID
+                             where di.ItemID == id && di.CategoryID == catId
+                         select di);
 
-        //---------------------------------AdjustmentVoucher--------------------------------------------------------//
+                return q.ToList<InventoryCatalogue>();
+            }
+        }
+
+
+            //---------------------------------AdjustmentVoucher--------------------------------------------------------//
 
             public static List<AVRequest> GetadvReq(string id)
         {
@@ -1768,6 +1783,8 @@ namespace Team12_SSIS.BusinessLogic
                 entity.SaveChanges();
             }
         }
+
+        
 
 
 

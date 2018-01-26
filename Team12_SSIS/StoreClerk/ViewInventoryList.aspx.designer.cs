@@ -40,6 +40,15 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.TextBox TxtId;
         
         /// <summary>
+        /// ChbId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ChbId;
+        
+        /// <summary>
         /// LblCatagory control.
         /// </summary>
         /// <remarks>
@@ -56,6 +65,15 @@ namespace Team12_SSIS.StoreClerk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DdlCatagory;
+        
+        /// <summary>
+        /// ChbCatagory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ChbCatagory;
         
         /// <summary>
         /// BtnSearch control.
