@@ -13,15 +13,15 @@ namespace Team12_SSIS.DepartmentHead
 {
     public partial class ViewDisbursementForm : System.Web.UI.Page
     {
-        List<DisbursementList> dsList;
-        List<DisbursementList> uList;
+        List<Object> dsList;
+        List<Object> uList;
         DisbursementLogic disbursement = new DisbursementLogic();
         
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                uList = DisbursementLogic.GetDisbursementList();
+                uList = disbursement.GetDisbursementForm();
                 GridViewDisbursement.DataSource = uList;
                 GridViewDisbursement.DataBind();
 
@@ -47,22 +47,27 @@ namespace Team12_SSIS.DepartmentHead
 
         }
 
-        protected void GridViewDisbursement_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            e.Row.Cells[2].Visible = false;
-            e.Row.Cells[5].Visible = false;
 
-        }
 
         //-------------------------gridview details link button click event.........//
         //-------------------------  directing to Disbursement detail page---//
-        protected void Btndetailclick(Object sender, CommandEventArgs e)
-        {
-            int dId = Convert.ToInt32(e.CommandArgument.ToString());
-            Response.Redirect("ViewDisbursementList.aspx?DisbursementID="+dId);
+        //protected void Btndetailclick(Object sender, CommandEventArgs e)
+        //{
+        //    int dId = Convert.ToInt32(e.CommandArgument.ToString());
+        //    Response.Redirect("ViewDisbursementList.aspx?DisbursementID="+dId);
 
+        //}
+
+        protected void GridViewDisbList_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "show")
+            {
+                Session["dId"] = Convert.ToInt32(e.CommandArgument.ToString());
+                Response.Redirect("ViewDisbursementList.aspx");
+            }
         }
 
-
     }
+
+
 }

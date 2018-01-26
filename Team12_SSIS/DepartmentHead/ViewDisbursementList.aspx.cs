@@ -18,7 +18,7 @@ namespace Team12_SSIS.DepartmentHead
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string id = Convert.ToString(Request.QueryString["DisbursementID"]);
+            string id = Convert.ToString(Session["dId"]);
             int DisbursementID = Convert.ToInt32(id);
             LblIdD.Text = id;
 

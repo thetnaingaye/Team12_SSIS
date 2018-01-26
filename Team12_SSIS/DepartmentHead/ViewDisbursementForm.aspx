@@ -55,22 +55,63 @@
      <asp:Button ID="BtnFindrep" runat="server" Text="FIND" OnClick="BtnFindrep_Click" />
      <br />
        <br />
-    <asp:GridView ID="GridViewDisbursement" runat="server"  OnRowDataBound="GridViewDisbursement_RowDataBound"  autogeneratecolumns="true" ItemType="Team12_SSIS.Model.DisbursementList" DataKeyNames="DisbursementID">
+    <asp:GridView ID="GridViewDisbursement" runat="server"    autogeneratecolumns="false" Width="100%" GridLines="None"  BackColor="White"    ShowHeaderWhenEmpty="True" OnRowCommand="GridViewDisbList_RowCommand">
         <Columns>
-            <asp:TemplateField HeaderText="Click to see details">
-                <ItemTemplate>
-                    <%--<asp:Button ID="BtnLink" runat="server" Text="click to see details" CommandName="gridviewbuttonclick"  CommandArgument="<%#Item.DisbursementID %>" OnClick="btnView_click"  />--%>
-                <asp:LinkButton ID="btnDetails" runat="server" CommandArgument='<%#Eval("DisbursementID")%>' OnCommand="Btndetailclick" Text="Details">
-                      </asp:LinkButton>
-                </ItemTemplate>
-            </asp:TemplateField>
-           
+          
+                    
+                                          <asp:TemplateField HeaderText="Disbursement ID" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                                <ItemTemplate>
+                                                   <%-- <asp:Label ID="LblDate" runat="server" CssClass="center-block" Text='<%# Eval("DisbursementID")%>'></asp:Label>--%>
+                                                 <asp:LinkButton ID="LBtnListID" runat="server" Text='<%# "DL" + (Eval("DisbursementID")) %>' CommandName="show" CommandArgument='<%# Bind("DisbursementID") %>'></asp:LinkButton>
+                                                </ItemTemplate>
+                                         <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                            </asp:TemplateField>
+
+
+                                     <asp:TemplateField HeaderText="Department" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="LblDepartment" runat="server" CssClass="center-block" Text='<%# Eval("DepartmentName")%>'></asp:Label>
+                                                </ItemTemplate>
+                                         <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                            </asp:TemplateField>
+
+            <asp:TemplateField HeaderText="Collection Date" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="LblDate" runat="server" CssClass="center-block" Text='<%# Eval("CollectionDate","{0:dd/MM/yyyy}")%>'></asp:Label>
+                                                </ItemTemplate>
+                                         <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                            </asp:TemplateField>
+
+             <asp:TemplateField HeaderText="Collection Point" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="LblCPoint" runat="server" CssClass="center-block" Text='<%# Eval("CollectionPoint")%>'></asp:Label>
+                                                </ItemTemplate>
+                                         <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                            </asp:TemplateField>
+
+
+             <asp:TemplateField HeaderText="Representative Name" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="Lblrep" runat="server" CssClass="center-block" Text='<%# Eval("RepresentativeName")%>'></asp:Label>
+                                                </ItemTemplate>
+                                         <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                            </asp:TemplateField>
+              
              </Columns>
+           <EditRowStyle BackColor="#999999" />
+                                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+
     </asp:GridView>
 
     
 
-     <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
-
-</asp:Content>
+     </asp:Content>
 <%----%>

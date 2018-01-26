@@ -46,6 +46,15 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        // Retrieve requisition order by 
+        public static List<RequisitionRecord> FindRequisitionRecordByReqName(string reqName)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                return context.RequisitionRecords.Where(x => x.RequestorName.Equals(reqName)).ToList();
+            }
+        }
+
         // Retrieve ALL requisition orders
         public List<RequisitionRecord> ListAllRequisitionRecords()
         {
@@ -2127,19 +2136,43 @@ namespace Team12_SSIS.BusinessLogic
 
             }
         }
-        public static List<RequisitionRecord> GetListOfRequisitionRecords()
+       
+        public static List<RequisitionRecord> GetAllRequisitionRecords()
         {
 
             using (SA45Team12AD entities = new SA45Team12AD())
             {
-                return entities.RequisitionRecords.ToList();
+                return entities.RequisitionRecords.ToList<RequisitionRecord>();
 
             }
 
         }
+       
+            public static string  GetRecordStatus(int RequestID)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.RequisitionRecordDetails.Where(x => x.RequestID== RequestID).Select(x => x.Status).FirstOrDefault();
+            }
+        }
+
+        //public static int GetRecordRequestID(string Status)
+        //{
+        //    using (SA45Team12AD entities = new SA45Team12AD())
+        //    {
+        //        return entities.RequestionRecords.Where(x => x.Status == Status).Select(x => x.RequestID).First();
+        //    }
+        //}
+        public static List<RequisitionRecordDetail> GetListOfStatus(string status)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.RequisitionRecordDetails.Where(x => x.Status == status).ToList();
 
 
-
+            }
+        }
+        
 
 
 
@@ -2208,5 +2241,13 @@ namespace Team12_SSIS.BusinessLogic
                 return entities.InventoryCatalogues;
             }
         }
+        public static string GetRequestStatus(int RequestID)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.RequisitionRecordDetails.Where(x => x.RequestID.Equals(RequestID)).Select(x => x.Status).First();
+            }
+        }
+
     }
 }

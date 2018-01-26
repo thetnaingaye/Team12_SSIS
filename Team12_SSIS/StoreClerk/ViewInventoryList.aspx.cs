@@ -27,13 +27,17 @@ namespace Team12_SSIS.StoreClerk
                 DdlCatagory.DataValueField = "CatalogueName";
                 DdlCatagory.DataBind();
                 controlVisibleFalse();
+                gridBind();
 
-                allList = i.GetAllCatalogue();
-                GridViewInventory.DataSource = allList;
-                GridViewInventory.DataBind();
+
 
             }
-          
+
+        }
+        public void gridBind()
+        {
+            allList = i.GetAllCatalogue();
+            datagridBind(allList);
         }
         protected void Rbtn_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -54,6 +58,11 @@ namespace Team12_SSIS.StoreClerk
 
 
             }
+            else if (RbtnFilter.SelectedItem.Value == "3")
+            {
+                LblMsg.Visible = false; ;
+                gridBind();
+            }
             else
             {
                 LblMsg.Text = "Please Select";
@@ -63,31 +72,29 @@ namespace Team12_SSIS.StoreClerk
 
         protected void BtnCatagory_Click(object sender, EventArgs e)
         {
-            
-                controlVisibleTrue();
-                LblMsg.Text = "*Catagory" + " " + "\"" + DdlCatagory.SelectedItem.Text + "\" " + "is selected";
-                cList = i.getInventoryByCatagory(DdlCatagory.SelectedItem.Text);
 
-                LblReorderQtyD.Text = Convert.ToString(cList[0].ReorderQty);
-                LblReorderD.Text = Convert.ToString(cList[0].ReorderLevel);
-                LblUOMD.Text = cList[0].UOM;
-                LblIdD.Text = cList[0].CategoryID;
-                LblCatNameD.Text = i.getCatalogue(DdlCatagory.SelectedItem.Text).CatalogueName;
+            controlVisibleTrue();
+            LblMsg.Text = "*Catagory" + " " + "\"" + DdlCatagory.SelectedItem.Text + "\" " + "is selected";
+            cList = i.getInventoryByCatagory(DdlCatagory.SelectedItem.Text);
 
-                GridViewInventory.DataSource = cList;
-                GridViewInventory.DataBind();
-            }
-          
+            LblReorderQtyD.Text = Convert.ToString(cList[0].ReorderQty);
+            LblReorderD.Text = Convert.ToString(cList[0].ReorderLevel);
+            LblUOMD.Text = cList[0].UOM;
+            LblIdD.Text = cList[0].CategoryID;
+            LblCatNameD.Text = i.getCatalogue(DdlCatagory.SelectedItem.Text).CatalogueName;
 
-        
+            datagridBind(cList);
+        }
+
+
+
 
         protected void BtnId_Click(object sender, EventArgs e)
         {
-            
+
             LblMsg.Text = "*Item Code" + " " + "\" " + TxtId.Text + "\"" + " " + "is selected";
             iList = i.getInventoryByItemcode(TxtId.Text);
-            GridViewInventory.DataSource = iList;
-            GridViewInventory.DataBind();
+            datagridBind(iList);
 
         }
 
@@ -107,7 +114,7 @@ namespace Team12_SSIS.StoreClerk
         }
         public void controlVisibleTrue()
         {
-            LblId.Visible =true;
+            LblId.Visible = true;
             LblIdD.Visible = true;
             LblReorderD.Visible = true;
             LblReorder.Visible = true;
@@ -120,6 +127,37 @@ namespace Team12_SSIS.StoreClerk
 
 
         }
-       
+        public void datagridBind(List<InventoryCatalogue> bList)
+        {
+            GridViewInventory.DataSource = bList;
+            GridViewInventory.DataBind();
+
+        }
+        protected void OnPaging(object sender, GridViewPageEventArgs e)
+        {
+            GridViewInventory.PageIndex = e.NewPageIndex;
+            this.gridBind();
+        }
+
+        protected void GridViewInventory_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                e.Row.Cells[0].Text = "Page " + (GridViewInventory.PageIndex + 1) + " of " + GridViewInventory.PageCount;
+            }
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[0].Text = "Item Code";
+                e.Row.Cells[1].Text = "Description";
+                e.Row.Cells[2].Text = "BIN";
+                e.Row.Cells[3].Text = "Shelf";
+                e.Row.Cells[4].Text = "Level";
+                e.Row.Cells[5].Text = "Units In Stock";
+                e.Row.Cells[6].Text = "Units In Order";
+                e.Row.Cells[7].Text = "Buffer Stock Level";
+                e.Row.Cells[8].Text = "Discontinue Status";
+            }
+
+        }
     }
 }

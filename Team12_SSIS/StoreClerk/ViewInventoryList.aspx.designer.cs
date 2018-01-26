@@ -112,24 +112,6 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label LblCatNameD;
         
         /// <summary>
-        /// LblId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblId;
-        
-        /// <summary>
-        /// LblIdD control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblIdD;
-        
-        /// <summary>
         /// LblReorder control.
         /// </summary>
         /// <remarks>
@@ -146,6 +128,24 @@ namespace Team12_SSIS.StoreClerk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblReorderD;
+        
+        /// <summary>
+        /// LblId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblId;
+        
+        /// <summary>
+        /// LblIdD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblIdD;
         
         /// <summary>
         /// LblReorderQty control.

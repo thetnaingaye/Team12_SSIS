@@ -548,19 +548,19 @@ namespace Team12_SSIS.BusinessLogic
 
                 // Declare all our req variables
                 int existingQty = (int)item.UnitsInStock;
-                int reorderLvl = (int)item.ReorderLevel;
+                int unitsOnOrder = (int)item.UnitsOnOrder;
                 int reorderQty = (int)item.ReorderQty;    // aka min qty to make an order for the item
                 int bufferStock = (int)item.BufferStockLevel;
                 int orderLeadTime = (int)supp.OrderLeadTime;
 
 
                 // Since our order of operations is in weeks, gotta convert order lead time to weeks (ideally would be in days tho so no need convert :P)
-                int convertedOLT = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(orderLeadTime) / 7.0) + 1);
+                int convertedOLT = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(orderLeadTime) / 7.0) + 1);     // We add '1' cos we are looking up to the week after it.
 
                 // List to store our forecasted values according to their point of occurence
                 List<int> forecastList = new List<int>();
 
-                // Populating our list
+                // Populating our list with the relevant forecasted value
                 for (int i = 0; i < convertedOLT; i++)
                 {
                     forecastList.Add(prediction[i].ForecastedDemand);
@@ -574,13 +574,14 @@ namespace Team12_SSIS.BusinessLogic
                 }
 
                 // Send an order request if incapable of supporting of meeting the forecasted demand for the week after next
-                if (forecastList[forecastList.Count] >= (existingQty - totalDd))
+                if (forecastList[forecastList.Count - 1] >= ((existingQty - bufferStock) - totalDd))
                 {
+                    // Det how much to order
+                    int orderQty = (forecastList[forecastList.Count - 1] - ((existingQty - bufferStock) - totalDd));
+
                     ReorderRecord r = new ReorderRecord();
                     r.ItemID = itemID;
                     r.SupplierID = supCat.SupplierID;
-
-                    int orderQty = (forecastList[forecastList.Count] - (existingQty - totalDd));
 
                     if (orderQty > reorderQty)
                     {
@@ -1682,26 +1683,61 @@ namespace Team12_SSIS.BusinessLogic
         }
         //--------------------Adjustment voucher request approval---status changes to approved-------//
 
-        public static  void ApproveAvRequest(int id)
+        public static  void ApproveAvRequest(int id,string remarks)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
+              List<AVRequestDetail> avReqDetail= entity.AVRequestDetails.Where(x => x.AVRID == id).ToList<AVRequestDetail>();
+
+                //--------------------Iterating through each item to adjust the inventory stock------//
+                for (int i = 0; i < avReqDetail.Count; i++)
+                {
+                    string type = avReqDetail[i].Type;
+                    int quantity = (int)avReqDetail[i].Quantity;
+                    string itemId = avReqDetail[i].ItemID;
+                    InventoryCatalogue inventory = entity.InventoryCatalogues.Where(X => X.ItemID == itemId).First<InventoryCatalogue>();
+                    int stock = inventory.UnitsInStock;
+                    switch (type)
+                    {
+
+                        case ("Add"):
+                            {
+                                stock = stock + quantity;
+                                break;
+                            }
+                        case ("Minus"):
+                            {
+                                stock = stock - quantity;
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
+                    inventory.UnitsInStock = stock;
+                    entity.SaveChanges();
+
+                }
+
                 avReq.Status = "Approved";
                 avReq.DateProcessed = DateTime.Today;
+                avReq.Remarks = remarks;
                 entity.SaveChanges();
             }
         }
 
         //--------------------Adjustment voucher request rejection---status changes to rejected-------//
 
-        public static void RejectAvRequest(int id)
+        public static void RejectAvRequest(int id, string remarks)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
                 avReq.Status = "Rejected";
                 avReq.DateProcessed = DateTime.Today;
+                avReq.Remarks = remarks;
                 entity.SaveChanges();
             }
         }
@@ -1785,7 +1821,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public int CreateAdjustmentVoucherRequest(string clerkName, DateTime dateRequested)
+        public static int CreateAdjustmentVoucherRequest(string clerkName, DateTime dateRequested)
         {
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
@@ -1800,7 +1836,7 @@ namespace Team12_SSIS.BusinessLogic
                 return aVRequest.AVRID;
             }
         }
-        public void CreateAdjustmentVoucherRequestDetails(int avrId, string itemId, string type, int quantity, string uom, string reason, double unitPrice)
+        public static void CreateAdjustmentVoucherRequestDetails(int avrId, string itemId, string type, int quantity, string uom, string reason, double unitPrice)
         {
             using(SA45Team12AD ctx = new SA45Team12AD())
             {
@@ -1872,7 +1908,7 @@ namespace Team12_SSIS.BusinessLogic
             return success;
         }
 
-        public void SendAdjRequentEmail(int avRId, bool isAbove250, string clerkName)
+        public static void SendAdjRequentEmail(int avRId, bool isAbove250, string clerkName)
         {
             List<MembershipUser> userList = Utility.Utility.GetListOfMembershipUsers();
             string[] approveAuthList = isAbove250 ? Roles.GetUsersInRole("Manager") : Roles.GetUsersInRole("Supervisor");
@@ -1888,7 +1924,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        private void UpdateAdjustmentVoucherApprovingOfficer(int avRId, bool isAbove250)
+        private static void UpdateAdjustmentVoucherApprovingOfficer(int avRId, bool isAbove250)
         {
             using(SA45Team12AD ctx = new SA45Team12AD())
             {

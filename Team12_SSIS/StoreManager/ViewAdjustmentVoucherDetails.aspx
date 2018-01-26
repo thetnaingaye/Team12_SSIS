@@ -1,5 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewAdjustmentVoucherDetails.aspx.cs" Inherits="Team12_SSIS.StoreManager.ViewAdjustmentVoucherDetails" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .auto-style1 {
+            margin-left: 0;
+        }
+        .auto-style2 {
+            margin-top: 0;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
@@ -47,10 +55,9 @@
                             <asp:ScriptManager ID="sm1" runat="server"></asp:ScriptManager>
                             <asp:UpdatePanel ID="Up1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
                                 <ContentTemplate>
-                                    <asp:GridView ID="GridViewAdjVoucher" runat="server" AutoGenerateColumns="False"
-                                        Style="width:100%" ShowHeaderWhenEmpty="True"
+                                    <asp:GridView ID="GridViewAdjVoucher" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True"
                                         OnRowDataBound="OnRowDataBound"
-                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID">
+                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID" Height="138px">
                                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                         <Columns>
 
@@ -59,49 +66,40 @@
                                                     <asp:Label ID="LblSn" runat="server" CssClass="center-block" Text="<%# Container.DataItemIndex + 1 %>"></asp:Label>
                                                 </ItemTemplate>
 
-                                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                                <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
 
 
                                             <asp:TemplateField HeaderText="Item Code" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                                 <ItemTemplate>
-                                                    <asp:UpdatePanel runat="server" ID="UpId" UpdateMode="Conditional" ChildrenAsTriggers="true">
-                                                        <ContentTemplate>
-                                                            <asp:Label ID="LblItemCode" runat="server" Text='<%# Bind("ItemID") %>' OnTextChanged="TxtItemCode_TextChanged" AutoPostBack="true" ></asp:Label>
-                                                        </ContentTemplate>
-                                                    </asp:UpdatePanel>
-
-                                                </ItemTemplate>
-
-                                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
+                                                        <asp:Label ID="LblItemCode" runat="server" Text='<%# Bind("ItemID") %>' OnTextChanged="TxtItemCode_TextChanged" AutoPostBack="true" ></asp:Label>
+                                                                                                  </ItemTemplate>
+                                                <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="8%"></HeaderStyle>
                                             </asp:TemplateField>
 
-                                            <asp:TemplateField HeaderText="Description" HeaderStyle-Width="52%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                            <asp:TemplateField HeaderText="Description" HeaderStyle-Width="10%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                                 <ItemTemplate>
                                                     <asp:Label ID="LblDesc" runat="server"></asp:Label>
                                                 </ItemTemplate>
 
-                                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="52%"></HeaderStyle>
+                                                <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="6%"></HeaderStyle>
                                             </asp:TemplateField>
 
-                                            <asp:TemplateField HeaderText="Adjustment Type" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                            <asp:TemplateField HeaderText="Adjustment Type" HeaderStyle-Width="7%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                                 <ItemTemplate>
                                                     <asp:Label ID="LblAdjType" runat="server" Text='<%# Bind("Type") %>'></asp:Label>
                                                 </ItemTemplate>
 
-                                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                                <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="7%"></HeaderStyle>
                                             </asp:TemplateField>
 
-                                            <asp:TemplateField HeaderText="Adjustment Quantity" HeaderStyle-Width="10%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                            <asp:TemplateField HeaderText="Adjustment Quantity" HeaderStyle-Width="7%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                                 <ItemTemplate>
-                                                    <asp:UpdatePanel runat="server" ID="UpValue" UpdateMode="Conditional" ChildrenAsTriggers="true">
-                                                        <ContentTemplate>
-                                                            <asp:Label ID="LblAdjQty" runat="server" Width="80%" CssClass="center-block" Text='<%# Bind("Quantity") %>' OnTextChanged="TxtAdjQty_TextChanged" AutoPostBack="true"></asp:Label>
-                                                        </ContentTemplate>
-                                                    </asp:UpdatePanel>
-                                                </ItemTemplate>
+                                                   
+                                                            <asp:Label ID="LblAdjQty" runat="server" Width="7%" CssClass="center-block" Text='<%# Bind("Quantity") %>' OnTextChanged="TxtAdjQty_TextChanged" AutoPostBack="true"></asp:Label>
+                                                                                                     </ItemTemplate>
 
-                                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="10%"></HeaderStyle>
+                                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="7%"></HeaderStyle>
                                             </asp:TemplateField>
 
                                             <asp:TemplateField HeaderText="UOM" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
@@ -109,21 +107,21 @@
                                                     <asp:Label ID="LblUom" runat="server" Text='<%# Bind("UOM") %>'></asp:Label>
                                                 </ItemTemplate>
 
-                                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                                <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
 
-                                            <asp:TemplateField HeaderText="Value" HeaderStyle-Width="10%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                            <asp:TemplateField HeaderText="Value" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                                 <ItemTemplate>
                                                     <asp:Label ID="LblValue" runat="server"></asp:Label>
                                                 </ItemTemplate>
-                                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="10%"></HeaderStyle>
+                                                <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
 
-                                            <asp:TemplateField HeaderText="Reason" HeaderStyle-Width="22%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                            <asp:TemplateField HeaderText="Reason" HeaderStyle-Width="7%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                                 <ItemTemplate>
                                                     <asp:Label ID="LblReason" runat="server" Text='<%# Bind("Reason") %>'></asp:Label>
                                                 </ItemTemplate>
-                                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="22%"></HeaderStyle>
+                                                <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="7%"></HeaderStyle>
                                             </asp:TemplateField>
                                         </Columns>
 
@@ -149,14 +147,28 @@
                 <tr>
                     <td colspan="2">
                         <br />
+                        <asp:Label ID="LblRemarks" runat="server" Font-Size="Small" Text="Remarks:"></asp:Label>
                         <br />
-                        <asp:Button ID="Btnapprove" runat="server" Text="Approve" Width="120px" OnClick="Btnapprove_Click" />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:Button ID="Btnreject" runat="server" Text="Reject" Width="101px" OnClick="Btnreject_Click" />
+                        <asp:TextBox ID="TxtRemarks" runat="server" Height="67px"  TextMode="MultiLine" Width="652px" CssClass="auto-style2"></asp:TextBox>
+                        <br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Button ID="Btnapprove" runat="server" Text="Approve" Width="160px" OnClick="Btnapprove_Click" Height="44px"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Button ID="Btnreject" runat="server" Text="Reject" Width="160px" OnClick="Btnreject_Click" CssClass="auto-style1" Height="44px" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <br />
                         <br />
-                        <asp:Label ID="LblMsg" runat="server" Text="statusMessage" Font-Bold="false" ForeColor="Green"></asp:Label>
+                        <br />
+                        &nbsp;<asp:Label ID="LblMsg" runat="server" Text="statusMessage" Font-Bold="false" ForeColor="Green"></asp:Label>
                     </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        &nbsp;</td>
                 </tr>
             </tbody>
         </table>

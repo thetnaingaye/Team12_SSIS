@@ -45,8 +45,10 @@
                         <span class="icon-bar"></span>
                     </button>
                 
-                        <a class="navbar-brand" runat="server" href="~/">SSIS
+                        <a class="navbar-brand" runat="server" href="~/">
+                            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/logosmall.png" />SSIS
                         </a>
+
                 </div>
                 <div class="navbar-collapse collapse">
                     <div id="ClerkMenu" runat="server">
