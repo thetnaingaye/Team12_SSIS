@@ -87,7 +87,7 @@ namespace Team12_SSIS.StoreManager
                 LblMsg.Visible = false;
 
             }
-            else if(status == "For Approval")
+            else if(status == "ForApproval")
             {
 
                 GetForApprovalList();
