@@ -2132,6 +2132,20 @@ namespace Team12_SSIS.BusinessLogic
             return success;
         }
 
+
+        public static bool LessUnitsOnOrder(string itemId, int quantity)          
+        {
+            bool success = false;
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryCatalogue ic = ctx.InventoryCatalogues.Where(x => x.ItemID == itemId).FirstOrDefault();
+                ic.UnitsOnOrder -= quantity;
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
+
         public static bool UpdateUnitsOnOrder(string itemId, int quantity)
         {
             bool success = false;
@@ -2143,6 +2157,21 @@ namespace Team12_SSIS.BusinessLogic
                 success = true;
             }
             return success;
+        }
+      
+        public static bool IsUnitsInStock(string itemId, int quantity)
+        {
+            bool isInStock = true;
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryCatalogue ic = ctx.InventoryCatalogues.Where(x => x.ItemID == itemId).FirstOrDefault();
+                if(ic.UnitsInStock < quantity)
+                {
+                    isInStock = false;
+                    return isInStock;
+                }
+            }
+            return isInStock;
         }
     }
 }

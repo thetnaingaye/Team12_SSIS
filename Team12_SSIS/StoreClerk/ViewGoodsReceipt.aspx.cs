@@ -23,9 +23,10 @@ namespace Team12_SSIS.StoreClerk
         {
             statusMessage.Text = string.Empty;
             PurchasingLogic pl = new PurchasingLogic();
-            GoodReceipt goodReceipt = pl.GetGoodsReceipt(int.Parse(TxtGRNumber.Text.ToString()));
-            List<GoodReceiptDetail> grDetailList = pl.GetGoodsReceiptDetails(int.Parse(TxtGRNumber.Text.ToString()));
-            if (grDetailList.Count == 0)
+            int grNumber = Utility.Utility.GetValidPrimaryKeyInt(TxtGRNumber.Text);
+            GoodReceipt goodReceipt = pl.GetGoodsReceipt(grNumber);
+            List<GoodReceiptDetail> grDetailList = pl.GetGoodsReceiptDetails(grNumber);
+            if (grDetailList.Count == 0 || grNumber == -1)
             {
                 ClearAllControls();
                 statusMessage.Text = "No such Goods Receipt number exist.";

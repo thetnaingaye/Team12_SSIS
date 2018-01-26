@@ -16,7 +16,7 @@
                     <td colspan="2">
 
                         <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False"
-                            Style="width:100%" ShowHeaderWhenEmpty="True"
+                            Style="width: 100%" ShowHeaderWhenEmpty="True"
                             OnRowDataBound="OnRowDataBound" OnRowDeleting="OnRowDeleting"
                             CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID">
                             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
@@ -68,6 +68,7 @@
                                         <asp:UpdatePanel runat="server" ID="UpValue" UpdateMode="Conditional" ChildrenAsTriggers="true">
                                             <ContentTemplate>
                                                 <asp:TextBox ID="TxtAdjQty" runat="server" Width="80%" CssClass="center-block" Text='<%# Bind("Quantity") %>' OnTextChanged="TxtAdjQty_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="TxtAdjQty" ValidationGroup="BtnSendReq" runat="server" ErrorMessage="Please enter a valid quantity" ValidationExpression="^\d+$" Display="None"></asp:RegularExpressionValidator>
                                             </ContentTemplate>
                                         </asp:UpdatePanel>
                                     </ItemTemplate>
@@ -124,7 +125,10 @@
                 <asp:Button ID="BtnAddItem" runat="server" Text="Add Item" CssClass="btn btn-success" OnClick="BtnAddItem_Click" />
             </td>
             <td>
-                <asp:Button ID="BtnSendReq" runat="server" Text="Send Request" CssClass="btn btn-xs" OnClick="BtnSendReq_Click" />
+                <asp:Button ID="BtnSendReq" runat="server" Text="Send Request" CssClass="btn btn-xs" OnClick="BtnSendReq_Click" ValidationGroup="BtnSendReq" OnClientClick="this.disabled=true;" UseSubmitBehavior="false"/>
+            </td>
+            <td>
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ValidationGroup="BtnSendReq" />
             </td>
         </tr>
     </table>

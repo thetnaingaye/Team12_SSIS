@@ -39,6 +39,18 @@ namespace Team12_SSIS.Utility
             }
         }
 
+        public static bool IsDateRangeValid(DateTime startDate, DateTime endDate, bool andToday)
+        {
+            if (startDate <= endDate)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public static string IsEmptyReturnSpace(string validString)
         {
             if(validString == "")
@@ -47,5 +59,15 @@ namespace Team12_SSIS.Utility
             }
             return validString;
         }
+
+        public static bool IsIntMoreThan(int value, int maximumLimit)
+        {
+            if (value < maximumLimit)
+                return false;
+            else
+                return true;
+        }
+
+
     }
 }
