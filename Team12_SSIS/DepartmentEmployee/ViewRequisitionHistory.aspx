@@ -14,13 +14,13 @@
                     </asp:DropDownList>--%></td></tr>
              <tr>
                   <td colspan="5">
-                           
+                      <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                  <asp:GridView ID="GridViewVPR" OnRowDataBound="GridViewVPR_RowDataBound" runat="server" AutoGenerateColumns="False" Style="width: 100%" >
             <Columns>
                
                   <asp:TemplateField HeaderText="Requisition ID" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
-                                            <asp:LinkButton ID="LBtnRID" runat="server" Visible="true" Text='<%# Bind("RequestID") %>'></asp:LinkButton>
+                                            <asp:LinkButton ID="LBtnRID" runat="server" Visible="true" Text='<%# Bind("RequestID") %>' OnClick="LBtnRID_Click"></asp:LinkButton>
                                         </ItemTemplate>
                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" ></HeaderStyle>
                                     </asp:TemplateField>
@@ -83,5 +83,62 @@
 
             </table>
         </div>
+    <br />
+    
+    <div>
+        <asp:UpdatePanel ID="UpdatePanelDetailsView" runat="server" >
+            <ContentTemplate>
+                <div>
+                    <h3><asp:Label ID="LblDetails" runat="server" Text="" EnableViewState="false"></asp:Label></h3>
+                    <asp:Label ID="LblSelected" runat="server" Text="" EnableViewState="false"></asp:Label><asp:Label ID="LblItemIDInfo" runat="server" Text="" EnableViewState="false"></asp:Label>
+                    <br /><br />
+                </div>
+                <asp:GridView ID="GridViewDetails" runat="server" AutoGenerateColumns="False" Width="75%" DataKeyNames="RequestDetailID" ItemType="Team12_SSIS.Model.RequisitionRecordDetail"
+                    BackColor="White" BorderColor="#CCCCCC" BorderStyle="Inset" >
+                    <Columns>
+                        <asp:TemplateField HeaderText="Item ID">
+                            <ItemTemplate>
+                                <asp:Label ID="LblReqID" runat="server" Text='<%#:Item.ItemID %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                            <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Item Name">
+                            <ItemTemplate>
+                                <asp:Label ID="LblReqID" runat="server" Text='<%#:GetItemDescription(Item.ItemID) %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                            <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Requested Quantity">
+                            <ItemTemplate>
+                                <asp:Label ID="LblReqID" runat="server" Text='<%#:Item.RequestedQuantity %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                            <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Units Of Measure">
+                            <ItemTemplate>
+                                <asp:Label ID="LblReqID" runat="server" Text='<%#:GetUnitsOfMeasure(Item.ItemID) %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                            <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Status">
+                            <ItemTemplate>
+                                <asp:Label ID="LblStatus" runat="server" Text='<%#:Item.Status %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                            <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
    
 </asp:Content>
