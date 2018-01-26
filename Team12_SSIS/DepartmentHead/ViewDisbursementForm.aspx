@@ -44,11 +44,6 @@
 
     <asp:Label ID="LblRep" runat="server" Text="Department Representative:"></asp:Label>
      
-     <asp:DropDownList ID="DdlSal" runat="server">
-         <asp:ListItem>Mr</asp:ListItem>
-         <asp:ListItem>Ms</asp:ListItem>
-         <asp:ListItem>Mrs</asp:ListItem>
-     </asp:DropDownList> 
        &nbsp; 
        <asp:TextBox ID="TxtRep" runat="server"></asp:TextBox>
      &nbsp;
@@ -62,18 +57,13 @@
                                           <asp:TemplateField HeaderText="Disbursement ID" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
                                                    <%-- <asp:Label ID="LblDate" runat="server" CssClass="center-block" Text='<%# Eval("DisbursementID")%>'></asp:Label>--%>
-                                                 <asp:LinkButton ID="LBtnListID" runat="server" Text='<%# "DL" + (Eval("DisbursementID")) %>' CommandName="show" CommandArgument='<%# Bind("DisbursementID") %>'></asp:LinkButton>
+                                                 <asp:LinkButton ID="LBtnListID" runat="server" Text='<%# "DL" + (Eval("DisbursementID","{0:0000}")) %>' CommandName="show" CommandArgument='<%# Bind("DisbursementID") %>'></asp:LinkButton>
                                                 </ItemTemplate>
                                          <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
 
 
-                                     <asp:TemplateField HeaderText="Department" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="LblDepartment" runat="server" CssClass="center-block" Text='<%# Eval("DepartmentName")%>'></asp:Label>
-                                                </ItemTemplate>
-                                         <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
-                                            </asp:TemplateField>
+                                  
 
             <asp:TemplateField HeaderText="Collection Date" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
@@ -82,12 +72,12 @@
                                          <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
 
-             <asp:TemplateField HeaderText="Collection Point" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+            <%-- <asp:TemplateField HeaderText="Collection Point" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
                                                     <asp:Label ID="LblCPoint" runat="server" CssClass="center-block" Text='<%# Eval("CollectionPoint")%>'></asp:Label>
                                                 </ItemTemplate>
                                          <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
-                                            </asp:TemplateField>
+                                            </asp:TemplateField>--%>
 
 
              <asp:TemplateField HeaderText="Representative Name" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">

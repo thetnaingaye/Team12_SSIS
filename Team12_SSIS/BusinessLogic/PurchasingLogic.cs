@@ -912,10 +912,26 @@ namespace Team12_SSIS.BusinessLogic
                 entities.SaveChanges();
                 email = Utility.Utility.GetUserEmailAddress(po.CreatedBy);
             }
+            if (status == "Approved")
+                PurchaseOrderIsApproved(poNumber);
 
             using (EmailControl em = new EmailControl())
             {
                 em.ChangeInPurchaseOrderStatusNotification(email, poNumber.ToString(), dateProcessed.ToString("d"), status);
+            }
+            
+        }
+
+        static void PurchaseOrderIsApproved(int poNumber)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                List<PORecordDetail> poDList = ctx.PORecordDetails.Where(x => x.PONumber == poNumber).ToList();
+                foreach(PORecordDetail p in poDList)
+                {
+                    InventoryLogic.UpdateUnitsOnOrder(p.ItemID, (int)p.Quantity);
+                }
+                
             }
         }
 

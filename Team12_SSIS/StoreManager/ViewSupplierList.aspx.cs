@@ -6,6 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace Team12_SSIS.StoreManager
 {
@@ -75,7 +78,7 @@ namespace Team12_SSIS.StoreManager
             }
         }
 
-        protected void BtnCreate_Click(object sender, EventArgs e)
+        protected void LinkButtonCreate_Click(object sender, EventArgs e)
         {
             Response.Redirect("CreateSupplier.aspx");
         }
@@ -85,6 +88,12 @@ namespace Team12_SSIS.StoreManager
             string temp = TxtSearch.Text;
             GridViewSupplier.DataSource = purchasing.SearchBy(temp);
             GridViewSupplier.DataBind();
+        }
+
+        protected void GridViewSupplier_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridViewSupplier.PageIndex = e.NewPageIndex;
+            BindGrid();
         }
     }
 }

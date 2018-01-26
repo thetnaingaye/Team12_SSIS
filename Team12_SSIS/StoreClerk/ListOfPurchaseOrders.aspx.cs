@@ -33,7 +33,7 @@ namespace Team12_SSIS.StoreClerk
         {
             if (e.CommandName == "ViewDetails")
             {
-                Session["PONumber"] = e.CommandArgument;
+                Session["PONumber"] = int.Parse(e.CommandArgument.ToString());
                 Server.Transfer("ViewPurchaseOrder.aspx", true);
             }
         }

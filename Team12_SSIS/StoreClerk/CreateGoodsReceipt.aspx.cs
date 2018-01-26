@@ -140,6 +140,8 @@ namespace Team12_SSIS.StoreClerk
             BtnPostGR.Visible = false;
             TxtPONumber.Text = string.Empty;
             TxtDoNumber.Text = string.Empty;
+            DisplayEmptyGrid();
+
         }
     }
 }

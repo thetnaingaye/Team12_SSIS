@@ -22,6 +22,15 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtItemID;
         
         /// <summary>
+        /// TxtDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtDescription;
+        
+        /// <summary>
         /// DdlCategoryID control.
         /// </summary>
         /// <remarks>
@@ -31,13 +40,31 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.DropDownList DdlCategoryID;
         
         /// <summary>
-        /// TxtDescription control.
+        /// TxtBIN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtDescription;
+        protected global::System.Web.UI.WebControls.TextBox TxtBIN;
+        
+        /// <summary>
+        /// TxtShelf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtShelf;
+        
+        /// <summary>
+        /// TxtLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtLevel;
         
         /// <summary>
         /// TxtReorderLevel control.

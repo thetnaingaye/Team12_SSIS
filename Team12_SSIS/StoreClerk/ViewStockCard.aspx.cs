@@ -17,13 +17,25 @@ namespace Team12_SSIS.StoreClerk
         InventoryCatalogue detFromInventory;
         List<SupplierCatalogue> sCatList;
         InventoryLogic i = new InventoryLogic();
+        string itemId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             controlVisibleFalse();
-            GridViewStockCard.DataSource = i.GetAllStockCardList();
-            GridViewStockCard.DataBind();
+            if (Session["Itemid"]!=null)
+            {
+                controlVisibleTrue();
 
+                itemId = (string) Session["Itemid"];
+                details(itemId);
+
+                
+                GridViewStockCard.DataSource = i.GetStockCardList(itemId);
+                GridViewStockCard.DataBind();
+                
+
+            }
+         
         }
 
         protected void BtnFind_Click(object sender, EventArgs e)
@@ -38,19 +50,25 @@ namespace Team12_SSIS.StoreClerk
             GridViewStockCard.DataSource = i.GetStockCardList(TxtId.Text);
             GridViewStockCard.DataBind();
 
+            details(TxtId.Text);
+
+        }
+        //----------------------------To get the item details---------------------------------//
+        public void details(string itemid)
+        {
             //---------------------------from InventoryCatalogue table(BIN,Description,UOM)------//
-             detFromInventory = i.getInventoryDetails(TxtId.Text);
+            detFromInventory = i.getInventoryDetails(itemid);
             LblDesD.Text = detFromInventory.Description;
             LblUomD.Text = detFromInventory.UOM;
             LblBinD.Text = detFromInventory.BIN;
             LblIdD.Text = detFromInventory.ItemID;
             //---------------------------from SupplierCatalogue table(Supplier details)------//
-            sCatList = i.getSCatalogueDetails(TxtId.Text);
+            sCatList = i.getSCatalogueDetails(itemid);
             LblS1D.Text = sCatList[0].SupplierID;
             LblS2D.Text = sCatList[1].SupplierID;
             LblS3D.Text = sCatList[2].SupplierID;
-
         }
+
         protected void GridViewStockCard_RowDataBound(object sender, GridViewRowEventArgs e)
         {
                // e.Row.Cells[0].Visible = false;
@@ -93,9 +111,10 @@ namespace Team12_SSIS.StoreClerk
             LblUomD.Visible = true;
 
         }
-      
 
-
-
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ViewInventoryList.aspx");
+        }
     }
 }

@@ -49,7 +49,7 @@
                     <asp:Label ID="LblAds" runat="server" Text="Address:"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="TxtAds" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="TxtAds" runat="server" Width="350px"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -82,6 +82,7 @@
                                         </ItemTemplate>
 
                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                        <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Item ID">
                                         <ItemTemplate>
@@ -91,11 +92,15 @@
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </ItemTemplate>
+                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="10%"></HeaderStyle>
+                                        <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Description">
                                         <ItemTemplate>
                                             <asp:Label ID="LblDes" runat="server"></asp:Label>
                                         </ItemTemplate>
+                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="15%"></HeaderStyle>
+                                        <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Quantity">
                                         <ItemTemplate>
@@ -105,6 +110,8 @@
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </ItemTemplate>
+                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                        <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="UOM">
                                         <ItemTemplate>
@@ -115,18 +122,22 @@
                                                 <asp:ListItem Value="Dozen">Dozen</asp:ListItem>
                                                 <asp:ListItem Value="Set">Set</asp:ListItem>
                                             </asp:DropDownList>
-
                                         </ItemTemplate>
+                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Unit Price">
                                         <ItemTemplate>
                                             <asp:Label ID="LblUnp" runat="server"></asp:Label>
                                         </ItemTemplate>
+                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                        <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Price">
                                         <ItemTemplate>
                                             <asp:Label ID="LblPrice" runat="server"></asp:Label>
                                         </ItemTemplate>
+                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                        <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
                                     <asp:CommandField ButtonType="Button" ShowDeleteButton="True" ControlStyle-CssClass="btn btn-danger">
                                         <ControlStyle CssClass="btn btn-danger" />
@@ -164,10 +175,7 @@
                     <asp:Button ID="BtnSfa" runat="server" Text="Submit for approval" OnClick="BtnSfa_Click" />
 
                 </td>
-                <td>
-                    <asp:Button ID="Btncancel" runat="server" Text="Cancel" />
-
-                </td>
+                
             </tr>
         </table>
 

@@ -2,67 +2,170 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div>
+
 <h2>Stationery Catalog List</h2>
-    <asp:Button ID="BtnCreate" runat="server" Text="Create" OnClick="BtnCreate_Click" />     
-<asp:Button ID="BtnPrint" runat="server" Text="Print" />
-        <br />
-        <asp:TextBox ID="TxtSearch" placeholder="Search Item" runat="server"></asp:TextBox>
-<asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
-</div>
-<div>
-<asp:GridView ID="GridViewCatalogue" runat="server" AutoGenerateColumns="False"
-OnRowCancelingEdit="GridViewCatalogue_RowCancelingEdit"
-OnRowDataBound="GridViewCatalogue_RowDataBound"
-OnRowDeleting="GridViewCatalogue_RowDeleting"
-OnRowEditing="GridViewCatalogue_RowEditing"
-OnRowUpdating="GridViewCatalogue_RowUpdating"
-DataKeyNames="ItemID">
-<Columns>
-<asp:TemplateField HeaderText="ItemID" SortExpression="ItemID">
-<ItemTemplate>
-<asp:Label ID="LblItemID" runat="server" Text='<%# Bind("ItemID") %>'></asp:Label>
-</ItemTemplate>
-</asp:TemplateField>
-<asp:TemplateField HeaderText="CategoryID" SortExpression="CategoryID">
-<ItemTemplate>
-<asp:Label ID="LblCategoryID" runat="server" Text='<%# Bind("CategoryID") %>'></asp:Label>
-</ItemTemplate>
-</asp:TemplateField>
-<asp:TemplateField HeaderText="Description" SortExpression="Description">
-<EditItemTemplate>
-<asp:TextBox ID="TxtDescription" runat="server" Text='<%# Bind("Description") %>'></asp:TextBox>
-</EditItemTemplate>
-<ItemTemplate>
-<asp:Label ID="LblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
-</ItemTemplate>
-</asp:TemplateField>
-<asp:TemplateField HeaderText="ReorderLevel" SortExpression="ReorderLevel">
-<EditItemTemplate>
-<asp:TextBox ID="TxtReorderLevel" runat="server" Text='<%# Bind("ReorderLevel") %>'></asp:TextBox>
-</EditItemTemplate>
-<ItemTemplate>
-<asp:Label ID="LblReorderLevel" runat="server" Text='<%# Bind("ReorderLevel") %>'></asp:Label>
-</ItemTemplate>
-</asp:TemplateField>
-<asp:TemplateField HeaderText="ReorderQty" SortExpression="ReorderQty">
-<EditItemTemplate>
-<asp:TextBox ID="TxtReorderQty" runat="server" Text='<%# Bind("ReorderQty") %>'></asp:TextBox>
-</EditItemTemplate>
-<ItemTemplate>
-<asp:Label ID="LblReorderQty" runat="server" Text='<%# Bind("ReorderQty") %>'></asp:Label>
-</ItemTemplate>
-</asp:TemplateField>
-<asp:TemplateField HeaderText="UOM" SortExpression="UOM">
-<EditItemTemplate>
-<asp:TextBox ID="TxtUOM" runat="server" Text='<%# Bind("UOM") %>'></asp:TextBox>
-</EditItemTemplate>
-<ItemTemplate>
-<asp:Label ID="LblUOM" runat="server" Text='<%# Bind("UOM") %>'></asp:Label>
-</ItemTemplate>
-</asp:TemplateField>
-<asp:CommandField ButtonType="Button" ShowDeleteButton="True" ShowEditButton="True" />
-</Columns>
-</asp:GridView>
-</div>
+    <table style="width: 100%">
+        <tr>
+            <td>
+                <asp:LinkButton ID="LinkButtonCreate" runat="server" OnClick="LinkButtonCreate_Click" Text="Create New Catalogue" />
+            </td>
+            </tr>
+        <tr>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:TextBox ID="TxtSearch" placeholder="Search Item" runat="server"></asp:TextBox>
+                <asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="12">
+                <asp:GridView ID="GridViewCatalogue" runat="server" AutoGenerateColumns="False"
+                    Style="width: 100%"
+                    AllowPaging="True" PageSize="8" OnPageIndexChanging="GridViewCatalogue_PageIndexChanging"
+                    CellPadding="4" ForeColor="#333333"
+                    OnRowDataBound="GridViewCatalogue_RowDataBound"
+                    OnRowEditing="GridViewCatalogue_RowEditing"
+                    OnRowCancelingEdit="GridViewCatalogue_RowCancelingEdit"
+                    OnRowUpdating="GridViewCatalogue_RowUpdating"
+                    DataKeyNames="ItemID"
+                    GridLines="None">
+                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                    <pagersettings mode="Numeric" position="Bottom" />
+                    <Columns>
+
+                        <asp:TemplateField HeaderText="Item ID" SortExpression="ItemID">
+                            <ItemTemplate>
+                                <asp:Label ID="LblItemID" runat="server" Text='<%# Bind("ItemID") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText=" Item Description" SortExpression="Description">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtDescription" runat="server" Text='<%# Bind("Description") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Category ID" SortExpression="CategoryID">
+                            <EditItemTemplate>
+                                <asp:DropDownList ID="DdlCategoryID" runat="server" OnSelectedIndexChanged="DdlCategoryID_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblCategoryID" runat="server" Text='<%# Bind("CategoryID") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Category Name" SortExpression="CategoryName">
+                            <EditItemTemplate>
+                                <asp:Label ID="LblCatalogueNameAuto" runat="server"></asp:Label>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblCatalogueName" runat="server"></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="BIN" SortExpression="BIN">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtBIN" runat="server" Text='<%# Bind("BIN") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblBIN" runat="server" Text='<%# Bind("BIN") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Shelf" SortExpression="Shelf">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtShelf" runat="server" Text='<%# Bind("Shelf") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblShelf" runat="server" Text='<%# Bind("Shelf") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Level" SortExpression="Level">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtLevel" runat="server" Text='<%# Bind("Level") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblLevel" runat="server" Text='<%# Bind("Level") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Reorder Level" SortExpression="ReorderLevel">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtReorderLevel" runat="server" Text='<%# Bind("ReorderLevel") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblReorderLevel" runat="server" Text='<%# Bind("ReorderLevel") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Reorder Quantity" SortExpression="ReorderQty">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtReorderQty" runat="server" Text='<%# Bind("ReorderQty") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblReorderQty" runat="server" Text='<%# Bind("ReorderQty") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Unit Of Measure" SortExpression="UOM">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtUOM" runat="server" Text='<%# Bind("UOM") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblUOM" runat="server" Text='<%# Bind("UOM") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Discontinued" SortExpression="Discontinued">
+                            <EditItemTemplate>
+                                <asp:DropDownList ID="DdlDiscontinued" runat="server" AutoPostBack="true">
+                                    <asp:ListItem Selected="True" Value="N"> N </asp:ListItem>
+                                     <asp:ListItem Value="Y"> Y </asp:ListItem>
+                                </asp:DropDownList>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblDiscontinued" runat="server" Text='<%# Bind("Discontinued") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:CommandField ButtonType="Button" ShowEditButton="True" HeaderText ="Edit"
+                            EditText="Edit" UpdateText="Update" CancelText="Cancel" >
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:CommandField>
+
+                    </Columns>
+
+                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                    <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                    <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                    <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                    <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+
+                </asp:GridView>
+            </td>
+        </tr>
+    </table>
 </asp:Content>
