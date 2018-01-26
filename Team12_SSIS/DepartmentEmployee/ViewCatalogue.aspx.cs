@@ -14,48 +14,26 @@ namespace Team12_SSIS.DepartmentEmployee
 {
     public partial class ViewCatalogue : Page
     {
-        SA45Team12AD entities = new SA45Team12AD();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 BindGrid();
-
-                if (Session["CartList"] != null)
-                {
-                    List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
-                    LblCount.Text = "Number of items requested : " + (temp.Count() + 0).ToString();
-
-                    GridViewCheckOut.Visible = true;
-                    BtnCheckOut.Visible = true;
-                    GridViewCheckOut.DataSource = temp;
-                    GridViewCheckOut.DataBind();
-                    return;
-                }
-                else
-                {
-                    List<InventoryCatalogue> temp = new List<InventoryCatalogue>();
-                    Session["CartList"] = temp;
-                    LblCount.Text = "You can make stationery requisition now.";
-                    GridViewCheckOut.Visible = false;
-                    BtnCheckOut.Visible = false;
-                    return;
-                }
             }
-
-            List<InventoryCatalogue> temp1 = (List<InventoryCatalogue>)Session["CartList"];
-            BindGrid();
-            LblCount.Text = "Number of items requested : " + (temp1.Count() + 1).ToString();
-            GridViewCheckOut.Visible = true;
-            BtnCheckOut.Visible = true;
-            GridViewCheckOut.DataSource = temp1;
-            GridViewCheckOut.DataBind();
+            if (Session["CartList"] != null && ((List<RequisitionRecordDetail>)Session["CartList"]).Count != 0)
+            {
+                List<RequisitionRecordDetail> cartList = (List<RequisitionRecordDetail>)Session["CartList"];
+                GridViewCheckOut.DataSource = cartList;
+                GridViewCheckOut.DataBind();
+                GridViewCheckOut.Visible = true;
+            }
         }
 
         protected void BindGrid()
         {
-            GridViewAddRequest.DataSource = entities.InventoryCatalogues.Select(i => new { i.ItemID, i.Description }
-            ).ToList();
+            InventoryLogic il = new InventoryLogic();
+            List<InventoryCatalogue> itemList = il.GetAllCatalogue();
+            GridViewAddRequest.DataSource = itemList;
             GridViewAddRequest.DataBind();
         }
 
@@ -75,59 +53,40 @@ namespace Team12_SSIS.DepartmentEmployee
 
         protected void BtnAddRequest_Click(object sender, EventArgs e)
         {
-            Button btn = sender as Button;
-            GridViewRow row = btn.NamingContainer as GridViewRow;
-            string click = GridViewAddRequest.DataKeys[row.RowIndex].Values[0].ToString();
-            string ItemIDclick = click;
+            Button btnAddRequest = sender as Button;
+            GridViewRow row = btnAddRequest.NamingContainer as GridViewRow;
+            string itemId = GridViewAddRequest.DataKeys[row.RowIndex].Values[0].ToString();
+            InventoryCatalogue item = InventoryLogic.GetInventoryItem(itemId);
+            InventoryLogic il = new InventoryLogic();
+            List<RequisitionRecordDetail> cartList;
 
-            InventoryCatalogue ic = entities.InventoryCatalogues.Where(x => x.ItemID == ItemIDclick).First();
-            List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
-
-            //Bottom GridView to use RequestionDetail
-            //Modify Bottom GridView to have OnRowDataBound to show Description
-            //Loop through botton GridView, get the quantity from the Textbox
-            //Assign Textbox quantity to RequestDetail.Quantity
-            //Update List<RequestitionDetail>
-            //Add new item to the list
-            //Assign to Session State
-            //Response.Redirect
-
-            //To cheat
-            //Loop through the GridViewRow
-            //Create List<int>, assign the quantity into the list.
-            //OnRowDataBound for botton GridView, foreach int in List<int>, assign the value back to the TxtBox
-
-            bool Exist = temp.Any(i => i.ItemID == ItemIDclick);
-            if (!Exist)
+            if (Session["CartList"] != null)
             {
-                temp.Add(ic);
-                Session["CartList"] = temp;
-                Response.Redirect("ViewCatalogue.aspx");
+                cartList = (List<RequisitionRecordDetail>) Session["CartList"];
+                foreach(GridViewRow r in GridViewCheckOut.Rows)
+                {
+                    int i = 0;
+                    TextBox txtReqQty = r.FindControl("TxtRequestedQuantity") as TextBox;
+                    RequisitionRecordDetail cartItem = cartList.ElementAt(i);
+                    int reqQtyInt;
+                    bool isValidInt = int.TryParse(txtReqQty.Text, out reqQtyInt);
+                    reqQtyInt = isValidInt == false ? 12 : reqQtyInt;
+                    cartItem.RequestedQuantity = reqQtyInt;
+                    cartList.RemoveAt(i);
+                    cartList.Add(cartItem);
+                    i++;
+                }
             }
             else
             {
-                LblCount.Text = "You cannot request this item twice.";
-                LblCount.ForeColor = Color.Red;
+                cartList = new List<RequisitionRecordDetail>();
             }
 
-            //On click of Add Request button. We want to collect the qty information into a List.
-            List<RequisitionRecordDetail> reqQtyList = new List<RequisitionRecordDetail>();
-            foreach (GridViewRow r in GridViewCheckOut.Rows)
-            {
-                RequisitionRecordDetail rrd = new RequisitionRecordDetail();
-                TextBox txtReqQty = r.FindControl("TxtRequestedQuantity") as TextBox;
-                Label lblitemDesc = r.FindControl("LblItemID") as Label;
-                int reqQtyInt;
-                bool isInteger = int.TryParse(txtReqQty.Text, out reqQtyInt);
-
-                if (!isInteger)
-                    return;
-
-                rrd.ItemID = txtReqQty.Text;
-                rrd.RequestedQuantity = isInteger == true ? reqQtyInt : 0;
-                reqQtyList.Add(rrd);
-                Session["ReqQuantity"] = reqQtyList;
-            }
+            RequisitionRecordDetail rrd = new RequisitionRecordDetail();
+            rrd.ItemID = itemId;
+            cartList.Add(rrd);
+            Session["CartList"] = cartList;
+            Response.Redirect("~/DepartmentEmployee/ViewCatalogue.aspx");
         }
 
         protected void BtnCheckOut_Click(object sender, EventArgs e)
@@ -165,45 +124,41 @@ namespace Team12_SSIS.DepartmentEmployee
 
         protected void TxtRequestedQuantity_TextChanged(object sender, EventArgs e)
         {
-            List<InventoryCatalogue> rrd = new List<InventoryCatalogue>();
-            List<int> iid = new List<int>();
-            for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
-            {
-                string ItemID = (GridViewCheckOut.Rows[i].FindControl("LblItemID") as Label).Text;
-                string Description = (GridViewCheckOut.Rows[i].FindControl("LblDescription") as Label).Text;
-                int RequestedQuantity;
-                bool isNumber = int.TryParse((GridViewCheckOut.Rows[i].FindControl("TxtRequestedQuantity") as TextBox).Text, out RequestedQuantity);
-                RequestedQuantity = isNumber ? RequestedQuantity : 0;
+            //List<InventoryCatalogue> rrd = new List<InventoryCatalogue>();
+            //List<int> iid = new List<int>();
+            //for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
+            //{
+            //    string ItemID = (GridViewCheckOut.Rows[i].FindControl("LblItemID") as Label).Text;
+            //    string Description = (GridViewCheckOut.Rows[i].FindControl("LblDescription") as Label).Text;
+            //    int RequestedQuantity;
+            //    bool isNumber = int.TryParse((GridViewCheckOut.Rows[i].FindControl("TxtRequestedQuantity") as TextBox).Text, out RequestedQuantity);
+            //    RequestedQuantity = isNumber ? RequestedQuantity : 0;
 
-                InventoryCatalogue r = new InventoryCatalogue();
-                r.ItemID = ItemID;
-                r.Description = Description;
-                rrd.Add(r);
-                iid.Add(RequestedQuantity);
-            }
+            //    InventoryCatalogue r = new InventoryCatalogue();
+            //    r.ItemID = ItemID;
+            //    r.Description = Description;
+            //    rrd.Add(r);
+            //    iid.Add(RequestedQuantity);
+            //}
 
-            GridViewCheckOut.DataSource = rrd;
-            GridViewCheckOut.DataBind();
-            for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
-            {
-                TextBox txtReqQty = GridViewCheckOut.Rows[i].FindControl("TxtRequestedQuantity") as TextBox;
-                txtReqQty.Text = iid.ElementAt(i).ToString();
-            }
+            //GridViewCheckOut.DataSource = rrd;
+            //GridViewCheckOut.DataBind();
+            //for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
+            //{
+            //    TextBox txtReqQty = GridViewCheckOut.Rows[i].FindControl("TxtRequestedQuantity") as TextBox;
+            //    txtReqQty.Text = iid.ElementAt(i).ToString();
+            //}
 
         }
 
         protected void GridViewCheckOut_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            List<RequisitionRecordDetail> reqQtyList = (List<RequisitionRecordDetail>)Session["ReqQuantity"];
-            //To cheat
-            //Loop through the GridViewRow
-            //Create List<int>, assign the quantity into the list.
-            //OnRowDataBound for botton GridView, foreach int in List<int>, assign the value back to the TxtBox
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                Label lblItemId = e.Row.FindControl("LblItemID") as Label;
-                TextBox txtReqQty = e.Row.FindControl("TxtRequestedQuantity") as TextBox;
-                txtReqQty.Text = reqQtyList.Where(x => x.ItemID == lblItemId.Text).Select(x => x.RequestedQuantity).FirstOrDefault().ToString();
+                RequisitionRecordDetail rrd = (RequisitionRecordDetail)e.Row.DataItem;
+                Label lblDesc = e.Row.FindControl("LblDescription") as Label;
+                if (lblDesc != null)
+                    lblDesc.Text = InventoryLogic.GetItemName(rrd.ItemID);
             }
         }
     }
