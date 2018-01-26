@@ -47,15 +47,6 @@
             <asp:Button ID="BtnAddDelegate" runat="server" OnClick="BtnAddDelegate_Click" Text="Add Delegate" />
             <br />
         </asp:View>
-        <br />
-        <br />
     </asp:MultiView>
-     <br />
-    <br />
-    
-    <br />
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <br />
-    <br />
-    <br />
+     &nbsp;<br />
     </asp:Content>
