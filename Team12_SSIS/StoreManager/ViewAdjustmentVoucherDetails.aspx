@@ -15,7 +15,7 @@
             <tbody style="width: 100%">
                 <tr>
                     <td colspan="2" style="height: 25px">
-                        <asp:Label ID="LblPageTitle" runat="server" Font-Size="Large"></asp:Label>
+                        <asp:Label ID="LblPageTitle" runat="server" Font-Size="Large" Text="Inventory Adjustment Voucher Request Details"></asp:Label>
                     </td>
                 </tr>
                 <tr>

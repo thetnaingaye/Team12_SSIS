@@ -10,12 +10,19 @@ using Team12_SSIS.Model;
 namespace Team12_SSIS.StoreManager
 {
     public partial class ListOfAdjustmentVouchers : System.Web.UI.Page
-    {
+    { 
+            List<AVRequest> requestList=null;
+            string id = null;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                BindGrid();
+                //BindGrid();
+                DdlStatus.SelectedValue = "ForApproval";
+                GetForApprovalList();
+                GridBind(requestList);
+
                 LblMsg.Visible = false;
             }
         
@@ -67,8 +74,7 @@ namespace Team12_SSIS.StoreManager
         protected void DdlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             string status = DdlStatus.SelectedValue;
-            List<AVRequest> requestList=null;
-            string id = null;
+            
             //List<AVRequest> requestList = (status == "All" ? InventoryLogic.GetListOfAdjustmentRequests() : InventoryLogic.GetListOfAdjustmentRequests(status));
             if (status=="All")
             {
@@ -81,26 +87,40 @@ namespace Team12_SSIS.StoreManager
                 LblMsg.Visible = false;
 
             }
-            else if(status == "ForApproval")
+            else if(status == "For Approval")
             {
-              if(User.IsInRole("Supervisor"))
-                {
-                    id ="Supervisor";
-                }
-              if(User.IsInRole("Manager"))
-                {
-                    id ="Manager";
-                }
-                requestList = InventoryLogic.GetadvReq(id);
-                if (requestList.Count==0)
-                {
-                    LblMsg.Visible = true;
-                    LblMsg.Text = "You have no more pending request for approval!";
-                }
 
+                GetForApprovalList();
             }
+            GridBind(requestList);
+           
+        }
+
+        public void GridBind(List<AVRequest> requestList)
+        {
             GridViewAdjV.DataSource = requestList;
             GridViewAdjV.DataBind();
+        }
+
+
+
+        public void GetForApprovalList()
+        {
+
+            if (User.IsInRole("Supervisor"))
+            {
+                id = "Supervisor";
+            }
+            if (User.IsInRole("Manager"))
+            {
+                id = "Manager";
+            }
+            requestList = InventoryLogic.GetadvReq(id);
+            if (requestList.Count == 0)
+            {
+                LblMsg.Visible = true;
+                LblMsg.Text = "You have no more pending request for approval!";
+            }
         }
     }
 }

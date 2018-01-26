@@ -159,5 +159,13 @@ namespace Team12_SSIS.StoreClerk
             }
 
         }
+        protected void GridViewDisbList_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName =="show")
+            {
+                Session["Itemid"] = e.CommandArgument.ToString();
+                Response.Redirect("ViewStockCard.aspx");
+            }
+        }
     }
 }

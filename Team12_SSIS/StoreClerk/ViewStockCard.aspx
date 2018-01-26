@@ -30,6 +30,8 @@
                       <asp:TextBox ID="TxtId" runat="server" Height="20px" Width="180px"></asp:TextBox>
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <asp:Button ID="BtnFind" runat="server" CssClass="auto-style1" Text="Find Transaction Details" OnClick="BtnFind_Click" Width="180px"  />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="..." />
                         <br />
                       </td>
                       <td>

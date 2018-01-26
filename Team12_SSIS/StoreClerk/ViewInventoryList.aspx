@@ -111,7 +111,7 @@
     <br />
 
     <%--Gridview formatting--%>
-    <asp:GridView ID="GridViewInventory" runat="server"   AutoGenerateColumns="false" Width="100%" GridLines="None" datakeynames="ItemID" ItemType="Team12_SSIS.Model.InventoryCatalogue" BackColor="White"  AllowPaging="true"  PageSize="10"  OnPageIndexChanging="OnPaging" OnRowDataBound="GridViewInventory_RowDataBound" ShowHeaderWhenEmpty="True"> 
+    <asp:GridView ID="GridViewInventory" runat="server"   AutoGenerateColumns="false" Width="100%" GridLines="None" datakeynames="ItemID" ItemType="Team12_SSIS.Model.InventoryCatalogue" BackColor="White"  AllowPaging="true"  PageSize="10"  OnPageIndexChanging="OnPaging" OnRowDataBound="GridViewInventory_RowDataBound" ShowHeaderWhenEmpty="True" OnRowCommand="GridViewDisbList_RowCommand"> 
        <%-- <HeaderStyle BackColor="#6495ED" Font-Bold="false" Font-Size="Medium" HorizontalAlign="Center" VerticalAlign="Middle" >
           </HeaderStyle>
         --%>
@@ -122,7 +122,8 @@
     <Columns>
         <asp:TemplateField HeaderText="ItemID">
             <ItemTemplate>
-                <asp:Label ID="LblitemId" runat="server" Text="<%#:Item.ItemID %>" HeaderText="Item Code" ></asp:Label>
+              
+                <asp:LinkButton ID="LBtnListID" runat="server" Text='<%# (Eval("ItemID")) %>' CommandName="show" CommandArgument='<%# Bind("ItemID") %>'></asp:LinkButton>
             </ItemTemplate>
               <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
             <ItemStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
