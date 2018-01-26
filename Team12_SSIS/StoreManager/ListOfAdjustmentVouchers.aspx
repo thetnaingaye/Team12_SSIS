@@ -36,50 +36,50 @@
                                         <ItemTemplate>
                                             <asp:Label ID="LblSn" runat="server" CssClass="center-block" Text="<%# Container.DataItemIndex + 1 %>"></asp:Label>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="Voucher ID / Request ID" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
-                                        <ItemTemplate>
+                                    <asp:TemplateField HeaderText="Voucher ID / Request ID" HeaderStyle-Width="6%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                        <ItemTemplate >
                                             <asp:LinkButton ID="LBtnVoucherId" runat="server" Visible="false" CommandName="ViewDetails" CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
-                                            <asp:LinkButton ID="LBtnRequestId" runat="server" Visable="false" CommandName="ViewDetails" Text='<%# "AVR" + ((int)Eval("AVRID")).ToString("0000") %>' CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
+                                           <asp:LinkButton ID="LBtnRequestId" runat="server" Visable="false" CommandName="ViewDetails" Text='<%# "AVR" + ((int)Eval("AVRID")).ToString("0000") %>' CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="8%" ></HeaderStyle>
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="Date Created" HeaderStyle-Width="52%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                    <asp:TemplateField HeaderText="Date Created" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
                                             <asp:Label ID="LblCreateDate" runat="server" Text='<%# ((DateTime)Eval("DateRequested")).ToString("d") %>'></asp:Label>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="52%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="Requested By" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                    <asp:TemplateField HeaderText="Requested By" HeaderStyle-Width="7%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
                                             <asp:Label ID="LblRequestor" runat="server" Text='<%# Bind("RequestedBy") %>'></asp:Label>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="7%"></HeaderStyle>
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="Status" HeaderStyle-Width="10%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                    <asp:TemplateField HeaderText="Status" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
-                                            <asp:Label ID="LblStatus" runat="server" Width="80%" CssClass="center-block" Text='<%# Bind("Status") %>'></asp:Label>
+                                            <asp:Label ID="LblStatus" runat="server" Width="5%" CssClass="center-block" Text='<%# Bind("Status") %>'></asp:Label>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="10%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                     </asp:TemplateField>
 
                                     <asp:TemplateField HeaderText="Date Processed" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
-                                            <asp:Label ID="LblProcessDate" runat="server" Text='<%# Bind("RequestedBy") %>'></asp:Label>
+                                            <asp:Label ID="LblProcessDate" runat="server" Text='<%# Bind("DateProcessed") %>'></asp:Label>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="Handled By" HeaderStyle-Width="10%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                    <asp:TemplateField HeaderText="Handled By" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
                                             <asp:Label ID="LblHandledBy" runat="server" Text='<%# Bind("HandledBy") %>'></asp:Label>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="10%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                     </asp:TemplateField>
                                 </Columns>
                                 <EditRowStyle BackColor="#999999" />

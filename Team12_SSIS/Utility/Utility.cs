@@ -326,7 +326,21 @@ namespace Team12_SSIS.Utility
 
 
 
-
+        public static string GetUserEmailAddress(string fullname)
+        {
+            List<string> clerkemails = new List<string>();
+            List<MembershipUser> userList = GetListOfMembershipUsers();
+            foreach (MembershipUser u in userList)
+            {
+                ProfileBase p = ProfileBase.Create(u.UserName);
+                if (p.GetPropertyValue("fullname").ToString() == fullname)
+                {
+                    return u.Email;
+                }
+            }
+            //in case user is not found...
+            return "sa45team12ssis+UtilityinGetUserEmailAddressError@gmail.com";
+        }
 
 
 

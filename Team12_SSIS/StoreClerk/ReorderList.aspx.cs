@@ -47,7 +47,7 @@ namespace Team12_SSIS.StoreClerk
 
         public string GetQuantity(string itemID)
         {
-            int temp = i.GetQuantity(itemID);
+            int temp = InventoryLogic.GetQuantity(itemID);
             return temp.ToString();
         }
 
