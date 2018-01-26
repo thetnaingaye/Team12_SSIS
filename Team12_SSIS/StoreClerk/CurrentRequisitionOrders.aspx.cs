@@ -19,7 +19,7 @@ namespace Team12_SSIS.StoreClerk
             if (!IsPostBack)
             {
                 LblDetails.Text = "";
-                var temp = r.ListCurrentRequisitionRecord();
+                var temp = RequisitionLogic.ListCurrentRequisitionRecord();
                 if (temp == null)
                 {
                     LblMessage.Text = "There are no requisition orders at present.";
@@ -65,7 +65,7 @@ namespace Team12_SSIS.StoreClerk
             LblDetails.Text = "Details";
 
             // Changing the visibility of the button
-            var tempList = r.RetrieveRequisitionRecordDetails(reqID, "Approved");
+            var tempList = RequisitionLogic.RetrieveRequisitionRecordDetails(reqID, "Approved");
 
             // Binding the gridview
             GridViewDetails.DataSource = tempList;

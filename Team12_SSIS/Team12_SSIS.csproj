@@ -142,6 +142,7 @@
     <Content Include="Images\brandimg.png" />
     <Content Include="Images\logo.png" />
     <Content Include="DepartmentEmployee\CheckOutRequest.aspx" />
+    <Content Include="Images\logosmall.png" />
     <Content Include="Logout.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -632,6 +633,7 @@
     <Compile Include="WebServices\WCF_Model\WCF_RequisitionRecord.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_RequisitionRecordDetail.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_StockCard.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_TempInventoryRetrieval.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utility\TempImageFiles\" />
