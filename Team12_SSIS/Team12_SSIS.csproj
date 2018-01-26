@@ -618,6 +618,7 @@
     <Compile Include="WebServices\WCF_Model\WCF_AdjustmentVoucher.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_AVRequest.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_AVRequestDetail.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_Department.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_DisbursementList.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_DisbursementListDetail.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_InventoryCatalogue.cs" />
