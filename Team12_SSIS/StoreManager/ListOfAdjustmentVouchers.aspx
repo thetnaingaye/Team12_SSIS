@@ -8,7 +8,7 @@
            
                 <tr>
                     <td style="height: 25px">
-                        <asp:Label runat="server" Text="List Inventory Adjustment Vouchers" Font-Size="Large"></asp:Label>
+                        <asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="Medium" Text="Inventory Adjustment Voucher Request"></asp:Label>
                     </td>
                     <td>
                         <asp:Label ID="Label1" runat="server" Text="Show: " Style="padding-right: 10px"></asp:Label>
@@ -16,7 +16,7 @@
                             <asp:ListItem Selected="True" Value="Pending">Pending</asp:ListItem>
                             <asp:ListItem Value="Approved">Approved</asp:ListItem>
                             <asp:ListItem Value="Rejected">Rejected</asp:ListItem>
-                            <asp:ListItem Value="ForApproval">ForApproval</asp:ListItem>
+                            <asp:ListItem Value="ForApproval">For Approval</asp:ListItem>
                             <asp:ListItem Value="All">All</asp:ListItem>
                         </asp:DropDownList>
                     </td>
