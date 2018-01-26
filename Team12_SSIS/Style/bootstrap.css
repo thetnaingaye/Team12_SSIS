@@ -229,13 +229,13 @@ optgroup {
 table {
     border-collapse: collapse;
     border-spacing: 0;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
+    border-color: dimgray;
+    border-radius: 10px;
 }
 
 td,
 th {
-    padding: 0;
+    padding: 5px;
 }
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
@@ -1528,10 +1528,10 @@ h6,
 .h4,
 .h5,
 .h6 {
-    font-family: "Open Sans", "Roboto", sans-serif;
-    font-weight: 300;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 500;
     line-height: 1.1;
-    color: inherit;
+    color: #2780e3;
 }
 
     h1 small,
@@ -1763,12 +1763,12 @@ a.bg-primary:focus {
 }
 
 .bg-success {
-    background-color: #3fb618;
+    background-color: #0a9eac; /*changed from #3fb618*/
 }
 
 a.bg-success:hover,
 a.bg-success:focus {
-    background-color: #2f8912;
+    background-color: #065a62; /*changed from #2f8912*/
 }
 
 .bg-info {
@@ -1790,12 +1790,12 @@ a.bg-warning:focus {
 }
 
 .bg-danger {
-    background-color: #ff0039;
+    background-color: #990022; /*changed from ff0039*/
 }
 
 a.bg-danger:hover,
 a.bg-danger:focus {
-    background-color: #cc002e;
+    background-color: #5B0014; /*changed from cc002e*/
 }
 
 .page-header {
@@ -2894,9 +2894,9 @@ pre {
     }
 }
 
-table {
+/*table {
     background-color: transparent;
-}
+}*/
 
 caption {
     padding-top: 8px;
@@ -2907,6 +2907,13 @@ caption {
 
 th {
     text-align: left;
+    text-align: left;
+    background: #1a6ecc;
+    color: #ffffff;
+    font-size: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .table {
@@ -2922,9 +2929,9 @@ th {
     .table > tbody > tr > td,
     .table > tfoot > tr > td {
         padding: 8px;
-        line-height: 1.42857143;
+        line-height: 1.8;
         vertical-align: top;
-        border-top: 1px solid #dddddd;
+        border-top: 2px solid #dddddd;
     }
 
     .table > thead > tr > th {
@@ -2959,7 +2966,7 @@ th {
 }
 
 .table-bordered {
-    border: 1px solid #dddddd;
+    border: 1px solid #dddddd; /*changed form 1px*/
 }
 
     .table-bordered > thead > tr > th,
@@ -2968,7 +2975,7 @@ th {
     .table-bordered > thead > tr > td,
     .table-bordered > tbody > tr > td,
     .table-bordered > tfoot > tr > td {
-        border: 1px solid #dddddd;
+        border: 2px solid #dddddd; /*changed form 2px*/
     }
 
     .table-bordered > thead > tr > th,
@@ -2976,9 +2983,14 @@ th {
         border-bottom-width: 2px;
     }
 
-.table-striped > tbody > tr:nth-of-type(odd) {
-    background-color: #f9f9f9;
+/*.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #0FE3F7;
+}*/
+
+.table-striped > tbody > tr:nth-child(even) {
+    background-color: #2780e3;
 }
+
 
 .table-hover > tbody > tr:hover {
     background-color: #f5f5f5;
@@ -3032,7 +3044,7 @@ table th[class*="col-"] {
 .table > thead > tr.success > th,
 .table > tbody > tr.success > th,
 .table > tfoot > tr.success > th {
-    background-color: #3fb618;
+    background-color: #0a9eac; /*changed from #3fb618*/
 }
 
 .table-hover > tbody > tr > td.success:hover,
@@ -3101,7 +3113,7 @@ table th[class*="col-"] {
 .table > thead > tr.danger > th,
 .table > tbody > tr.danger > th,
 .table > tfoot > tr.danger > th {
-    background-color: #ff0039;
+    background-color: #990022; /*changed from ff0039*/
 }
 
 .table-hover > tbody > tr > td.danger:hover,
@@ -3239,8 +3251,6 @@ output {
 
 .form-control {
     display: block;
-    width: 100%;
-    height: 43px;
     padding: 10px 18px;
     font-size: 15px;
     line-height: 1.42857143;
@@ -3270,6 +3280,8 @@ output {
 
     .form-control:-ms-input-placeholder {
         color: #999999;
+        padding: 0px 8px 0px 8px;
+        line-height: 1.5px;
     }
 
     .form-control::-webkit-input-placeholder {
@@ -3573,7 +3585,7 @@ select[multiple].input-lg {
 .has-success .input-group-addon {
     color: #ffffff;
     border-color: #ffffff;
-    background-color: #3fb618;
+    background-color: #0a9eac; /*changed from #3fb618*/
 }
 
 .has-success .form-control-feedback {
@@ -3643,7 +3655,8 @@ select[multiple].input-lg {
 .has-error .input-group-addon {
     color: #ffffff;
     border-color: #ffffff;
-    background-color: #ff0039;
+    background-color: #990022; /*changed from ff0039*/
+    
 }
 
 .has-error .form-control-feedback {
@@ -3965,20 +3978,20 @@ fieldset[disabled] a.btn {
 
 .btn-success {
     color: #ffffff;
-    background-color: #3fb618;
-    border-color: #3fb618;
+    background-color: #0a9eac; /*changed from #3fb618*/
+    border-color: #0a9eac; /*changed from #3fb618*/
 }
 
     .btn-success:focus,
     .btn-success.focus {
         color: #ffffff;
-        background-color: #2f8912;
+        background-color: #065a62; /*changed from #2f8912*/
         border-color: #184509;
     }
 
     .btn-success:hover {
         color: #ffffff;
-        background-color: #2f8912;
+        background-color: #065a62; /*changed from #2f8912*/
         border-color: #2c8011;
     }
 
@@ -3986,7 +3999,7 @@ fieldset[disabled] a.btn {
     .btn-success.active,
     .open > .dropdown-toggle.btn-success {
         color: #ffffff;
-        background-color: #2f8912;
+        background-color: #065a62; /*changed from #2f8912*/
         border-color: #2c8011;
     }
 
@@ -4019,12 +4032,12 @@ fieldset[disabled] a.btn {
     .btn-success.disabled.focus,
     .btn-success[disabled].focus,
     fieldset[disabled] .btn-success.focus {
-        background-color: #3fb618;
-        border-color: #3fb618;
+        background-color: #0a9eac; /*changed from #3fb618*/
+        border-color: #0a9eac; /*changed from #3fb618*/
     }
 
     .btn-success .badge {
-        color: #3fb618;
+        color: #0a9eac; /*changed from #3fb618*/
         background-color: #ffffff;
     }
 
@@ -4160,20 +4173,20 @@ fieldset[disabled] a.btn {
 
 .btn-danger {
     color: #ffffff;
-    background-color: #ff0039;
-    border-color: #ff0039;
+    background-color: #990022; /*changed from ff0039*/
+    border-color: #990022; /*changed from ff0039*/
 }
 
     .btn-danger:focus,
     .btn-danger.focus {
         color: #ffffff;
-        background-color: #cc002e;
+        background-color: #5B0014; /*changed from cc002e*/
         border-color: #80001c;
     }
 
     .btn-danger:hover {
         color: #ffffff;
-        background-color: #cc002e;
+        background-color: #5B0014; /*changed from cc002e*/
         border-color: #c2002b;
     }
 
@@ -4181,7 +4194,7 @@ fieldset[disabled] a.btn {
     .btn-danger.active,
     .open > .dropdown-toggle.btn-danger {
         color: #ffffff;
-        background-color: #cc002e;
+        background-color: #5B0014; /*changed from cc002e*/
         border-color: #c2002b;
     }
 
@@ -4214,12 +4227,12 @@ fieldset[disabled] a.btn {
     .btn-danger.disabled.focus,
     .btn-danger[disabled].focus,
     fieldset[disabled] .btn-danger.focus {
-        background-color: #ff0039;
-        border-color: #ff0039;
+        background-color: #990022; /*changed from ff0039*/
+        border-color: #990022; /*changed from ff0039*/
     }
 
     .btn-danger .badge {
-        color: #ff0039;
+        color: #990022; /*changed from ff0039*/
         background-color: #ffffff;
     }
 
@@ -4271,8 +4284,8 @@ fieldset[disabled] a.btn {
 
 .btn-sm,
 .btn-group-sm > .btn {
-    padding: 5px 10px;
-    font-size: 13px;
+    padding: 0px 8px 0px 8px;
+    font-size: 14px;
     line-height: 1.5;
     border-radius: 2px;
 }
@@ -4747,7 +4760,7 @@ tbody.collapse.in {
     height: 64px;
     padding: 18px 30px;
     font-size: 19px;
-    line-height: 1.3333333;
+    line-height: 1.5;
     border-radius: 0;
 }
 
@@ -5272,11 +5285,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 
 .navbar-brand {
     float: left;
-    padding: 7px 30px 1px 3px;
-    font-size: 25px;
-    font-weight: 400;
+    padding: 7px 30px 1px 20px;
+    font-size: 20px;
+    font-weight: 500;
     line-height: 21px;
-    max-height: 40px;
+    max-height: 35px;
 }
 
     .navbar-brand:hover,
@@ -5696,7 +5709,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     .navbar-inverse .navbar-nav > .active > a,
     .navbar-inverse .navbar-nav > .active > a:hover,
     .navbar-inverse .navbar-nav > .active > a:focus {
-        color: #ffffff; 
+        color: #ffffff;
         background-color: #1967be;
     }
 
@@ -5711,13 +5724,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
         border-color: transparent;
     }
 
-     .navbar-inverse .navbar-toggle:hover,
-     .navbar-inverse .navbar-toggle:focus {
+        .navbar-inverse .navbar-toggle:hover,
+        .navbar-inverse .navbar-toggle:focus {
             color: #ffffff;
             background-color: #1967be; /*changed from 1967be*/
         }
 
-     .navbar-inverse .navbar-toggle .icon-bar {
+        .navbar-inverse .navbar-toggle .icon-bar {
             background-color: #1a6ecc; /*changed from #ffffff*/
         }
 
@@ -6020,12 +6033,12 @@ a.navbar-brand {
     }
 
 .label-success {
-    background-color: #3fb618;
+    background-color: #0a9eac; /*changed from #3fb618*/
 }
 
     .label-success[href]:hover,
     .label-success[href]:focus {
-        background-color: #2f8912;
+        background-color: #065a62; /*changed from #2f8912*/
     }
 
 .label-info {
@@ -6047,12 +6060,12 @@ a.navbar-brand {
     }
 
 .label-danger {
-    background-color: #ff0039;
+    background-color: #990022; /*changed from ff0039*/
 }
 
     .label-danger[href]:hover,
     .label-danger[href]:focus {
-        background-color: #cc002e;
+        background-color: #5B0014; /*changed from cc002e*/
     }
 
 .badge {
@@ -6231,7 +6244,7 @@ a.thumbnail.active {
     }
 
 .alert-success {
-    background-color: #3fb618;
+    background-color: #0a9eac; /*changed from #3fb618*/
     border-color: #4e9f15;
     color: #ffffff;
 }
@@ -6273,7 +6286,7 @@ a.thumbnail.active {
     }
 
 .alert-danger {
-    background-color: #ff0039;
+    background-color: #990022; /*changed from ff0039*/
     border-color: #f0005e;
     color: #ffffff;
 }
@@ -6359,7 +6372,7 @@ a.thumbnail.active {
 }
 
 .progress-bar-success {
-    background-color: #3fb618;
+    background-color: #0a9eac; /*changed from #3fb618*/
 }
 
 .progress-striped .progress-bar-success {
@@ -6389,7 +6402,7 @@ a.thumbnail.active {
 }
 
 .progress-bar-danger {
-    background-color: #ff0039;
+    background-color: #990022; /*changed from ff0039*/
 }
 
 .progress-striped .progress-bar-danger {
@@ -6557,7 +6570,7 @@ button.list-group-item {
 
 .list-group-item-success {
     color: #ffffff;
-    background-color: #3fb618;
+    background-color: #0a9eac; /*changed from #3fb618*/
 }
 
 a.list-group-item-success,
@@ -6659,7 +6672,7 @@ button.list-group-item-warning {
 
 .list-group-item-danger {
     color: #ffffff;
-    background-color: #ff0039;
+    background-color: #990022; /*changed from ff0039*/
 }
 
 a.list-group-item-danger,
@@ -7028,7 +7041,7 @@ button.list-group-item-danger {
 
     .panel-success > .panel-heading {
         color: #ffffff;
-        background-color: #3fb618;
+        background-color: #0a9eac; /*changed from #3fb618*/
         border-color: #4e9f15;
     }
 
@@ -7037,7 +7050,7 @@ button.list-group-item-danger {
         }
 
         .panel-success > .panel-heading .badge {
-            color: #3fb618;
+            color: #0a9eac; /*changed from #3fb618*/
             background-color: #ffffff;
         }
 
@@ -7097,7 +7110,7 @@ button.list-group-item-danger {
 
     .panel-danger > .panel-heading {
         color: #ffffff;
-        background-color: #ff0039;
+        background-color: #990022; /*changed from ff0039*/
         border-color: #f0005e;
     }
 
@@ -7106,7 +7119,7 @@ button.list-group-item-danger {
         }
 
         .panel-danger > .panel-heading .badge {
-            color: #ff0039;
+            color: #990022; /*changed from ff0039*/
             background-color: #ffffff;
         }
 
@@ -8280,12 +8293,12 @@ body {
 
 .text-success,
 .text-success:hover {
-    color: #3fb618;
+    color: #0a9eac; /*changed from #3fb618*/
 }
 
 .text-danger,
 .text-danger:hover {
-    color: #ff0039;
+    color: #990022; /*changed from ff0039*/
 }
 
 .text-warning,
@@ -8361,13 +8374,13 @@ table .info,
 .has-error.radio-inline label,
 .has-error.checkbox-inline label,
 .has-error .form-control-feedback {
-    color: #ff0039;
+    color: #990022; /*changed from ff0039*/
 }
 
 .has-error .form-control,
 .has-error .form-control:focus,
 .has-error .input-group-addon {
-    border: 1px solid #ff0039;
+    border: 1px solid #990022; /*changed from ff0039*/
 }
 
 .has-success .help-block,
@@ -8381,13 +8394,13 @@ table .info,
 .has-success.radio-inline label,
 .has-success.checkbox-inline label,
 .has-success .form-control-feedback {
-    color: #3fb618;
+    color: #0a9eac; /*changed from #3fb618*/
 }
 
 .has-success .form-control,
 .has-success .form-control:focus,
 .has-success .input-group-addon {
-    border: 1px solid #3fb618;
+    border: 1px solid #0a9eac; /*changed from #3fb618*/
 }
 
 .nav-pills > li > a {
@@ -8445,7 +8458,7 @@ table .info,
 }
 
 a.list-group-item-success.active {
-    background-color: #3fb618;
+    background-color: #0a9eac; /*changed from #3fb618*/
 }
 
     a.list-group-item-success.active:hover,
@@ -8463,7 +8476,7 @@ a.list-group-item-warning.active {
     }
 
 a.list-group-item-danger.active {
-    background-color: #ff0039;
+    background-color: #990022; /*changed from ff0039*/
 }
 
     a.list-group-item-danger.active:hover,
