@@ -140,7 +140,7 @@
         </tr>
         <tr>
             <td colspan="5" style="align-content:flex-end">
-                <asp:Button ID="BtnCreateDis" runat="server" Text="Create Disbursement List" CssClass="btn btn-group-xs center-block" Visible="false" OnClick="BtnCreateDis_Click" ValidationGroup="BtnCreateGR" />
+                <asp:Button ID="BtnCreateDis" runat="server" Text="Create Disbursement List" CssClass="btn btn-group-xs center-block" Visible="false" OnClick="BtnCreateDis_Click" ValidationGroup="BtnCreateGR" OnClientClick="this.disabled=true;" UseSubmitBehavior="false" />
             </td>
         </tr>
     </table>

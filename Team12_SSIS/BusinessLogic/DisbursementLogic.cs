@@ -880,15 +880,27 @@ namespace Team12_SSIS.BusinessLogic
 
         public bool UpdateDisbursementStatus(int disbursementId, string status)
         {
+            string email;
+            string collectPoint;
+            string dateTime;
             bool success = false;
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 DisbursementList dL = ctx.DisbursementLists.Where(x => x.DisbursementID == disbursementId).FirstOrDefault();
+                email = Utility.Utility.GetEmailAddressByName(dL.RepresentativeName);
+                collectPoint = GetCurrentCPWithTimeByID(dL.CollectionPointID);
+                dateTime = ((DateTime)dL.CollectionDate).ToString("d");
                 dL.Status = status;
                 ctx.SaveChanges();
                 success = true;
             }
-            return success;
+            if (status == "Cancelled")
+                using(EmailControl em = new EmailControl())
+                {
+                    em.CancelStationeryCollectionNotification(email, collectPoint, dateTime);
+                }
+
+                return success;
         }
 
         public static List<DisbursementList> GetListOfDisbursements()

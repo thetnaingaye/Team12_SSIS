@@ -24,8 +24,7 @@ namespace Team12_SSIS.StoreClerk
             {
                 statusMessage.Visible = false;
                 DisplayEmptyGrid();
-            }
-
+            }           
         }
 
         protected void BtnRetrievePO_Click(object sender, EventArgs e)
@@ -73,7 +72,8 @@ namespace Team12_SSIS.StoreClerk
 
         protected void BtnPostGR_Click(object sender, EventArgs e)
         {
-            CheckValidQty();
+            if (!ValidQty())
+                return;
 
             DateTime date = DateTime.ParseExact(Request.Form["datepicker"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
             string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
@@ -106,25 +106,30 @@ namespace Team12_SSIS.StoreClerk
             //Here will check if the PO is already completed
             pl.GetPurchaseOrdersForGR(poNumber);
             poNumber = -1;
-
+            LblQtyValid.Visible = false;
             DisplaySuccessMessage(grNumber);
             DisplayEmptyGrid();
         }
 
-        void CheckValidQty()
+        bool ValidQty()
         {
+            bool isValid = true;
             foreach (GridViewRow r in GridViewGR.Rows)
             {
-                string itemID = (r.FindControl("LblItemCode") as Label).Text;
-                int quantity = int.Parse((r.FindControl("TxtQty") as TextBox).Text);
-                if (Utility.Validator.IsIntMoreThan(quantity, (int)((PORecordDetail)r.DataItem).Quantity))
+                string itemName = (r.FindControl("LblDesc") as Label).Text;
+                int quantityOrd = int.Parse((r.FindControl("LblOrd") as Label).Text);
+                int quantityRecd = int.Parse((r.FindControl("TxtQty") as TextBox).Text);
+
+                if (Utility.Validator.IsIntMoreThan(quantityRecd, quantityOrd) || quantityRecd < 0)
                 {
-                    LblQtyValid.Text = "Error! You cannot make GR quantity must be less than PO quantity" + itemID;
+                    LblQtyValid.Text = "Error! Invalid Goods Receipt Quantity " + itemName;
                     LblQtyValid.ForeColor = Color.Red;
                     LblQtyValid.Visible = true;
-                    return;
+                    isValid = false;
+                    return isValid;
                 }
             }
+            return isValid;
         }
 
         void DisplaySuccessMessage(int grNumber)

@@ -950,6 +950,31 @@ namespace Team12_SSIS.Utility
             }
         }
 
+        public bool CancelStationeryCollectionNotification(string deptRepEmailAddress, string collectionPoint, string dateTime)
+        {
+            try
+            {
+                string bodyMessage = greeting +
+                    twoLineSpacing +
+                    "The collection appointment on " + dateTime +
+                    " at " + collectionPoint +
+                    " has been cancelled. ";
+                SmtpClient client = new SmtpClient();
+                MailMessage mail = new MailMessage();
+                mail.Subject = "Stationery collection on " + dateTime + " at " + collectionPoint + " has been cancelled.";
+                bodyMessage += twoLineSpacing + systemGen;
+                mail.Body = bodyMessage;
+                mail.To.Add(deptRepEmailAddress);
+                client.Send(mail);
+                success = true;
+                return success;
+            }
+            catch (Exception e)
+            {
+                throw new EmailControlException("CancelStationeryCollectionNotification Exception\n" + e.Message);
+            }
+        }
+
         //do we need to cater for change of disbursement list information?
         #endregion
 

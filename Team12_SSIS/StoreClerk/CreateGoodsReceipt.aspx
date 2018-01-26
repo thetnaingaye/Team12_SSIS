@@ -82,17 +82,25 @@
                                 <ItemTemplate>
                                     <asp:Label ID="LblDesc" runat="server"></asp:Label>
                                 </ItemTemplate>
-
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="52%"></HeaderStyle>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Quantity Received" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+
+                            <asp:TemplateField HeaderText="Quantity Ordered" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="TxtQty" runat="server" Width="100%" CssClass="center-block" Text='<%# Eval("Quantity") %>'></asp:TextBox>
+                                    <asp:Label ID="LblOrd" runat="server" Width="100%" CssClass="center-block" Text='<%# Eval("Quantity") %>'></asp:Label>
                                 </ItemTemplate>
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
                             </asp:TemplateField>
 
+
+                            <asp:TemplateField HeaderText="Quantity Received" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="TxtQty" runat="server" Width="100%" CssClass="center-block" Text='<%# Bind("Quantity") %>'></asp:TextBox>
+                                    <asp:RegularExpressionValidator runat="server" ControlToValidate="TxtQty" ValidationGroup="BtnCreateGR" ErrorMessage="Please enter an Integer for quantity" ValidationExpression="^\d+$" Display="None"></asp:RegularExpressionValidator>
+                                </ItemTemplate>
+                                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="8%"></HeaderStyle>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="UOM" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                 <ItemTemplate>
                                     <asp:Label ID="LblUom" runat="server" Text='<%# Bind("UOM") %>'></asp:Label>
@@ -131,6 +139,7 @@
             <td colspan="3">
                 <asp:Label ID="LblQtyValid" runat="server"></asp:Label></td>
             <td colspan="2" style="align-items: center">
+
                 <asp:ValidationSummary ID="ValidatorSummary1" runat="server" ValidationGroup="BtnCreateGR" ForeColor="Red" />
                 <br />
                 <asp:Button ID="BtnPostGR" runat="server" Text="Post Goods Receipt" CssClass="btn btn-group-xs center-block" Visible="false" OnClick="BtnPostGR_Click" ValidationGroup="BtnCreateGR" />

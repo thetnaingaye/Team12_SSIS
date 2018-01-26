@@ -57,7 +57,7 @@ namespace Team12_SSIS.StoreClerk
                 AVRequestDetail avR = (AVRequestDetail)e.Row.DataItem;
                 string itemId = avR.ItemID;
                 string itemName = InventoryLogic.GetItemName(itemId);
-                string adjValue = (InventoryLogic.GetInventoryPrice(itemId) * avR.Quantity).ToString();
+                string adjValue = ((double)(InventoryLogic.GetInventoryPrice(itemId) * avR.Quantity)).ToString("c");
 
                 Label LblDesc = (e.Row.FindControl("LblDesc") as Label);
                 if (LblDesc != null)
@@ -72,25 +72,46 @@ namespace Team12_SSIS.StoreClerk
         }
         protected void TxtItemCode_TextChanged(object sender, EventArgs e)
         {
-            GridViewRow currentRow = (GridViewRow)((TextBox)sender).Parent.Parent.Parent.Parent;
-            TextBox txtItemCode = currentRow.FindControl("TxtItemCode") as TextBox;
-            InventoryCatalogue inventoryItem = InventoryLogic.GetInventoryItem(txtItemCode.Text);
-            string itemName = inventoryItem.Description;
-            string uom = inventoryItem.UOM;
-            Label lblDesc = currentRow.FindControl("LblDesc") as Label;
-            Label lblUOM = currentRow.FindControl("LblUOM") as Label;
-            if (lblDesc != null)
-                lblDesc.Text = itemName;
-            if (lblUOM != null)
-                lblUOM.Text = uom;
+            statusMessage.Visible = false;
+            try
+            {
+                GridViewRow currentRow = (GridViewRow)((TextBox)sender).Parent.Parent.Parent.Parent;
+                TextBox txtItemCode = currentRow.FindControl("TxtItemCode") as TextBox;
+                InventoryCatalogue inventoryItem = InventoryLogic.GetInventoryItem(txtItemCode.Text);
+                string itemName = inventoryItem.Description;
+                string uom = inventoryItem.UOM;
+                Label lblDesc = currentRow.FindControl("LblDesc") as Label;
+                Label lblUOM = currentRow.FindControl("LblUOM") as Label;
+                if (lblDesc != null)
+                    lblDesc.Text = itemName;
+                if (lblUOM != null)
+                    lblUOM.Text = uom;
+            }catch(Exception ex)
+            {
+                statusMessage.ForeColor = Color.Red;
+                statusMessage.Text = "Invalid Item Code Entered: ";
+                Console.WriteLine(ex.ToString());
+                statusMessage.Visible = true;
+            }
         }
 
         protected void TxtAdjQty_TextChanged(object sender, EventArgs e)
         {
+            statusMessage.Visible = false;
+
             GridViewRow currentRow = (GridViewRow)((TextBox)sender).Parent.Parent.Parent.Parent;
             TextBox txtItemCode = currentRow.FindControl("TxtItemCode") as TextBox;
             TextBox txtAdjQty = currentRow.FindControl("TxtAdjQty") as TextBox;
-            string adjValue = (InventoryLogic.GetInventoryPrice(txtItemCode.Text) * double.Parse(txtAdjQty.Text)).ToString();
+            int AdjQty;
+            bool isInteger = int.TryParse(txtAdjQty.Text, out AdjQty);
+            if (!isInteger)
+            {
+                statusMessage.Text = "Invalid Quantity.";
+                statusMessage.ForeColor = Color.Red;
+                statusMessage.Visible = true;
+                return;
+            }
+            string adjValue = (InventoryLogic.GetInventoryPrice(txtItemCode.Text) * AdjQty).ToString("c");
 
             Label LblValue = currentRow.FindControl("LblValue") as Label;
             if (LblValue != null)
@@ -99,51 +120,82 @@ namespace Team12_SSIS.StoreClerk
 
         protected void BtnSendReq_Click(object sender, EventArgs e)
         {
+            statusMessage.Visible = false;
             InventoryLogic il = new InventoryLogic();
             List<AVRequestDetail> adjDetailList = new List<AVRequestDetail>();
             string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
             int avRId = il.CreateAdjustmentVoucherRequest(clerkName, DateTime.Now.Date);
             bool isAbove250 = false;
+            try
+            {
+                foreach (GridViewRow r in GridViewAdjV.Rows)
+                {
+                    string itemID = (r.FindControl("TxtItemCode") as TextBox).Text;
+                    string itemName = (r.FindControl("LblDesc") as Label).Text;
+                    string type = (r.FindControl("DdlAdjType") as DropDownList).SelectedValue;
+                    int quantity = int.Parse((r.FindControl("TxtAdjQty") as TextBox).Text);
+                    string uom = (r.FindControl("LblUOM") as Label).Text;
+                    string reason = (r.FindControl("TxtReason") as TextBox).Text;
+                    double unitPrice = InventoryLogic.GetInventoryPrice(itemID);
 
-            foreach (GridViewRow r in GridViewAdjV.Rows)
-            {                
-                string itemID = (r.FindControl("TxtItemCode") as TextBox).Text;
-                string type = (r.FindControl("DdlAdjType") as DropDownList).SelectedValue;
-                int quantity = int.Parse((r.FindControl("TxtAdjQty") as TextBox).Text);
-                string uom = (r.FindControl("LblUOM") as Label).Text;
-                string reason = (r.FindControl("TxtReason") as TextBox).Text;
-                double unitPrice = InventoryLogic.GetInventoryPrice(itemID); 
-                il.CreateAdjustmentVoucherRequestDetails(avRId, itemID, type, quantity, uom, reason, unitPrice);
-                isAbove250 = (quantity * unitPrice > 250 ? true : false);
+                    if (!InventoryLogic.IsUnitsInStock(itemID, quantity) && type == "Minus")
+                    {
+                        statusMessage.Text = "Error! Insufficient stock for adjustment. " + itemName;
+                        statusMessage.ForeColor = Color.Red;
+                        statusMessage.Visible = true;
+                        return;
+                    }
+
+                    il.CreateAdjustmentVoucherRequestDetails(avRId, itemID, type, quantity, uom, reason, unitPrice);
+                    isAbove250 = (quantity * unitPrice > 250 ? true : false);
+                    il.SendAdjRequentEmail(avRId, isAbove250, clerkName);
+                }
+            }catch (Exception ex)
+            {
+                statusMessage.Text = "Error! Invalid Submission Request.";
+                statusMessage.ForeColor = Color.Red;
+                statusMessage.Visible = true;
+                Console.WriteLine(ex.ToString());
+                return;
             }
 
-            il.SendAdjRequentEmail(avRId, isAbove250, clerkName);
-
+            string successMsg = "Request Sent. Inventory Adjustment Voucher Request ID: " + avRId.ToString() + " has been created";
             Session["AdjustVID"] = avRId;
-            Server.Transfer("ViewAdjustmentVoucherDetails.aspx", true);
-            statusMessage.ForeColor = Color.Green;
-            statusMessage.Text = "Request Sent. Inventory Adjustment Voucher Request ID: " + avRId.ToString() + " has been created";
+            Session["AdjVSuccess"] = successMsg;
+            Response.Redirect("~/StoreClerk/ViewAdjustmentVoucherDetails.aspx");
+            BtnSendReq.Enabled = true;
         }
+
         protected void OnRowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            Label LblSn = GridViewAdjV.Rows[e.RowIndex].Cells[0].FindControl("LblSn") as Label;
-            int sN = int.Parse(LblSn.Text);
+            statusMessage.Visible = false;
 
-            List<AVRequestDetail> adjDetailList = new List<AVRequestDetail>();
-            foreach (GridViewRow r in GridViewAdjV.Rows)
+            try
             {
-                AVRequestDetail adjVDetail = new AVRequestDetail();
-                adjVDetail.ItemID = (r.FindControl("TxtItemCode") as TextBox).Text;
-                adjVDetail.Type = (r.FindControl("DdlAdjType") as DropDownList).SelectedValue;
-                adjVDetail.Quantity = int.Parse((r.FindControl("TxtAdjQty") as TextBox).Text);
-                adjVDetail.Reason = (r.FindControl("TxtReason") as TextBox).Text;
-                adjVDetail.UOM = (r.FindControl("LblUOM") as Label).Text;
-                adjDetailList.Add(adjVDetail);
+                Label LblSn = GridViewAdjV.Rows[e.RowIndex].Cells[0].FindControl("LblSn") as Label;
+                int sN = int.Parse(LblSn.Text);
+
+                List<AVRequestDetail> adjDetailList = new List<AVRequestDetail>();
+                foreach (GridViewRow r in GridViewAdjV.Rows)
+                {
+                    AVRequestDetail adjVDetail = new AVRequestDetail();
+                    adjVDetail.ItemID = (r.FindControl("TxtItemCode") as TextBox).Text;
+                    adjVDetail.Type = (r.FindControl("DdlAdjType") as DropDownList).SelectedValue;
+                    adjVDetail.Quantity = int.Parse((r.FindControl("TxtAdjQty") as TextBox).Text);
+                    adjVDetail.Reason = (r.FindControl("TxtReason") as TextBox).Text;
+                    adjVDetail.UOM = (r.FindControl("LblUOM") as Label).Text;
+                    adjDetailList.Add(adjVDetail);
+                }
+                AVRequestDetail adjVDetailNew = new AVRequestDetail();
+                adjDetailList.RemoveAt(sN - 1);
+                GridViewAdjV.DataSource = adjDetailList;
+                GridViewAdjV.DataBind();
+            }catch(Exception ex)
+            {
+                statusMessage.Text = "Invalid delete action.";
+                statusMessage.ForeColor = Color.Red;
+                statusMessage.Visible = true;
             }
-            AVRequestDetail adjVDetailNew = new AVRequestDetail();
-            adjDetailList.RemoveAt(sN - 1);
-            GridViewAdjV.DataSource = adjDetailList;
-            GridViewAdjV.DataBind();
         }
     }
 }

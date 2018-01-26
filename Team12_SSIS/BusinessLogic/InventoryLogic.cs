@@ -1940,5 +1940,20 @@ namespace Team12_SSIS.BusinessLogic
             }
             return success;
         }
+
+        public static bool IsUnitsInStock(string itemId, int quantity)
+        {
+            bool isInStock = true;
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryCatalogue ic = ctx.InventoryCatalogues.Where(x => x.ItemID == itemId).FirstOrDefault();
+                if(ic.UnitsInStock < quantity)
+                {
+                    isInStock = false;
+                    return isInStock;
+                }
+            }
+            return isInStock;
+        }
     }
 }
