@@ -21,35 +21,68 @@ namespace Team12_SSIS.DepartmentEmployee
 
         public void BindGrid()
         {
-            List<RequisitionRecord> reRecordList = RequisitionLogic.GetListOfRequisitionRecords();
-            reRecordList = reRecordList.ToList();
+            List<RequisitionRecord> reRecordList = RequisitionLogic.GetAllRequisitionRecords();
+            
             GridViewVPR.DataSource = reRecordList;
             GridViewVPR.DataBind();
+           
         }
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
-            
-            LinkButton LBtnRID = (e.Row.FindControl("LBtnRID") as LinkButton);
-            if (e.Row.RowType == DataControlRowType.DataRow && (RequisitionRecord)e.Row.DataItem != null)
+            LinkButton LBtnLBtnRID = (e.Row.FindControl("LBtnRID") as LinkButton);
+
+        }
+
+        protected void GridViewVPR_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                RequisitionRecord r = (RequisitionRecord)e.Row.DataItem;
-                Label lblStatus = e.Row.FindControl("LblStatus") as Label;
-                if (lblStatus != null)
-                    lblStatus.Text = RequisitionLogic.GetRequestStatus(r.RequestID);
+                RequisitionRecord record = (RequisitionRecord)e.Row.DataItem;
+                
+                int ReuestID = record.RequestID;
+                
+                Label LblDateProcessed = e.Row.FindControl("LblDateProcessed") as Label;
+                if (record.ApprovedDate != null)
+                {
+                    LblDateProcessed.Text = ((DateTime)record.ApprovedDate).ToString("d");
+                }
+                else
+                {
+                    LblDateProcessed.Text = "null";
+                }
+
+                RequisitionRecord re = (RequisitionRecord)e.Row.DataItem;
+                int RequestID1 = re.RequestID;
+                Label LblStatus = e.Row.FindControl("LblStatus") as Label;
+                string status= RequisitionLogic.GetRecordStatus(re.RequestID);
+                if (status != null)
+                    LblStatus.Text = status;
+
             }
         }
+       
 
-        protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            GridViewVPR.PageIndex = e.NewPageIndex;
-            BindGrid();
-        }
-
-        
     }
+
+    //protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
+    //{
+    //    GridViewVPR.PageIndex = e.NewPageIndex;
+    //    BindGrid();
+    //}
+
+
+    //protected void DdlShow_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    List<RequisitionRecord> requisitionList = DdlShow.SelectedValue == "All" ? RequisitionLogic.GetListOfRequisitionRecords() : RequisitionLogic.GetListOfRequisitionRecordDetails((DdlShow.SelectedValue);
+    //    GridViewVPR.DataSource = requisitionList;
+    //    GridViewVPR.DataBind();
+    //    LblSupplier.Text = PurchasingLogic.ListSuppliers().Where(x => x.SupplierID == poRecord.SupplierID).Select(x => x.SupplierName).FirstOrDefault();
+    //}
+}
+    
    
   
-}
+
 
     
 

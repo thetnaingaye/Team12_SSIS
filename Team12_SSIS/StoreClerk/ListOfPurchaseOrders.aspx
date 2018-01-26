@@ -92,10 +92,7 @@
                     </asp:GridView>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <asp:Button ID="backBtn" runat="server" Text="Back" /></td>
-            </tr>
+            
         </table>
     </div>
 </asp:Content>

@@ -22,24 +22,6 @@ namespace Team12_SSIS.DepartmentEmployee {
         protected global::System.Web.UI.WebControls.Label VpoLbl;
         
         /// <summary>
-        /// DdlShow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DdlShow;
-        
-        /// <summary>
-        /// sml control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager sml;
-        
-        /// <summary>
         /// GridViewVPR control.
         /// </summary>
         /// <remarks>
