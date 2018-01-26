@@ -927,6 +927,27 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        //Send reminder email to department rep 2 days before the collection date
+        public static void SendCollectionReminder(DateTime date)
+        {
+            string email;
+            string collectPoint;
+            string dateTime;
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                List<DisbursementList> dList = ctx.DisbursementLists.Where(x => x.CollectionDate == date.Add(TimeSpan.FromDays(2))).ToList();
+                foreach (DisbursementList d in dList)
+                {
+                    email = Utility.Utility.GetEmailAddressByName(d.RepresentativeName);
+                    collectPoint = GetCurrentCPWithTimeByID(d.CollectionPointID);
+                    dateTime = ((DateTime)d.CollectionDate).ToString("d");
+                    using (EmailControl em = new EmailControl())
+                    {
+                        em.RemindStationeryCollectionNotification(email, collectPoint, dateTime);
+                    }
+                }
+            }
+        }
 
 
 
@@ -1370,7 +1391,7 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        
+
 
 
 
