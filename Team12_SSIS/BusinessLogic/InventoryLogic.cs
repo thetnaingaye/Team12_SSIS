@@ -332,7 +332,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve ALL items by 
-        public InventoryCatalogue FindItemByItemID(string itemID)
+        public static InventoryCatalogue FindItemByItemID(string itemID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -351,7 +351,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieving status for each reqrecorddetails item
-        public int GetQuantity(string itemID)
+        public static int GetQuantity(string itemID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -555,19 +555,19 @@ namespace Team12_SSIS.BusinessLogic
 
                 // Declare all our req variables
                 int existingQty = (int)item.UnitsInStock;
-                int reorderLvl = (int)item.ReorderLevel;
+                int unitsOnOrder = (int)item.UnitsOnOrder;
                 int reorderQty = (int)item.ReorderQty;    // aka min qty to make an order for the item
                 int bufferStock = (int)item.BufferStockLevel;
                 int orderLeadTime = (int)supp.OrderLeadTime;
 
 
                 // Since our order of operations is in weeks, gotta convert order lead time to weeks (ideally would be in days tho so no need convert :P)
-                int convertedOLT = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(orderLeadTime) / 7.0) + 1);
+                int convertedOLT = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(orderLeadTime) / 7.0) + 1);     // We add '1' cos we are looking up to the week after it.
 
                 // List to store our forecasted values according to their point of occurence
                 List<int> forecastList = new List<int>();
 
-                // Populating our list
+                // Populating our list with the relevant forecasted value
                 for (int i = 0; i < convertedOLT; i++)
                 {
                     forecastList.Add(prediction[i].ForecastedDemand);
@@ -581,13 +581,14 @@ namespace Team12_SSIS.BusinessLogic
                 }
 
                 // Send an order request if incapable of supporting of meeting the forecasted demand for the week after next
-                if (forecastList[forecastList.Count] >= (existingQty - totalDd))
+                if (forecastList[forecastList.Count - 1] >= ((existingQty - bufferStock) - totalDd))
                 {
+                    // Det how much to order
+                    int orderQty = (forecastList[forecastList.Count - 1] - ((existingQty - bufferStock) - totalDd));
+
                     ReorderRecord r = new ReorderRecord();
                     r.ItemID = itemID;
                     r.SupplierID = supCat.SupplierID;
-
-                    int orderQty = (forecastList[forecastList.Count] - (existingQty - totalDd));
 
                     if (orderQty > reorderQty)
                     {
@@ -605,9 +606,125 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        // Retrieve RRDetails that are relevant to the inventory retrieval process
+        public static List<RequisitionRecordDetail> GetRelevantDetailList()
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+
+                List<RequisitionRecordDetail> tempListDetails = new List<RequisitionRecordDetail>();
+                List<int> currentReqIDs = new List<int>();
+                List<RequisitionRecord> tempReqList = new List<RequisitionRecord>();
+
+                // Retrieve all the req IDs of all current requisition orders
+                tempReqList = RequisitionLogic.ListCurrentRequisitionRecord();
+
+                foreach (var item in tempReqList)
+                {
+                    currentReqIDs.Add(item.RequestID);
+                }
 
 
+                // Retrieve list of all the chosen req details
+                foreach (var item in currentReqIDs)
+                {
+                    tempListDetails.AddRange(RequisitionLogic.RetrieveRequisitionRecordDetails(item, "Approved"));
+                }
 
+                return tempListDetails;
+            }
+        }
+
+        // Building our custom item list for inventory retrieval process
+        public static List<InventoryCatalogue> GetRelevantItemList(List<RequisitionRecordDetail> tempListDetails)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                List<InventoryCatalogue> tempListItems = new List<InventoryCatalogue>();
+
+                // From our details list, extract its itemID and retrieve the list of items
+                foreach (var item1 in tempListDetails)
+                {
+                    bool check = false;
+
+                    // Check if there is a similar item in tempListItems
+                    foreach (var item2 in tempListItems)
+                    {
+                        if (item2.ItemID == item1.ItemID)
+                        {
+                            check = true;
+                            break;
+                        }
+                    }
+
+                    // only add if there are no similar item in the list
+                    if (check == false)
+                    {
+                        tempListItems.Add(FindItemByItemID(item1.ItemID));
+                    }
+                }
+                return tempListItems;
+            }
+        }
+
+        // Calculating the total qty needed per item for inventory retrieval
+        public static int GetTotalQtyNeeded(string itemID)
+        {
+            List<RequisitionRecordDetail> tempListDetails = GetRelevantDetailList();
+            int tqNeeded = 0;
+
+            // Taking the requested quantity only for those selected items
+            foreach (var item in tempListDetails)
+            {
+                if (item.ItemID == itemID)
+                {
+                    tqNeeded += Convert.ToInt32(item.RequestedQuantity);
+                }
+            }
+            return tqNeeded;
+        }
+
+        // Segregating our per item for retrieval by dept and generating the tempList
+        public static List<TempInventoryRetrieval> RetrieveTempInventoryList(string itemID)
+        {
+            // Intialize our list
+            List<RequisitionRecordDetail> tempList = new List<RequisitionRecordDetail>();
+            List<TempInventoryRetrieval> ti = new List<TempInventoryRetrieval>();
+
+            int totalAct = 0;
+
+            // Creating our ReqRecord list that is relevant to this "main" row.
+            foreach (var item in GetRelevantDetailList())
+            {
+                if (item.ItemID == itemID)
+                {
+                    tempList.Add(RequisitionLogic.FindRequisitionRecordDetails(item.RequestDetailID));
+                }
+            }
+
+            // Creating our TempInvRetrieval list with the needed quantities
+            ti = RequisitionLogic.CreateTempList(tempList, itemID);
+
+            // Setting the appropriate isOverride value for each item using to diff sets of foreach
+            // This takes the overall qty requested per item (combines all relevant req together) and compares it to the existing inventory
+            foreach (var item in ti)
+            {
+                totalAct += item.ActualQty;
+            }
+            foreach (var item in ti)
+            {
+                if (totalAct <= GetQuantity(itemID))
+                {
+                    item.IsOverride = true;
+                }
+                else
+                {
+                    item.IsOverride = false;
+                }
+            }
+
+            return ti;
+        }
 
 
 
@@ -1676,8 +1793,23 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        public static List<InventoryCatalogue> GetInventoryByIdandCategory(string id,string category)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                CatalogueCategory cat = entity.CatalogueCategories.Where(x => x.CatalogueName == category).ToList<CatalogueCategory>().First();
+                string catId = cat.CategoryID;
+                var q = (from di in entity.InventoryCatalogues
+                             join de in entity.CatalogueCategories on di.CategoryID equals de.CategoryID
+                             where di.ItemID == id && di.CategoryID == catId
+                         select di);
 
-        //---------------------------------AdjustmentVoucher--------------------------------------------------------//
+                return q.ToList<InventoryCatalogue>();
+            }
+        }
+
+
+            //---------------------------------AdjustmentVoucher--------------------------------------------------------//
 
             public static List<AVRequest> GetadvReq(string id)
         {
@@ -1696,14 +1828,16 @@ namespace Team12_SSIS.BusinessLogic
                 AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
               List<AVRequestDetail> avReqDetail= entity.AVRequestDetails.Where(x => x.AVRID == id).ToList<AVRequestDetail>();
 
-                //--------------------Iterating through each item to adjust the inventory stock------//
+                //--------------------Iterating through each item in the adjustment voucher request to adjust the inventory stock------//
                 for (int i = 0; i < avReqDetail.Count; i++)
                 {
                     string type = avReqDetail[i].Type;
                     int quantity = (int)avReqDetail[i].Quantity;
                     string itemId = avReqDetail[i].ItemID;
+                    string UOM = avReqDetail[i].UOM;
                     InventoryCatalogue inventory = entity.InventoryCatalogues.Where(X => X.ItemID == itemId).First<InventoryCatalogue>();
                     int stock = inventory.UnitsInStock;
+                    string Stockcarddescription = "Stock Adjustment";
                     switch (type)
                     {
 
@@ -1724,6 +1858,8 @@ namespace Team12_SSIS.BusinessLogic
                     }
                     inventory.UnitsInStock = stock;
                     entity.SaveChanges();
+                    //-----------------------------add the transaction to stock card-----------------------------------//
+                    CreatestockCard(itemId, DateTime.Today, Stockcarddescription, type, quantity, UOM, stock);
 
                 }
 
@@ -1731,6 +1867,30 @@ namespace Team12_SSIS.BusinessLogic
                 avReq.DateProcessed = DateTime.Today;
                 avReq.Remarks = remarks;
                 entity.SaveChanges();
+            }
+        }
+
+
+        //---------------------------------------------Create stockCard-----------------------------------------------------
+
+        public static void CreatestockCard(string itemid, DateTime transactionDate,string description,string type,int quantity,string uom,int balance)
+        {
+            using (SA45Team12AD entitiy = new SA45Team12AD())
+            {
+                StockCard stockcard = new StockCard
+                {
+                    ItemID= itemid,
+                    Date= transactionDate,
+                    Description= description,
+                    Type= type,
+                    Quantity= quantity,
+                    UOM=uom,
+                    Balance= balance
+
+                };
+                entitiy.StockCards.Add(stockcard);
+                entitiy.SaveChanges();
+              
             }
         }
 
@@ -1747,6 +1907,8 @@ namespace Team12_SSIS.BusinessLogic
                 entity.SaveChanges();
             }
         }
+
+        
 
 
 
@@ -1964,6 +2126,19 @@ namespace Team12_SSIS.BusinessLogic
             {
                 InventoryRetrievalList iRL = ctx.InventoryRetrievalLists.Where(x => x.RetrievalID == retrievalId).FirstOrDefault();
                 iRL.Status = status;
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
+
+        public static bool UpdateUnitsOnOrder(string itemId, int quantity)
+        {
+            bool success = false;
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryCatalogue ic = ctx.InventoryCatalogues.Where(x => x.ItemID.Equals(itemId)).FirstOrDefault();
+                ic.UnitsOnOrder += quantity;
                 ctx.SaveChanges();
                 success = true;
             }

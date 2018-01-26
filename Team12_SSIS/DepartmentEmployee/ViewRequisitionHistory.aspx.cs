@@ -21,7 +21,7 @@ namespace Team12_SSIS.DepartmentEmployee
 
         public void BindGrid()
         {
-            List<RequisitionRecord> reRecordList = RequisitionLogic.GetAllRequisitionRecords();
+            List<RequisitionRecord> reRecordList = RequisitionLogic.FindRequisitionRecordByReqName(RequisitionLogic.GetCurrentDeptUserName());
             
             GridViewVPR.DataSource = reRecordList;
             GridViewVPR.DataBind();
@@ -60,8 +60,51 @@ namespace Team12_SSIS.DepartmentEmployee
 
             }
         }
-       
 
+        protected void LBtnRID_Click(object sender, EventArgs e)
+        {
+            RequisitionLogic r = new RequisitionLogic();
+            LinkButton lb = (LinkButton)sender;
+            int reqID = Convert.ToInt32(lb.Text);
+
+            // Retrieve details list
+            var tempList = r.FindRequisitionRecordDetailsByReqID(reqID);
+            if (tempList.Count() != 0)
+            {
+                // Populating the labels associated with the gridview
+                LblSelected.Text = "Request ID: ";
+                LblItemIDInfo.Text = "RQ" + lb.Text;
+                LblDetails.Text = "Details";
+            }
+            else
+            {
+                // Populating the labels associated with the gridview
+                LblSelected.Text = "No past records were retrieved.";
+                LblSelected.ForeColor = System.Drawing.Color.Red;
+                LblItemIDInfo.Text = "";
+                LblDetails.Text = "Details";
+            }
+
+            // Binding the grid view
+            GridViewDetails.DataSource = tempList;
+            GridViewDetails.DataBind();
+        }
+
+
+
+        public string GetItemDescription(string itemID)
+        {
+            InventoryLogic i = new InventoryLogic();
+            string temp = i.GetItemDescription(itemID);
+            return temp.ToString();
+        }
+
+        public string GetUnitsOfMeasure(string itemID)
+        {
+            InventoryLogic i = new InventoryLogic();
+            string temp = i.GetUnitsOfMeasure(itemID);
+            return temp.ToString();
+        }
     }
 
     //protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)

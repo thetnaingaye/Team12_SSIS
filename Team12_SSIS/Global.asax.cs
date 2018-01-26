@@ -25,7 +25,13 @@ namespace Team12_SSIS
 			thread.IsBackground = true;
 			thread.Name = "ThreadFunc";
 			thread.Start();
-		}
+
+            // Thread for auto running the reorder list
+            //Thread threadEndOfDay = new Thread(new ThreadStart(AutomationLogic.BeginEndOfDayProcesses));
+            //threadEndOfDay.IsBackground = true;
+            //threadEndOfDay.Name = "ThreadEndOfDay";
+            //threadEndOfDay.Start();
+        }
 
         void AuthenticationService_Authenticating(object sender, System.Web.ApplicationServices.AuthenticatingEventArgs e)
         {

@@ -13,16 +13,20 @@ namespace Team12_SSIS.DepartmentHead
 {
     public partial class ViewDisbursementForm : System.Web.UI.Page
     {
-        List<Object> dsList;
-        List<Object> uList;
+        List<DisbursementList> dsList;
+        List<DisbursementList> uList;
+        List<DisbursementList> rList;
         DisbursementLogic disbursement = new DisbursementLogic();
+
         
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 uList = disbursement.GetDisbursementForm();
-                GridViewDisbursement.DataSource = uList;
+             var lastNlist = uList.Skip(Math.Max(0, uList.Count() -10)).Take(10); ;
+
+                GridViewDisbursement.DataSource = lastNlist;
                 GridViewDisbursement.DataBind();
 
             }
@@ -30,8 +34,8 @@ namespace Team12_SSIS.DepartmentHead
         //-------------------------Filter by rep-----------//
        protected void BtnFindrep_Click(object sender, EventArgs e)
         {
-            string sal = DdlSal.SelectedItem.Text;
-            dsList = disbursement.GetDisbursementByRep(sal + " " + TxtRep.Text);
+           
+            dsList = disbursement.GetDisbursementByRep(TxtRep.Text);
             GridViewDisbursement.DataSource = dsList;
             GridViewDisbursement.DataBind();
 
