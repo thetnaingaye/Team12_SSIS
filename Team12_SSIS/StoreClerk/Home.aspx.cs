@@ -78,7 +78,7 @@ namespace Team12_SSIS.StoreClerk
 
         private void BindGrid()
         {
-            GridView1.DataSource = new RequisitionLogic().ListCurrentRequisitionRecord();
+            GridView1.DataSource = RequisitionLogic.ListCurrentRequisitionRecord();
             GridView1.DataBind();
         }
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)

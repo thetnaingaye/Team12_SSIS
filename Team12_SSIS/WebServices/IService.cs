@@ -67,6 +67,25 @@ namespace Team12_SSIS.WebServices
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json)]
         void CreateAdjustmentRequest(WCF_AVRequest request);
+
+
+
+        // ------------------   From Khair with Love ~   ---------------------//
+
+        // Retrieving total quantity needed on a per item basis necessary for inventory retrieval
+        [OperationContract]
+        [WebGet(UriTemplate = "/GetTotalQtyNeeded/{itemID}", ResponseFormat = WebMessageFormat.Json)]
+        int RetrieveTotalQtyNeeded(string itemID);
+
+        // Retrieving the relevant item list for inventory retrieval
+        [OperationContract]
+        [WebGet(UriTemplate = "/GetRelevantItemList", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_InventoryCatalogue> GetRelevantItemList();
+
+        // Retrieving the relevant aggregated by dept list for inventory retrieval
+        [OperationContract]
+        [WebGet(UriTemplate = "/GetRelevantListByDept/{itemID}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_TempInventoryRetrieval> GetRelevantListByDept(string itemID);
     }
 }
 

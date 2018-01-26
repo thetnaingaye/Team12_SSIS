@@ -10,8 +10,7 @@ namespace Team12_SSIS.BusinessLogic
     //Whole thing belongs to Khair
     public class AutomationLogic
     {
-
-
+        
         // Setting automated buffer stock handling  --- Auto is set to 10%
         public static void SetAutomatedlBFS(string itemID)
         {
@@ -35,5 +34,15 @@ namespace Team12_SSIS.BusinessLogic
                 context.SaveChanges();
             }
         }
+
+        // End of business day method
+        public static void BeginEndOfDayProcesses()
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+
+            }
+        }
+
     }
 }

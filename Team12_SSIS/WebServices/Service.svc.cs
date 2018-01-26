@@ -185,9 +185,41 @@ namespace Team12_SSIS.WebServices
         }
 
 
+        // ------------------   From Khair with Love ~   ---------------------//
 
+        // Retrieving total quantity needed on a per item basis necessary for inventory retrieval
+        public int RetrieveTotalQtyNeeded(string itemID)
+        {
+            return InventoryLogic.GetTotalQtyNeeded(itemID);
+        }
 
+        // Retrieving the relevant item list for inventory retrieval
+        public List<WCF_InventoryCatalogue> GetRelevantItemList()
+        {
+            var temp1 = InventoryLogic.GetRelevantDetailList();
+            var temp2 = InventoryLogic.GetRelevantItemList(temp1);
+            List<WCF_InventoryCatalogue> wcfList = new List<WCF_InventoryCatalogue>();
+            foreach (InventoryCatalogue i in temp2)
+            {
+                WCF_InventoryCatalogue w = WCF_InventoryCatalogue.Create(i.ItemID, i.BIN, i.Shelf, (int)i.Level, i.CategoryID,
+                    i.Description, (int)i.ReorderLevel, i.UnitsInStock, (int)i.ReorderQty, i.UOM, i.Discontinued, (int)i.UnitsOnOrder, (int)i.BufferStockLevel);
+                wcfList.Add(w);
+            }
+            return wcfList;
+        }
 
+        // Retrieving the relevant aggregated by dept list for inventory retrieval
+        public List<WCF_TempInventoryRetrieval> GetRelevantListByDept(string itemID)
+        {
+            var temp = InventoryLogic.RetrieveTempInventoryList(itemID);
+            List<WCF_TempInventoryRetrieval> wcfList = new List<WCF_TempInventoryRetrieval>();
+            foreach (var i in temp)
+            {
+                WCF_TempInventoryRetrieval w = WCF_TempInventoryRetrieval.Create(i.RequestID, i.RequestDetailID, i.ItemID, i.DepartmentID, i.RequestedQty, i.ActualQty, i.IsOverride);
+                wcfList.Add(w);
+            }
+            return wcfList;
+        }
 
 
 
