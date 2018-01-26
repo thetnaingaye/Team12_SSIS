@@ -891,7 +891,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public bool UpdateDisbursementStatus(int disbursementId, string status)
+        public static bool UpdateDisbursementStatus(int disbursementId, string status)
         {
             bool success = false;
             using (SA45Team12AD ctx = new SA45Team12AD())

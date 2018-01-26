@@ -7,13 +7,18 @@ using System.Web.Security;
 using System.Web.SessionState;
 using Team12_SSIS.Model;
 using Team12_SSIS.BusinessLogic;
+using Team12_SSIS.WebServices;
+using System.ServiceModel.Channels;
+using System.Net;
+using System.ServiceModel;
 
 namespace Team12_SSIS
 {
     public class Global : System.Web.HttpApplication
     {
 
-		protected void Application_Start(object sender, EventArgs e)
+
+        protected void Application_Start(object sender, EventArgs e)
 		{
 			Application["count"] = 0;
 			Thread thread = new Thread(new ThreadStart(ThreadFunc));
@@ -21,7 +26,16 @@ namespace Team12_SSIS
 			thread.Name = "ThreadFunc";
 			thread.Start();
 
-		}
+            // Thread for auto running the reorder list
+            //Thread threadEndOfDay = new Thread(new ThreadStart(AutomationLogic.BeginEndOfDayProcesses));
+            //threadEndOfDay.IsBackground = true;
+            //threadEndOfDay.Name = "ThreadEndOfDay";
+            //threadEndOfDay.Start();
+        }
+
+        void AuthenticationService_Authenticating(object sender, System.Web.ApplicationServices.AuthenticatingEventArgs e)
+        {
+        }
 		protected void ThreadFunc()
 		{
 			System.Timers.Timer t = new System.Timers.Timer();
@@ -120,13 +134,11 @@ namespace Team12_SSIS
 			}
 		}
 
-
-		protected void Session_Start(object sender, EventArgs e)
+        protected void Application_BeginRequest(object sender, EventArgs e)
         {
-
         }
 
-        protected void Application_BeginRequest(object sender, EventArgs e)
+        protected void Session_Start(object sender, EventArgs e)
         {
 
         }
