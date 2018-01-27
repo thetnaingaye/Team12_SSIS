@@ -178,6 +178,17 @@
     </Content>
     <None Include="Properties\PublishProfiles\AD.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <Content Include="SA45Team12ADDataSet.xsc">
+      <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="SA45Team12ADDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SA45Team12ADDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SA45Team12ADDataSet.xss">
+      <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -396,6 +407,11 @@
     <Compile Include="Model\sysdiagram.cs" />
     <Compile Include="Model\TempInventoryRetrieval.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SA45Team12ADDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -650,6 +666,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="StoreReport\Report2.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
