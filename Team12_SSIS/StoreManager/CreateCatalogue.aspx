@@ -9,12 +9,7 @@
                     <h2>Create Stationery Catalog</h2>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+
             <tr>
                 <!--ItemID-->
                 <td>Item ID:
@@ -23,12 +18,7 @@
                     <asp:TextBox ID="TxtItemID" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+     
             <tr>
                 <!--ItemDescription-->
                 <td>Item Description:
@@ -37,26 +27,16 @@
                     <asp:TextBox ID="TxtDescription" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+
             <tr>
                 <!--CatalogueName DDL-->
                 <td>Category Name:
                 </td>
                 <td>
-                    <asp:DropDownList ID="DdlCategoryID" runat="server" CssClass="form-control"></asp:DropDownList>
+                    <asp:DropDownList ID="DdlCategoryID" runat="server" CssClass="form-control" Width="200px"></asp:DropDownList>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+       
             <tr>
                 <!--BIN-->
                 <td>BIN:
@@ -65,12 +45,7 @@
                     <asp:TextBox ID="TxtBIN" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+     
             <tr>
                 <!--Shelf-->
                 <td>Shelf:
@@ -79,12 +54,7 @@
                     <asp:TextBox ID="TxtShelf" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+       
             <tr>
                 <!--Level-->
                 <td>Level:
@@ -93,12 +63,7 @@
                     <asp:TextBox ID="TxtLevel" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+            
             <tr>
                 <!--ReorderLevel-->
                 <td>Reorder Level:
@@ -107,12 +72,7 @@
                     <asp:TextBox ID="TxtReorderLevel" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+        
             <tr>
                 <!--ReorderQty-->
                 <td>Reorder Quantity:
@@ -121,12 +81,7 @@
                     <asp:TextBox ID="TxtReorderQty" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+         
             <tr>
                 <!--UOM-->
                 <td>Unit of Measure:
@@ -135,17 +90,13 @@
                     <asp:TextBox ID="TxtUOM" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+            
             <tr>
                 <!--Btn Submit-->
                 <td></td>
                 <td>
-                    <asp:Button ID="BtnSubmit" runat="server" Text="Submit" OnClick="BtnSubmit_Click" BorderColor="#333333" />
+                    <asp:Button ID="BtnSubmit" runat="server" Text="Submit" OnClick="BtnSubmit_Click"
+                        cssclass="btn btn-primary" />
                 </td>
             </tr>
         </table>

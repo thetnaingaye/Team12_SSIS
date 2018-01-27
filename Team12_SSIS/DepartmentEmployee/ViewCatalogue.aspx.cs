@@ -62,8 +62,8 @@ namespace Team12_SSIS.DepartmentEmployee
 
             if (Session["CartList"] != null)
             {
-                cartList = (List<RequisitionRecordDetail>) Session["CartList"];
-                foreach(GridViewRow r in GridViewCheckOut.Rows)
+                cartList = (List<RequisitionRecordDetail>)Session["CartList"];
+                foreach (GridViewRow r in GridViewCheckOut.Rows)
                 {
                     int i = 0;
                     TextBox txtReqQty = r.FindControl("TxtRequestedQuantity") as TextBox;

@@ -2402,7 +2402,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void UpdateSupplier(string SupplierID, string SupplierName, string GSTRegistrationNo, string ContactName, int PhoneNo, int FaxNo, string Address, int OrderLeadTime)
+        public static void UpdateSupplier(string SupplierID, string SupplierName, string GSTRegistrationNo, string ContactName, int PhoneNo, int FaxNo, string Address, int OrderLeadTime, string Discontinued)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -2414,6 +2414,7 @@ namespace Team12_SSIS.BusinessLogic
                 supplier.FaxNo = FaxNo;
                 supplier.Address = Address;
                 supplier.OrderLeadTime = OrderLeadTime;
+                supplier.Discontinued = Discontinued;
                 entities.SaveChanges();
             }
         }
@@ -2426,7 +2427,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void AddSupplier(string SupplierID, string SupplierName, string GSTRegistrationNo, string ContactName, int PhoneNo, int FaxNo, string Address, int OrderLeadTime)
+        public static void AddSupplier(string SupplierID, string SupplierName, string GSTRegistrationNo, string ContactName, int PhoneNo, int FaxNo, string Address, int OrderLeadTime, string Discontinued)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -2439,6 +2440,7 @@ namespace Team12_SSIS.BusinessLogic
                 supplier.FaxNo = FaxNo;
                 supplier.Address = Address;
                 supplier.OrderLeadTime = OrderLeadTime;
+                supplier.Discontinued = Discontinued;
                 entities.SupplierLists.Add(supplier);
                 entities.SaveChanges();
             }

@@ -9,12 +9,7 @@
                     <h2>Create Supplier</h2>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+    
             <tr>
                 <!--SupplierID-->
                 <td>Supplier ID:
@@ -23,12 +18,7 @@
                     <asp:TextBox ID="TxtSupplierID" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+
             <tr>
                 <!--SupplierName-->
                 <td>Supplier Name:
@@ -37,12 +27,7 @@
                     <asp:TextBox ID="TxtSupplierName" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+     
             <tr>
                 <!--GSTRegistrationNo-->
                 <td>GST Registration No:
@@ -51,12 +36,7 @@
                     <asp:TextBox ID="TxtGSTRegistrationNo" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+  
             <tr>
                 <!--ContactName-->
                 <td>Contact Name: 
@@ -65,12 +45,7 @@
                     <asp:TextBox ID="TxtContactName" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+       
             <tr>
                 <!--PhoneNo-->
                 <td>Phone No: 
@@ -79,12 +54,7 @@
                     <asp:TextBox ID="TxtPhoneNo" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+  
             <tr>
                 <!--FaxNo-->
                 <td>Fax No:
@@ -93,12 +63,7 @@
                     <asp:TextBox ID="TxtFaxNo" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+     
             <tr>
                 <!--Address-->
                 <td>Address:
@@ -107,12 +72,7 @@
                     <asp:TextBox ID="TxtAddress" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+    
             <tr>
                 <!--OrderLeadTime-->
                 <td>Order Lead Time:
@@ -121,18 +81,13 @@
                     <asp:TextBox ID="TxtOrderLeadTime" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
+   
             <tr>
                 <!--Btn Submit-->
                 <td>
                 </td>
                 <td>
-                    <asp:Button ID="BtnSubmit" runat="server" Text="Submit"  OnClick="BtnSubmit_Click"/>
+                    <asp:Button ID="BtnSubmit" runat="server" Text="Submit" cssclass="btn btn-primary"  OnClick="BtnSubmit_Click"/>
                 </td>
             </tr>
         </table>

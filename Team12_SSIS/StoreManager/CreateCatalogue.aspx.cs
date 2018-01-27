@@ -38,8 +38,6 @@ namespace Team12_SSIS.StoreManager
                 BusinessLogic.InventoryLogic.AddCatalogue(ItemID, BIN, Shelf, Level, CategoryID, Description, ReorderLevel, ReorderQty, UOM, Discontinued);
                 Response.Redirect("ViewCatalogue.aspx");
             }
-
-            //ClearField();
         }
 
         protected void BindControl()
@@ -53,15 +51,5 @@ namespace Team12_SSIS.StoreManager
                 ddl.DataBind();
             }
         }
-
-        //protected void ClearField()
-        //{
-        //    TxtItemID.Text = string.Empty;
-            //    TxtDescription.Text = string.Empty;
-            //    DdlCategoryID.SelectedIndex = 1;
-            //    TxtReorderLevel.Text = string.Empty;
-            //    TxtReorderQty.Text = string.Empty;
-            //    TxtUOM.Text = string.Empty;
-        //}
     }
 }

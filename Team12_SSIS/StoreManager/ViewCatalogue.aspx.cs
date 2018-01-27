@@ -90,7 +90,7 @@ namespace Team12_SSIS.StoreManager
             BindGrid();
         }
 
-        protected void LinkButtonCreate_Click(object sender, EventArgs e)
+        protected void BtnCreate_Click(object sender, EventArgs e)
         {
             Response.Redirect("CreateCatalogue.aspx");
         }

@@ -27,8 +27,8 @@ namespace Team12_SSIS.StoreManager
                 int FaxNo = Convert.ToInt32(TxtFaxNo.Text);
                 string Address = TxtAddress.Text;
                 int OrderLeadTime = Convert.ToInt32(TxtOrderLeadTime.Text);
-
-                BusinessLogic.PurchasingLogic.AddSupplier(SupplierID, SupplierName, GSTRegistrationNo, ContactName, PhoneNo, FaxNo, Address, OrderLeadTime);
+                string Discontinued = "No";
+                BusinessLogic.PurchasingLogic.AddSupplier(SupplierID, SupplierName, GSTRegistrationNo, ContactName, PhoneNo, FaxNo, Address, OrderLeadTime, Discontinued);
                 Response.Redirect("ViewSupplierList.aspx");
             }
         }
