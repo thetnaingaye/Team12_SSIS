@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using Team12_SSIS.Model;
 
@@ -38,26 +39,190 @@ namespace Team12_SSIS.BusinessLogic
         // End of business day method
         public static void BeginEndOfDayProcesses(object sender, System.Timers.ElapsedEventArgs e)
         {
-            int x = 26;
-            bool s = false;
-            do
+            // These lines of code will ensure that the reorder table is cleared at the end of each working day (about 6pm).
+            DayOfWeek dayTodae = DateTime.Now.DayOfWeek;
+
+
+            // Checking for the right day aka weekday
+            if (!dayTodae.Equals(DayOfWeek.Saturday) || !dayTodae.Equals(DayOfWeek.Sunday) && DateTime.Now.Hour > 13)
             {
-                if (DateTime.Now.Minute.Equals(x))
+                // Init all req attrs
+                bool rightHour = false;
+                bool rightMinute = false;
+                bool rightSecond = false;
+                int hour;
+                int minute;
+                int second;
+
+                // Checking for the right hour
+                do
                 {
-                    using (SA45Team12AD context = new SA45Team12AD())
+                    hour = DateTime.Now.Hour;      // Retrieving current hour
+
+                    if (hour == 17)
                     {
-                        List<ReorderRecord> r = context.ReorderRecords.ToList();
-                        PurchasingLogic.CreateMultiplePO(r);
+                        rightHour = true;
+                    }
+                    else if (hour < 17)
+                    {
+                        Thread.Sleep((17 - hour) * 60 * 60 * 1000);
+                    }
+                    else
+                    {
+                        Thread.Sleep(6 * 60 * 60 * 1000);   // Sleep for 6 hours so will proceed to the next day
+                    }
+
+                } while (!rightHour);
+
+                // Checking for the right minute
+                do
+                {
+                    minute = DateTime.Now.Minute;    // Retrieving current minute
+
+                    if (minute == 59)
+                    {
+                        rightMinute = true;
+                    }
+                    else
+                    {
+                        Thread.Sleep((59 - minute) * 60 * 1000);
+                        rightMinute = true;
+                    }
+
+                } while (!rightMinute);
+
+                // Checking for the right second
+                do
+                {
+                    second = DateTime.Now.Second;    // Retrieving current second
+
+                    if (second == 59)
+                    {
+                        rightSecond = true;
+                    }
+                    else
+                    {
+                        Thread.Sleep((59 - second) * 1000);
+                        rightSecond = true;
+                    }
+
+                } while (!rightSecond);
+
+                if (rightHour && rightMinute && rightSecond)
+                {
+                    // Performing our clearing code here
+                    var temp = PurchasingLogic.PopulateReorderTable();
+
+                    if (temp != null && temp.Count > 0)
+                    {
+                        string s = PurchasingLogic.CreateMultiplePO(temp);
                     }
                 }
-                else
+
+
+                // Once all is done, perform a force sleep so that the timing is resetted back to about 10+pm
+                hour = DateTime.Now.Hour;
+                int hoursToSleep = 22 - hour;
+                Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
+                // This ensures that the thread which will trigger this method (Every 18 hours) is done correctly.
+            }
+            else
+            {
+                // Gotta reset it back to about 10pm as well
+                int hour = DateTime.Now.Hour;
+                int hoursToSleep = 22 - hour;
+                Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
+            }
+        }
+
+        // Running our weekend processes (aka forecasting process)
+        public static void BeginSundayProcesses(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            DayOfWeek dayTodae = DateTime.Now.DayOfWeek;
+
+            if (dayTodae.Equals(DayOfWeek.Sunday))
+            {
+                //Init all req attrs
+                bool rightHour = false;
+                bool rightMinute = false;
+                bool rightSecond = false;
+                int hour;
+                int minute;
+                int second;
+
+                // Checking for the right hour
+                do
                 {
-                    int tempN = DateTime.Now.Minute;
-                    int rem = (x - tempN) * 60;
-                    System.Threading.Thread.Sleep(1000 * rem);
+                    hour = DateTime.Now.Hour;      // Retrieving current hour
+
+                    if (hour == 6)
+                    {
+                        rightHour = true;
+                    }
+                    else if (hour < 6)
+                    {
+                        Thread.Sleep((6 - hour) * 60 * 60 * 1000);
+                    }
+
+                } while (!rightHour);
+
+                // Checking for the right minute
+                do
+                {
+                    minute = DateTime.Now.Minute;    // Retrieving current minute
+
+                    if (minute == 59)
+                    {
+                        rightMinute = true;
+                    }
+                    else
+                    {
+                        Thread.Sleep((59 - minute) * 60 * 1000);
+                        rightMinute = true;
+                    }
+
+                } while (!rightMinute);
+
+                // Checking for the right second
+                do
+                {
+                    second = DateTime.Now.Second;    // Retrieving current second
+
+                    if (second == 59)
+                    {
+                        rightSecond = true;
+                    }
+                    else
+                    {
+                        Thread.Sleep((59 - second) * 1000);
+                        rightSecond = true;
+                    }
+
+                } while (!rightSecond);
+
+                if (rightHour && rightMinute && rightSecond)
+                {
+                    // Fire your forecasting algo here....
+                }
+
+
+                // Once all is done, perform a force sleep so that the timing is resetted back to btw 3.00 to 3.59am
+                hour = DateTime.Now.Hour;
+                int hoursToSleep = (23 - hour) + 4;
+                Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
+                // This ensures that the thread which will trigger this method (Every 24 hours) is done correctly before a scheduled forecast run.  
+            }
+            else
+            {
+                // Gotta reset as well back to btw 3.00 to 3.59am
+                int hour = DateTime.Now.Hour;
+                
+                if (hour >= 4)
+                {
+                    int hoursToSleep = (23 - hour) + 4;
+                    Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
                 }
             }
-            while (!s);
         }
 
     }

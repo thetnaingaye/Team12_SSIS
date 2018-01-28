@@ -58,7 +58,7 @@ namespace Team12_SSIS.StoreClerk
         protected int GetReorders(String status)
         {
 
-            List<ReorderRecord> list = new PurchasingLogic().PopulateReorderTable();
+            List<ReorderRecord> list = PurchasingLogic.PopulateReorderTable();
 
             if (list == null)
             { return 0; }

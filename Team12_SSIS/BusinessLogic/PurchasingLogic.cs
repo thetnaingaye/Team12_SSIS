@@ -35,7 +35,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Passess a completely organized list based on data from the ReorderRecord table
-        public List<ReorderRecord> PopulateReorderTable()
+        public static List<ReorderRecord> PopulateReorderTable()
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {

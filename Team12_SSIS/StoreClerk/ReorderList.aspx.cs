@@ -19,7 +19,7 @@ namespace Team12_SSIS.StoreClerk
         {
             if (!IsPostBack)
             {
-                tempList = p.PopulateReorderTable();
+                tempList = PurchasingLogic.PopulateReorderTable();
                 
                 if (tempList == null)
                 {
@@ -60,7 +60,7 @@ namespace Team12_SSIS.StoreClerk
         // Submit ALL reorder records for approval
         protected void BtnSubmitAll_Click(object sender, EventArgs e)
         {
-            var temp = p.PopulateReorderTable();
+            var temp = PurchasingLogic.PopulateReorderTable();
 
             if (temp != null && temp.Count > 0)
             {
