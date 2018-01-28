@@ -57,7 +57,7 @@
                 <asp:GridView ID="GridViewCheckOut" runat="server" Style="width:95%" AutoGenerateColumns="False"
                     OnRowDataBound="GridViewCheckOut_RowDataBound"
                     OnRowDeleting="GridViewCheckOut_RowDeleting"
-                    AllowPaging="True" PageSize="3" OnPageIndexChanging="GridViewCheckOut_PageIndexChanging"
+                    AllowPaging="True" PageSize="8" OnPageIndexChanging="GridViewCheckOut_PageIndexChanging"
                     DataKeyNames="ItemID">
                     <PagerStyle HorizontalAlign="Center" />
                     <pagersettings mode="Numeric" position="Bottom"   />
@@ -78,7 +78,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Quantity" SortExpression="RequestedQuantity">
                             <ItemTemplate>
-                                <asp:TextBox ID="TxtRequestedQuantity" runat="server" Text='<%# Bind("RequestedQuantity") %>'></asp:TextBox>
+                                <asp:TextBox ID="TxtRequestedQuantity" runat="server" Text='<%# Bind("RequestedQuantity") %>' TextMode="Number"></asp:TextBox>
                             </ItemTemplate>
                             <HeaderStyle CssClass="text-center" />
                         </asp:TemplateField>
