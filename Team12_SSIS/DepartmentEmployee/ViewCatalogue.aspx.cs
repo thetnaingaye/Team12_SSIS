@@ -40,7 +40,7 @@ namespace Team12_SSIS.DepartmentEmployee
         protected void GridViewAddRequest_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridViewAddRequest.PageIndex = e.NewPageIndex;
-            GridViewAddRequest.DataBind();
+            BindGrid();
         }
 
         RequisitionLogic requisitionLogic = new RequisitionLogic();
@@ -160,6 +160,14 @@ namespace Team12_SSIS.DepartmentEmployee
                 if (lblDesc != null)
                     lblDesc.Text = InventoryLogic.GetItemName(rrd.ItemID);
             }
+        }
+
+        protected void GridViewCheckOut_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            List<RequisitionRecordDetail> rrd = (List<RequisitionRecordDetail>)Session["CartList"];
+            GridViewCheckOut.PageIndex = e.NewPageIndex;
+            GridViewCheckOut.DataSource = rrd;
+            GridViewCheckOut.DataBind();
         }
     }
 }
