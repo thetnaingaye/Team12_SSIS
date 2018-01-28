@@ -26,11 +26,12 @@ namespace Team12_SSIS.DepartmentEmployee
                 GridViewCheckOut.DataSource = cartList;
                 GridViewCheckOut.DataBind();
                 GridViewCheckOut.Visible = true;
-                LblCount.Text="Number of items requested: "+ cartList.Count;
+                LblCount.Text = "Number of items requested: " + cartList.Count();
             }
             else
             {
                 LblCount.Text = "You can make stationery requisition now.";
+                BtnCheckOut.Visible = false;
             }
         }
 
@@ -64,22 +65,31 @@ namespace Team12_SSIS.DepartmentEmployee
             InventoryCatalogue item = InventoryLogic.GetInventoryItem(itemId);
             InventoryLogic il = new InventoryLogic();
             List<RequisitionRecordDetail> cartList;
-
             if (Session["CartList"] != null)
             {
                 cartList = (List<RequisitionRecordDetail>)Session["CartList"];
+                
                 foreach (GridViewRow r in GridViewCheckOut.Rows)
                 {
                     int i = 0;
                     TextBox txtReqQty = r.FindControl("TxtRequestedQuantity") as TextBox;
                     RequisitionRecordDetail cartItem = cartList.ElementAt(i);
-                    int reqQtyInt;
-                    bool isValidInt = int.TryParse(txtReqQty.Text, out reqQtyInt);
-                    reqQtyInt = isValidInt == false ? 12 : reqQtyInt;
-                    cartItem.RequestedQuantity = reqQtyInt;
-                    cartList.RemoveAt(i);
-                    cartList.Add(cartItem);
-                    i++;
+                    if (!cartList.Contains(cartItem))
+                    {
+                        int reqQtyInt;
+                        bool isValidInt = int.TryParse(txtReqQty.Text, out reqQtyInt);
+                        reqQtyInt = isValidInt == false ? 12 : reqQtyInt;
+                        cartItem.RequestedQuantity = reqQtyInt;
+                        cartList.RemoveAt(i);
+                        cartList.Add(cartItem);
+                        i++;
+                    }
+                    else
+                    {
+                        LblCount.Text = "You cannot request same item twice.";
+                        LblCount.ForeColor = Color.Red;
+                    }
+                    
                 }
             }
             else
@@ -121,14 +131,16 @@ namespace Team12_SSIS.DepartmentEmployee
         protected void GridViewCheckOut_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string ItemID = Convert.ToString(GridViewCheckOut.DataKeys[e.RowIndex].Values[0]);
-            List<InventoryCatalogue> currentList = (List<InventoryCatalogue>)Session["CartList"];
-            List<InventoryCatalogue> icList2 = RequisitionLogic.DeleteOrder(currentList, ItemID);
-            BindGrid();
-            Session["CartList"] = icList2;
+            List<RequisitionRecordDetail> rrd =(List<RequisitionRecordDetail>)Session["CartList"];
+            List<RequisitionRecordDetail> rrdNew = RequisitionLogic.DeleteOrder(rrd, ItemID);
+            GridViewCheckOut.DataSource = rrdNew;
+            GridViewCheckOut.DataBind();
+            Session["CartList"] = rrdNew;
+            Response.Redirect("~/DepartmentEmployee/ViewCatalogue.aspx");
         }
 
-        protected void TxtRequestedQuantity_TextChanged(object sender, EventArgs e)
-        {
+        //protected void TxtRequestedQuantity_TextChanged(object sender, EventArgs e)
+        //{
             //List<InventoryCatalogue> rrd = new List<InventoryCatalogue>();
             //List<int> iid = new List<int>();
             //for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
@@ -154,7 +166,7 @@ namespace Team12_SSIS.DepartmentEmployee
             //    txtReqQty.Text = iid.ElementAt(i).ToString();
             //}
 
-        }
+        //}
 
         protected void GridViewCheckOut_RowDataBound(object sender, GridViewRowEventArgs e)
         {
