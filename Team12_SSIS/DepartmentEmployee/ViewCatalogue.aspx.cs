@@ -68,14 +68,15 @@ namespace Team12_SSIS.DepartmentEmployee
             if (Session["CartList"] != null)
             {
                 cartList = (List<RequisitionRecordDetail>)Session["CartList"];
-                
-                foreach (GridViewRow r in GridViewCheckOut.Rows)
+                bool Exist= cartList.Any(x => x.ItemID == itemId);
+                if (!Exist)
                 {
-                    int i = 0;
-                    TextBox txtReqQty = r.FindControl("TxtRequestedQuantity") as TextBox;
-                    RequisitionRecordDetail cartItem = cartList.ElementAt(i);
-                    if (!cartList.Contains(cartItem))
+                    foreach (GridViewRow r in GridViewCheckOut.Rows)
                     {
+                        int i = 0;
+                        string ItemID = (GridViewCheckOut.Rows[i].FindControl("LblItemID") as Label).Text;
+                        TextBox txtReqQty = r.FindControl("TxtRequestedQuantity") as TextBox;
+                        RequisitionRecordDetail cartItem = cartList.ElementAt(i);
                         int reqQtyInt;
                         bool isValidInt = int.TryParse(txtReqQty.Text, out reqQtyInt);
                         reqQtyInt = isValidInt == false ? 12 : reqQtyInt;
@@ -84,12 +85,11 @@ namespace Team12_SSIS.DepartmentEmployee
                         cartList.Add(cartItem);
                         i++;
                     }
-                    else
-                    {
-                        LblCount.Text = "You cannot request same item twice.";
-                        LblCount.ForeColor = Color.Red;
-                    }
-                    
+                }
+                else
+                {
+                    LblCount.Text = "You cannot request same item twice.";
+                    LblCount.ForeColor = Color.Red;
                 }
             }
             else

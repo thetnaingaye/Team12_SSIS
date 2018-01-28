@@ -5,6 +5,7 @@
 
 <h2>Stationery Requisition Form</h2>
         <br />
+    <asp:LinkButton ID="LinkButtonGoBack"  runat="server" OnClick="LinkButtonGoBack_Click"> <i><u>Go Back To Catalogue</u></i> </asp:LinkButton>
         <br />
 
                 <div style="margin-left:auto; margin-right:auto; width:700px;">

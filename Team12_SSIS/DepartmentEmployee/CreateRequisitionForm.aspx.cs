@@ -55,14 +55,18 @@ namespace Team12_SSIS.DepartmentEmployee
         protected void GridViewRequisitionForm_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             List<RequisitionRecordDetail> rList = (List<RequisitionRecordDetail>) Session["CartList"];
-            if(e.Row.RowType == DataControlRowType.DataRow && (RequisitionRecordDetail)e.Row.DataItem != null
-                && rList.Count < 2)
+            if(e.Row.RowType == DataControlRowType.DataRow && (RequisitionRecordDetail)e.Row.DataItem != null)
             {
                 RequisitionRecordDetail r = (RequisitionRecordDetail)e.Row.DataItem;
                 Label lblDesc = e.Row.FindControl("LblDescription") as Label;
                 if (lblDesc != null)
                     lblDesc.Text = InventoryLogic.GetItemName(r.ItemID);
             }
+        }
+
+        protected void LinkButtonGoBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ViewCatalogue.aspx");
         }
     }
 }
