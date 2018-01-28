@@ -33,16 +33,16 @@ namespace Team12_SSIS
             // Failure to comply may result in delays of certain background processes in performing their tasks.
 
             // Thread for auto running the clearance of the reorder list table
-            Thread threadEndOfDae = new Thread(new ThreadStart(ThreadEODFunc));
-            threadEndOfDae.IsBackground = true;
-            threadEndOfDae.Name = "ThreadEndOfDae";
-            threadEndOfDae.Start();
+            //Thread threadEndOfDae = new Thread(new ThreadStart(ThreadEODFunc));
+            //threadEndOfDae.IsBackground = true;
+            //threadEndOfDae.Name = "ThreadEndOfDae";
+            //threadEndOfDae.Start();
 
-            // Thread for auto running the clearance of the reorder list table
-            Thread threadSundae = new Thread(new ThreadStart(ThreadSundaeFunc));
-            threadSundae.IsBackground = true;
-            threadSundae.Name = "ThreadSundae";
-            threadSundae.Start();
+            //// Thread for auto running the clearance of the reorder list table
+            //Thread threadSundae = new Thread(new ThreadStart(ThreadSundaeFunc));
+            //threadSundae.IsBackground = true;
+            //threadSundae.Name = "ThreadSundae";
+            //threadSundae.Start();
         }
 
         void AuthenticationService_Authenticating(object sender, System.Web.ApplicationServices.AuthenticatingEventArgs e)
