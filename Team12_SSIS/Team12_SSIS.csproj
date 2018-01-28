@@ -201,12 +201,24 @@
     <Content Include="SA45Team12ADDataSetReqHx.xss">
       <DependentUpon>SA45Team12ADDataSetReqHx.xsd</DependentUpon>
     </Content>
+    <Content Include="SA45Team12ADDataSetReqTrend.xsc">
+      <DependentUpon>SA45Team12ADDataSetReqTrend.xsd</DependentUpon>
+    </Content>
+    <None Include="SA45Team12ADDataSetReqTrend.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SA45Team12ADDataSetReqTrend.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SA45Team12ADDataSetReqTrend.xss">
+      <DependentUpon>SA45Team12ADDataSetReqTrend.xsd</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="StoreReport\RequisitionTrendReport.aspx" />
     <Content Include="StoreReport\DeptRequisitionReport.aspx" />
     <Content Include="StoreReport\SupplierOrderReport.aspx" />
     <Content Include="Style\bootstrap.css" />
@@ -432,6 +444,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SA45Team12ADDataSetReqHx.xsd</DependentUpon>
     </Compile>
+    <Compile Include="SA45Team12ADDataSetReqTrend.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA45Team12ADDataSetReqTrend.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -649,6 +666,13 @@
     <Compile Include="StoreManager\ViewSupplierList.aspx.designer.cs">
       <DependentUpon>ViewSupplierList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="StoreReport\RequisitionTrendReport.aspx.cs">
+      <DependentUpon>RequisitionTrendReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreReport\RequisitionTrendReport.aspx.designer.cs">
+      <DependentUpon>RequisitionTrendReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StoreReport\DeptRequisitionReport.aspx.cs">
       <DependentUpon>DeptRequisitionReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -703,6 +727,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="StoreReport\DeptRequisitionReportTemplate.rdlc" />
+    <EmbeddedResource Include="StoreReport\RequisitionTrendReportTemplate.rdlc" />
     <EmbeddedResource Include="StoreReport\SupplierOrderReportTemplate.rdlc" />
   </ItemGroup>
   <PropertyGroup>
