@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
 
 using static Team12_SSIS.Utility.Validator;
@@ -49,6 +51,25 @@ namespace Team12_SSIS.StoreManager
                 ddl.DataTextField = "CatalogueName";
                 ddl.DataValueField = "CategoryID";
                 ddl.DataBind();
+            }
+        }
+        protected void TxtItemID_TextChanged(object sender, EventArgs e)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                string input = TxtItemID.Text;
+                bool Exist = entities.InventoryCatalogues.Any(i => i.ItemID == input);
+                if (Exist)
+                {
+                    LblExist.Visible = true;
+                    LblExist.Text = "Item ID Already Exist!";
+                    LblExist.ForeColor = Color.Red;
+                    TxtItemID.Text = string.Empty;
+                }
+                else
+                {
+                    LblExist.Visible = false;
+                }
             }
         }
     }

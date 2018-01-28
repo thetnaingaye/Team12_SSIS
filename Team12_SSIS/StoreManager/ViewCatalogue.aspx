@@ -33,7 +33,7 @@
             <td style="width: 100%">
                 <div style="overflow-x:auto;width:1100px">
                 <asp:GridView ID="GridViewCatalogue" class="table" runat="server" AutoGenerateColumns="False" Style="width:100%"
-                    AllowPaging="True" PageSize="5" OnPageIndexChanging="GridViewCatalogue_PageIndexChanging"
+                    AllowPaging="True" PageSize="4" OnPageIndexChanging="GridViewCatalogue_PageIndexChanging"
                     OnRowDataBound="GridViewCatalogue_RowDataBound"
                     OnRowEditing="GridViewCatalogue_RowEditing"
                     OnRowCancelingEdit="GridViewCatalogue_RowCancelingEdit"

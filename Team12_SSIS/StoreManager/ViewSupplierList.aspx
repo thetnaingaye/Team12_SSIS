@@ -32,7 +32,7 @@
                 <div style="overflow-x:auto;width:1100px">
                 <asp:GridView ID="GridViewSupplier" class="table" runat="server" AutoGenerateColumns="False"  
                     Style="width: 100%"
-                    AllowPaging="True" PageSize="5" OnPageIndexChanging="GridViewSupplier_PageIndexChanging"
+                    AllowPaging="True" PageSize="4" OnPageIndexChanging="GridViewSupplier_PageIndexChanging"
                     OnRowCancelingEdit="GridViewSupplier_RowCancelingEdit"
                     OnRowDataBound="GridViewSupplier_RowDataBound"
                     OnRowEditing="GridViewSupplier_RowEditing"
