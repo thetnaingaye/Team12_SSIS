@@ -26,6 +26,11 @@ namespace Team12_SSIS.DepartmentEmployee
                 GridViewCheckOut.DataSource = cartList;
                 GridViewCheckOut.DataBind();
                 GridViewCheckOut.Visible = true;
+                LblCount.Text="Number of items requested: "+ cartList.Count;
+            }
+            else
+            {
+                LblCount.Text = "You can make stationery requisition now.";
             }
         }
 
