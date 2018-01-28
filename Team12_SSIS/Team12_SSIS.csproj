@@ -213,6 +213,8 @@
     <Content Include="Style\bootstrap.min.css" />
     <Content Include="Style\Site.css" />
     <Content Include="WebServices\AuthService.svc" />
+    <Content Include="WebServices\FormUpload.aspx" />
+    <Content Include="WebServices\upload.html" />
     <Content Include="WebServices\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -666,6 +668,13 @@
     <Compile Include="Utility\Validator.cs" />
     <Compile Include="WebServices\AuthService.svc.cs">
       <DependentUpon>AuthService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WebServices\FormUpload.aspx.cs">
+      <DependentUpon>FormUpload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebServices\FormUpload.aspx.designer.cs">
+      <DependentUpon>FormUpload.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebServices\IAuthService.cs" />
     <Compile Include="WebServices\IService.cs" />
