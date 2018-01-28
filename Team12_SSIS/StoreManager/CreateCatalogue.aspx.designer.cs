@@ -22,6 +22,24 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtItemID;
         
         /// <summary>
+        /// LblExist control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblExist;
+        
+        /// <summary>
+        /// RequiredFieldValidatorItemID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorItemID;
+        
+        /// <summary>
         /// TxtDescription control.
         /// </summary>
         /// <remarks>
@@ -29,6 +47,15 @@ namespace Team12_SSIS.StoreManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtDescription;
+        
+        /// <summary>
+        /// RequiredFieldValidatorDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorDescription;
         
         /// <summary>
         /// DdlCategoryID control.
@@ -40,6 +67,15 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.DropDownList DdlCategoryID;
         
         /// <summary>
+        /// RequiredFieldValidatorCatID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorCatID;
+        
+        /// <summary>
         /// TxtBIN control.
         /// </summary>
         /// <remarks>
@@ -47,6 +83,15 @@ namespace Team12_SSIS.StoreManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtBIN;
+        
+        /// <summary>
+        /// RequiredFieldValidatorBIN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorBIN;
         
         /// <summary>
         /// TxtShelf control.
@@ -58,6 +103,15 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtShelf;
         
         /// <summary>
+        /// RequiredFieldValidatorShelf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorShelf;
+        
+        /// <summary>
         /// TxtLevel control.
         /// </summary>
         /// <remarks>
@@ -65,6 +119,15 @@ namespace Team12_SSIS.StoreManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtLevel;
+        
+        /// <summary>
+        /// RequiredFieldValidatorLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorLevel;
         
         /// <summary>
         /// TxtReorderLevel control.
@@ -76,6 +139,15 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtReorderLevel;
         
         /// <summary>
+        /// RequiredFieldValidatorReorderLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorReorderLevel;
+        
+        /// <summary>
         /// TxtReorderQty control.
         /// </summary>
         /// <remarks>
@@ -85,6 +157,15 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtReorderQty;
         
         /// <summary>
+        /// RequiredFieldValidatorReorderQty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorReorderQty;
+        
+        /// <summary>
         /// TxtUOM control.
         /// </summary>
         /// <remarks>
@@ -92,6 +173,15 @@ namespace Team12_SSIS.StoreManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtUOM;
+        
+        /// <summary>
+        /// RequiredFieldValidatorUOM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorUOM;
         
         /// <summary>
         /// BtnSubmit control.
