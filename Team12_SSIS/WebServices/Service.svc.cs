@@ -27,8 +27,18 @@ namespace Team12_SSIS.WebServices
             return DisbursementLogic.GetFullNamesFromDept(dept);
         }
 
-        public List<WCF_DisbursementList> GetDisbursementList()
+        public List<WCF_DisbursementList> GetDisbursementList(string token)
         {
+            //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
+            if(!IsAuthanticateUser(token))
+            {
+                List<WCF_DisbursementList> wcf_UnAuthObj = new List<WCF_DisbursementList>();
+                WCF_DisbursementList wcfUnAuth = new WCF_DisbursementList();
+                wcfUnAuth.DisbursementID = -1;
+                wcf_UnAuthObj.Add(wcfUnAuth);
+                return wcf_UnAuthObj;
+            }
+
             List<DisbursementList> dlist = DisbursementLogic.GetDisbursementList();
             List<WCF_DisbursementList> wcf_Dlist = new List<WCF_DisbursementList>();
             foreach(DisbursementList d in dlist)
@@ -283,7 +293,32 @@ namespace Team12_SSIS.WebServices
 
 
 
+        //Chang Siang will write here. Organisation is a mess!
+        bool IsAuthanticateUser(string tokenString)
+        {
+            bool isValidUser = true;
+            char seperator = '/';
+            try
+            {
+                //Took this scrambler and descrambler from StackOverflow by lokusking https://stackoverflow.com/questions/38816004/simple-string-encryption-without-dependencies/38816208#38816208?newreg=466b51f08cc74759835ead8063afb961
+                int shft = 5;
+                string decrypted = Encoding.UTF8.GetString(Convert.FromBase64String(tokenString)).Select(ch => ((int)ch) >> shft).Aggregate("", (current, val) => current + (char)(val / 2));
+                string[] splitString = decrypted.Split(seperator);
+                UserIdentity user = new UserIdentity();
+                string userName = splitString[0];
+                string password = splitString[1];
+                if (Membership.ValidateUser(userName, password))
+                    return isValidUser;
+            }
+            //If user attempt to temper the encoded string, it will cause an exception thrown during the decoding process at System.Convert.FromBase64_Decode.
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            isValidUser = false;
+            return isValidUser;
 
+        }
 
 
 
