@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -46,7 +47,7 @@ namespace Team12_SSIS.StoreReport
             else
             {
                 sList = (List<SupplierList>)Session["SupplierList"];
-                SupplierList selectItem = sList.Where(x => x.SupplierID == supplierID).FirstOrDefault();
+                SupplierList selectItem = PurchasingLogic.ListSuppliers().Where(x => x.SupplierID == supplierID).FirstOrDefault();
                 sList.Add(selectItem);
                 Session["SupplierList"] = sList;
                 BindGrid(sList);
@@ -63,13 +64,12 @@ namespace Team12_SSIS.StoreReport
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string startPeriod = "01/Jan/2018";
-            string endPeriod = "31/Jan/2018";
             string itemCode = TxtItemCode.Text;
-            DateTime startDate = DateTime.Parse(startPeriod);
-            DateTime endDate = DateTime.Parse(endPeriod);        
+            DateTime startDate = DateTime.ParseExact(Request.Form["datepickerStart"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime endDate = DateTime.ParseExact(Request.Form["datepickerEnd"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
             SA45Team12ADDataSet.StoreOrderHistoryDataTable dt = new SA45Team12ADDataSet.StoreOrderHistoryDataTable();
             SA45Team12ADDataSetTableAdapters.StoreOrderHistoryTableAdapter ta = new SA45Team12ADDataSetTableAdapters.StoreOrderHistoryTableAdapter();
+            SA45Team12ADDataSet ds = new SA45Team12ADDataSet();
 
             if (DdlSupplier.SelectedValue == "All")
             {
@@ -80,10 +80,14 @@ namespace Team12_SSIS.StoreReport
                 foreach(GridViewRow r in GridViewSupplier.Rows)
                 {
                     string supplierId = (r.FindControl("LblSupplierID") as Label).Text;
-                    ta.Fill(dt, startDate, endDate, itemCode, supplierId);
+                    dt.Merge(ta.GetData(startDate, endDate, itemCode, supplierId));                     
                 }
             }
 
+            ReportParameter startDateParam = new ReportParameter("StartDate", startDate.ToString("d"));
+            ReportParameter endDateParam = new ReportParameter("EndDate", endDate.ToString("d"));
+            ReportParameter itemDescParam = new ReportParameter("ItemDescription", InventoryLogic.GetItemName(itemCode));
+            ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { startDateParam, endDateParam, itemDescParam });
             ReportDataSource dataSource = new ReportDataSource("SA45Team12ADDataSet", (DataTable)dt);
             ReportViewer1.LocalReport.DataSources.Clear();
             ReportViewer1.LocalReport.DataSources.Add(dataSource);

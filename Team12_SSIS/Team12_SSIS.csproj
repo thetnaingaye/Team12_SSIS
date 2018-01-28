@@ -157,6 +157,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Site.Master" />
+    <Content Include="SQLStoredProcedureForReports%28ChangSiang%29.txt" />
     <Content Include="SSIS_UserPassword.txt" />
     <Content Include="StoreClerk\CurrentRequisitionOrders.aspx" />
     <Content Include="StoreClerk\PastRequisitionOrders.aspx" />
@@ -189,13 +190,25 @@
     <Content Include="SA45Team12ADDataSet.xss">
       <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="SA45Team12ADDataSetReqHx.xsc">
+      <DependentUpon>SA45Team12ADDataSetReqHx.xsd</DependentUpon>
+    </Content>
+    <None Include="SA45Team12ADDataSetReqHx.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SA45Team12ADDataSetReqHx.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SA45Team12ADDataSetReqHx.xss">
+      <DependentUpon>SA45Team12ADDataSetReqHx.xsd</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="StoreReport\ReportViewer.aspx" />
+    <Content Include="StoreReport\DeptRequisitionReport.aspx" />
+    <Content Include="StoreReport\SupplierOrderReport.aspx" />
     <Content Include="Style\bootstrap.css" />
     <Content Include="Style\bootstrap.min.css" />
     <Content Include="Style\Site.css" />
@@ -411,6 +424,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SA45Team12ADDataSetReqHx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA45Team12ADDataSetReqHx.xsd</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -629,12 +647,19 @@
     <Compile Include="StoreManager\ViewSupplierList.aspx.designer.cs">
       <DependentUpon>ViewSupplierList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="StoreReport\ReportViewer.aspx.cs">
-      <DependentUpon>ReportViewer.aspx</DependentUpon>
+    <Compile Include="StoreReport\DeptRequisitionReport.aspx.cs">
+      <DependentUpon>DeptRequisitionReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="StoreReport\ReportViewer.aspx.designer.cs">
-      <DependentUpon>ReportViewer.aspx</DependentUpon>
+    <Compile Include="StoreReport\DeptRequisitionReport.aspx.designer.cs">
+      <DependentUpon>DeptRequisitionReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreReport\SupplierOrderReport.aspx.cs">
+      <DependentUpon>SupplierOrderReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreReport\SupplierOrderReport.aspx.designer.cs">
+      <DependentUpon>SupplierOrderReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utility\Utility.cs" />
     <Compile Include="Utility\EmailControl.cs" />
@@ -668,7 +693,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="StoreReport\Report2.rdlc" />
+    <EmbeddedResource Include="StoreReport\DeptRequisitionReportTemplate.rdlc" />
+    <EmbeddedResource Include="StoreReport\SupplierOrderReportTemplate.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

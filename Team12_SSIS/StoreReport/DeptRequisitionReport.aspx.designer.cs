@@ -10,52 +10,16 @@
 namespace Team12_SSIS.StoreReport {
     
     
-    public partial class ReportViewer {
+    public partial class DeptRequisitionReport {
         
         /// <summary>
-        /// DdlStartMonth control.
+        /// DdlDept control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DdlStartMonth;
-        
-        /// <summary>
-        /// TxtStartYear control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtStartYear;
-        
-        /// <summary>
-        /// DdlEndMonth control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DdlEndMonth;
-        
-        /// <summary>
-        /// TxtEndYear control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtEndYear;
-        
-        /// <summary>
-        /// DdlSupplier control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DdlSupplier;
+        protected global::System.Web.UI.WebControls.DropDownList DdlDept;
         
         /// <summary>
         /// BtnAddSupplier control.
@@ -85,13 +49,13 @@ namespace Team12_SSIS.StoreReport {
         protected global::System.Web.UI.WebControls.Label LblItemDesc;
         
         /// <summary>
-        /// GridViewSupplier control.
+        /// GridViewDept control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewSupplier;
+        protected global::System.Web.UI.WebControls.GridView GridViewDept;
         
         /// <summary>
         /// Button1 control.
@@ -112,12 +76,12 @@ namespace Team12_SSIS.StoreReport {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// ReportViewer1 control.
+        /// ReportViewerDeptReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer ReportViewer1;
+        protected global::Microsoft.Reporting.WebForms.ReportViewer ReportViewerDeptReq;
     }
 }
