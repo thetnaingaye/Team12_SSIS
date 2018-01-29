@@ -28,8 +28,7 @@ namespace Team12_SSIS.WebServices
         [OperationContract]
         [WebInvoke(UriTemplate = "/GetInventoryList", Method ="POST", 
             ResponseFormat = WebMessageFormat.Json, 
-            RequestFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped)]
+            RequestFormat = WebMessageFormat.Json)]
         List<WCF_InventoryCatalogue> GetInventoryList(string token);
 
         [OperationContract]
