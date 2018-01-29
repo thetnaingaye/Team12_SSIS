@@ -17,6 +17,11 @@
         });
     </script>
     <table style="width: 100%; vertical-align: top">
+                <tr>
+            <td colspan="4">
+            <h2>Requisition Trend Report</h2>
+                </td>
+        </tr>
         <tr>
             <td colspan="2">Starting:
                                 <input type="text" id="datepickerStart" name="datepickerStart" readonly="true" />
@@ -26,9 +31,10 @@
                                 <input type="text" id="datepickerEnd" name="datepickerEnd" readonly="true" />
 
             </td>
+        </tr>
         <tr>
             <td colspan="4">
-                <asp:Button ID="Button1" runat="server" Text="Generate Report" OnClick="Button1_Click" />
+                <asp:Button ID="Button1" runat="server" Text="Generate Report" CssClass="btn btn-primary btn-xs" OnClick="Button1_Click" />
             </td>
         </tr>
         <tr>

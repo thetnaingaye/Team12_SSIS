@@ -17,6 +17,11 @@
         });
     </script>
     <table style="width: 100%; vertical-align: top">
+                <tr>
+            <td colspan="4">
+            <h2>Supplier Order Report</h2>
+                </td>
+        </tr>
         <tr>
             <td colspan="2">Starting:
                                 <input type="text" id="datepickerStart" name="datepickerStart" readonly="true" />
@@ -28,16 +33,15 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">Supplier:
+            <td colspan="4">Supplier:
                             <asp:DropDownList ID="DdlSupplier" runat="server" DataTextField="SupplierName" DataValueField="SupplierID"></asp:DropDownList>
-            </td>
-            <td colspan="2">
-                <asp:Button ID="BtnAddSupplier" runat="server" Text="Add Supplier..." OnClick="BtnAddSupplier_Click" />
+                <asp:Button ID="BtnAddSupplier" runat="server" Text="Add Supplier..." OnClick="BtnAddSupplier_Click" CssClass="btn btn-primary btn-xs" />
             </td>
         </tr>
         <tr>
             <td colspan="2">Item Code:
-                        <asp:TextBox ID="TxtItemCode" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="TxtItemCode" runat="server"></asp:TextBox><br />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please enter a valid item code" ForeColor="Red" ControlToValidate="TxtItemCode" ValidationGroup="GenerateReport"></asp:RequiredFieldValidator>
             </td>
             <td colspan="2">
                 <asp:Label ID="LblItemDesc" runat="server"></asp:Label>
@@ -66,7 +70,7 @@
 
         <tr>
             <td colspan="4">
-                <asp:Button ID="Button1" runat="server" Text="Generate Report" OnClick="Button1_Click" />
+                <asp:Button ID="Button1" runat="server" Text="Generate Report" ValidationGroup="GenerateReport" OnClick="Button1_Click" CssClass="btn btn-primary btn-xs"/>
             </td>
         </tr>
         <tr>
