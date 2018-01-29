@@ -86,7 +86,7 @@ namespace Team12_SSIS.WebServices
                 wcfDd.ItemID = dd.ItemID;
                 wcfDd.ActualQuantity = (int)dd.ActualQuantity;
                 wcfDd.QuantityRequested = (int)dd.QuantityRequested;
-                wcfDd.QuantityCollected = dd.QuantityCollected.ToString();
+                wcfDd.QuantityCollected = (int)dd.QuantityCollected;
                 wcfDd.UOM = dd.UOM;
                 wcfDd.Remarks = dd.Remarks == null ? " " : dd.Remarks;
                 wcf_ddlist.Add(wcfDd);
@@ -256,7 +256,7 @@ namespace Team12_SSIS.WebServices
             DisbursementLogic dl = new DisbursementLogic();
             foreach(WCF_DisbursementListDetail d in disbursementList.WCF_DisbursementListDetail)
             {
-                dl.UpdateDisbursementListDetails(d.ID, Convert.ToInt32(d.QuantityCollected), d.Remarks);
+                dl.UpdateDisbursementListDetails(d.ID, d.QuantityCollected, d.Remarks);
             }
         }
 
