@@ -17,8 +17,8 @@
     <div class="col-lg-12 text-center">
         <h3 class="margin">Looking for an item</h3>
         <p>It's one click away. </p>
-        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-        <asp:Button ID="Button1" runat="server" Text="Search" />
+        <asp:TextBox ID="TxtSearch" runat="server"></asp:TextBox>
+        <asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
     </div>
     <br />
     <br />

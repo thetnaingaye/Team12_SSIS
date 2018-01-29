@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Team12_SSIS.BusinessLogic;
+using Team12_SSIS.Model;
 
 namespace Team12_SSIS.DepartmentEmployee
 {
@@ -15,14 +17,16 @@ namespace Team12_SSIS.DepartmentEmployee
 
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         protected void Button2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        protected void BtnSearch_Click(object sender, EventArgs e)
+        {
+            //Session["input"] = TxtSearch.Text;
+            //Server.Transfer("~/DepartmentEmployee/ViewCatalogue.aspx");
         }
     }
 }
