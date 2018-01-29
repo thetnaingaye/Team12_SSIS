@@ -28,9 +28,10 @@
             </td>
         </tr>
         <tr>
-            <td colspan="3">
+            <td colspan="2">
                 <asp:ValidationSummary ID="ValidationSummaryPo" runat="server" ValidationGroup="BtnRetrieveGR" ForeColor="red" />
             </td>
+            <td></td>
             <td colspan="2">
                 <asp:Label ID="Label1" runat="server" Text="Posting Date:" Font-Size="Small" Style="padding-right: 10px"></asp:Label>
                 <asp:Label ID="LblGRDate" runat="server"> </asp:Label>
