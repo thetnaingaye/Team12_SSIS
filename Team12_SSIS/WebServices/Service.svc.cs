@@ -20,7 +20,7 @@ namespace Team12_SSIS.WebServices
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service.svc or Service.svc.cs at the Solution Explorer and start debugging.
     public class Service : IService
     {
-        const string internalSecertKey = "internalUseKey:3u38riwjfjeht9noisnqiwr09wf";
+        const string internalSecertKey = "4aOA4ayA4aWA4bKA4auA4LGA4K+A4ZCA4aGA4bOA4bOA4beA4a+A4bKA4aSA4YCA4KOA4LGA";
         //Chang Siang Codes 1-299
         //Khiar Codes 300-999
         public List<string> GetUsersFromDept(string dept, string token)
@@ -391,7 +391,7 @@ namespace Team12_SSIS.WebServices
                 UserIdentity user = new UserIdentity();
                 string userName = splitString[0];
                 string password = splitString[1];
-                if (Membership.ValidateUser(userName, password) || tokenString == internalSecertKey)
+                if (Membership.ValidateUser(userName, password))
                     return isValidUser;
             }
             //If user attempt to temper the encoded string, it will cause an exception thrown during the decoding process at System.Convert.FromBase64_Decode.
