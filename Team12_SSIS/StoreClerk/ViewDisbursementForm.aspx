@@ -90,7 +90,7 @@
                                     <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="80%"></HeaderStyle>
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="Request Quantity" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                <asp:TemplateField HeaderText="Request Quantity" Visible="false" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                     <ItemTemplate>
                                         <asp:Label ID="LblReqQty" runat="server" Width="100%" CssClass="center-block" Text='<%# Eval("QuantityRequested") %>'></asp:Label>
                                     </ItemTemplate>
@@ -107,7 +107,7 @@
                                 </asp:TemplateField>
 
 
-                                <asp:TemplateField HeaderText="Collected Quantity" Visible="false" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                <asp:TemplateField HeaderText="Collected Quantity" HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                     <ItemTemplate>
                                         <asp:Label ID="LblCollectQty" runat="server" Width="100%" CssClass="center-block" Text='<%# Bind("QuantityCollected") %>'></asp:Label>
                                     </ItemTemplate>

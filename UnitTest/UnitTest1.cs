@@ -76,26 +76,9 @@ namespace UnitTest
         [TestMethod]
         public void TestMail()
         {
-
-            byte xorConstant = 0x53;
-            string input = "foo";
-            byte[] data = Encoding.UTF8.GetBytes(input);
-            for (int i = 0; i < data.Length; i++)
-            {
-                data[i] = (byte)(data[i] ^ xorConstant);
-            }
-            string output = Convert.ToBase64String(data);
-            Console.WriteLine(output);
-
-            //Decoding process
-            string tokenString = output;
-            byte[] Dedata = Convert.FromBase64String(tokenString);
-            for (int i = 0; i < data.Length; i++)
-            {
-                data[i] = (byte)(data[i] ^ xorConstant);
-            }
-            string plainText = Encoding.UTF8.GetString(Dedata);
-            Console.WriteLine(plainText);
+            DisbursementLogic dl = new DisbursementLogic();
+            for (int i = 15; i < 43; i++)
+                dl.UpdateDisbursementListDetails(i, 5, "Test Cases");
         }
 
 
