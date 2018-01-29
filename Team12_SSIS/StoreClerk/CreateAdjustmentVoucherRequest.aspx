@@ -124,8 +124,8 @@
             <td>
                 <asp:Button ID="BtnAddItem" runat="server" Text="Add Item" CssClass="btn btn-success" OnClick="BtnAddItem_Click" />
             </td>
-            <td>
-                <asp:Button ID="BtnSendReq" runat="server" Text="Send Request" CssClass="btn btn-xs" OnClick="BtnSendReq_Click" ValidationGroup="BtnSendReq" OnClientClick="this.disabled=true;" UseSubmitBehavior="false"/>
+            <td align="right">
+                <asp:Button ID="BtnSendReq" runat="server" Text="Send Request" CssClass="btn btn-primary" OnClick="BtnSendReq_Click" ValidationGroup="BtnSendReq" OnClientClick="this.disabled=true;" UseSubmitBehavior="false"/>
             </td>
             <td>
                 <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" ValidationGroup="BtnSendReq" />

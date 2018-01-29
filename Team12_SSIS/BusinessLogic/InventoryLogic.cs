@@ -323,7 +323,7 @@ namespace Team12_SSIS.BusinessLogic
         //----------------------------         KHAIR's               ----------------------------// 
 
         // Retrieve ALL items
-        public List<InventoryCatalogue> ListAllItems()
+        public static List<InventoryCatalogue> ListAllItems()
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -341,7 +341,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve specific item name
-        public string GetItemDescription(string itemID)
+        public static string GetItemDescription(string itemID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -361,7 +361,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve specific item units of measure
-        public string GetUnitsOfMeasure(string itemID)
+        public static string GetUnitsOfMeasure(string itemID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -371,7 +371,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Checks if the current inventory is sufficient for the qty specified to be withdrawn by the user.
-        public bool CheckAgainstInventoryQty(string itemID, int neededQty)
+        public static bool CheckAgainstInventoryQty(string itemID, int neededQty)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -382,7 +382,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Inventory retrieval processes
-        public string CreateNewInventoryRetrievalEntry(int reqID, int reqDetailID, string itemID, string deptID, int reqQty, int actQty, bool isOverride)
+        public static string CreateNewInventoryRetrievalEntry(int reqID, int reqDetailID, string itemID, string deptID, int reqQty, int actQty, bool isOverride)
         {
             bool isFulfilled = true;
             bool isEnough = true;
@@ -477,7 +477,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Creating a new req record - auto by the system
-        public void AutoCreateRR(int reqID)
+        private static void AutoCreateRR(int reqID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -505,7 +505,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Creating a new req record details - auto by the system
-        public void AutoCreateRRDetails(string itemID, int newReqQty)
+        private static void AutoCreateRRDetails(string itemID, int newReqQty)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -532,7 +532,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Materials Resource Planning (MRP) model    -    Always using the top priority supplier [auto by the system as well]
-        public void MRPInitialize(string itemID)
+        public static void MRPInitialize(string itemID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {

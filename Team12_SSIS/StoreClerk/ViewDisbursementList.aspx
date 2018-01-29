@@ -14,15 +14,20 @@
         });
     </script>
     <table style="width: 100%">
+                <tr>
+            <td colspan="7">
+                <h2>List of Disbursement Forms</h2>
+            </td>
+        </tr>
         <tr>
             <td>
                 <asp:Label ID="Label1" runat="server" Text="Department: "></asp:Label>
             </td>
             <td>
                 <asp:DropDownList ID="DdlDept" runat="server" DataTextField = "DepartmentName" DataValueField = "DeptID"></asp:DropDownList>
+                <asp:Button ID="BtnRetrieve" runat="server" CssClass="btn btn-primary btn-xs" Text="Retrieve..." OnClick="BtnRetrieve_Click" />
             </td>
-            <td colspan="4">
-                <asp:Button ID="BtnRetrieve" runat="server" Text="Retrieve..." OnClick="BtnRetrieve_Click" />
+            <td colspan="4">                
             </td>
         </tr>
         <tr>
@@ -50,15 +55,15 @@
                 <input type="text" id="datepicker" name="datepicker" readonly="true" />
             </td>
             <td>
-                <asp:Button ID="BtnSearch" runat="server" Text="Search..." OnClick="BtnSearch_Click" />
+                <asp:Button ID="BtnSearch" CssClass="btn btn-primary btn-xs" runat="server" Text="Search..." OnClick="BtnSearch_Click" />
             </td>
         </tr>
         <tr>
             <td colspan="7">
-                <asp:GridView ID="GridViewDisbList" runat="server" Style="width: 100%" 
+                <asp:GridView ID="GridViewDisbList" CssClass="table" runat="server" Style="width: 100%" 
                     AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" 
-                    GridLines="None" OnRowDataBound="GridViewDisbList_RowDataBound" OnRowCommand="GridViewDisbList_RowCommand">
-                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                    OnRowDataBound="GridViewDisbList_RowDataBound" OnRowCommand="GridViewDisbList_RowCommand">
+                    <AlternatingRowStyle BackColor="#f9f9f9" />
                     <Columns>
                         <asp:TemplateField HeaderText="#">
                             <ItemTemplate>

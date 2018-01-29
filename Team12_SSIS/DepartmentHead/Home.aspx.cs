@@ -18,7 +18,7 @@ namespace Team12_SSIS.DepartmentHead
         protected int GetPendingRequestCount()
         {
             String dep = DisbursementLogic.GetCurrentDep();
-            List<RequisitionRecord> list = new RequisitionLogic().ListAllRRBySpecificDeptAndStatus(dep, "Pending");
+            List<RequisitionRecord> list = RequisitionLogic.ListAllRRBySpecificDeptAndStatus(dep, "Pending");
             return list.Count;
         }
         protected int GetDisbursementCount()

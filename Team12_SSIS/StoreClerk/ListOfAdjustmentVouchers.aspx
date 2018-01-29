@@ -26,9 +26,9 @@
                             <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False" Style="width:100%"
                                 ShowHeaderWhenEmpty="True"
                                 OnRowDataBound="OnRowDataBound" OnRowCommand="GridViewAdjV_RowCommand"
-                                CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="AVRID" AllowPaging="true"
+                                CellPadding="4" ForeColor="#333333" DataKeyNames="AVRID" AllowPaging="true"
                                 OnPageIndexChanging="OnPageIndexChanging" PageSize="15" >
-                                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                <AlternatingRowStyle BackColor="#F9F9F9"/>
                                 <Columns>
                                     <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                         <ItemTemplate>
@@ -83,7 +83,7 @@
                                 <EditRowStyle BackColor="#999999" />
                                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
                                 <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                <PagerStyle BackColor="#1A6ECC" ForeColor="White" HorizontalAlign="Center" />
                                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                                 <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                                 <SortedAscendingCellStyle BackColor="#E9E7E2" />

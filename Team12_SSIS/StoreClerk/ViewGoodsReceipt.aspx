@@ -19,7 +19,7 @@
             <asp:RegularExpressionValidator ID="RegularExpressionValidatorPoNumber" ValidationGroup="BtnRetrieveGR" ControlToValidate="TxtGRNumber" ValidationExpression="[Gg][Rr][0-9]\d*" runat="server" ErrorMessage="Please enter a valid GR number." Display="None"></asp:RegularExpressionValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidatorPoNumber" runat="server" ValidationGroup="BtnRetrieveGR" ControlToValidate="TxtGRNumber" ErrorMessage="Please enter a GR number." Display="None"></asp:RequiredFieldValidator>
             <td style="width: 60%">
-                <asp:Button ID="BtnRetrievePO" runat="server" Text="Retrieve GR" OnClick="BtnRetrieveGR_Click" CssClass="btn btn-xs" ValidationGroup="BtnRetrieveGR" />
+                <asp:Button ID="BtnRetrievePO" runat="server" Text="Retrieve GR" OnClick="BtnRetrieveGR_Click" CssClass="btn btn-primary btn-xs" ValidationGroup="BtnRetrieveGR" />
             </td>
 
             <td colspan="2">
@@ -51,8 +51,8 @@
             <td colspan="5">
                 <div>
                     <asp:GridView ID="GridViewGR" runat="server" AutoGenerateColumns="False"
-                        Style="height: 100px; overflow: auto; width: 100%" DataKeyNames="GRNumber" ShowHeaderWhenEmpty="True" OnRowDataBound="OnRowDataBound" CellPadding="4" ForeColor="#333333" GridLines="None">
-                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                        Style="height: 100px; overflow: auto; width: 100%" DataKeyNames="GRNumber" ShowHeaderWhenEmpty="True" OnRowDataBound="OnRowDataBound" CellPadding="4" ForeColor="#333333">
+                        <AlternatingRowStyle BackColor="#F9F9F9"/>
                         <Columns>
 
                             <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">

@@ -10,14 +10,12 @@ namespace Team12_SSIS.DepartmentHead
 {
     public partial class ViewRequisitionFormList : System.Web.UI.Page
     {
-        RequisitionLogic r = new RequisitionLogic();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 // Here we set 'Pending' as the default status of the page (for ease of the user)
-                GridViewReqList.DataSource = r.ListAllRRBySpecificDeptAndStatus(DisbursementLogic.GetCurrentDep(), "Pending");
+                GridViewReqList.DataSource = RequisitionLogic.ListAllRRBySpecificDeptAndStatus(DisbursementLogic.GetCurrentDep(), "Pending");
                 GridViewReqList.DataBind();
             }
         }
@@ -30,24 +28,24 @@ namespace Team12_SSIS.DepartmentHead
             // Populating the gridview according to the status specified in the dropdownlist
             if (val == "All")
             {
-                GridViewReqList.DataSource = r.ListAllRRBySpecificDept(DisbursementLogic.GetCurrentDep());
+                GridViewReqList.DataSource = RequisitionLogic.ListAllRRBySpecificDept(DisbursementLogic.GetCurrentDep());
             }
             else if (val == "Approved")
             {
-                GridViewReqList.DataSource = r.ListAllRRBySpecificDeptAndStatus(DisbursementLogic.GetCurrentDep(), "Approved");
+                GridViewReqList.DataSource = RequisitionLogic.ListAllRRBySpecificDeptAndStatus(DisbursementLogic.GetCurrentDep(), "Approved");
             }
             else if (val == "Processed")
             {
-                GridViewReqList.DataSource = r.ListAllRRBySpecificDeptAndStatus(DisbursementLogic.GetCurrentDep(), "Processed");
+                GridViewReqList.DataSource = RequisitionLogic.ListAllRRBySpecificDeptAndStatus(DisbursementLogic.GetCurrentDep(), "Processed");
             }
             else if (val == "Rejected")
             {
-                GridViewReqList.DataSource = r.ListAllRRBySpecificDeptAndStatus(DisbursementLogic.GetCurrentDep(), "Rejected");
+                GridViewReqList.DataSource = RequisitionLogic.ListAllRRBySpecificDeptAndStatus(DisbursementLogic.GetCurrentDep(), "Rejected");
             }
             else
             {
                 // Default list (aka 'Pending)
-                GridViewReqList.DataSource = r.ListAllRRBySpecificDeptAndStatus(DisbursementLogic.GetCurrentDep(), "Pending");
+                GridViewReqList.DataSource = RequisitionLogic.ListAllRRBySpecificDeptAndStatus(DisbursementLogic.GetCurrentDep(), "Pending");
             }
             GridViewReqList.DataBind();
         }
@@ -69,7 +67,7 @@ namespace Team12_SSIS.DepartmentHead
         // Retrieving status of the req for better UI aesthetics
         public string GetStatus(int reqID)
         {
-            string temp = r.GetStatus(reqID);
+            string temp = RequisitionLogic.GetStatus(reqID);
             return temp.ToString();
         }
 

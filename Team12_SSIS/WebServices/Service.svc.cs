@@ -20,10 +20,19 @@ namespace Team12_SSIS.WebServices
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service.svc or Service.svc.cs at the Solution Explorer and start debugging.
     public class Service : IService
     {
+        const string internalSecertKey = "4aOA4ayA4aWA4bKA4auA4LGA4K+A4ZCA4aGA4bOA4bOA4beA4a+A4bKA4aSA4YCA4KOA4LGA";
         //Chang Siang Codes 1-299
         //Khiar Codes 300-999
-        public List<string> GetUsersFromDept(string dept)
+        public List<string> GetUsersFromDept(string dept, string token)
         {
+            //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
+            if (!IsAuthanticateUser(token))
+            {
+                List<string> wcf_UnAuthObj = new List<string>();
+                string wcfUnAuth = "-1";
+                wcf_UnAuthObj.Add(wcfUnAuth);
+                return wcf_UnAuthObj;
+            }
             return DisbursementLogic.GetFullNamesFromDept(dept);
         }
 
@@ -50,14 +59,23 @@ namespace Team12_SSIS.WebServices
                 wcfD.CollectionDate = ((DateTime)d.CollectionDate).ToString("d");
                 wcfD.RepresentativeName = d.RepresentativeName;
                 wcfD.Status = d.Status;
-                wcfD.WCF_DisbursementListDetail = GetDisbursementListDetails(d.DisbursementID);
+                wcfD.WCF_DisbursementListDetail = GetDisbursementListDetails(d.DisbursementID, internalSecertKey);
                 wcf_Dlist.Add(wcfD);
             }
             return wcf_Dlist;
         }
 
-        public List<WCF_DisbursementListDetail> GetDisbursementListDetails(int disbursementId)
+        public List<WCF_DisbursementListDetail> GetDisbursementListDetails(int disbursementId, string token)
         {
+            //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
+            if (!IsAuthanticateUser(token))
+            {
+                List<WCF_DisbursementListDetail> wcf_UnAuthObj = new List<WCF_DisbursementListDetail>();
+                WCF_DisbursementListDetail wcfUnAuth = new WCF_DisbursementListDetail();
+                wcfUnAuth.DisbursementID = -1;
+                wcf_UnAuthObj.Add(wcfUnAuth);
+                return wcf_UnAuthObj;
+            }
             List<DisbursementListDetail> ddList = DisbursementLogic.GetDisbursementListDetails(disbursementId);
             List<WCF_DisbursementListDetail> wcf_ddlist = new List<WCF_DisbursementListDetail>();
             foreach(DisbursementListDetail dd in ddList)
@@ -77,8 +95,17 @@ namespace Team12_SSIS.WebServices
 
         }
 
-        public List<WCF_InventoryCatalogue> GetInventoryList()
+        public List<WCF_InventoryCatalogue> GetInventoryList(string token)
         {
+            //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
+            if (!IsAuthanticateUser(token))
+            {
+                List<WCF_InventoryCatalogue> wcf_UnAuthObj = new List<WCF_InventoryCatalogue>();
+                WCF_InventoryCatalogue wcfUnAuth = new WCF_InventoryCatalogue();
+                wcfUnAuth.ItemID = "-1";
+                wcf_UnAuthObj.Add(wcfUnAuth);
+                return wcf_UnAuthObj;
+            }
             List<InventoryCatalogue> catalogueList = InventoryLogic.ListCatalogues();
             List<WCF_InventoryCatalogue> wcfList = new List<WCF_InventoryCatalogue>();
             foreach(InventoryCatalogue i in catalogueList)
@@ -90,8 +117,17 @@ namespace Team12_SSIS.WebServices
             return wcfList;
         }
 
-        public List<WCF_InventoryCatalogue> SearchInventoryList(string query)
+        public List<WCF_InventoryCatalogue> SearchInventoryList(string query, string token)
         {
+            //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
+            if (!IsAuthanticateUser(token))
+            {
+                List<WCF_InventoryCatalogue> wcf_UnAuthObj = new List<WCF_InventoryCatalogue>();
+                WCF_InventoryCatalogue wcfUnAuth = new WCF_InventoryCatalogue();
+                wcfUnAuth.ItemID = "-1";
+                wcf_UnAuthObj.Add(wcfUnAuth);
+                return wcf_UnAuthObj;
+            }
             InventoryLogic inventoryLogic = new InventoryLogic();
             List<InventoryCatalogue> catalogueList = inventoryLogic.SearchBy(query);
             List<WCF_InventoryCatalogue> wcfList = new List<WCF_InventoryCatalogue>();
@@ -106,14 +142,23 @@ namespace Team12_SSIS.WebServices
             return wcfList;
         }
 
-        public List<WCF_StockCard> GetStockCard(string itemId)
+        public List<WCF_StockCard> GetStockCard(string itemId, string token)
         {
+            //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
+            if (!IsAuthanticateUser(token))
+            {
+                List<WCF_StockCard> wcf_UnAuthObj = new List<WCF_StockCard>();
+                WCF_StockCard wcfUnAuth = new WCF_StockCard();
+                wcfUnAuth.ID = -1;
+                wcf_UnAuthObj.Add(wcfUnAuth);
+                return wcf_UnAuthObj;
+            }
             InventoryLogic inventoryLogic = new InventoryLogic();
             List<StockCard> stockCard = inventoryLogic.GetStockcardByItemId(itemId);
             List<WCF_StockCard> wcfList = new List<WCF_StockCard>();
             foreach(StockCard i in stockCard)
             {
-                WCF_InventoryCatalogue c = SearchInventoryList(i.ItemID).First();
+                WCF_InventoryCatalogue c = SearchInventoryList(i.ItemID, internalSecertKey).First();
                 WCF_StockCard w = WCF_StockCard.Create(i.ID, i.ItemID, 
                     ((DateTime)i.Date).ToString("d"), i.Description, i.Type, 
                     (int)i.Quantity, i.UOM, (int)i.Balance, c);
@@ -122,41 +167,65 @@ namespace Team12_SSIS.WebServices
             return wcfList;
         }
 
-        public List<WCF_RequisitionRecord> GetStationeryRequests()
+        public List<WCF_RequisitionRecord> GetStationeryRequests(string token)
         {
-            RequisitionLogic rl = new RequisitionLogic();
-            List<RequisitionRecord> rList = rl.ListAllRequisitionRecords();
+            //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
+            if (!IsAuthanticateUser(token))
+            {
+                List<WCF_RequisitionRecord> wcf_UnAuthObj = new List<WCF_RequisitionRecord>();
+                WCF_RequisitionRecord wcfUnAuth = new WCF_RequisitionRecord();
+                wcfUnAuth.RequestID = -1;
+                wcf_UnAuthObj.Add(wcfUnAuth);
+                return wcf_UnAuthObj;
+            }
+            List<RequisitionRecord> rList = RequisitionLogic.ListAllRequisitionRecords();
             List<WCF_RequisitionRecord> wcfList = new List<WCF_RequisitionRecord>();
             foreach(RequisitionRecord r in rList)
             {
                 string approvedDate = r.ApprovedDate == null ? "null" : ((DateTime)r.ApprovedDate).ToString("d");
                 WCF_RequisitionRecord wcf = WCF_RequisitionRecord.Create(r.RequestID, ((DateTime)r.RequestDate).ToString("d"), r.DepartmentID,
-                    r.RequestorName, approvedDate, r.ApproverName, r.Remarks, GetStationeryRequestDetails(r.RequestID.ToString()));
+                    r.RequestorName, approvedDate, r.ApproverName, r.Remarks, GetStationeryRequestDetails(r.RequestID.ToString(), internalSecertKey));
                 wcfList.Add(wcf);
             }
             return wcfList;
         }
 
-        public List<WCF_RequisitionRecord> GetStationeryRequestsById(string deptId)
+        public List<WCF_RequisitionRecord> GetStationeryRequestsById(string deptId, string token)
         {
-            RequisitionLogic rl = new RequisitionLogic();
-            List<RequisitionRecord> rList = rl.ListAllRRBySpecificDept(deptId);
+            //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
+            if (!IsAuthanticateUser(token))
+            {
+                List<WCF_RequisitionRecord> wcf_UnAuthObj = new List<WCF_RequisitionRecord>();
+                WCF_RequisitionRecord wcfUnAuth = new WCF_RequisitionRecord();
+                wcfUnAuth.RequestID = -1;
+                wcf_UnAuthObj.Add(wcfUnAuth);
+                return wcf_UnAuthObj;
+            }
+            List<RequisitionRecord> rList = RequisitionLogic.ListAllRRBySpecificDept(deptId);
             List<WCF_RequisitionRecord> wcfList = new List<WCF_RequisitionRecord>();
             foreach (RequisitionRecord r in rList)
             {
                 string approvedDate = r.ApprovedDate == null ? "null" : ((DateTime)r.ApprovedDate).ToString("d");
                 WCF_RequisitionRecord wcf = WCF_RequisitionRecord.Create(r.RequestID, ((DateTime)r.RequestDate).ToString("d"), r.DepartmentID,
-                    r.RequestorName, approvedDate, r.ApproverName, r.Remarks, GetStationeryRequestDetails(r.RequestID.ToString()));
+                    r.RequestorName, approvedDate, r.ApproverName, r.Remarks, GetStationeryRequestDetails(r.RequestID.ToString(), internalSecertKey));
                 wcfList.Add(wcf);
             }
             return wcfList;
         }
 
-        public List<WCF_RequisitionRecordDetail> GetStationeryRequestDetails(string requestId)
+        public List<WCF_RequisitionRecordDetail> GetStationeryRequestDetails(string requestId, string token)
         {
-            RequisitionLogic rl = new RequisitionLogic();
+            //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
+            if (!IsAuthanticateUser(token))
+            {
+                List<WCF_RequisitionRecordDetail> wcf_UnAuthObj = new List<WCF_RequisitionRecordDetail>();
+                WCF_RequisitionRecordDetail wcfUnAuth = new WCF_RequisitionRecordDetail();
+                wcfUnAuth.RequestDetailID = -1;
+                wcf_UnAuthObj.Add(wcfUnAuth);
+                return wcf_UnAuthObj;
+            }
             List<WCF_RequisitionRecordDetail> wcfList = new List<WCF_RequisitionRecordDetail>();
-            List<RequisitionRecordDetail> rList = rl.FindRequisitionRecordDetailsByReqID(int.Parse(requestId));
+            List<RequisitionRecordDetail> rList = RequisitionLogic.FindRequisitionRecordDetailsByReqID(int.Parse(requestId));
             foreach(RequisitionRecordDetail r in rList)
             {
                 WCF_RequisitionRecordDetail wcf = WCF_RequisitionRecordDetail.Create(r.RequestDetailID, r.RequestID, r.ItemID, (int)r.RequestedQuantity, r.Status);
@@ -165,16 +234,30 @@ namespace Team12_SSIS.WebServices
             return wcfList;
         }
 
-        public void UpdateStationeryRequestStatus(WCF_RequisitionRecord record)
+        //Niang to check with Khair on the logic of this method.... (ask about the status attribute)
+        public void UpdateStationeryRequestStatus(WCF_RequisitionRecord record, string status, string token)
         {
-            RequisitionLogic rl = new RequisitionLogic();
-            rl.ProcessRequsitionRequest(record.RequestID, "", record.ApproverName, record.Remarks);
+            //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
+            if (!IsAuthanticateUser(token))
+            {
+                return;
+            }
+            RequisitionLogic.ProcessRequsitionRequest(record.RequestID, status, record.ApproverName, record.Remarks);
         }
 
-        public void UpdateDisbursementStatus(WCF_DisbursementList disbursementList)
+        public void UpdateDisbursementStatus(WCF_DisbursementList disbursementList, string token)
         {
-            DisbursementLogic.UpdateDisbursementStatus
-                (disbursementList.DisbursementID, disbursementList.Status);
+            //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
+            if (!IsAuthanticateUser(token))
+            {
+                return;
+            }
+            DisbursementLogic.UpdateDisbursementStatus(disbursementList.DisbursementID, disbursementList.Status);
+            DisbursementLogic dl = new DisbursementLogic();
+            foreach(WCF_DisbursementListDetail d in disbursementList.WCF_DisbursementListDetail)
+            {
+                dl.UpdateDisbursementListDetails(d.ID, d.QuantityCollected, d.Remarks);
+            }
         }
 
         //public void CreateInventoryRetrievalList(WCF_InventoryRetrievalList rList)
@@ -184,8 +267,13 @@ namespace Team12_SSIS.WebServices
 
         //}
 
-        public void CreateAdjustmentRequest(WCF_AVRequest request)
+        public void CreateAdjustmentRequest(WCF_AVRequest request, string token)
         {
+            //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
+            if (!IsAuthanticateUser(token))
+            {
+                return;
+            }
             InventoryLogic.CreateAdjustmentVoucherRequest(request.RequestedBy, DateTime.Parse(request.DateRequested));
             foreach(WCF_AVRequestDetail i in request.WCF_AVRequestDetails)
             {
@@ -535,7 +623,7 @@ namespace Team12_SSIS.WebServices
         //Naing
         public WCF_Department GetDeptName(string deptid)
         {
-            string deptname = new RequisitionLogic().GetDepartmentName(deptid);
+            string deptname = RequisitionLogic.GetDepartmentName(deptid);
             WCF_Department wcf_dept= new WCF_Department();
             wcf_dept.DeptID = deptid;
             wcf_dept.DepartmentName = deptname;
