@@ -13,8 +13,8 @@ namespace Team12_SSIS.DepartmentEmployee
     public partial class CreateRequisitionForm : System.Web.UI.Page
     {
         Label statusMessage;
-        List<RequisitionRecordDetail> rrdList;
-        SA45Team12AD entities = new SA45Team12AD();
+        List<InventoryCatalogue> icList;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             statusMessage = this.Master.FindControl("LblStatus") as Label;
@@ -23,44 +23,53 @@ namespace Team12_SSIS.DepartmentEmployee
                 BindGrid();
             }
 
-            rrdList = (List<RequisitionRecordDetail>)Session["CartList"];
+            icList = (List<InventoryCatalogue>)Session["CartList"];
         }
 
         protected void BindGrid()
         {
-            rrdList = (List<RequisitionRecordDetail>)Session["CartList"];
-            GridViewRequisitionForm.DataSource = rrdList;
+            icList = (List<InventoryCatalogue>)Session["CartList"];
+            GridViewRequisitionForm.DataSource = icList;
             GridViewRequisitionForm.DataBind();
         }
 
         protected void BtnSubmitForm_Click(object sender, EventArgs e)
         {
+            string deptId = HttpContext.Current.Profile.GetPropertyValue("department").ToString();
+            string fullName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
+            DateTime requestDate = DateTime.Now;
+            int requestId = RequisitionLogic.CreateRequisitionRecord(fullName, deptId, requestDate);
+
+            for (int i = 0; i < GridViewRequisitionForm.Rows.Count; i++)
+            {
+                string ItemID = (GridViewRequisitionForm.Rows[i].FindControl("LblItemID") as Label).Text;
+                int RequestedQuantity;
+                if (!int.TryParse((GridViewRequisitionForm.Rows[i].FindControl("TxtRequestedQuantity") as TextBox).Text, out RequestedQuantity))
+                {
+                }
+
+                string Status = "Pending";
+                string Priority = "No";
+                RequisitionRecordDetail r = RequisitionLogic.CreateRequisitionRecordDetail(requestId, ItemID, RequestedQuantity, Status, Priority);
+
+            }
+
+
             statusMessage.Text = "Stationery Requisition Form Submitted Successfully.";
             statusMessage.ForeColor = Color.Green;
             statusMessage.Visible = true;
             BtnSubmitForm.Visible = false;
-            DisplayEmptyGrid();
+            GridViewRequisitionForm.DataSource = null;
+            GridViewRequisitionForm.DataBind();
+            LinkButtonGoBack.Visible = false;
             Session["CartList"] = null;
         }
-
-        protected void DisplayEmptyGrid()
-        {
-            List<RequisitionRecordDetail> emptyList = new List<RequisitionRecordDetail>();
-            RequisitionRecordDetail n = new RequisitionRecordDetail();
-            emptyList.Add(n);
-            GridViewRequisitionForm.DataSource = emptyList;
-            GridViewRequisitionForm.DataBind();
-        }
-
         protected void GridViewRequisitionForm_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            List<RequisitionRecordDetail> rList = (List<RequisitionRecordDetail>) Session["CartList"];
-            if(e.Row.RowType == DataControlRowType.DataRow && (RequisitionRecordDetail)e.Row.DataItem != null)
+            if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                RequisitionRecordDetail r = (RequisitionRecordDetail)e.Row.DataItem;
-                Label lblDesc = e.Row.FindControl("LblDescription") as Label;
-                if (lblDesc != null)
-                    lblDesc.Text = InventoryLogic.GetItemName(r.ItemID);
+                InventoryCatalogue ic = (InventoryCatalogue)e.Row.DataItem;
+                string ItemID = ic.ItemID;
             }
         }
 

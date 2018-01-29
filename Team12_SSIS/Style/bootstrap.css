@@ -3124,6 +3124,14 @@ table th[class*="col-"] {
     background-color: #e60033;
 }
 
+.AlgCenter
+{
+  text-align:center;
+}
+.AlgRgt
+{
+  text-align:right;
+}
 .table-responsive {
     overflow-x: auto;
     min-height: 0.01%;

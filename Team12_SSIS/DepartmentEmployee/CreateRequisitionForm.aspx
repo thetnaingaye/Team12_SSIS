@@ -24,19 +24,25 @@
             </asp:TemplateField>
                 <asp:TemplateField HeaderText="Description" SortExpression="Description">
                 <ItemTemplate>
-                    <asp:Label ID="LblDescription" runat="server"></asp:Label>
+                    <asp:Label ID="LblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
                 </ItemTemplate>
                     <HeaderStyle CssClass="text-center" />
             </asp:TemplateField>
                 <asp:TemplateField HeaderText="Requested Quantity" SortExpression="RequestedQuantity">
                 <ItemTemplate>
-                    <asp:Label ID="LblRequestedQuantity" runat="server" Text='<%# Bind("RequestedQuantity") %>'></asp:Label>
+                    <asp:TextBox ID="TxtRequestedQuantity" runat="server" TextMode="Number" CssClass="AlgCenter" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorQty" runat="server" ControlToValidate="TxtRequestedQuantity"
+                        ForeColor="Red" ErrorMessage="*Quantity Required" CssClass="AlgRgt"/>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorQty" ControlToValidate="TxtRequestedQuantity" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                 
                 </ItemTemplate>
                     <HeaderStyle CssClass="text-center" />
                 </asp:TemplateField>
+
             </Columns>
         </asp:GridView>
-                    </div>
+                </div>
     <br />
 
         <div style="text-align:center">
