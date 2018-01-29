@@ -49,13 +49,13 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Button BtnFind;
         
         /// <summary>
-        /// Button1 control.
+        /// Btninventory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button Btninventory;
         
         /// <summary>
         /// LblId control.
@@ -184,24 +184,6 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label LblS3D;
         
         /// <summary>
-        /// sm1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager sm1;
-        
-        /// <summary>
-        /// Up1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel Up1;
-        
-        /// <summary>
         /// GridViewStockCard control.
         /// </summary>
         /// <remarks>
@@ -209,5 +191,14 @@ namespace Team12_SSIS.StoreClerk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridViewStockCard;
+        
+        /// <summary>
+        /// LblMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblMsg;
     }
 }

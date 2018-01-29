@@ -5,54 +5,97 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Team12_SSIS.BusinessLogic;
-using  Team12_SSIS.Model;
+using Team12_SSIS.Model;
 using System.Collections;
-
-
+using System.Data;
 
 namespace Team12_SSIS.StoreClerk
 {
     public partial class ViewStockCard : System.Web.UI.Page
     {
-        InventoryCatalogue detFromInventory;
-        List<SupplierCatalogue> sCatList;
+        InventoryCatalogue detFromInventory=new InventoryCatalogue();
+        List<SupplierCatalogue> sCatList=null;
+        List<StockCard> tList=null;
+        List<string> idList;
         InventoryLogic i = new InventoryLogic();
         string itemId;
 
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            controlVisibleFalse();
-            if (Session["Itemid"]!=null)
+            ControlVisibleFalse();
+            LblMsg.Visible = false;
+
+            //---------------------------retrieving the itemId from the session(from inventory page)----------------------------------//
+
+            if (Session["Itemid"] != null)
             {
-                controlVisibleTrue();
+                ControlVisibleTrue();
 
-                itemId = (string) Session["Itemid"];
+                itemId = (string)Session["Itemid"];
+
+                //---------------------populating the transaction details of the item seleted-------------------//
+
                 details(itemId);
+                tList = i.GetStockCardList(itemId);
+                if (tList.Count != 0)
+                {
 
-                
-                GridViewStockCard.DataSource = i.GetStockCardList(itemId);
+                    GridViewStockCard.DataSource = tList;
                 GridViewStockCard.DataBind();
-                
+                LblMsg.Visible = false;
+                }
+                else
+                {
+                    LblMsg.Visible = true;
+             
+                    LblMsg.Text = "No Transaction Records Found for" + " " + detFromInventory.Description;
+                }
+
 
             }
-         
+
         }
+        
 
         protected void BtnFind_Click(object sender, EventArgs e)
         {
             //Calling method  controlVisibleTrue() to make all the control visible.
-            controlVisibleTrue();
 
+            DatgridViewRefresh();
+            ControlVisibleTrue();
 
             //--------------Methods from InventoryLogic class------------------------//
-           
+
             //--------------------------------------stockCard table records-------------//
-            GridViewStockCard.DataSource = i.GetStockCardList(TxtId.Text);
-            GridViewStockCard.DataBind();
+            itemId = TxtId.Text;
+            try
+            {
+                tList = i.GetStockCardList(itemId);
 
-            details(TxtId.Text);
+                    details(TxtId.Text);
+                    GridViewStockCard.DataSource = tList;
+                    GridViewStockCard.DataBind();
 
-        }
+                    LblMsg.Visible = false;
+                
+                    detFromInventory = i.getInventoryDetails(itemId);
+               
+            }
+            catch
+            {
+                ControlVisibleFalse();
+                LblMsg.Visible = true;
+                LblMsg.Text = "Please enter valid item code";
+               
+            }
+            }
+          
+            
+
+      
+
+
         //----------------------------To get the item details---------------------------------//
         public void details(string itemid)
         {
@@ -74,7 +117,8 @@ namespace Team12_SSIS.StoreClerk
                // e.Row.Cells[0].Visible = false;
             
         }
-        public void controlVisibleFalse()
+        //-----------------------setting the visiblity of control false-------------------------------------//
+        public void ControlVisibleFalse()
         {
             LblId.Visible = false;
             LblIdD.Visible = false;
@@ -92,7 +136,8 @@ namespace Team12_SSIS.StoreClerk
             LblUomD.Visible = false;
 
         }
-        public void controlVisibleTrue()
+        //----------------------------------------setting the visibilty of control true------------------------------//
+        public void ControlVisibleTrue()
         {
 
             LblId.Visible =true;
@@ -111,10 +156,19 @@ namespace Team12_SSIS.StoreClerk
             LblUomD.Visible = true;
 
         }
+        //-------------------------------------redirect to inventory page while click event------------------------------//
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void BtnInventory_Click(object sender, EventArgs e)
         {
             Response.Redirect("ViewInventoryList.aspx");
         }
+        public  void DatgridViewRefresh()
+        {
+            DataTable ds = new DataTable();
+            ds = null;
+            GridViewStockCard.DataSource = ds;
+            GridViewStockCard.DataBind();
+        }
+       
     }
 }

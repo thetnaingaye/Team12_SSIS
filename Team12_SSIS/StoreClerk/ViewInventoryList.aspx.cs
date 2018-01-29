@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
-
 namespace Team12_SSIS.StoreClerk
 {
     public partial class ViewInventoryList : System.Web.UI.Page
@@ -15,6 +16,8 @@ namespace Team12_SSIS.StoreClerk
         List<InventoryCatalogue> iList;
         List<CatalogueCategory> cList;
         List<InventoryCatalogue> allList;
+        List<InventoryCatalogue> sList;
+           
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -29,12 +32,15 @@ namespace Team12_SSIS.StoreClerk
                 cat.CatalogueName = "All";
                 cat.CategoryID = "All";
                 cList.Add(cat);
-                DdlCatagory.DataSource = cList;
 
                 DdlCatagory.DataTextField = "CatalogueName";
                 DdlCatagory.DataValueField = "CatalogueName";
+
+                DdlCatagory.DataSource = cList;
                 DdlCatagory.DataBind();
                 controlVisibleFalse();
+                
+        //-----------------Loads all inventory items when the page loads for the first time------------------------//
                 gridBind();
                 DdlCatagory.SelectedValue = "All";
 
@@ -46,10 +52,11 @@ namespace Team12_SSIS.StoreClerk
         public void gridBind()
         {
             allList = i.GetAllCatalogue();
+            Session["list"] = allList;
             datagridBind(allList);
         }
       
-        //-----------------------------------Controlling the visiblility og controls----based on user selection diffrent view----------//
+        //-----------------------------------Controlling the visiblility of controls----based on user selection, diffrent view----------//
         public void controlVisibleFalse()
         {
             LblId.Visible = false;
@@ -79,17 +86,20 @@ namespace Team12_SSIS.StoreClerk
 
 
         }
-        //--------------------------------datagrid view binding method-----------------------------//
+        //--------------------------------datagrid view binding method----------------------------------------------//
         public void datagridBind(List<InventoryCatalogue> bList)
         {
             GridViewInventory.DataSource = bList;
+            Session["list"] = bList;
             GridViewInventory.DataBind();
 
         }
+        //-----------------------------------------Allows datagrid view paging---------------------------------------//
         protected void OnPaging(object sender, GridViewPageEventArgs e)
         {
             GridViewInventory.PageIndex = e.NewPageIndex;
-            this.gridBind();
+            iList =(List<InventoryCatalogue>) Session["list"];
+            this.datagridBind(iList);
         }
 
         //------------------------------dataGridview footer and header text control on row bind event----------------//
@@ -107,13 +117,14 @@ namespace Team12_SSIS.StoreClerk
                 e.Row.Cells[3].Text = "Shelf";
                 e.Row.Cells[4].Text = "Level";
                 e.Row.Cells[5].Text = "Units In Stock";
-                e.Row.Cells[6].Text = "Units In Order";
-                e.Row.Cells[7].Text = "Buffer Stock Level";
-                e.Row.Cells[8].Text = "Discontinue Status";
+                e.Row.Cells[6].Text = " Reorder Level";
+                e.Row.Cells[7].Text = "Units In Order";
+                e.Row.Cells[8].Text = "Buffer Stock Level";
+                e.Row.Cells[9].Text = "Discontinue Status";
             }
 
         }
-        //-------------------------------------Rowcommand event.ItemId is stored in session.redirect to stockcard page--------//
+        //-------------------------------------Rowcommand event.ItemId is stored in session.Redirect to stockcard page--------//
         protected void GridViewDisbList_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "show")
@@ -123,42 +134,129 @@ namespace Team12_SSIS.StoreClerk
             }
         }
 
+
+
+        //keyword search...textchange event--------------------------//
+
+        protected void TxtSearch_TextChanged(object sender, EventArgs e)
+        {
+            controlVisibleFalse();
+            DdlCatagory.SelectedItem.Text = "All";
+            DdlUIS.SelectedItem.Text = "All";
+
+            string keyword = TxtSearch.Text;
+            sList = InventoryLogic.SearchInventory(keyword);
+            Session["list"] = sList;
+
+            GridViewInventory.DataSource = sList;
+            GridViewInventory.DataBind();
+            LblMsg.Text = "*Showing result for"+" "+keyword;
+
+        }
+
+        //------------------------------Highlight the  search string in the gridview search result
+        protected string HighlightText(string searchWord, string inputText)
+        {
+
+            Regex expression = new Regex(searchWord.Replace(" ", "|"), RegexOptions.IgnoreCase);
+
+            return expression.Replace(inputText, new MatchEvaluator(ReplaceKeywords));
+        }
+        //--------------------------------highlight styling-----------------------------------------//
+        public string ReplaceKeywords(Match m)
+        {
+            return "<span class='highlight' >" + m.Value + "</span>";
+        }
+
+
         //----------------------------------------search button click event.---------------------------------------------------//
         protected void Btnsearch_Click(object sender, EventArgs e)
         {
-            if (ChbId.Checked == true && ChbCatagory.Checked == true && DdlCatagory.SelectedValue != "All")
+            //---------------------------------filter the selected category items from the inventory list------Category<=>All------------------//
+            TxtSearch.Text = string.Empty;
+            if (DdlCatagory.SelectedValue != "All" && DdlUIS.SelectedValue == "0")
             {
-                string status = DdlCatagory.SelectedValue;
-                iList = InventoryLogic.GetInventoryByIdandCategory(TxtId.Text, status);
-
-                GridViewInventory.DataSource = iList;
-                GridViewInventory.DataBind();
-            }
-            else if (ChbId.Checked == true && ChbCatagory.Checked == false)
-            {
-                LblMsg.Text = "*Item Code" + " " + "\" " + TxtId.Text + "\"" + " " + "is selected";
-                iList = i.getInventoryByItemcode(TxtId.Text);
-                datagridBind(iList);
-            }
-            else if (ChbId.Checked == false && ChbCatagory.Checked == true && DdlCatagory.SelectedValue != "All")
-            {
-                LblMsg.Text = "*Catagory" + " " + "\"" + DdlCatagory.SelectedItem.Text + "\" " + "is selected";
                 iList = i.getInventoryByCatagory(DdlCatagory.SelectedItem.Text);
+                Session["list"] = iList;
+                controlVisibleTrue();
 
                 LblReorderQtyD.Text = Convert.ToString(iList[0].ReorderQty);
                 LblReorderD.Text = Convert.ToString(iList[0].ReorderLevel);
-                LblUOMD.Text = iList[0].UOM;
+
                 LblIdD.Text = iList[0].CategoryID;
                 LblCatNameD.Text = i.getCatalogue(DdlCatagory.SelectedItem.Text).CatalogueName;
 
                 datagridBind(iList);
+
+                LblMsg.Text = "*Showing result for category" + " " + DdlCatagory.SelectedItem.Text;
+
             }
-            else if (ChbId.Checked == false && ChbCatagory.Checked == true && DdlCatagory.SelectedValue == "All")
+            //---------------------------------filter the inventory list based on  selected category and stock level---Category<=>stockSeleted---------//
+            else if (DdlCatagory.SelectedValue != "All" && DdlUIS.SelectedValue != "0" && DdlUIS.SelectedValue != "1")
+            {
+                string category = DdlCatagory.SelectedItem.Text;
+
+                int uis = Convert.ToInt32(DdlUIS.SelectedValue);
+                iList = InventoryLogic.GetInventoryByCategoryNQuantity(category, uis);
+                Session["list"] = iList;
+
+                datagridBind(iList);
+
+                LblMsg.Text = "*Showing result for category" + " " + DdlCatagory.SelectedItem.Text + " " +  " ," + "stock qunatity" + " " + DdlUIS.SelectedItem.Text;
+            }
+            //----------------------based on category and selected stock level-----Category<=>ReorderLevel------------------------//
+            else if (DdlCatagory.SelectedValue != "All" && DdlUIS.SelectedValue == "1")
+            {
+                string category = DdlCatagory.SelectedItem.Text;
+                iList = InventoryLogic.GetInventoryByCategorybelowReorder(category);
+                Session["list"] = iList;
+                datagridBind(iList);
+
+                LblMsg.Text = "*Showing result for category" + " " + DdlCatagory.SelectedItem.Text + " " +  ",stock less than reorder level";
+            }
+            //-----------------------------all inventory  items below the selected stock level------All<=>ReorderLevel--------------------//
+            else if (DdlCatagory.SelectedValue == "All" && DdlUIS.SelectedValue == "1")
+            {
+                string category = DdlCatagory.SelectedItem.Text;
+                iList = InventoryLogic.GetAllInventorybelowReorder();
+                Session["list"] = iList;
+                datagridBind(iList);
+
+                LblMsg.Text = "*Showing result for inventory items" + " " + ",stock less than" + DdlUIS.SelectedValue;
+            }
+            //---------------------------get all the inventory items(All<=>All combination)-------------------------------//
+            else if (DdlCatagory.SelectedValue == "All" && DdlUIS.SelectedValue == "0")
             {
                 gridBind();
+                LblMsg.Text = "*Showing result for All inventory items";
+
             }
+            //----------------------Get inventory items below the selected stock level--------All<=>StockSelected----------------------------//
+            else if (DdlCatagory.SelectedValue == "All" && DdlUIS.SelectedValue != "0" && DdlUIS.SelectedValue != "1")
+            {
+                int stock = Convert.ToInt32(DdlUIS.SelectedValue);
+                iList = InventoryLogic.GetAllInventorybelowStock(stock);
+                Session["list"] = iList;
+                datagridBind(iList);
+
+                LblMsg.Text = "*Showing result for All inventory items,stock less than"+" "+DdlUIS.SelectedValue;
+
+
+            }
+
         }
 
-        
+        protected void DdlCatagory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TxtSearch.Text = string.Empty;
+        }
+
+        protected void DdlUIS_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TxtSearch.Text = string.Empty;
+        }
     }
+
+
+
 }

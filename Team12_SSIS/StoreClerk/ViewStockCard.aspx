@@ -1,51 +1,61 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewStockCard.aspx.cs" Inherits="Team12_SSIS.StoreClerk.ViewStockCard" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     
-    <style type="text/css">
-        .auto-style1 {
-            margin-top: 0px;
-        }
+   <%-- <style type="text/css">
         .auto-style2 {
             height: 17px;
         }
+        .auto-style3 {
+            height: 80px;
+        }
     </style>
-</asp:Content>
+--%>
+    </asp:Content>
+
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-    <%--refinining--%>
-
-     <div>
+        <div>
         <table style="width: 75%">
-             <tbody style="width: 75%">
-                     <tr style="height:20px">
-                    <td colspan="2" style="height: 25px">
-                        
-                        <asp:Label ID="LblTitle" runat="server" Font-Size="Large"></asp:Label>
-                    </td>
-                </tr>
-                  <tr style="height:80px">
-                    
-                    <td> 
+            <tbody style="width: 75%">
+
+            <tr style="height:20px">
+            <td colspan="2" style="height: 25px">
+            <asp:Label ID="LblTitle" runat="server" Font-Size="Large"></asp:Label>
+            </td>
+            </tr>
+            
+           <tr>
+            <td class="auto-style3">
+                 
+                        <%-- Input ItemId --%>
                       <asp:Label ID="LblInput" runat="server"   Text="Enter Item Code:" Style="padding-right: 10px" ></asp:Label>
                       <asp:TextBox ID="TxtId" runat="server" Height="20px" Width="180px"></asp:TextBox>
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <%-- Search button to search the transaction details --%>
                       <asp:Button ID="BtnFind" runat="server" CssClass="btn btn-primary btn-xs" Text="Find Transaction Details" OnClick="BtnFind_Click" Width="180px"  />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="..." />
+
+                         <%--Button redirect to inventory  --%>
+                        <asp:Button ID="Btninventory" runat="server" OnClick="BtnInventory_Click" Text="View Inventory" />
                         <br />
                       </td>
-                      <td>
-                          &nbsp;</td>
-                     </tr>
-              
+                      </tr>
+                 </tbody>
+        </table>
+               
+            <br />
+            <br />
+                       <table style="width: 75%">
+            <tbody style="width: 75%">
                       <tr style="height:20px">
                       <td class="auto-style2">
+                         
                       <asp:Label ID="LblId" runat="server" Text="ItemCode: " Style="padding-right: 10px"></asp:Label>
                       <asp:Label ID="LblIdD" runat="server" Font-Bold="true"></asp:Label>
-                          <br />
+                      <br />
                       </td>
                       </tr>
-
                       <tr style="height:20px">
                       <td class="auto-style2">
                       <asp:Label ID="LbldDes" runat="server" Text="Description: " Style="padding-right: 10px"></asp:Label>
@@ -55,8 +65,8 @@
                       <td class="auto-style2">
                       <asp:Label ID="LblS1" runat="server" Text="Supplier1: " Style="padding-right: 10px"></asp:Label>
                       <asp:Label ID="LblS1D" runat="server" Font-Bold="true"></asp:Label>
-                     </td>
-                     </tr>
+                      </td>
+                      </tr>
 
                      <tr style="height:20px">
                      <td class="auto-style2">
@@ -84,44 +94,47 @@
                   <tr>
                     <td colspan="2">
                         <div>
-                            <asp:ScriptManager ID="sm1" runat="server"></asp:ScriptManager>
-                            <asp:UpdatePanel ID="Up1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
-                                <ContentTemplate>
+
+                    
                
                   <asp:GridView ID="GridViewStockCard" Class="table" runat="server" AutoGenerateColumns="False"
-                                        Style="width:100%;padding-top:50px" ShowHeaderWhenEmpty="True"
+                                        Style="width:100%;padding-top:50px" 
                                         OnRowDataBound="GridViewStockCard_RowDataBound"
-                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID" >
+                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID" ShowHeaderWhenEmpty="True">
                                         <AlternatingRowStyle BackColor="#f9f9f9"  />
                                         <Columns>
 
                                         <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
-                                        <ItemTemplate>
-                                        <asp:Label ID="LblSn" runat="server" CssClass="center-block" Text="<%# Container.DataItemIndex + 1 %>"></asp:Label>
-                                        </ItemTemplate>
-                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                            <ItemTemplate>
+                                            <asp:Label ID="LblSn" runat="server" CssClass="center-block" Text="<%# Container.DataItemIndex + 1 %>"></asp:Label>
+                                            </ItemTemplate>
+                                            <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                         </asp:TemplateField>
 
                                           <asp:TemplateField HeaderText="TransactionDate" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
-                                                    <asp:Label ID="LblDate" runat="server" CssClass="center-block" Text='<%# Eval("Date","{0:dd/MM/yyyy}")%>'></asp:Label>
-                                                </ItemTemplate>
-
-                                                <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                                <asp:Label ID="LblDate" runat="server" CssClass="center-block" Text='<%# Eval("Date","{0:dd/MM/yyyy}")%>'></asp:Label>
+                                                </ItemTemplate><HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
 
                                              <asp:TemplateField HeaderText="Description" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
                                                     <asp:Label ID="LblDate" runat="server" CssClass="center-block" Text='<%# Eval("Description") %>'></asp:Label>
                                                 </ItemTemplate>
-
-                                                <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                             <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
 
                                             
                                              <asp:TemplateField HeaderText="Transaction Type" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                               <ItemTemplate>
                                               <asp:Label ID="Type" runat="server" CssClass="center-block" Text='<%# Eval("Type") %>'></asp:Label>
+                                              </ItemTemplate>
+                                            <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                            </asp:TemplateField>
+
+                                             <asp:TemplateField HeaderText="Units Of Measurement" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                              <ItemTemplate>
+                                              <asp:Label ID="Type" runat="server" CssClass="center-block" Text='<%# Eval("UOM") %>'></asp:Label>
                                               </ItemTemplate>
                                             <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
@@ -140,34 +153,24 @@
                                             <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
                                          </Columns>
-                     <%-- <EditRowStyle BackColor="#999999" />
-                                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />--%>
-
-
+                    
                                     </asp:GridView>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
+                                <br />
+               
+                            <asp:Label ID="LblMsg" runat="server" Text="statusMsg" Font-Size="Larger" ForeColor="Green"></asp:Label>
+               
+                            <br />
+                               
                         </div>
                     </td>
                 </tr>
-
-            
 
             </tbody>
         </table>
                
 
      </div>
-
-        
+  
 </asp:Content>
 
                 

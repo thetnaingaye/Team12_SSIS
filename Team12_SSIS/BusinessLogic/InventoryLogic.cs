@@ -1685,25 +1685,20 @@ namespace Team12_SSIS.BusinessLogic
         //----Thanisha-------------------------View Stock Card details-----------------------------------------------//
         //------------------------------getting stock card details(ItemID,Date of transaction,Description,UOM,transaction type,quantity,balance)-------------//
 
-        public List<Object> GetStockCardList(string itemid)
+        public List<StockCard> GetStockCardList(string itemid)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
-                var q = entity.StockCards.
-                Select(x => new { x.ItemID, x.Date, x.Description, x.Type, x.Quantity, x.Balance }).Where(x => x.ItemID == itemid);
-                List<Object> sList = q.ToList<Object>();
-                return sList;
+           return  entity.StockCards.Where(x => x.ItemID == itemid).ToList<StockCard>(); ;
+               
             }
         }
         //------------------------get all stockcarditems----------------------------------------//
-        public List<Object> GetAllStockCardList()
+        public List<StockCard> GetAllStockCardList()
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
-                var q = entity.StockCards.
-                Select(x => new { x.ItemID, x.Date, x.Description, x.Type, x.Quantity, x.Balance });
-                List<Object> sList = q.ToList<Object>();
-                return sList;
+                return entity.StockCards.ToList<StockCard>(); ;
             }
         }
 
@@ -1727,7 +1722,7 @@ namespace Team12_SSIS.BusinessLogic
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
-                return entity.InventoryCatalogues.Where(s => s.ItemID == itemid).ToList().First<InventoryCatalogue>();
+                return entity.InventoryCatalogues.Where(s => s.ItemID == itemid).ToList().FirstOrDefault<InventoryCatalogue>();
             }
         }
         //-------------------------- (Supplier details)---------------------------------------//
@@ -1801,10 +1796,94 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        public static List<InventoryCatalogue> SearchInventory(string keyword)
+        {
 
-            //---------------------------------AdjustmentVoucher--------------------------------------------------------//
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                List<InventoryCatalogue> iList = entity.InventoryCatalogues.Where(x => x.Description.Contains(keyword) || x.ItemID.Contains(keyword) || x.BIN.Contains(keyword) || x.UOM.Contains(keyword)).ToList<InventoryCatalogue>();
+                return iList;
+            }
+        }
+        //----------------------------------------checking category and quantity level selected in the dropdown list...returns the resultset-----//
+        public static List<InventoryCatalogue> GetInventoryByCategoryNQuantity(string category, int UIS)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                CatalogueCategory cat = entity.CatalogueCategories.Where(x => x.CatalogueName == category).ToList<CatalogueCategory>().First();
+                string catId = cat.CategoryID;
+                var q = (from i in entity.InventoryCatalogues
+                         join c in entity.CatalogueCategories on i.CategoryID equals c.CategoryID
+                         where c.CatalogueName == category && i.UnitsInStock < UIS
+                         select i);
+                return q.ToList<InventoryCatalogue>();
 
-            public static List<AVRequest> GetadvReq(string id)
+
+            }
+        }
+
+        public static List<InventoryCatalogue> GetInventoryByCategorybelowReorder(string category)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                CatalogueCategory cat = entity.CatalogueCategories.Where(x => x.CatalogueName == category).ToList<CatalogueCategory>().First();
+                string catId = cat.CategoryID;
+
+                var q = (from i in entity.InventoryCatalogues
+                         join c in entity.CatalogueCategories on i.CategoryID equals c.CategoryID
+                         where c.CatalogueName == category && i.UnitsInStock < i.ReorderLevel
+                         select i);
+                return q.ToList<InventoryCatalogue>();
+            }
+        }
+        //------------------------------get all inventory items  below reorder level---------//
+        public static List<InventoryCatalogue> GetAllInventorybelowReorder()
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+               
+
+                var q = (from i in entity.InventoryCatalogues
+                        
+                         where  i.UnitsInStock < i.ReorderLevel
+                         select i);
+                return q.ToList<InventoryCatalogue>();
+            }
+        }
+        //------------------------------get inventoryitems  below the dropdown list selected stock level---------//
+
+        public static List<InventoryCatalogue> GetAllInventorybelowStock(int stock)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+
+
+                var q = (from i in entity.InventoryCatalogues
+
+                         where i.UnitsInStock < stock
+                         select i);
+                return q.ToList<InventoryCatalogue>();
+            }
+        }
+        //-------------------------------get the list of itemId--------------------------------------------------------------//
+        public static List<string> GetAllItemId()
+        {
+            List<string> idList=null;
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                List<InventoryCatalogue> iList=entity.InventoryCatalogues.ToList<InventoryCatalogue>();
+                for(int i=0;i<iList.Count;i++)
+                {
+                    idList.Add(iList[i].ItemID);
+                }
+                return idList;
+            }
+        }
+
+
+        //---------------------------------AdjustmentVoucher--------------------------------------------------------//
+
+        public static List<AVRequest> GetadvReq(string id)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
