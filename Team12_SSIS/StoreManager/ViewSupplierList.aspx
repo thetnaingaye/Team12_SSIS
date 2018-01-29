@@ -84,6 +84,8 @@
                         <asp:TemplateField HeaderText="Phone No" SortExpression="PhoneNo">
                             <EditItemTemplate>
                                 <asp:TextBox ID="TxtPhoneNo" runat="server" Text='<%# Bind("PhoneNo") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorPhone" ControlToValidate="TxtPhoneNo" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblPhoneNo" runat="server" Text='<%# Bind("PhoneNo") %>'></asp:Label>
@@ -94,6 +96,8 @@
                         <asp:TemplateField HeaderText="Fax No" SortExpression="FaxNo">
                             <EditItemTemplate>
                                 <asp:TextBox ID="TxtFaxNo" runat="server" Text='<%# Bind("FaxNo") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorFax" ControlToValidate="TxtFaxNo" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblFaxNo" runat="server" Text='<%# Bind("FaxNo") %>'></asp:Label>
@@ -113,7 +117,9 @@
                         
                         <asp:TemplateField HeaderText="Lead Time" SortExpression="OLT">
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtOrderLeadTime" runat="server" Text='<%# Bind("OrderLeadTime") %>'></asp:TextBox>
+                                <asp:TextBox ID="TxtOrderLeadTime" runat="server" TextMode="Number" Text='<%# Bind("OrderLeadTime") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorOLT" ControlToValidate="TxtOrderLeadTime" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblOrderLeadTime" runat="server" Text='<%# Bind("OrderLeadTime") %>'></asp:Label>

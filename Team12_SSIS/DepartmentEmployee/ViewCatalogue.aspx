@@ -79,12 +79,6 @@
                             </ItemTemplate>
                             <HeaderStyle CssClass="text-center" />
                         </asp:TemplateField>
-                        <%--<asp:TemplateField HeaderText="Quantity" SortExpression="RequestedQuantity">
-                            <ItemTemplate>
-                                <asp:TextBox ID="TxtRequestedQuantity" runat="server" Text='<%# Bind("RequestedQuantity") %>' TextMode="Number"></asp:TextBox>
-                            </ItemTemplate>
-                            <HeaderStyle CssClass="text-center" />
-                        </asp:TemplateField>--%>
                         <asp:CommandField ButtonType="Button" ShowDeleteButton="True" HeaderText ="Delete"  DeleteText="Delete" >
                             <ControlStyle cssClass="btn btn-primary btn-xs" />
                             </asp:CommandField>

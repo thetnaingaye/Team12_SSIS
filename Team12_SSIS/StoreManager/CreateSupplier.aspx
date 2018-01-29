@@ -27,7 +27,7 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtSupplierName" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorSupplierName" runat="server" ControlToValidate="TxtSupplierName" ForeColor="Red" ErrorMessage="* Supplier Name Required"/>
+                    
                 </td>
             </tr>
      
@@ -37,7 +37,7 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtGSTRegistrationNo" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorRegNo" runat="server" ControlToValidate="TxtGSTRegistrationNo" ForeColor="Red" ErrorMessage="* GST Registration No Required"/>
+                    
                 </td>
             </tr>
   
@@ -47,7 +47,7 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtContactName" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorContactName" runat="server" ControlToValidate="TxtContactName" ForeColor="Red" ErrorMessage="* Contact Name Required"/>
+                    
                 </td>
             </tr>
        
@@ -57,7 +57,8 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtPhoneNo" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorPhoneNo" runat="server" ControlToValidate="TxtPhoneNo" ForeColor="Red" ErrorMessage="* Phone No Required" />
+                   <asp:RegularExpressionValidator ID="RegularExpressionValidatorPhone" ControlToValidate="TxtPhoneNo" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                 </td>
             </tr>
   
@@ -67,7 +68,8 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtFaxNo" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorFaxNo" runat="server" ControlToValidate="TxtFaxNo" ForeColor="Red" ErrorMessage="* Fax No Required"/>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorFax" ControlToValidate="TxtFaxNo" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                 </td>
             </tr>
      
@@ -77,7 +79,7 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtAddress" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorAddress" runat="server" ControlToValidate="TxtAddress" ForeColor="Red" ErrorMessage="* Address Required"/>
+                   
                 </td>
             </tr>
     
@@ -87,7 +89,8 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtOrderLeadTime" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorOLT" runat="server" ControlToValidate="TxtOrderLeadTime" ForeColor="Red" ErrorMessage="* Order Lead Time Required"/>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorOLT" ControlToValidate="TxtOrderLeadTime" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                 </td>
             </tr>
    

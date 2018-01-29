@@ -27,7 +27,6 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtDescription" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorDescription" runat="server" ControlToValidate="TxtDescription" ForeColor="Red" ErrorMessage="* Description Required"/>
                 </td>
             </tr>
 
@@ -49,7 +48,6 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtBIN" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorBIN" runat="server" ControlToValidate="TxtBIN" ForeColor="Red" ErrorMessage="* BIN Required"/>
                 </td>
             </tr>
      
@@ -59,7 +57,6 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtShelf" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorShelf" runat="server" ControlToValidate="TxtShelf" ForeColor="Red" ErrorMessage="* Shelf Required"/>
                 </td>
             </tr>
        
@@ -69,7 +66,8 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtLevel" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorLevel" runat="server" ControlToValidate="TxtLevel" ForeColor="Red" ErrorMessage="* Level Required"/>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorLvl" ControlToValidate="TxtLevel" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                 </td>
             </tr>
             
@@ -79,7 +77,8 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtReorderLevel" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorReorderLevel" runat="server" ControlToValidate="TxtReorderLevel" ForeColor="Red" ErrorMessage="* Reorder Level Required"/>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorReLvl" ControlToValidate="TxtReorderLevel" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                 </td>
             </tr>
         
@@ -89,7 +88,20 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtReorderQty" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorReorderQty" runat="server" ControlToValidate="TxtReorderQty" ForeColor="Red" ErrorMessage="* Reorder Quantity Required"/>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorReQty" ControlToValidate="TxtReorderQty" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                </td>
+            </tr>
+
+            <tr>
+                <!--UnitsInStock-->
+                <td>Units In Stock:
+                </td>
+                <td>
+                    <asp:TextBox ID="TxtUnitsInStock" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorUIS" runat="server" ControlToValidate="TxtUnitsInStock" ForeColor="Red" ErrorMessage="* Units In Stock Required"/>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorUIS" ControlToValidate="TxtUnitsInStock" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                 </td>
             </tr>
          
@@ -99,10 +111,41 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TxtUOM" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorUOM" runat="server" ControlToValidate="TxtUOM" ForeColor="Red" ErrorMessage="* Unit Of Measure Required"/>
                 </td>
             </tr>
             
+            <tr>
+                <!--UnitsOnOrder-->
+                <td>Units On Order:
+                </td>
+                <td>
+                    <asp:TextBox ID="TxtUnitsOnOrder" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorUOO" ControlToValidate="TxtUnitsOnOrder" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                </td>
+            </tr>
+
+            <tr>
+                <!--BufferStockLevel-->
+                <td>Buffer Stock Level:
+                </td>
+                <td>
+                    <asp:TextBox ID="TxtBufferStockLevel" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorBSL" ControlToValidate="TxtBufferStockLevel" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                </td>
+            </tr>
+            <tr>
+                <!--BFSProportion-->
+                <td>BFS Proportion:
+                </td>
+                <td>
+                    <asp:TextBox ID="TxtBFSProportion" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorBFSP" ControlToValidate="TxtBFSProportion" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                </td>
+            </tr>
+
             <tr>
                 <!--Btn Submit-->
                 <td></td>

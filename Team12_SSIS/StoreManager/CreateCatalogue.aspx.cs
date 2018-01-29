@@ -34,10 +34,15 @@ namespace Team12_SSIS.StoreManager
                 string CategoryID = Convert.ToString(DdlCategoryID.SelectedValue);
                 string Description = TxtDescription.Text;
                 int ReorderLevel = Convert.ToInt32(TxtReorderLevel.Text);
+                int UnitsInStock = Convert.ToInt32(TxtUnitsInStock.Text);
                 int ReorderQty = Convert.ToInt32(TxtReorderQty.Text);
                 string UOM = TxtUOM.Text;
                 string Discontinued = "N";
-                BusinessLogic.InventoryLogic.AddCatalogue(ItemID, BIN, Shelf, Level, CategoryID, Description, ReorderLevel, ReorderQty, UOM, Discontinued);
+                int UnitsOnOrder = Convert.ToInt32(TxtUnitsOnOrder.Text);
+                int BufferStockLevel = Convert.ToInt32(TxtBufferStockLevel.Text);
+                int BFSProportion = Convert.ToInt32(TxtBFSProportion.Text);
+                BusinessLogic.InventoryLogic.AddCatalogue(ItemID, BIN, Shelf, Level, CategoryID, Description,
+                    ReorderLevel, UnitsInStock, ReorderQty, UOM, Discontinued, UnitsOnOrder, BufferStockLevel, BFSProportion);
                 Response.Redirect("ViewCatalogue.aspx");
             }
         }

@@ -30,9 +30,9 @@
             </asp:TemplateField>
                 <asp:TemplateField HeaderText="Requested Quantity" SortExpression="RequestedQuantity">
                 <ItemTemplate>
-                    <asp:TextBox ID="TxtRequestedQuantity" runat="server" TextMode="Number" CssClass="AlgCenter" ></asp:TextBox>
+                    <asp:TextBox ID="TxtRequestedQuantity" runat="server" TextMode="Number"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorQty" runat="server" ControlToValidate="TxtRequestedQuantity"
-                        ForeColor="Red" ErrorMessage="*Quantity Required" CssClass="AlgRgt"/>
+                        ForeColor="Red" ErrorMessage="*Quantity Required"/>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidatorQty" ControlToValidate="TxtRequestedQuantity" ErrorMessage="*Positive Number Only" ForeColor="Red"
                         runat="server" ValidationExpression="^\d+$"/>
                  

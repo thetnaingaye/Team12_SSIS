@@ -49,15 +49,6 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtDescription;
         
         /// <summary>
-        /// RequiredFieldValidatorDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorDescription;
-        
-        /// <summary>
         /// DdlCategoryID control.
         /// </summary>
         /// <remarks>
@@ -85,15 +76,6 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtBIN;
         
         /// <summary>
-        /// RequiredFieldValidatorBIN control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorBIN;
-        
-        /// <summary>
         /// TxtShelf control.
         /// </summary>
         /// <remarks>
@@ -101,15 +83,6 @@ namespace Team12_SSIS.StoreManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtShelf;
-        
-        /// <summary>
-        /// RequiredFieldValidatorShelf control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorShelf;
         
         /// <summary>
         /// TxtLevel control.
@@ -121,13 +94,13 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtLevel;
         
         /// <summary>
-        /// RequiredFieldValidatorLevel control.
+        /// RegularExpressionValidatorLvl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorLevel;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorLvl;
         
         /// <summary>
         /// TxtReorderLevel control.
@@ -139,13 +112,13 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtReorderLevel;
         
         /// <summary>
-        /// RequiredFieldValidatorReorderLevel control.
+        /// RegularExpressionValidatorReLvl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorReorderLevel;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorReLvl;
         
         /// <summary>
         /// TxtReorderQty control.
@@ -157,13 +130,40 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtReorderQty;
         
         /// <summary>
-        /// RequiredFieldValidatorReorderQty control.
+        /// RegularExpressionValidatorReQty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorReorderQty;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorReQty;
+        
+        /// <summary>
+        /// TxtUnitsInStock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtUnitsInStock;
+        
+        /// <summary>
+        /// RequiredFieldValidatorUIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorUIS;
+        
+        /// <summary>
+        /// RegularExpressionValidatorUIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorUIS;
         
         /// <summary>
         /// TxtUOM control.
@@ -175,13 +175,58 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtUOM;
         
         /// <summary>
-        /// RequiredFieldValidatorUOM control.
+        /// TxtUnitsOnOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorUOM;
+        protected global::System.Web.UI.WebControls.TextBox TxtUnitsOnOrder;
+        
+        /// <summary>
+        /// RegularExpressionValidatorUOO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorUOO;
+        
+        /// <summary>
+        /// TxtBufferStockLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtBufferStockLevel;
+        
+        /// <summary>
+        /// RegularExpressionValidatorBSL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorBSL;
+        
+        /// <summary>
+        /// TxtBFSProportion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtBFSProportion;
+        
+        /// <summary>
+        /// RegularExpressionValidatorBFSP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorBFSP;
         
         /// <summary>
         /// BtnSubmit control.

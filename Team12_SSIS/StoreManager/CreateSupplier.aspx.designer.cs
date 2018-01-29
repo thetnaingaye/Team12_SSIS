@@ -49,15 +49,6 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtSupplierName;
         
         /// <summary>
-        /// RequiredFieldValidatorSupplierName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorSupplierName;
-        
-        /// <summary>
         /// TxtGSTRegistrationNo control.
         /// </summary>
         /// <remarks>
@@ -65,15 +56,6 @@ namespace Team12_SSIS.StoreManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtGSTRegistrationNo;
-        
-        /// <summary>
-        /// RequiredFieldValidatorRegNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorRegNo;
         
         /// <summary>
         /// TxtContactName control.
@@ -85,15 +67,6 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtContactName;
         
         /// <summary>
-        /// RequiredFieldValidatorContactName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorContactName;
-        
-        /// <summary>
         /// TxtPhoneNo control.
         /// </summary>
         /// <remarks>
@@ -103,13 +76,13 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtPhoneNo;
         
         /// <summary>
-        /// RequiredFieldValidatorPhoneNo control.
+        /// RegularExpressionValidatorPhone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorPhoneNo;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorPhone;
         
         /// <summary>
         /// TxtFaxNo control.
@@ -121,13 +94,13 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtFaxNo;
         
         /// <summary>
-        /// RequiredFieldValidatorFaxNo control.
+        /// RegularExpressionValidatorFax control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorFaxNo;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorFax;
         
         /// <summary>
         /// TxtAddress control.
@@ -139,15 +112,6 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtAddress;
         
         /// <summary>
-        /// RequiredFieldValidatorAddress control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorAddress;
-        
-        /// <summary>
         /// TxtOrderLeadTime control.
         /// </summary>
         /// <remarks>
@@ -157,13 +121,13 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtOrderLeadTime;
         
         /// <summary>
-        /// RequiredFieldValidatorOLT control.
+        /// RegularExpressionValidatorOLT control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorOLT;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorOLT;
         
         /// <summary>
         /// BtnSubmit control.

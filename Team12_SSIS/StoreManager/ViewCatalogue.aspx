@@ -65,6 +65,8 @@
                         <asp:TemplateField HeaderText="Category ID" SortExpression="CategoryID">
                             <EditItemTemplate>
                                 <asp:DropDownList ID="DdlCategoryID" runat="server" OnSelectedIndexChanged="DdlCategoryID_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidatorCatID" runat="server" ControlToValidate="DdlCategoryID"
+                        ForeColor="Red" ErrorMessage="*CategoryID Required"/>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblCategoryID" runat="server" Text='<%# Bind("CategoryID") %>'></asp:Label>
@@ -104,7 +106,9 @@
 
                         <asp:TemplateField HeaderText="Level" SortExpression="Level">
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtLevel" runat="server" Text='<%# Bind("Level") %>'></asp:TextBox>
+                                <asp:TextBox ID="TxtLevel" TextMode="Number" runat="server" Text='<%# Bind("Level") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorlVL" ControlToValidate="TxtLevel" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblLevel" runat="server" Text='<%# Bind("Level") %>'></asp:Label>
@@ -115,6 +119,8 @@
                         <asp:TemplateField HeaderText="Reorder Level" SortExpression="ReorderLevel">
                             <EditItemTemplate>
                                 <asp:TextBox ID="TxtReorderLevel" runat="server" Text='<%# Bind("ReorderLevel") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorReLvl" ControlToValidate="TxtReorderLevel" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblReorderLevel" runat="server" Text='<%# Bind("ReorderLevel") %>'></asp:Label>
@@ -122,9 +128,25 @@
                             <HeaderStyle CssClass="text-center" />
                         </asp:TemplateField>
 
+                        <asp:TemplateField HeaderText="Units In Stock" SortExpression="UnitsInStock">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtUnitsInStock" runat="server" Text='<%# Bind("UnitsInStock") %>'></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidatorUIS" runat="server" ControlToValidate="TxtUnitsInStock"
+                        ForeColor="Red" ErrorMessage="*UnitsInStock Required"/>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorUIS" ControlToValidate="TxtUnitsInStock" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblUnitsInStock" runat="server" Text='<%# Bind("UnitsInStock") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
                         <asp:TemplateField HeaderText="Reorder Quantity" SortExpression="ReorderQty">
                             <EditItemTemplate>
                                 <asp:TextBox ID="TxtReorderQty" runat="server" Text='<%# Bind("ReorderQty") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorReQty" ControlToValidate="TxtReorderQty" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblReorderQty" runat="server" Text='<%# Bind("ReorderQty") %>'></asp:Label>
@@ -155,7 +177,43 @@
                             <HeaderStyle CssClass="text-center" />
                         </asp:TemplateField>
 
-                        <asp:CommandField ButtonType="Button" ShowEditButton="True" HeaderText ="Edit Item"
+                        <asp:TemplateField HeaderText="Units On Order" SortExpression="UnitsOnOrder">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtUnitsOnOrder" runat="server" Text='<%# Bind("UnitsOnOrder") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorUOO" ControlToValidate="TxtUnitsOnOrder" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblUnitsOnOrder" runat="server" Text='<%# Bind("UnitsOnOrder") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Buffer Stock Level" SortExpression="BufferStockLevel">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtBufferStockLevel" runat="server" Text='<%# Bind("BufferStockLevel") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorBSL" ControlToValidate="TxtBufferStockLevel" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblBufferStockLevel" runat="server" Text='<%# Bind("BufferStockLevel") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                       <asp:TemplateField HeaderText="BFS Proportion" SortExpression="BFSProportion">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtBFSProportion" TextMode="Number" runat="server" Text='<%# Bind("BFSProportion") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorBFSP" ControlToValidate="TxtBFSProportion" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblBFSProportion" runat="server" Text='<%# Bind("BFSProportion") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:CommandField ButtonType="Button" ShowEditButton="True" HeaderText ="Edit Item" CausesValidation="true"
                             EditText="Edit" UpdateText="Update" CancelText="Cancel" ><ControlStyle cssClass="btn btn-primary btn-xs" />
                         </asp:CommandField>
 
