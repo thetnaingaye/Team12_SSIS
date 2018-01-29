@@ -245,10 +245,10 @@ namespace Team12_SSIS.WebServices
             RequisitionLogic.ProcessRequsitionRequest(record.RequestID, status, record.ApproverName, record.Remarks);
         }
 
-        public void UpdateDisbursementStatus(WCF_DisbursementList disbursementList, string token)
+        public void UpdateDisbursementStatus(WCF_DisbursementList disbursementList, WCF_JsonObject jsonWrapper)
         {
             //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
-            if (!IsAuthanticateUser(token))
+            if (!IsAuthanticateUser(jsonWrapper.token))
             {
                 return;
             }

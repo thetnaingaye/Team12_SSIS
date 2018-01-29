@@ -51,11 +51,11 @@ namespace Team12_SSIS.WebServices
         //[WebInvoke(UriTemplate = "/GetRequestListDetails/{requestId}", Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
         //List<WCF_RequisitionRecordDetail> GetStationeryRequestDetails(string requestId, string token);
 
-        //[OperationContract]
-        //[WebInvoke(UriTemplate = "/UpdateDisburse", Method = "POST",
-        //    RequestFormat = WebMessageFormat.Json,
-        //    ResponseFormat = WebMessageFormat.Json)]
-        //void UpdateDisbursementStatus(WCF_DisbursementList disbursementList, string token);
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/UpdateDisburse", Method = "POST",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json)]
+        void UpdateDisbursementStatus(WCF_DisbursementList disbursementList, WCF_JsonObject jsonWrapper);
 
         //[OperationContract]
         //[WebInvoke(UriTemplate = "/CreateRetrievalList", Method = "POST",
