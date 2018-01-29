@@ -549,8 +549,15 @@ namespace Team12_SSIS.BusinessLogic
                     if (prd.Quantity > 0)
                         poDetailListWithGR.Add(prd);                    
                 }
-                //Check for PO completion and if yes, change the PO Status
-                IsPOCompleted(poDetailListWithGR.Count, POnumber);
+                try
+                {
+                    //Check for PO completion and if yes, change the PO Status
+                    IsPOCompleted(poDetailListWithGR.Count, POnumber);
+                }catch(Exception ex)
+                {
+                    //Exception will be thrown if an invalid PO number is entered, returning null value;
+                    Console.WriteLine(ex.ToString());
+                }
                 //Return the Order list that has the updated reamining quantity.
                 return poDetailListWithGR;
             }
