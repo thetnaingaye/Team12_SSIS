@@ -2142,7 +2142,7 @@ namespace Team12_SSIS.BusinessLogic
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 InventoryRetrievalList iRL = ctx.InventoryRetrievalLists.Where(x => x.RetrievalID == retrievalId).FirstOrDefault();
-                iRL.Status = status;
+                iRL.Status += ":"+status;
                 ctx.SaveChanges();
                 success = true;
             }
