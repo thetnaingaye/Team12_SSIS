@@ -9,7 +9,7 @@
     <asp:Button ID="BtnSearch" cssclass="btn btn-primary" runat="server" Text="Search" OnClick="BtnSearch_Click" />
         </div>
     <br />
-    <asp:Label ID="LblCount" runat="server" Text=""></asp:Label>
+    <asp:Label ID="LblCount" runat="server" Text="" ></asp:Label>
     <br />
     <table style="width: 100%">
         <tr>
@@ -19,7 +19,7 @@
 
             <td style="width: 63%">
                 <asp:GridView ID="GridViewAddRequest" Style="width:95%" runat="server" AutoGenerateColumns="False"
-                    AllowPaging="True" PageSize="8" OnPageIndexChanging="GridViewAddRequest_PageIndexChanging"
+                    AllowPaging="True" PageSize="10" OnPageIndexChanging="GridViewAddRequest_PageIndexChanging"
                     DataKeyNames="ItemID">
                     <AlternatingRowStyle BackColor="#f9f9f9"  />
                      <PagerStyle HorizontalAlign="Center" />
@@ -40,7 +40,10 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Add Request" SortExpression="Description">
                             <ItemTemplate>
-                                <asp:Button ID="BtnAddRequest" runat="server" Text="Add" cssclass="btn btn-primary  btn-xs" CommandName="AddRequestClicked" CommandArgument='<%# Bind("ItemID") %>' OnClick="BtnAddRequest_Click" />
+                                <asp:Button ID="BtnAddRequest" runat="server" Text="Add"
+                                    cssclass="btn btn-primary  btn-xs"
+                                    CommandName="AddRequestClicked" CommandArgument='<%# Bind("ItemID") %>'
+                                    OnClick="BtnAddRequest_Click" />
                             </ItemTemplate>
                             <HeaderStyle CssClass="text-center" />
                         </asp:TemplateField>
@@ -55,7 +58,7 @@
 
             <td style="width:37%" >
                 <asp:GridView ID="GridViewCheckOut" runat="server" Style="width:95%" AutoGenerateColumns="False"
-                    OnRowDataBound="GridViewCheckOut_RowDataBound"
+                    
                     OnRowDeleting="GridViewCheckOut_RowDeleting"
                     AllowPaging="True" PageSize="8" OnPageIndexChanging="GridViewCheckOut_PageIndexChanging"
                     DataKeyNames="ItemID">
@@ -64,7 +67,7 @@
                     <AlternatingRowStyle BackColor="#f9f9f9" />
                     <RowStyle HorizontalAlign="Center" />
                     <Columns>
-                        <asp:TemplateField HeaderText="ID" SortExpression="ItemID">
+                        <asp:TemplateField HeaderText="Item ID" SortExpression="ItemID">
                             <ItemTemplate>
                                 <asp:Label ID="LblItemID" runat="server" Text='<%# Bind("ItemID") %>'></asp:Label>
                             </ItemTemplate>
@@ -72,16 +75,16 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Description" SortExpression="Description">
                             <ItemTemplate>
-                                <asp:Label ID="LblDescription" runat="server"></asp:Label>
+                                <asp:Label ID="LblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle CssClass="text-center" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Quantity" SortExpression="RequestedQuantity">
+                        <%--<asp:TemplateField HeaderText="Quantity" SortExpression="RequestedQuantity">
                             <ItemTemplate>
                                 <asp:TextBox ID="TxtRequestedQuantity" runat="server" Text='<%# Bind("RequestedQuantity") %>' TextMode="Number"></asp:TextBox>
                             </ItemTemplate>
                             <HeaderStyle CssClass="text-center" />
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
                         <asp:CommandField ButtonType="Button" ShowDeleteButton="True" HeaderText ="Delete"  DeleteText="Delete" >
                             <ControlStyle cssClass="btn btn-primary btn-xs" />
                             </asp:CommandField>
@@ -92,7 +95,8 @@
     </table>
     <br />
     <div style="text-align:center">
-    <asp:Button ID="BtnCheckOut" runat="server" cssclass="btn btn-primary" Text="Check Out" OnClick="BtnCheckOut_Click" />
+    <asp:Button ID="BtnCheckOut" runat="server" cssclass="btn btn-primary"
+        Text="Check Out" OnClick="BtnCheckOut_Click" />
         </div>
 
 </asp:Content>

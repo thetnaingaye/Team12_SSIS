@@ -14,28 +14,36 @@ namespace Team12_SSIS.DepartmentEmployee
 {
     public partial class ViewCatalogue : Page
     {
-        Label statusMessage;
         protected void Page_Load(object sender, EventArgs e)
         {
-            statusMessage = this.Master.FindControl("LblStatus") as Label;
             if (!IsPostBack)
             {
                 BindGrid();
             }
-            //Check for a valid Shopping Cart activity. If available, grab it and put it into the gridList cart.
-            if (Session["CartList"] != null && ((List<RequisitionRecordDetail>)Session["CartList"]).Count != 0)
+
+            if (Session["CartList"] != null && ((List<InventoryCatalogue>)Session["CartList"]).Count != 0)
             {
-                List<RequisitionRecordDetail> cartList = (List<RequisitionRecordDetail>)Session["CartList"];
-                //The problem is there of the Grid not catching the quantity is there.
-                //BindCheckoutGrid(cartList);
+                List<InventoryCatalogue> cartList = (List<InventoryCatalogue>)Session["CartList"];
+
+                GridViewCheckOut.Visible = true;
+                GridViewCheckOut.DataSource = cartList;
+                GridViewCheckOut.DataBind();
+
                 LblCount.Text = "Number of items requested: " + cartList.Count();
+                LblCount.ForeColor = Color.Black;
+
                 BtnCheckOut.Visible = true;
             }
             else
             {
-                LblCount.Text = "You can make stationery requisition now.";
+                LblCount.Text = "You can make stationery requisition now";
+                LblCount.ForeColor = Color.Black;
+                GridViewCheckOut.Visible = false;
                 BtnCheckOut.Visible = false;
             }
+
+
+
         }
 
         protected void BindGrid()
@@ -66,81 +74,86 @@ namespace Team12_SSIS.DepartmentEmployee
             GridViewRow row = btnAddRequest.NamingContainer as GridViewRow;
             string itemId = GridViewAddRequest.DataKeys[row.RowIndex].Values[0].ToString();
             InventoryCatalogue item = InventoryLogic.GetInventoryItem(itemId);
-            InventoryLogic il = new InventoryLogic();
-            List<RequisitionRecordDetail> cartList;
+            //InventoryLogic il = new InventoryLogic();
+            List<InventoryCatalogue> cartList;
 
             if (Session["CartList"] != null)
             {
-                cartList = (List<RequisitionRecordDetail>)Session["CartList"];
-                bool Exist= cartList.Any(x => x.ItemID == itemId);
+                cartList = (List<InventoryCatalogue>)Session["CartList"];
+                bool Exist = cartList.Any(x => x.ItemID == itemId);
                 if (Exist)
                 {
                     LblCount.Text = "You cannot request same item twice.";
                     LblCount.ForeColor = Color.Red;
                     return;
                 }
-                    cartList = (List<RequisitionRecordDetail>)Session["CartList"];
-                    foreach (GridViewRow r in GridViewCheckOut.Rows)
-                    {
-                        int i = 0;
-                        RequisitionRecordDetail cartItem = new RequisitionRecordDetail();
-                        cartItem.ItemID = (r.FindControl("LblItemID") as Label).Text;
-                        int reqQty;
-                        if (int.TryParse(((r.FindControl("TxtRequestedQuantity") as TextBox).Text), out reqQty))
-                            cartItem.RequestedQuantity = reqQty;
-                        cartList.RemoveAt(i);
-                        cartList.Add(cartItem);
-                        i++;
-                    }
+                else
+                {
+                    cartList.Add(item);
+                    Session["CartList"] = cartList;
+                    Response.Redirect("~/DepartmentEmployee/ViewCatalogue.aspx");
+
                 }
-            else
-            {
-                cartList = new List<RequisitionRecordDetail>();
+                //cartList = (List<InventoryCatalogue>)Session["CartList"];
+                //foreach (GridViewRow r in GridViewCheckOut.Rows)
+                //{
+                //    int i = 0;
+                //    RequisitionRecordDetail cartItem = new RequisitionRecordDetail();
+                //    cartItem.ItemID = (r.FindControl("LblItemID") as Label).Text;
+                //    int reqQty;
+                //    if (int.TryParse(((r.FindControl("TxtRequestedQuantity") as TextBox).Text), out reqQty))
+                //        cartItem.RequestedQuantity = reqQty;
+                //    cartList.RemoveAt(i);
+                //    cartList.Add(cartItem);
+                //    i++;
+                //}
             }
 
-            RequisitionRecordDetail rrd = new RequisitionRecordDetail();
-            rrd.ItemID = itemId;
-            cartList.Add(rrd);
-            Session["CartList"] = cartList;
-            BindCheckoutGrid(cartList);
+            else
+            {
+                cartList = new List<InventoryCatalogue>();
+                //InventoryCatalogue ic = new InventoryCatalogue();
+                //ic.ItemID = itemId;
+                cartList.Add(item);
+                Session["CartList"] = cartList;
+                Response.Redirect("~/DepartmentEmployee/ViewCatalogue.aspx");
+            }
         }
 
         protected void BtnCheckOut_Click(object sender, EventArgs e)
         {
-            List<RequisitionRecordDetail> rrd = new List<RequisitionRecordDetail>();
-            string deptId = HttpContext.Current.Profile.GetPropertyValue("department").ToString();
-            string fullName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
-            DateTime requestDate = DateTime.Now;
-            int requestId = RequisitionLogic.CreateRequisitionRecord(fullName, deptId, requestDate);
-            if (rrd == null) return;
-            for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
-            {
-                string ItemID = (GridViewCheckOut.Rows[i].FindControl("LblItemID") as Label).Text;
-                string Description = (GridViewCheckOut.Rows[i].FindControl("LblDescription") as Label).Text;
-                int RequestedQuantity;
-                if(!int.TryParse((GridViewCheckOut.Rows[i].FindControl("TxtRequestedQuantity") as TextBox).Text, out RequestedQuantity))
-                {
-                    statusMessage.Text = "Error! Please enter a valid quantity!";
-                    statusMessage.ForeColor = Color.Red;
-                    statusMessage.Visible = true;
-                }
+            //List<RequisitionRecordDetail> rrd = new List<RequisitionRecordDetail>();
+            //string deptId = HttpContext.Current.Profile.GetPropertyValue("department").ToString();
+            //string fullName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
+            //DateTime requestDate = DateTime.Now;
+            //int requestId = RequisitionLogic.CreateRequisitionRecord(fullName, deptId, requestDate);
+            //if (rrd == null) return;
+            //for (int i = 0; i < GridViewCheckOut.Rows.Count; i++)
+            //{
+            //    string ItemID = (GridViewCheckOut.Rows[i].FindControl("LblItemID") as Label).Text;
+            //    string Description = (GridViewCheckOut.Rows[i].FindControl("LblDescription") as Label).Text;
+            //    int RequestedQuantity;
+            //    if (!int.TryParse((GridViewCheckOut.Rows[i].FindControl("TxtRequestedQuantity") as TextBox).Text, out RequestedQuantity))
+            //    {
+            //    }
 
-                string Status = "Pending";
-                string Priority = "No";
-                RequisitionRecordDetail r = RequisitionLogic.CreateRequisitionRecordDetail(requestId, ItemID, RequestedQuantity, Status, Priority);
-                rrd.Add(r);
-            }
-            Session["CartList"] = rrd;
+            //    string Status = "Pending";
+            //    string Priority = "No";
+            //    RequisitionRecordDetail r = RequisitionLogic.CreateRequisitionRecordDetail(requestId, ItemID, RequestedQuantity, Status, Priority);
+            //    rrd.Add(r);
+            //}
+            //Session["CartList"] = rrd;
             Response.Redirect("CreateRequisitionForm.aspx");
         }
 
         protected void GridViewCheckOut_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string ItemID = Convert.ToString(GridViewCheckOut.DataKeys[e.RowIndex].Values[0]);
-            List<RequisitionRecordDetail> rrd =(List<RequisitionRecordDetail>)Session["CartList"];
-            List<RequisitionRecordDetail> rrdNew = RequisitionLogic.DeleteOrder(rrd, ItemID);
-            BindCheckoutGrid(rrdNew);
-            Session["CartList"] = rrdNew;
+            List<InventoryCatalogue> ic = (List<InventoryCatalogue>)Session["CartList"];
+            List<InventoryCatalogue> icNew = RequisitionLogic.DeleteOrder(ic, ItemID);
+            GridViewCheckOut.DataSource = icNew;
+            GridViewCheckOut.DataBind();
+            Session["CartList"] = icNew;
             Response.Redirect("~/DepartmentEmployee/ViewCatalogue.aspx");
         }
 
@@ -148,25 +161,17 @@ namespace Team12_SSIS.DepartmentEmployee
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                RequisitionRecordDetail rrd = (RequisitionRecordDetail)e.Row.DataItem;
-                Label lblDesc = e.Row.FindControl("LblDescription") as Label;
-                if (lblDesc != null)
-                    lblDesc.Text = InventoryLogic.GetItemName(rrd.ItemID);
+                InventoryCatalogue ic = (InventoryCatalogue)e.Row.DataItem;
+                string ItemID = ic.ItemID;
             }
         }
 
         protected void GridViewCheckOut_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            List<RequisitionRecordDetail> rrd = (List<RequisitionRecordDetail>)Session["CartList"];
+            List<InventoryCatalogue> ic = (List<InventoryCatalogue>)Session["CartList"];
             GridViewCheckOut.PageIndex = e.NewPageIndex;
-            BindCheckoutGrid(rrd);
-        }
-
-        protected void BindCheckoutGrid(List<RequisitionRecordDetail> cartList)
-        {
-            GridViewCheckOut.DataSource = cartList;
+            GridViewCheckOut.DataSource = ic;
             GridViewCheckOut.DataBind();
-            GridViewCheckOut.Visible = true;
         }
 
     }

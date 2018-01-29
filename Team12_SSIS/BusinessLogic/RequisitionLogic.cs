@@ -2047,10 +2047,10 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static List<RequisitionRecordDetail> DeleteOrder(List<RequisitionRecordDetail> _itemList, string ItemID)
+        public static List<InventoryCatalogue> DeleteOrder(List<InventoryCatalogue> _itemList, string ItemID)
         {
-            List<RequisitionRecordDetail> itemList = _itemList;
-            RequisitionRecordDetail removeItem = itemList.Where(i => i.ItemID == ItemID).First();
+            List<InventoryCatalogue> itemList = _itemList;
+            InventoryCatalogue removeItem = itemList.Where(i => i.ItemID == ItemID).First();
             itemList.Remove(removeItem);
             return itemList;
         }
