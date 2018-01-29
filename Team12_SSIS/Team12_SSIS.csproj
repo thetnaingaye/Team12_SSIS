@@ -293,7 +293,6 @@
     <Compile Include="BusinessLogic\PurchasingLogic.cs" />
     <Compile Include="BusinessLogic\ReportLogic.cs" />
     <Compile Include="BusinessLogic\RequisitionLogic.cs" />
-    <Compile Include="BusinessLogic\RScripts\TopSecret.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
