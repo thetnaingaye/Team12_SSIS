@@ -51,8 +51,7 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor
 
         protected string GetTotal(object poNum)
         {
-            PurchasingLogic p = new PurchasingLogic();
-            double temp = p.FindTotalByPONum(Convert.ToInt32(poNum.ToString()));
+            double temp = PurchasingLogic.FindTotalByPONum(Convert.ToInt32(poNum.ToString()));
             return temp.ToString("C0");
         }
 

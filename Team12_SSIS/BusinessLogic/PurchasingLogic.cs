@@ -20,7 +20,7 @@ namespace Team12_SSIS.BusinessLogic
         //----------------------------         KHAIR's               ----------------------------// 
 
         // Checks if the current inventory is sufficient for the qty specified to be withdrawn by the user.
-        public double FindTotalByPONum(int poNum)
+        public static double FindTotalByPONum(int poNum)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -77,12 +77,28 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieving supplier name
-        public string GetSuppilerName(string suppID)
+        public static string GetSuppilerName(string suppID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
                 SupplierList s = context.SupplierLists.Where(x => x.SupplierID.Equals(suppID)).First();
                 return s.SupplierName;
+            }
+        }
+
+        // Removing selected entries from the Reorder table
+        public static void RemoveReorderRecord(string itemID, string suppID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                List<ReorderRecord> r = context.ReorderRecords.Where(x => x.ItemID.Equals(itemID)).Where(y => y.SupplierID.Equals(suppID)).ToList();
+
+                // Remove everything retrieved in the list
+                foreach (var item in r)
+                {
+                    context.ReorderRecords.Remove(item);
+                }
+                context.SaveChanges();
             }
         }
 

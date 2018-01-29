@@ -89,7 +89,7 @@ namespace Team12_SSIS.StoreClerk
                 Label l = e.Row.FindControl("LblDept") as Label;
                 string id = l.Text;
 
-                string deptname = new RequisitionLogic().GetDepartmentName(id);
+                string deptname = RequisitionLogic.GetDepartmentName(id);
                 l.Text = deptname;
             }
 

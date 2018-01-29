@@ -69,7 +69,7 @@
 
                         <asp:TemplateField HeaderText="View">
                             <ItemTemplate>
-                                <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument="<%#:Item.RequestID %>" CommandName="ThisBtnClick" OnClick="btnView_Click"/>
+                                <asp:Button ID="BtnView" class="btn btn-primary sm" runat="server" Text="View" CommandArgument="<%#:Item.RequestID %>" CommandName="ThisBtnClick" OnClick="btnView_Click"/>
                             </ItemTemplate>
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>

@@ -124,8 +124,7 @@ namespace Team12_SSIS.WebServices
 
         public List<WCF_RequisitionRecord> GetStationeryRequests()
         {
-            RequisitionLogic rl = new RequisitionLogic();
-            List<RequisitionRecord> rList = rl.ListAllRequisitionRecords();
+            List<RequisitionRecord> rList = RequisitionLogic.ListAllRequisitionRecords();
             List<WCF_RequisitionRecord> wcfList = new List<WCF_RequisitionRecord>();
             foreach(RequisitionRecord r in rList)
             {
@@ -139,8 +138,7 @@ namespace Team12_SSIS.WebServices
 
         public List<WCF_RequisitionRecord> GetStationeryRequestsById(string deptId)
         {
-            RequisitionLogic rl = new RequisitionLogic();
-            List<RequisitionRecord> rList = rl.ListAllRRBySpecificDept(deptId);
+            List<RequisitionRecord> rList = RequisitionLogic.ListAllRRBySpecificDept(deptId);
             List<WCF_RequisitionRecord> wcfList = new List<WCF_RequisitionRecord>();
             foreach (RequisitionRecord r in rList)
             {
@@ -154,9 +152,8 @@ namespace Team12_SSIS.WebServices
 
         public List<WCF_RequisitionRecordDetail> GetStationeryRequestDetails(string requestId)
         {
-            RequisitionLogic rl = new RequisitionLogic();
             List<WCF_RequisitionRecordDetail> wcfList = new List<WCF_RequisitionRecordDetail>();
-            List<RequisitionRecordDetail> rList = rl.FindRequisitionRecordDetailsByReqID(int.Parse(requestId));
+            List<RequisitionRecordDetail> rList = RequisitionLogic.FindRequisitionRecordDetailsByReqID(int.Parse(requestId));
             foreach(RequisitionRecordDetail r in rList)
             {
                 WCF_RequisitionRecordDetail wcf = WCF_RequisitionRecordDetail.Create(r.RequestDetailID, r.RequestID, r.ItemID, (int)r.RequestedQuantity, r.Status);
@@ -167,8 +164,7 @@ namespace Team12_SSIS.WebServices
 
         public void UpdateStationeryRequestStatus(WCF_RequisitionRecord record)
         {
-            RequisitionLogic rl = new RequisitionLogic();
-            rl.ProcessRequsitionRequest(record.RequestID, "", record.ApproverName, record.Remarks);
+            RequisitionLogic.ProcessRequsitionRequest(record.RequestID, "", record.ApproverName, record.Remarks);
         }
 
         public void UpdateDisbursementStatus(WCF_DisbursementList disbursementList)
@@ -535,7 +531,7 @@ namespace Team12_SSIS.WebServices
         //Naing
         public WCF_Department GetDeptName(string deptid)
         {
-            string deptname = new RequisitionLogic().GetDepartmentName(deptid);
+            string deptname = RequisitionLogic.GetDepartmentName(deptid);
             WCF_Department wcf_dept= new WCF_Department();
             wcf_dept.DeptID = deptid;
             wcf_dept.DepartmentName = deptname;
