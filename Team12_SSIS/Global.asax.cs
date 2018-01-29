@@ -93,7 +93,7 @@ namespace Team12_SSIS
         protected void ThreadSundaeFunc()
         {
             System.Timers.Timer t = new System.Timers.Timer();
-            t.Elapsed += new System.Timers.ElapsedEventHandler(AutomationLogic.BeginSundayProcesses);
+            t.Elapsed += new System.Timers.ElapsedEventHandler(AutomationLogic.ForecastingAlgorithm);
 
             t.Interval = (24 * 60 * 60 * 1000);
             t.Enabled = true;

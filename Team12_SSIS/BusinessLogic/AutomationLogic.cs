@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -136,7 +137,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Running our weekend processes (aka forecasting process)
-        public static void BeginSundayProcesses(object sender, System.Timers.ElapsedEventArgs e)
+        public static void ForecastingAlgorithm(object sender, System.Timers.ElapsedEventArgs e)
         {
             DayOfWeek dayTodae = DateTime.Now.DayOfWeek;
 
@@ -202,7 +203,24 @@ namespace Team12_SSIS.BusinessLogic
 
                 if (rightHour && rightMinute && rightSecond)
                 {
-                    // Fire your forecasting algo here....
+                    try
+                    {
+                        ProcessStartInfo process = new ProcessStartInfo();
+                        Process rScript;
+
+                        // Running our bat file which will execute the R compiler with the R script
+                        process.FileName = @"C:/inetpub/wwwroot/Team12_SSIS/RScripts/RExec.bat";
+                        // Specify your preferences when running the script
+                        process.CreateNoWindow = false;
+                        process.UseShellExecute = false;      //Set 'true' if you want the cmd panel to pop up
+
+                        rScript = Process.Start(process);
+                        rScript.Close();
+                    }
+                    catch (Exception ee)
+                    {
+                        Console.WriteLine(ee.Message);
+                    }
                 }
 
 
