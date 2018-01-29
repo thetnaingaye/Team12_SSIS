@@ -18,7 +18,7 @@
     <table style="width: 100%" class="center-block">
         <tr>
             <td colspan="5">
-                <asp:Label runat="server" Text="Create Disbursement Form" Font-Size="Large"></asp:Label>
+                <h2>Create Disbursement Form</h2>
             </td>
         </tr>
         <tr>
@@ -29,7 +29,7 @@
                 <asp:DropDownList ID="DdlDept" runat="server"  AutoPostBack="true" DataTextField="DepartmentName" DataValueField="DeptID" OnSelectedIndexChanged="DdlDept_SelectedIndexChanged"></asp:DropDownList>
             </td>
             <td style="width: 40%">
-                <asp:Button ID="BtnRetrievePO" runat="server" Text="Retrieve" OnClick="BtnRetrieve_Click" CssClass="btn btn-xs" ValidationGroup="BtnRetrievePO" />
+                <asp:Button ID="BtnRetrievePO" runat="server" Text="Retrieve" OnClick="BtnRetrieve_Click" CssClass="btn btn-primary btn-xs" ValidationGroup="BtnRetrievePO" />
             </td>
             <td>
                 <asp:Label ID="Label1" runat="server" Text="Representative Name: "></asp:Label></td>
@@ -56,10 +56,10 @@
         </tr>
         <tr>
             <td colspan="5">
-                    <asp:GridView ID="GridViewDisbList" runat="server" AutoGenerateColumns="False"
+                    <asp:GridView ID="GridViewDisbList" CssClass="table" runat="server" AutoGenerateColumns="False"
                         Style="height: 100px; overflow: auto; width: 100%" DataKeyNames="ItemID" ShowHeaderWhenEmpty="True"
-                        OnRowDataBound="OnRowDataBound" OnRowDeleting="RowDeleting" CellPadding="4" ForeColor="#333333" GridLines="None">
-                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                        OnRowDataBound="OnRowDataBound" OnRowDeleting="RowDeleting" CellPadding="4" ForeColor="#333333">
+                        <AlternatingRowStyle BackColor="#f9f9f9"/>
                         <Columns>
 
                             <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" ItemStyle-CssClass="" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
@@ -140,7 +140,7 @@
         </tr>
         <tr>
             <td colspan="5" style="align-content:flex-end">
-                <asp:Button ID="BtnCreateDis" runat="server" Text="Create Disbursement List" CssClass="btn btn-group-xs center-block" Visible="false" OnClick="BtnCreateDis_Click" ValidationGroup="BtnCreateGR" OnClientClick="this.disabled=true;" UseSubmitBehavior="false" />
+                <asp:Button ID="BtnCreateDis" runat="server" Text="Create Disbursement List" CssClass="btn btn-primary center-block" Visible="false" OnClick="BtnCreateDis_Click" ValidationGroup="BtnCreateGR" OnClientClick="this.disabled=true;" UseSubmitBehavior="false" />
             </td>
         </tr>
     </table>
