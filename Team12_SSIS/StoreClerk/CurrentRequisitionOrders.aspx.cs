@@ -68,5 +68,10 @@ namespace Team12_SSIS.StoreClerk
             GridViewDetails.DataSource = tempList;
             GridViewDetails.DataBind();
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/StoreClerk/ForecastReport.aspx");
+        }
     }
 }

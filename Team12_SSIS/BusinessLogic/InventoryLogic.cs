@@ -1705,7 +1705,6 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-
         //----Thanisha-------------------------View Stock Card details-----------------------------------------------//
         //------------------------------getting stock card details(ItemID,Date of transaction,Description,UOM,transaction type,quantity,balance)-------------//
 

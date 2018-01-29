@@ -163,10 +163,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="RScripts\Charts\chart1.png" />
     <Content Include="Site.Master" />
     <Content Include="SQLStoredProcedureForReports%28ChangSiang%29.txt" />
     <Content Include="SSIS_UserPassword.txt" />
     <Content Include="StoreClerk\CurrentRequisitionOrders.aspx" />
+    <Content Include="StoreClerk\ForecastReport.aspx" />
     <Content Include="StoreClerk\PastRequisitionOrders.aspx" />
     <Content Include="StoreClerk\ReorderList.aspx" />
     <Content Include="StoreClerk\RetrievalList.aspx" />
@@ -190,6 +192,7 @@
       <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="RScripts\RExec.bat" />
+    <Content Include="RScripts\ChartExec.bat" />
     <None Include="SA45Team12ADDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>SA45Team12ADDataSet.Designer.cs</LastGenOutput>
@@ -513,6 +516,13 @@
     <Compile Include="StoreClerk\CurrentRequisitionOrders.aspx.designer.cs">
       <DependentUpon>CurrentRequisitionOrders.aspx</DependentUpon>
     </Compile>
+    <Compile Include="StoreClerk\ForecastReport.aspx.cs">
+      <DependentUpon>ForecastReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ForecastReport.aspx.designer.cs">
+      <DependentUpon>ForecastReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StoreClerk\Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -728,7 +738,6 @@
     <Compile Include="WebServices\WCF_Model\WCF_TempInventoryRetrieval.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="RScripts\Charts\" />
     <Folder Include="Utility\TempImageFiles\" />
   </ItemGroup>
   <ItemGroup>

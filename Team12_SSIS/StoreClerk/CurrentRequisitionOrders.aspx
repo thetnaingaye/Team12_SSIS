@@ -7,6 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
         <h1>Current Requisition Orders</h1>
+        <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
     </div>
     <h3>Departments with pending requisition orders:</h3>
     <h3><asp:Label ID="LblMessage" runat="server" Text=""></asp:Label></h3>
