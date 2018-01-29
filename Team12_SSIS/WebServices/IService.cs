@@ -15,8 +15,8 @@ namespace Team12_SSIS.WebServices
     public interface IService
     {
         [OperationContract]
-        [WebGet(UriTemplate = "/GetDisbursementLists", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_DisbursementList> GetDisbursementList();
+        [WebInvoke(UriTemplate = "/GetDisbursementLists", Method ="POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<WCF_DisbursementList> GetDisbursementList(string token);
 
         [OperationContract]
         [WebGet(UriTemplate = "/GetUsersFromDept/{dept}", ResponseFormat = WebMessageFormat.Json)]
