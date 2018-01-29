@@ -328,7 +328,21 @@ namespace Team12_SSIS.BusinessLogic
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
+                List<InventoryCatalogue> i = context.InventoryCatalogues.ToList();
 
+                foreach (var item in i)
+                {
+                    bool canContinue = true;
+
+                    // Gotta check if BFSProportion is zero  --  If it is, set bool to false
+                    if (item.BFSProportion == 0 || item.BFSProportion == null) canContinue = false;
+
+                    if (canContinue)
+                    {
+                        PurchasingLogic.SetProportionalBFS(item.ItemID, (int)item.BFSProportion);
+                    }
+                    // Will not update those that have 0, i.e those that are manually set by the user.
+                }
             }
         }
 
