@@ -8,6 +8,7 @@ using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
 using System.Collections;
 using System.Data;
+using System.Globalization;
 
 namespace Team12_SSIS.StoreClerk
 {
@@ -19,6 +20,8 @@ namespace Team12_SSIS.StoreClerk
         List<string> idList;
         InventoryLogic i = new InventoryLogic();
         string itemId;
+        DateTime date1;
+        DateTime date2;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -37,7 +40,7 @@ namespace Team12_SSIS.StoreClerk
                 //---------------------populating the transaction details of the item seleted-------------------//
 
                 details(itemId);
-                tList = i.GetStockCardList(itemId);
+                tList = InventoryLogic.GetStockCardList(itemId);
                 if (tList.Count != 0)
                 {
 
@@ -56,46 +59,87 @@ namespace Team12_SSIS.StoreClerk
             }
 
         }
-        
+
 
         protected void BtnFind_Click(object sender, EventArgs e)
         {
-            //Calling method  controlVisibleTrue() to make all the control visible.
+            try {
+                DatgridViewRefresh();
+                ControlVisibleTrue();
+                try
+                {
+                    date1 = DateTime.ParseExact(Request.Form["datepicker"], "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                    date2 = DateTime.ParseExact(Request.Form["datepicker2"], "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                }
+                catch
+                { }
 
-            DatgridViewRefresh();
-            ControlVisibleTrue();
 
-            //--------------Methods from InventoryLogic class------------------------//
 
-            //--------------------------------------stockCard table records-------------//
-            itemId = TxtId.Text;
-            try
-            {
-                tList = i.GetStockCardList(itemId);
+                string d1 = Convert.ToString(date1);
+                string d2 = Convert.ToString(date2);
 
+                //if user wont select a date default value is "1/1/0001 12:00:00 AM".setting that to null here-------------------------//
+                if (d1 == "1/1/0001 12:00:00 AM" || d2 == "1/1/0001 12:00:00 AM")
+                {
+                    d1 = null;
+                    d2 = null;
+
+                }
+
+                //-----------------------------Search based on item code &transaction dates
+                //-----------------.Datagrid view load with transaction records of selected item within the selected dates
+
+                if (TxtId.Text != string.Empty && d1 != null && d2 != null)
+                {
+                    tList = InventoryLogic.GetTransactionByDate(date1, date2, TxtId.Text);
                     details(TxtId.Text);
                     GridViewStockCard.DataSource = tList;
                     GridViewStockCard.DataBind();
 
                     LblMsg.Visible = false;
-                
-                    detFromInventory = i.getInventoryDetails(itemId);
-               
+
+                }
+
+                //-------------------------------Transaction records of selected item----here user not selected any dates---------------//
+                else if (TxtId.Text != string.Empty && d1 == null && d2 == null)
+                {
+                    string id = TxtId.Text;
+                    tList = InventoryLogic.GetStockCardList(TxtId.Text);
+                    details(TxtId.Text);
+                    GridViewStockCard.DataSource = tList;
+                    GridViewStockCard.DataBind();
+                    LblMsg.Visible = false;
+
+                }
+                //---------------------------------Transaction records within the selected date range-------------------------//
+                else if (TxtId.Text == string.Empty && d1 != null && d2 != null)
+                {
+                    tList = InventoryLogic.GetAllTransactionByDate(date1, date2);
+                    GridViewStockCard.DataSource = tList;
+                    GridViewStockCard.DataBind();
+                    LblMsg.Visible = false;
+                    ControlVisibleFalse();
+                }
+                //--------------------user don't give any input.just click search button.then this condition will fire------------//
+                else if (TxtId.Text == string.Empty && d1 == null && d2 == null)
+                {
+                    ControlVisibleFalse();
+                    LblMsg.Visible = true;
+                    LblMsg.Text = "Please give a valid data to search";
+                }
+
             }
             catch
             {
                 ControlVisibleFalse();
                 LblMsg.Visible = true;
-                LblMsg.Text = "Please enter valid item code";
-               
+                LblMsg.Text = "Item code doesn't exist";
             }
             }
-          
-            
 
-      
-
-
+        
+        
         //----------------------------To get the item details---------------------------------//
         public void details(string itemid)
         {

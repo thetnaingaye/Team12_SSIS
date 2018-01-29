@@ -13,15 +13,6 @@ namespace Team12_SSIS.StoreClerk {
     public partial class ViewStockCard {
         
         /// <summary>
-        /// LblTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblTitle;
-        
-        /// <summary>
         /// LblInput control.
         /// </summary>
         /// <remarks>
@@ -40,15 +31,6 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.TextBox TxtId;
         
         /// <summary>
-        /// BtnFind control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnFind;
-        
-        /// <summary>
         /// Btninventory control.
         /// </summary>
         /// <remarks>
@@ -56,6 +38,33 @@ namespace Team12_SSIS.StoreClerk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Btninventory;
+        
+        /// <summary>
+        /// Lblstratdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Lblstratdate;
+        
+        /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
+        
+        /// <summary>
+        /// BtnFind control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnFind;
         
         /// <summary>
         /// LblId control.

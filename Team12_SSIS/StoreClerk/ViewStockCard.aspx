@@ -1,52 +1,88 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewStockCard.aspx.cs" Inherits="Team12_SSIS.StoreClerk.ViewStockCard" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     
-   <%-- <style type="text/css">
-        .auto-style2 {
-            height: 17px;
+  
+
+  <%-- 
+<%--        .auto-style2 {
+            margin-top: 77;
         }
         .auto-style3 {
-            height: 80px;
+            height: 69px;
         }
-    </style>
---%>
+        .auto-style4 {
+            width: 89px;
+        }
+        .auto-style5 {
+            margin-top: 77;
+            width: 84px;
+            height: 23px;
+        }--%>
+    </style>--%>
     </asp:Content>
 
-
+ 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-        <div>
-        <table style="width: 75%">
-            <tbody style="width: 75%">
+       
+   <%-- Datetime picker script --%>
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+  <link rel="stylesheet" href="/resources/demos/style.css"/>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+    <script>
+  $( function() {
+    $( "#datepicker2" ).datepicker();
+  } );
+  </script>
+
+
+        <table>
+            <tbody style="width: 100%">
 
             <tr style="height:20px">
-            <td colspan="2" style="height: 25px">
-            <asp:Label ID="LblTitle" runat="server" Font-Size="Large"></asp:Label>
-            </td>
+            <td style="height: 25px">
+           <%--<asp:Label ID="LblTitle" runat="server" Font-Size="Large"></asp:Label>--%>
+               <h2>Stock Card</h2>
+            </td>-
             </tr>
             
            <tr>
-            <td class="auto-style3">
+            <td>
                  
                         <%-- Input ItemId --%>
-                      <asp:Label ID="LblInput" runat="server"   Text="Enter Item Code:" Style="padding-right: 10px" ></asp:Label>
-                      <asp:TextBox ID="TxtId" runat="server" Height="20px" Width="180px"></asp:TextBox>
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                        <%-- Search button to search the transaction details --%>
-                      <asp:Button ID="BtnFind" runat="server" CssClass="btn btn-primary btn-xs" Text="Find Transaction Details" OnClick="BtnFind_Click" Width="180px"  />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <asp:Label ID="LblInput" runat="server"   Text="Enter Item Code:" Style="padding-right: 5px" ></asp:Label>
+                      <asp:TextBox ID="TxtId" runat="server" Height="20px" Width="210px"></asp:TextBox>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Btninventory" runat="server" OnClick="BtnInventory_Click" Text="View Inventory" Width="178px" />
+                           &nbsp;<%-- Search button to search the transaction details --%>&nbsp;&nbsp;&nbsp;&nbsp;
+                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
 
                          <%--Button redirect to inventory  --%>
-                        <asp:Button ID="Btninventory" runat="server" OnClick="BtnInventory_Click" Text="View Inventory" />
                         <br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       </td>
                       </tr>
-                 </tbody>
-        </table>
+                       <tr>
+                        <td>
+                            <asp:Label ID="Lblstratdate" runat="server" Text="Start Date:"></asp:Label>
+                            &nbsp;&nbsp;<input type="text" id="datepicker" name="datepicker" readonly="true" placeholder="Start Date" class="auto-style4" />&nbsp;&nbsp;
+                            <asp:Label ID="Label3" runat="server" Text="End Date:"></asp:Label>
+                            &nbsp;&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" placeholder="End Date" class="auto-style5" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="BtnFind" runat="server" CssClass="btn btn-primary btn-xs" Text="Find Transaction Details" OnClick="BtnFind_Click" Width="180px" Height="30px"  />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           </td>
+                   
+                        </tr>
+                        </tbody>
+                        </table>
                
             <br />
             <br />
-                       <table style="width: 75%">
+                       <table style="width: 100%">
             <tbody style="width: 75%">
                       <tr style="height:20px">
                       <td class="auto-style2">
@@ -100,7 +136,7 @@
                   <asp:GridView ID="GridViewStockCard" Class="table" runat="server" AutoGenerateColumns="False"
                                         Style="width:100%;padding-top:50px" 
                                         OnRowDataBound="GridViewStockCard_RowDataBound"
-                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID" ShowHeaderWhenEmpty="True">
+                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID" ShowHeaderWhenEmpty="True" EmptyDataText="">
                                         <AlternatingRowStyle BackColor="#f9f9f9"  />
                                         <Columns>
 

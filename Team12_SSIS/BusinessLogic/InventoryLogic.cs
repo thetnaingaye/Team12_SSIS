@@ -1685,7 +1685,7 @@ namespace Team12_SSIS.BusinessLogic
         //----Thanisha-------------------------View Stock Card details-----------------------------------------------//
         //------------------------------getting stock card details(ItemID,Date of transaction,Description,UOM,transaction type,quantity,balance)-------------//
 
-        public List<StockCard> GetStockCardList(string itemid)
+        public static List<StockCard> GetStockCardList(string itemid)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
@@ -1733,8 +1733,24 @@ namespace Team12_SSIS.BusinessLogic
                 return entity.SupplierCatalogues.Where(s => s.ItemID == itemid).ToList<SupplierCatalogue>();
             }
         }
+        //---------------------------------Transaction between the specified dates--------------------------------------------//
 
+        public static List<StockCard> GetTransactionByDate(DateTime startDate, DateTime enddate, string id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.StockCards.Where(x => x.Date >= startDate && x.Date <= enddate && x.ItemID == id).ToList<StockCard>();
+            }
+        }
+        //------------------------------return all transaction dates within the dates selected by user--------------------------//
 
+        public static List<StockCard> GetAllTransactionByDate(DateTime startDate, DateTime enddate)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.StockCards.Where(x => x.Date >= startDate && x.Date <= enddate ).ToList<StockCard>();
+            }
+        }
 
 
         //-------------------------------------------------View InventoryList-----------------------------------------//
