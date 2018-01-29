@@ -25,7 +25,7 @@ namespace Team12_SSIS.WebServices
         public int QuantityRequested { get; set; }
 
         [DataMember]
-        public int QuantityCollected { get; set; }
+        public string QuantityCollected { get; set; }
 
         [DataMember]
         public string UOM { get; set; }

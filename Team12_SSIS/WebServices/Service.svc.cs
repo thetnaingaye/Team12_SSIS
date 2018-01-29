@@ -86,7 +86,7 @@ namespace Team12_SSIS.WebServices
                 wcfDd.ItemID = dd.ItemID;
                 wcfDd.ActualQuantity = (int)dd.ActualQuantity;
                 wcfDd.QuantityRequested = (int)dd.QuantityRequested;
-                wcfDd.QuantityCollected = (int)dd.QuantityCollected;
+                wcfDd.QuantityCollected = dd.QuantityCollected.ToString();
                 wcfDd.UOM = dd.UOM;
                 wcfDd.Remarks = dd.Remarks == null ? " " : dd.Remarks;
                 wcf_ddlist.Add(wcfDd);
@@ -245,15 +245,19 @@ namespace Team12_SSIS.WebServices
             RequisitionLogic.ProcessRequsitionRequest(record.RequestID, status, record.ApproverName, record.Remarks);
         }
 
-        public void UpdateDisbursementStatus(WCF_DisbursementList disbursementList, WCF_JsonObject jsonWrapper)
+        public void UpdateDisbursementStatus(WCF_DisbursementList disbursementList, string token)
         {
             //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
-            if (!IsAuthanticateUser(jsonWrapper.token))
+            if (!IsAuthanticateUser(token))
             {
                 return;
             }
-            DisbursementLogic.UpdateDisbursementStatus
-                (disbursementList.DisbursementID, disbursementList.Status);
+            DisbursementLogic.UpdateDisbursementStatus(disbursementList.DisbursementID, disbursementList.Status);
+            DisbursementLogic dl = new DisbursementLogic();
+            foreach(WCF_DisbursementListDetail d in disbursementList.WCF_DisbursementListDetail)
+            {
+                dl.UpdateDisbursementListDetails(d.ID, Convert.ToInt32(d.QuantityCollected), d.Remarks);
+            }
         }
 
         //public void CreateInventoryRetrievalList(WCF_InventoryRetrievalList rList)

@@ -79,7 +79,7 @@ namespace Team12_SSIS.WebServices
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Wrapped)]
-        void UpdateDisbursementStatus(WCF_DisbursementList disbursementList, WCF_JsonObject jsonWrapper);
+        void UpdateDisbursementStatus(WCF_DisbursementList disbursementList, string token);
 
         //[OperationContract]
         //[WebInvoke(UriTemplate = "/CreateRetrievalList", Method = "POST",
