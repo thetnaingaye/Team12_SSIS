@@ -189,6 +189,7 @@
     <Content Include="SA45Team12ADDataSet.xsc">
       <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="RScripts\RExec.bat" />
     <None Include="SA45Team12ADDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>SA45Team12ADDataSet.Designer.cs</LastGenOutput>
