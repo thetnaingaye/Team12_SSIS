@@ -10,6 +10,7 @@ using System.Linq;
 using Team12_SSIS.Model;
 using System.Web.Security;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace UnitTest
 {
@@ -54,26 +55,47 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
-            int i = Team12_SSIS.Utility.Utility.GetValidPrimaryKeyInt("GR00010");
-            Console.WriteLine(i.ToString());
+            string userName = "clerk1";
+            string password = "Password@#1";
+            char seperator = '/';
 
+            var topSecret = userName + seperator + password;
+            int shft = 5;
+            string encrypted = topSecret.Select(ch => ((int)ch) << shft).Aggregate("", (current, val) => current + (char)(val * 2));
+            encrypted = Convert.ToBase64String(Encoding.UTF8.GetBytes(encrypted));
+            string decrypted = Encoding.UTF8.GetString(Convert.FromBase64String(encrypted)).Select(ch => ((int)ch) >> shft).Aggregate("", (current, val) => current + (char)(val / 2));
+            Console.WriteLine(topSecret);
+            Console.WriteLine(encrypted);
+            string[] splitString = decrypted.Split(seperator);
+            foreach(string s in splitString)
+            {
+                Console.WriteLine(s);
+            }
 
         }
         [TestMethod]
         public void TestMail()
         {
-            string s = "GR00010";
-            Regex regex = new Regex("[0-9]");
-            int x;
-            for (int i = 0; i < s.Length; i++)
+
+            byte xorConstant = 0x53;
+            string input = "foo";
+            byte[] data = Encoding.UTF8.GetBytes(input);
+            for (int i = 0; i < data.Length; i++)
             {
-                if (regex.IsMatch(s.Substring(i, 1)))
-                {                    
-                    bool isValid = int.TryParse(s.Substring(2, 5), out x);
-                    Console.WriteLine(i.ToString(),x.ToString());
-                    break;
-                }
+                data[i] = (byte)(data[i] ^ xorConstant);
             }
+            string output = Convert.ToBase64String(data);
+            Console.WriteLine(output);
+
+            //Decoding process
+            string tokenString = output;
+            byte[] Dedata = Convert.FromBase64String(tokenString);
+            for (int i = 0; i < data.Length; i++)
+            {
+                data[i] = (byte)(data[i] ^ xorConstant);
+            }
+            string plainText = Encoding.UTF8.GetString(Dedata);
+            Console.WriteLine(plainText);
         }
 
 
