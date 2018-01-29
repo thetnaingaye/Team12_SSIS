@@ -205,17 +205,9 @@ namespace Team12_SSIS.BusinessLogic
                 {
                     try
                     {
-                        ProcessStartInfo process = new ProcessStartInfo();
-                        Process rScript;
-
-                        // Running our bat file which will execute the R compiler with the R script
-                        process.FileName = @"C:/inetpub/wwwroot/Team12_SSIS/RScripts/RExec.bat";
-                        // Specify your preferences when running the script
-                        process.CreateNoWindow = false;
-                        process.UseShellExecute = false;      //Set 'true' if you want the cmd panel to pop up
-
-                        rScript = Process.Start(process);
-                        rScript.Close();
+                        CallForecastingScript();
+                        CheckActualData();
+                        UpdatingBufferStock();
                     }
                     catch (Exception ee)
                     {
@@ -240,6 +232,103 @@ namespace Team12_SSIS.BusinessLogic
                     int hoursToSleep = (23 - hour) + 4;
                     Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
                 }
+            }
+        }
+
+        // Calling the R script
+        private static void CallForecastingScript()
+        {
+            ProcessStartInfo process = new ProcessStartInfo();
+            Process rScript;
+
+            // Running our bat file which will execute the R compiler with the R script
+            process.FileName = @"C:/inetpub/wwwroot/Team12_SSIS/RScripts/RExec.bat";
+            // Specify your preferences when running the script
+            process.CreateNoWindow = false;
+            process.UseShellExecute = false;      //Set 'true' if you want the cmd panel to pop up
+
+            rScript = Process.Start(process);
+            rScript.Close();
+        }
+
+        // Retrieving info from the inventory retrieval table and then populating into the actual data table
+        private static void CheckActualData()
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                List<InventoryCatalogue> iList = context.InventoryCatalogues.ToList();
+
+                foreach (var item in iList)
+                {
+                    // Specify our itemID
+                    string itemID = item.ItemID;
+
+                    // Other attrs..
+                    List<InventoryRetrievalList> i = context.InventoryRetrievalLists.Where(x => x.ItemID.Equals(itemID)).ToList();
+                    int totalQty = 0;
+
+                    // Getting the present datetime
+                    DateTime now = DateTime.Now;
+
+                    // Getting the datetime for the start of last week
+                    DateTime prev = DateTime.Now.AddDays(-7);
+
+                    // Isolating only those that are relevant (with ref to their DateRetrieved)
+                    foreach (var ir in i)
+                    {
+                        DateTime tempDate = (DateTime)ir.DateRetrieved;
+
+                        if (tempDate > prev && tempDate < now)
+                        {
+                            totalQty += (int)ir.RequestedQuantity;
+                        }
+
+                    }
+
+                    // Finding the year
+                    int season = DateTime.Now.Year;
+
+                    // Finding the week no for the year (aka our period currently)
+                    DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+                    Calendar cal = dfi.Calendar;
+                    int period = cal.GetWeekOfYear(DateTime.Now, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+
+
+                    // Check if there are existing entries in the database
+                    List<ActualData> cList = context.ActualDatas.Where(x => x.ItemID.Equals(itemID)).ToList();
+                    bool anyDuplicates = false;
+                    foreach (var c in cList)
+                    {
+                        if (c.Season == season && c.Period == period)
+                        {
+                            anyDuplicates = true;
+                        }
+                    }
+                    Console.WriteLine(period);
+                    // Populating back to the database
+                    if (anyDuplicates == false && totalQty != 0)
+                    {
+                        ActualData a = new ActualData();
+                        a.ItemID = itemID;
+                        a.Season = season;
+                        a.Period = period;
+                        a.ActualDemand = totalQty;
+
+                        context.ActualDatas.Add(a);
+                    }
+
+                    context.SaveChanges();
+
+                }
+            }
+        }
+
+        // Updating the buffer stock in the inventory catelogue table
+        private static void UpdatingBufferStock()
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+
             }
         }
 
