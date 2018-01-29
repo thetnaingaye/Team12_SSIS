@@ -20,22 +20,26 @@ namespace Team12_SSIS.StoreClerk
             inputValue.Value = temp;
         }
 
+        // Searching for the item...and populating our report
         protected void BtnSubmit1_Click(object sender, EventArgs e)
         {
-            string itemID = "C006";
+            // Resets all controls to default first
+            LblHeader.Visible = false;
+
+            // Gotta perform validation here......................
+
+
 
             // Retrieving our value from the search bar
-            //string temp = Request.Form["inputValue"];
-            string temp = inputValue.Value;
-
+            string itemID = inputValue.Value;
 
             // Pass our value to the method in the biz logic side
-            //ReportLogic.GetChart(itemID);                                 // Remove this hardcoded value
+            ReportLogic.GetChart(itemID);
 
             // Populating our Image
             ImgChart.Visible = true;
             //ImgChart.ImageUrl = "C:/inetpub/wwwroot/Team12_SSIS/RScripts/Charts/Chart.png";
-            //ImgChart.ImageUrl = "~/RScripts/Charts/chart1.png";
+            ImgChart.ImageUrl = "~/RScripts/Charts/chart1.png";
 
             // Populating our GridView
             GridViewForecastList.Visible = true;
@@ -61,6 +65,24 @@ namespace Team12_SSIS.StoreClerk
 
             // Updating the UpdatePanel
             UpdatePanelChart.Update();
+        }
+
+        // Set all controls to default
+        protected void ResetControls()
+        {
+            LblHeader.Visible = false;
+            LblChartHeader.Visible = false;
+            LblExpectedDemand.Visible = false;
+            LblCode.Visible = false;
+            LblItemCode.Visible = false;
+            LblItemCode.Text = null;
+            LblDescription.Visible = false;
+            LblItemDescription.Visible = false;
+            LblItemDescription.Text = null;
+            LblCategory.Visible = false;
+            LblItemCategory.Visible = false;
+            LblItemCategory.Text = null;
+            BtnPrint.Visible = false;
         }
     }
 }

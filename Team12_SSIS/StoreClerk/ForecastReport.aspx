@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ForecastReport.aspx.cs" Inherits="Team12_SSIS.StoreClerk.ForecastReport" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -18,13 +19,23 @@
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
+            <br />
         </asp:Panel>
+        <div>
+            <asp:UpdateProgress ID="UpdateProgress" DisplayAfter="10" runat="server" AssociatedUpdatePanelID="UpdatePanelControl">
+                <ProgressTemplate>
+                  <div class="divWaiting">
+	                <asp:Image ID="imgWait" runat="server" ImageAlign="Middle" Width="15%" ImageUrl="~/images/wait.gif" />
+                  </div>
+                </ProgressTemplate>
+            </asp:UpdateProgress>
+        </div>
     </div>
     <div id="MainArea">
         <asp:UpdatePanel ID="UpdatePanelChart" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
                 <div>
-                    <asp:Panel ID="Panel1" runat="server" HorizontalAlign="Center"><br /><br /><br /><br />
+                    <asp:Panel ID="Panel1" runat="server" HorizontalAlign="Center"><br />
                         <asp:Label ID="LblHeader" runat="server" Text="Forecast Report" Font-Size="XX-Large" Visible="False"></asp:Label><br /><br />
                         <asp:Label ID="LblCode" runat="server" Text="Item Code: " Font-Size="X-Large" Visible="False"></asp:Label><asp:Label ID="LblItemCode" runat="server" Text="" Font-Size="X-Large" Visible="False"></asp:Label><br />
                         <asp:Label ID="LblDescription" runat="server" Text="Item Description: " Font-Size="X-Large" Visible="False"></asp:Label><asp:Label ID="LblItemDescription" runat="server" Text="" Font-Size="X-Large" Visible="False"></asp:Label><br />
@@ -34,7 +45,9 @@
                 <div>
                     <asp:Panel ID="PanelChart" runat="server" HorizontalAlign="Center">
                         <asp:Label ID="LblChartHeader" runat="server" Text="Demand for the period January 2014 to January 2018" Font-Size="Large" Visible="False"></asp:Label><br /><br />
-                        <asp:Image ID="ImgChart" class="center-block" runat="server" ImageUrl="~/RScripts/Charts/chart1.png" width="75%" BorderStyle="Inset" BorderWidth="1px" Visible="False"/>    
+                        <div>
+                            <asp:Image ID="ImgChart" class="center-block" runat="server" ImageUrl="~/RScripts/Charts/chart1.png" width="75%" BorderStyle="Inset" BorderWidth="1px" Visible="False"/>
+                        </div>    
                     </asp:Panel>
                 </div>
                 <br /><br /><br />
@@ -116,12 +129,12 @@
                     </asp:Panel>
                 </div>
             </ContentTemplate>
-        </asp:UpdatePanel>
+        </asp:UpdatePanel> 
     </div>
     <br />
 
 
-
+<%-- Script used for printing out only the a selected area of the webpage --%>
 <script type="text/javascript">
     function CallPrint(strid) {
         var prtContent = document.getElementById(strid);
@@ -135,7 +148,27 @@
     }
 </script>
 
-    <style>
+<%-- Stylings for the loading screen --%>
+<style type="text/css" media="screen">
+    html, body{height:100%;} 
+    .divWaiting{
+    position: fixed;
+    top:0%;
+    bottom:0%;
+    left:0%;
+    right:0%;
+    background-color: #FAFAFA;
+    z-index: 2147483647 !important;
+    opacity: 0.8;
+    overflow: hidden;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    padding-top:20%;
+    } 
+</style>
+
+<style>
 /* For the search bar */
 .search {
 	width: 100%;
@@ -150,8 +183,8 @@
 	height: 33px;
 	border-radius: 5px;
 	outline: none;
-	color: #9DBFAF;
-	font-size: 22px;
+	color: #3A3A87;
+	font-size: 20px;
 }
 
 .searchTerm:focus {

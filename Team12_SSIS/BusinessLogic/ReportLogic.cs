@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using Team12_SSIS.Model;
 
@@ -70,6 +71,8 @@ namespace Team12_SSIS.BusinessLogic
 
             rScript = Process.Start(process);
             rScript.Close();
+
+            Thread.Sleep(11000);
         }
 
 
