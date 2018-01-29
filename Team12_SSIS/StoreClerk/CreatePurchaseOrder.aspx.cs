@@ -73,6 +73,7 @@ namespace Team12_SSIS.StoreClerk
             poRecordDetailsList.Add(poRecordDetailsNew);
             GridViewPO.DataSource = poRecordDetailsList;
             GridViewPO.DataBind();
+            
         }
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -124,6 +125,11 @@ namespace Team12_SSIS.StoreClerk
                 LblPrice.Text = (quantity * unitPrice).ToString("c");
                 total += (quantity * unitPrice);
             }
+            //if (Txtitemid.Text==" " )
+            //{
+            //    MessageBox.Show("Please enter Item ID");
+            //    Txtitemid.Focus();
+            //}
         }
         protected void Txtquantity_TextChanged(object sender, EventArgs e)
         {

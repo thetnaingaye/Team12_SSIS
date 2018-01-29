@@ -114,13 +114,7 @@ namespace Team12_SSIS.DepartmentEmployee
     //}
 
 
-    //protected void DdlShow_SelectedIndexChanged(object sender, EventArgs e)
-    //{
-    //    List<RequisitionRecord> requisitionList = DdlShow.SelectedValue == "All" ? RequisitionLogic.GetListOfRequisitionRecords() : RequisitionLogic.GetListOfRequisitionRecordDetails((DdlShow.SelectedValue);
-    //    GridViewVPR.DataSource = requisitionList;
-    //    GridViewVPR.DataBind();
-    //    LblSupplier.Text = PurchasingLogic.ListSuppliers().Where(x => x.SupplierID == poRecord.SupplierID).Select(x => x.SupplierName).FirstOrDefault();
-    //}
+    
 }
     
    

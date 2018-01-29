@@ -85,6 +85,7 @@
                                         <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Item ID">
+                                        
                                         <ItemTemplate>
                                             <asp:UpdatePanel ID="Upid" runat="server" UpdateMode="Conditional" ChildrenAsTriger="true">
                                                 <ContentTemplate>
@@ -92,6 +93,9 @@
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </ItemTemplate>
+                                        <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+ControlToValidate="Txtitemid" ForeColor="Red"
+ErrorMessage="RequiredFieldValidator">Item ID is required</asp:RequiredFieldValidator>--%>
                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="10%"></HeaderStyle>
                                         <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
