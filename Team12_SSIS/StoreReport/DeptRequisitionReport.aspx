@@ -19,9 +19,19 @@
     <table style="width: 100%; vertical-align: top">
         <tr>
             <td colspan="4">
-            <h2> Department Requisition Report</h2>
-                </td>
+                <h2>Department Requisition Report</h2>
+            </td>
         </tr>
+        <tr>
+            <td colspan="2">Department:
+                            <asp:DropDownList ID="DdlDept" runat="server" DataTextField="DepartmentName" DataValueField="DeptID"></asp:DropDownList>
+                <asp:Button ID="BtnAddSupplier" runat="server" Text="Add Department..." OnClick="BtnAddDept_Click" CssClass="btn btn-primary btn-xs" />
+
+            </td>
+            <td colspan="2"></td>
+        </tr>
+
+
         <tr>
             <td colspan="2">Starting:
                                 <input type="text" id="datepickerStart" name="datepickerStart" readonly="true" />
@@ -30,14 +40,6 @@
             <td colspan="2">Ending:
                                 <input type="text" id="datepickerEnd" name="datepickerEnd" readonly="true" />
 
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">Supplier:
-                            <asp:DropDownList ID="DdlDept" runat="server" DataTextField="DepartmentName" DataValueField="DeptID"></asp:DropDownList>
-            </td>
-            <td colspan="2">
-                <asp:Button ID="BtnAddSupplier" runat="server" Text="Add Department..." OnClick="BtnAddDept_Click" CssClass="btn btn-primary btn-xs" />
             </td>
         </tr>
         <tr>
