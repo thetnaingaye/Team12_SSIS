@@ -18,7 +18,7 @@
             </td>
             <asp:RegularExpressionValidator ID="RegularExpressionValidatorPoNumber" ValidationGroup="BtnRetrieveGR" ControlToValidate="TxtGRNumber" ValidationExpression="[Gg][Rr][0-9]\d*" runat="server" ErrorMessage="Please enter a valid GR number." Display="None"></asp:RegularExpressionValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidatorPoNumber" runat="server" ValidationGroup="BtnRetrieveGR" ControlToValidate="TxtGRNumber" ErrorMessage="Please enter a GR number." Display="None"></asp:RequiredFieldValidator>
-            <td style="width: 60%">
+            <td style="width: 40%">
                 <asp:Button ID="BtnRetrievePO" runat="server" Text="Retrieve GR" OnClick="BtnRetrieveGR_Click" CssClass="btn btn-primary btn-xs" ValidationGroup="BtnRetrieveGR" />
             </td>
 
