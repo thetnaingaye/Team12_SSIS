@@ -14,9 +14,12 @@ namespace Team12_SSIS.StoreClerk
     {
         Label statusMessage;
         double total;
+        string inventoryItem = "";
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             statusMessage = this.Master.FindControl("LblStatus") as Label;
+            statusMessage.Visible = false;
             if (!IsPostBack)
             {
                 BindGrid();
@@ -64,7 +67,7 @@ namespace Team12_SSIS.StoreClerk
             {
                 PORecordDetail poRecordDetails = new PORecordDetail();
                 poRecordDetails.ItemID = (r.FindControl("Txtitemid") as TextBox).Text;
-                poRecordDetails.UOM = (r.FindControl("DdlUOM") as DropDownList).SelectedValue;
+                poRecordDetails.UOM = PurchasingLogic.GetUOM(poRecordDetails.ItemID, DdlSli.SelectedValue);
                 poRecordDetails.Quantity = int.Parse((r.FindControl("Txtquantity") as TextBox).Text);
                 poRecordDetails.UnitPrice = PurchasingLogic.GetUnitPrice(poRecordDetails.ItemID, DdlSli.SelectedValue);
                 poRecordDetailsList.Add(poRecordDetails);
@@ -73,6 +76,7 @@ namespace Team12_SSIS.StoreClerk
             poRecordDetailsList.Add(poRecordDetailsNew);
             GridViewPO.DataSource = poRecordDetailsList;
             GridViewPO.DataBind();
+            
         }
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -89,9 +93,9 @@ namespace Team12_SSIS.StoreClerk
                 Label UnpLbl = (e.Row.FindControl("LblUnp") as Label);
                 if (UnpLbl != null)
                     UnpLbl.Text = PurchasingLogic.GetUnitPrice(itemId, DdlSli.SelectedValue).ToString("c");
-                DropDownList DdlUOM = (e.Row.FindControl("DdlUOM") as DropDownList);
-                if (DdlUOM != null)
-                    DdlUOM.Text = poR.UOM;
+               Label LblUOM = (e.Row.FindControl("LblUOM") as Label);
+                if (LblUOM != null)
+                    LblUOM.Text = PurchasingLogic.GetUOM(itemId, DdlSli.SelectedValue);
                 Label LblPrice = (e.Row.FindControl("LblPrice") as Label);
                 if (LblPrice != null)
                     LblPrice.Text = ((double)(poR.Quantity * PurchasingLogic.GetUnitPrice(itemId, DdlSli.SelectedValue))).ToString("c");
@@ -105,25 +109,38 @@ namespace Team12_SSIS.StoreClerk
 
         protected void Txtitemid_TextChanged(object sender, EventArgs e)
         {
-            GridViewRow currentRow = (GridViewRow)((TextBox)sender).Parent.Parent.Parent.Parent;
-            TextBox Txtitemid = currentRow.FindControl("Txtitemid") as TextBox;
-            string inventoryItem = InventoryLogic.GetItemName(Txtitemid.Text);
-            string ItemID = Txtitemid.Text;
-            double unitPrice = PurchasingLogic.GetUnitPrice(ItemID, DdlSli.SelectedValue);
-            TextBox TxtQuantity = currentRow.FindControl("TxtQuantity") as TextBox;
-            int quantity;
-
-            Label DesLbl = currentRow.FindControl("LblDes") as Label;
-            DesLbl.Text = inventoryItem;
-            Label UnpLbl = currentRow.FindControl("LblUnp") as Label;
-            UnpLbl.Text = PurchasingLogic.GetUnitPrice(ItemID, DdlSli.SelectedValue).ToString("C");
-
-            if (int.TryParse(TxtQuantity.Text, out quantity))
+            try
             {
-                Label LblPrice = currentRow.FindControl("LblPrice") as Label;
-                LblPrice.Text = (quantity * unitPrice).ToString("c");
-                total += (quantity * unitPrice);
+
+                GridViewRow currentRow = (GridViewRow)((TextBox)sender).Parent.Parent.Parent.Parent;
+                TextBox Txtitemid = currentRow.FindControl("Txtitemid") as TextBox;
+                inventoryItem = InventoryLogic.GetItemName(Txtitemid.Text);
+                string ItemID = Txtitemid.Text;
+                string UOM = PurchasingLogic.GetUOM(ItemID, DdlSli.SelectedValue);
+                double unitPrice = PurchasingLogic.GetUnitPrice(ItemID, DdlSli.SelectedValue);
+                TextBox TxtQuantity = currentRow.FindControl("TxtQuantity") as TextBox;
+                int quantity;
+
+                Label DesLbl = currentRow.FindControl("LblDes") as Label;
+                DesLbl.Text = inventoryItem;
+                Label UnpLbl = currentRow.FindControl("LblUnp") as Label;
+                UnpLbl.Text = PurchasingLogic.GetUnitPrice(ItemID, DdlSli.SelectedValue).ToString("C");
+                Label LblUOM = currentRow.FindControl("LblUOM") as Label;
+                LblUOM.Text = PurchasingLogic.GetUOM(ItemID, DdlSli.SelectedValue);
+
+                if (int.TryParse(TxtQuantity.Text, out quantity))
+                {
+                    Label LblPrice = currentRow.FindControl("LblPrice") as Label;
+                    LblPrice.Text = (quantity * unitPrice).ToString("c");
+                    total += (quantity * unitPrice);
+                }
             }
+            catch
+            {
+                statusMessage.Text = "Some items entered are not provided by this supplier.";
+                statusMessage.Visible = true;
+            }
+           
         }
         protected void Txtquantity_TextChanged(object sender, EventArgs e)
         {
@@ -143,7 +160,7 @@ namespace Team12_SSIS.StoreClerk
                 PORecordDetail poRecordDetails = new PORecordDetail();
                 poRecordDetails.ItemID = (r.FindControl("Txtitemid") as TextBox).Text;
                 poRecordDetails.Quantity = Convert.ToInt32((r.FindControl("Txtquantity") as TextBox).Text.ToString());
-                poRecordDetails.UOM = (r.FindControl("DdlUOM") as DropDownList).Text;
+                poRecordDetails.UOM = PurchasingLogic.GetUOM(poRecordDetails.ItemID, DdlSli.SelectedValue);
                 poRecordDetails.UnitPrice = (double)(PurchasingLogic.GetUnitPrice(poRecordDetails.ItemID, DdlSli.SelectedValue));
                 poRecordDetailList.Add(poRecordDetails);
             }
@@ -160,35 +177,67 @@ namespace Team12_SSIS.StoreClerk
 
         protected void BtnSfa_Click(object sender, EventArgs e)
         {
-            PurchasingLogic pl = new PurchasingLogic();
-            string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
-            string Deliverto = TxtDlt.Text;
-            string SupplierID = DdlSli.Text;
-            string Address = TxtAds.Text;
-            //Get Date from Http Input Textbox
-            DateTime ExpectedBy = DateTime.ParseExact(Request.Form["datepicker"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            //Remember to rename AddText method.
-            int poNumber = BusinessLogic.PurchasingLogic.AddText(Deliverto, Address, SupplierID, DateTime.Now.Date, clerkName, ExpectedBy);
+           
+            
+                try
+                {
+                    PurchasingLogic pl = new PurchasingLogic();
+                    string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
+                    string Deliverto = TxtDlt.Text;
+                    string SupplierID = DdlSli.Text;
+                    string Address = TxtAds.Text;
+                    //Get Date from Http Input Textbox
+                    DateTime ExpectedBy = DateTime.ParseExact(Request.Form["datepicker"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    //Remember to rename AddText method.
+                    int poNumber = BusinessLogic.PurchasingLogic.AddText(Deliverto, Address, SupplierID, DateTime.Now.Date, clerkName, ExpectedBy);
 
-            foreach (GridViewRow r in GridViewPO.Rows)
-            {
-                string itemID = (r.FindControl("Txtitemid") as TextBox).Text;
-                int quantity = int.Parse((r.FindControl("Txtquantity") as TextBox).Text);
-                string uom = (r.FindControl("DdlUOM") as DropDownList).Text;
-                double unitPrice = (double)PurchasingLogic.GetUnitPrice(itemID, DdlSli.SelectedValue);
-                pl.CreatePurchaseOrderDetails(poNumber, itemID, quantity, uom, unitPrice);
+                    foreach (GridViewRow r in GridViewPO.Rows)
+                    {
+                        string itemID = (r.FindControl("Txtitemid") as TextBox).Text;
+                        int quantity = int.Parse((r.FindControl("Txtquantity") as TextBox).Text);
+                        string uom = PurchasingLogic.GetUOM(itemID, DdlSli.SelectedValue);
+                        double unitPrice = (double)PurchasingLogic.GetUnitPrice(itemID, DdlSli.SelectedValue);
+                        pl.CreatePurchaseOrderDetails(poNumber, itemID, quantity, uom, unitPrice);
+                    }
+
+                    string statusMsg = poNumber.ToString("0000") + " Created Successfully.";
+                    Session["PONumber"] = poNumber;
+                    Session["POstatusMsg"] = statusMsg;
+                    Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx");
+                }
+                catch
+                {
+                    statusMessage.Text = "Some items entered are not provided by this supplier.";
+                    statusMessage.Visible = true;
+                }
+                // pl.Submitforapproval(poNo, clerkName);
+
+                //Session["PONumber"] = poNo;
+                // Server.Transfer("ViewPurchaseOrder.aspx", true);
+                // statusMessage.ForeColor = System.Drawing.Color.Green;
+                // statusMessage.Text = "PO" + poNo.ToString() + "submitted successfully";
             }
-            Session["PONumber"] = poNumber;
-            Response.Redirect("~/StoreClerk/ViewPurchaseOrder.aspx");
-
-            // pl.Submitforapproval(poNo, clerkName);
-
-            //Session["PONumber"] = poNo;
-            // Server.Transfer("ViewPurchaseOrder.aspx", true);
-            // statusMessage.ForeColor = System.Drawing.Color.Green;
-            // statusMessage.Text = "PO" + poNo.ToString() + "submitted successfully";
         }
+
+        
+        //Trying to clear all textbox in grid view
+        //    foreach (GridViewRow row in GridViewPO.Rows)
+        //    {
+        //        foreach(TableCell cell in row.Cells)
+        //        {
+        //            foreach (var control in cell.Controls)
+        //            {
+        //                var box = control as TextBox;
+        //                if(box!=null)
+        //                {
+        //                    box.Text = string.Empty;
+        //                }
+        //            }
+
+        //        }
+        //    }
+        
     }
-}
+
 
 

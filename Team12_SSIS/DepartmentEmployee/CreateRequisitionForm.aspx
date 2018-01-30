@@ -2,41 +2,51 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div>
+
 <h2>Stationery Requisition Form</h2>
-</div>
-    <div>
+        <br />
+    <asp:LinkButton ID="LinkButtonGoBack"  runat="server" OnClick="LinkButtonGoBack_Click"> <i><u>Go Back To Catalogue</u></i> </asp:LinkButton>
+        <br />
+
+                <div style="margin-left:auto; margin-right:auto; width:700px;">
         <asp:GridView ID="GridViewRequisitionForm" runat="server" AutoGenerateColumns="False"
-             DataKeyNames="ItemID" OnRowDataBound="GridViewRequisitionForm_RowDataBound" CellPadding="4" ForeColor="#333333" GridLines="None" Width="447px">
-            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+            Style="width:100%"
+             DataKeyNames="ItemID"
+            OnRowDataBound="GridViewRequisitionForm_RowDataBound">
+            <AlternatingRowStyle BackColor="#f9f9f9"/>
+            <RowStyle HorizontalAlign="Center" />
             <Columns>
-                <asp:TemplateField HeaderText="ItemID" SortExpression="ItemID">
+                <asp:TemplateField HeaderText="Item ID" SortExpression="ItemID">
                 <ItemTemplate>
                     <asp:Label ID="LblItemID" runat="server" Text='<%# Bind("ItemID") %>'></asp:Label>
                 </ItemTemplate>
+                    <HeaderStyle CssClass="text-center" />
             </asp:TemplateField>
                 <asp:TemplateField HeaderText="Description" SortExpression="Description">
                 <ItemTemplate>
-                    <asp:Label ID="LblDescription" runat="server"></asp:Label>
+                    <asp:Label ID="LblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
                 </ItemTemplate>
+                    <HeaderStyle CssClass="text-center" />
             </asp:TemplateField>
-                <asp:TemplateField HeaderText="RequestedQuantity" SortExpression="RequestedQuantity">
+                <asp:TemplateField HeaderText="Requested Quantity" SortExpression="RequestedQuantity">
                 <ItemTemplate>
-                    <asp:Label ID="LblRequestedQuantity" runat="server" Text='<%# Bind("RequestedQuantity") %>'></asp:Label>
+                    <asp:TextBox ID="TxtRequestedQuantity" runat="server" TextMode="Number"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorQty" runat="server" ControlToValidate="TxtRequestedQuantity"
+                        ForeColor="Red" ErrorMessage="*Quantity Required"/>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorQty" ControlToValidate="TxtRequestedQuantity" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                 
                 </ItemTemplate>
+                    <HeaderStyle CssClass="text-center" />
                 </asp:TemplateField>
+
             </Columns>
-            <EditRowStyle BackColor="#999999" />
-            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-            <SortedAscendingCellStyle BackColor="#E9E7E2" />
-            <SortedAscendingHeaderStyle BackColor="#506C8C" />
-            <SortedDescendingCellStyle BackColor="#FFFDF8" />
-            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
         </asp:GridView>
-        <asp:Button ID="BtnSubmitForm" runat="server" Text="Submit Form" OnClick="BtnSubmitForm_Click"/>
-    </div>
+                </div>
+    <br />
+
+        <div style="text-align:center">
+        <asp:Button ID="BtnSubmitForm" runat="server" cssclass="btn btn-primary" Text="Submit Form" OnClick="BtnSubmitForm_Click"/>
+            </div>
+    
 </asp:Content>

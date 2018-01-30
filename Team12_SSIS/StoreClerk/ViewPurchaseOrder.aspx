@@ -85,8 +85,8 @@
                                 <ItemTemplate>
                                     <asp:Label ID="LblSn" runat="server" CssClass="center-block" Text="<%# Container.DataItemIndex + 1 %>"></asp:Label>
                                 </ItemTemplate>
-
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                <ItemStyle CssClass="text-center"></ItemStyle>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Item No." HeaderStyle-Width="8%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                 <ItemTemplate>

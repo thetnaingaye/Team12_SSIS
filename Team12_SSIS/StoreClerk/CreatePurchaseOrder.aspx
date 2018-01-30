@@ -57,11 +57,12 @@
                     <asp:Label ID="LblSid" runat="server" Text="Please supply the items by(date):"></asp:Label></td>
                 <td>
                     <input type="text" id="datepicker" name="datepicker" readonly="true" />
+                   
                 </td>
-                <td class="auto-style4">
+                <td>
                     <asp:Label ID="OdbLbl" runat="server" Text="Ordered by:"></asp:Label>
                 </td>
-                <td class="auto-style2">
+                <td>
                     <asp:Label ID="Lblorder" runat="server" Text="Logic University Stationery Store"></asp:Label>
                 </td>
             </tr>
@@ -76,72 +77,73 @@
                                 CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID">
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                 <Columns>
-                                    <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                    <asp:TemplateField HeaderText="#" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                         <ItemTemplate>
                                             <asp:Label ID="LblSn" runat="server" CssClass="center-block" Text="<%# Container.DataItemIndex + 1 %>"></asp:Label>
                                         </ItemTemplate>
-
-                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" ></HeaderStyle>
                                         <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Item ID">
+
+                                    <asp:TemplateField HeaderText="Item ID"  HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                        
                                         <ItemTemplate>
                                             <asp:UpdatePanel ID="Upid" runat="server" UpdateMode="Conditional" ChildrenAsTriger="true">
                                                 <ContentTemplate>
                                                     <asp:TextBox ID="Txtitemid" runat="server" Text='<%# Bind("ItemID") %>' OnTextChanged="Txtitemid_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorItemID" runat="server" ControlToValidate="Txtitemid" ForeColor="Red" ErrorMessage="* Item ID Required"/>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="10%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" ></HeaderStyle>
                                         <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Description">
+
+                                     <asp:TemplateField HeaderText="Description" HeaderStyle-Width="50%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
                                             <asp:Label ID="LblDes" runat="server"></asp:Label>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="15%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="50%"></HeaderStyle>
                                         <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Quantity">
+
+                                    <asp:TemplateField HeaderText="Quantity" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
                                             <asp:UpdatePanel runat="server" ID="UpValue" UpdateMode="Conditional" ChildrenAsTriggers="true">
                                                 <ContentTemplate>
-                                                    <asp:TextBox ID="Txtquantity" runat="server" Text='<%# Bind("Quantity") %>' OnTextChanged="Txtitemid_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                    <asp:TextBox ID="Txtquantity" runat="server"  Text='<%# Bind("Quantity") %>' OnTextChanged="Txtitemid_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorQuantity" runat="server" ControlToValidate="Txtquantity" ForeColor="Red" ErrorMessage="* Quantity Required"/>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller"></HeaderStyle>
                                         <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="UOM">
-                                        <ItemTemplate>
-                                            <asp:DropDownList ID="DdlUOM" runat="server">
-                                                <asp:ListItem Selected="True" Value="Each">Each</asp:ListItem>
-                                                <asp:ListItem Value="Box">Box</asp:ListItem>
-                                                <asp:ListItem Value="Packet">Packet</asp:ListItem>
-                                                <asp:ListItem Value="Dozen">Dozen</asp:ListItem>
-                                                <asp:ListItem Value="Set">Set</asp:ListItem>
-                                            </asp:DropDownList>
-                                        </ItemTemplate>
-                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
-                                    </asp:TemplateField>
+
+                                     <asp:TemplateField HeaderText="UOM" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                    <ItemTemplate>
+                                        <asp:Label ID="LblUOM" runat="server" Text='<%# Bind("UOM") %>'></asp:Label>
+                                    </ItemTemplate>
+
+                                    <HeaderStyle CssClass="text-center" Font-Size="Smaller"></HeaderStyle>
+                                </asp:TemplateField>
+
                                     <asp:TemplateField HeaderText="Unit Price">
                                         <ItemTemplate>
                                             <asp:Label ID="LblUnp" runat="server"></asp:Label>
                                         </ItemTemplate>
-                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" ></HeaderStyle>
                                         <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Price">
                                         <ItemTemplate>
                                             <asp:Label ID="LblPrice" runat="server"></asp:Label>
                                         </ItemTemplate>
-                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" ></HeaderStyle>
                                         <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
-                                    <asp:CommandField ButtonType="Button" ShowDeleteButton="True" ControlStyle-CssClass="btn btn-danger">
-                                        <ControlStyle CssClass="btn btn-danger" />
-                                    </asp:CommandField>
+                                    <asp:CommandField ButtonType="Button" ShowDeleteButton="True" ControlStyle-CssClass="btn btn-danger" />
+                                    
                                 </Columns>
                                 <EditRowStyle BackColor="#999999" />
                                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
