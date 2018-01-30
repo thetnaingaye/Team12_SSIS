@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using Team12_SSIS.Model;
 using Team12_SSIS.Utility;
@@ -965,11 +966,15 @@ namespace Team12_SSIS.BusinessLogic
                     totalPrice += (double)(p.UnitPrice * p.Quantity);
                 }
             }
-            using (EmailControl em = new EmailControl())
+            //Creating a thread to send the PDF email in background to prevent lagging the Website.
+            Thread bgThread = new Thread(delegate ()
             {
-                em.SendPurchaseOrder("sa45team12ssis+supplier@gmail.com", po.PONumber, po.RecipientName, po.DeliveryAddress, GetSuppilerName(po.SupplierID), (DateTime)po.ExpectedDelivery, totalPrice);
-            }
-
+                using (EmailControl em = new EmailControl())
+                {
+                    em.SendPurchaseOrder("sa45team12ssis+supplier@gmail.com", po.PONumber, po.RecipientName, po.DeliveryAddress, GetSuppilerName(po.SupplierID), (DateTime)po.ExpectedDelivery, totalPrice);
+                }
+            });
+            bgThread.Start();
         }
 
         public static PORecord GetPurchaseOrderRecord(int poNo)

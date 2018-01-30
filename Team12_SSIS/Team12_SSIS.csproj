@@ -710,6 +710,7 @@
     <Compile Include="StoreReport\SupplierOrderReport.aspx.designer.cs">
       <DependentUpon>SupplierOrderReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Supplier\SendPurchaseOrderToSupplier.cs" />
     <Compile Include="Utility\Utility.cs" />
     <Compile Include="Utility\EmailControl.cs" />
     <Compile Include="Utility\Validator.cs" />
@@ -754,6 +755,7 @@
     <EmbeddedResource Include="StoreReport\DeptRequisitionReportTemplate.rdlc" />
     <EmbeddedResource Include="StoreReport\RequisitionTrendReportTemplate.rdlc" />
     <EmbeddedResource Include="StoreReport\SupplierOrderReportTemplate.rdlc" />
+    <EmbeddedResource Include="Supplier\PurchaseOrder.rdlc" />
     <EmbeddedResource Include="Utility\PurchaseOrder.rdlc" />
   </ItemGroup>
   <PropertyGroup>

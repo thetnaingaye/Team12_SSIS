@@ -29,8 +29,7 @@ namespace Team12_SSIS.Supplier
             ReportParameter supplyDateParam = new ReportParameter("SupplyDate", DateTime.Now.Date.ToString("d"));
             ReportParameter totalPriceParam = new ReportParameter("TotalPrice", totalPrice.ToString());
             LocalReport lr = new LocalReport();
-            string test = 
-            lr.ReportPath = "..\\PurchaseOrder.rdlc";
+            lr.ReportPath = "C:\\PurchaseOrder.rdlc";
             lr.SetParameters(new ReportParameter[] { poNumberParam, deliverToParam, deliverAddressParam, supplierNameParam, supplyDateParam, totalPriceParam });
 
 

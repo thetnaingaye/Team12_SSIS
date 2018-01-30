@@ -1119,7 +1119,7 @@ namespace Team12_SSIS.Utility
                 string encoding;
                 string extension;
 
-
+                //Assign values for rdlc parameters
                 ReportParameter poNumberParam = new ReportParameter("PONumber", poNumber.ToString());
                 ReportParameter deliverToParam = new ReportParameter("DeliverTo", deliverTo);
                 ReportParameter deliverAddressParam = new ReportParameter("DeliverAddress", deliveryAddress);
@@ -1127,17 +1127,19 @@ namespace Team12_SSIS.Utility
                 ReportParameter supplyDateParam = new ReportParameter("SupplyDate", deliverByDate.ToString("d"));
                 ReportParameter totalPriceParam = new ReportParameter("TotalPrice", totalPrice.ToString());
                 LocalReport lr = new LocalReport();
-                string test =
                 lr.ReportPath = "C:\\PurchaseOrder.rdlc";
                 lr.SetParameters(new ReportParameter[] { poNumberParam, deliverToParam, deliverAddressParam, supplierNameParam, supplyDateParam, totalPriceParam });
 
 
-
+                
                 SA45Team12ADDataSetPOTableAdapters.PurchaseOrderReportTableAdapter ta = new SA45Team12ADDataSetPOTableAdapters.PurchaseOrderReportTableAdapter();
-                SA45Team12ADDataSetPO.PurchaseOrderReportDataTable dt = ta.GetData(1);
+                //Stored Procedure accepts int PO number as query parameter
+                SA45Team12ADDataSetPO.PurchaseOrderReportDataTable dt = ta.GetData(poNumber);
+                //Not sure why C# force me to cast (IEnumerable) for the DataTable plugged into the report Datasource
                 ReportDataSource ds = new ReportDataSource("PurchaseOrderDocument", (IEnumerable)dt);
                 lr.DataSources.Add(ds);
 
+                //Making the report file into bytes for sending over smtp protocol
                 byte[] bytes = lr.Render("PDF", null, out mimeType, out encoding, out extension, out streamids, out warnings);
                 MemoryStream s = new MemoryStream(bytes);
                 s.Seek(0, SeekOrigin.Begin);
@@ -1146,7 +1148,7 @@ namespace Team12_SSIS.Utility
                 SmtpClient client = new SmtpClient();
                 MailMessage message = new MailMessage();
                 message.Body = messageBody;
-                message.Subject = "Logic University Stationery Store Purchase Order Number "+poNumber.ToString();
+                message.Subject = "Logic University Stationery Store Purchase Order Number " + poNumber.ToString();
                 message.To.Add(supplierEmail);
                 message.Attachments.Add(a);
                 client.Send(message);
