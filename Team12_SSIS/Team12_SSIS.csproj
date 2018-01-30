@@ -219,6 +219,7 @@
     <Content Include="SA45Team12ADDataSetReqTrend.xss">
       <DependentUpon>SA45Team12ADDataSetReqTrend.xsd</DependentUpon>
     </Content>
+    <Content Include="StoreReport\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
