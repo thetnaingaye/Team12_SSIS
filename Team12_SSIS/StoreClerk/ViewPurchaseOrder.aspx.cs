@@ -11,9 +11,23 @@ namespace Team12_SSIS.StoreClerk
 {
     public partial class ViewPurchaseOrder : System.Web.UI.Page
     {
+        Label Status;
         protected void Page_Load(object sender, EventArgs e)
         {
             
+            Status = this.Master.FindControl("LblStatus") as Label;
+            if(!IsPostBack)
+            {
+                Status.Visible = false;
+            }
+            
+            if(Session["POstatusMsg"]!=null)
+            {
+                Status.Text = (string)Session["POstatusMsg"];
+                Status.Visible = true;
+                Status.ForeColor=System.Drawing.Color.Green;
+                Session["POstatusMsg"] = null;
+            }
             if (Session["PONumber"] != null)
             {
                 int PONumber = (int)Session["PONumber"];
