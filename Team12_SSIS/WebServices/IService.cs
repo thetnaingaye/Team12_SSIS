@@ -80,17 +80,12 @@ namespace Team12_SSIS.WebServices
             BodyStyle = WebMessageBodyStyle.Wrapped)]
         void UpdateDisbursementStatus(WCF_DisbursementList disbursementList, string token);
 
-        //[OperationContract]
-        //[WebInvoke(UriTemplate = "/CreateRetrievalList", Method = "POST",
-        //    RequestFormat = WebMessageFormat.Json,
-        //    ResponseFormat = WebMessageFormat.Json)]
-        //void CreateInventoryRetrievalList(WCF_InventoryRetrievalList retrievalList);
         [OperationContract]
         [WebInvoke(UriTemplate = "/CreateAVRequest", Method = "POST",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Wrapped)]
-        void CreateAdjustmentRequest(WCF_AVRequest request, string token);
+        string CreateAdjustmentRequest(WCF_AVRequestDetail avrDetail, string token);
 
 
 
@@ -98,23 +93,47 @@ namespace Team12_SSIS.WebServices
 
         // Retrieving total quantity needed on a per item basis necessary for inventory retrieval
         [OperationContract]
-        [WebGet(UriTemplate = "/GetTotalQtyNeeded/{itemID}", ResponseFormat = WebMessageFormat.Json)]
-        int RetrieveTotalQtyNeeded(string itemID);
+        [WebInvoke(UriTemplate = "/GetTotalQtyNeeded", Method = "POST",
+            ResponseFormat = WebMessageFormat.Json, 
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        int RetrieveTotalQtyNeeded(string itemID, string token);
 
         // Retrieving the relevant item list for inventory retrieval
         [OperationContract]
-        [WebGet(UriTemplate = "/GetRelevantItemList", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_InventoryCatalogue> GetRelevantItemList();
+        [WebInvoke(UriTemplate = "/GetRelevantItemList", Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json)]
+        List<WCF_InventoryCatalogue> GetRelevantItemList(string token);
 
         // Retrieving the relevant aggregated by dept list for inventory retrieval
         [OperationContract]
-        [WebGet(UriTemplate = "/GetRelevantListByDept/{itemID}", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_TempInventoryRetrieval> GetRelevantListByDept(string itemID);
+        [WebInvoke(UriTemplate = "/GetRelevantListByDept", Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        List<WCF_TempInventoryRetrieval> GetRelevantListByDept(string itemID, string token);
 
+        [OperationContract]
+        [WebInvoke(UriTemplate= "/SubmitRetrieval", Method = "POST", 
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json, 
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        string SubmitInventoryRetrieval(List<WCF_TempInventoryRetrieval> tempObj, string token);
 
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/ApproveRequisition", Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        string ApproveRequisition(WCF_RequisitionRecord tempObj, string token);
 
-
-
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/RejectRequisition", Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        string RejectRequisition(WCF_RequisitionRecord tempObj, string token);
 
 
 
