@@ -8,7 +8,7 @@
         <table style="width: 100%">
                 <tr>
                     <td style="height: 25px">
-                        <asp:Label runat="server" Text="List Inventory Adjustment Vouchers" Font-Size="Large"></asp:Label>
+                        <h2>List Inventory Adjustment Vouchers</h2>
                     </td>
                     <td>
                         <asp:Label ID="Label1" runat="server" Text="Show: " Style="padding-right: 10px"></asp:Label>
