@@ -44,10 +44,10 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                
-                        <a class="navbar-brand" runat="server" href="~/">
-                            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/logosmall.png" />SSIS
-                        </a>
+
+                    <a class="navbar-brand" runat="server" href="~/">
+                        <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/logosmall.png" />SSIS
+                    </a>
 
                 </div>
                 <div class="navbar-collapse collapse">
@@ -127,7 +127,6 @@
                                     </li>
                                 </ul>
                             </li>
-
                             <li>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Buffer Stocks<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
@@ -139,6 +138,21 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li class="menu-item dropdown dropdown-submenu">
+                                        <a href="<%= Page.ResolveUrl("~/StoreReport/DeptRequisitionReport.aspx") %>">Department Requisition Report</a>
+                                    </li>
+                                    <li class="menu-item dropdown dropdown-submenu">
+                                        <a href="<%= Page.ResolveUrl("~/StoreReport/RequisitionTrendReport.aspx") %>">Requisition Trend Report</a>
+                                    </li>
+                                    <li class="menu-item dropdown dropdown-submenu">
+                                        <a href="<%= Page.ResolveUrl("~/StoreReport/SupplierOrderReport.aspx") %>">Supplier Order Report</a>
+                                    </li>
+                                </ul>
+                            </li>
+
 
                         </ul>
                     </div>
@@ -174,6 +188,20 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li class="menu-item dropdown dropdown-submenu">
+                                        <a href="<%= Page.ResolveUrl("~/StoreReport/DeptRequisitionReport.aspx") %>">Department Requisition Report</a>
+                                    </li>
+                                    <li class="menu-item dropdown dropdown-submenu">
+                                        <a href="<%= Page.ResolveUrl("~/StoreReport/RequisitionTrendReport.aspx") %>">Requisition Trend Report</a>
+                                    </li>
+                                    <li class="menu-item dropdown dropdown-submenu">
+                                        <a href="<%= Page.ResolveUrl("~/StoreReport/SupplierOrderReport.aspx") %>">Supplier Order Report</a>
+                                    </li>
+                                </ul>
+                            </li>
 
                         </ul>
                     </div>
@@ -182,8 +210,7 @@
                         <ul class="nav navbar-nav">
 
                             <li><a href="<%= Page.ResolveUrl("~/DepartmentEmployee/Home.aspx") %>">Home</a></li>
-                            <li><a href="<%= Page.ResolveUrl("~/DepartmentEmployee/CreateRequisitionForm.aspx") %>">Submit Request</a></li>
-                            <li><a href="<%= Page.ResolveUrl("~/DepartmentEmployee/ViewCatalogue.aspx") %>">Catalogue</a></li>
+                            <li><a href="<%= Page.ResolveUrl("~/DepartmentEmployee/ViewCatalogue.aspx") %>">Submit Request</a></li>
                             <li><a href="<%= Page.ResolveUrl("~/DepartmentEmployee/ViewRequisitionHistory.aspx") %>">Request History</a></li>
 
                             <li id="RepMenu" visible="false" runat="server"><a href="<%= Page.ResolveUrl("~/DepartmentEmployee/DepartmentRep/ChangeCollectionPoint.aspx") %>">Collection Points</a></li>
@@ -234,7 +261,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li id="LoginMenu" runat="server"><a href="<%= Page.ResolveUrl("~/login.aspx") %>"> <%: DateTime.Now.Date.ToLongDateString() %></a></li>
+                        <li id="LoginMenu" runat="server"><a href="<%= Page.ResolveUrl("~/login.aspx") %>"><%: DateTime.Now.Date.ToLongDateString() %></a></li>
                     </ul>
 
                 </div>
