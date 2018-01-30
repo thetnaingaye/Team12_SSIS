@@ -109,7 +109,7 @@
     <asp:Label ID="LblNote" runat="server" Text="*Quantity displayed here has been pre-calculated by the system."></asp:Label>
     <br /><br />
     <div>
-        <asp:Button ID="BtnCumulativeSubmit" class="btn-primary" runat="server" Text="Submit" style="position: relative; left:82%;" OnClientClick = "SetSource(this.id)" OnClick="BtnCumulativeSubmit_Click" />
+        <asp:Button ID="BtnCumulativeSubmit" CssClass="btn btn-primary" runat="server" Text="Submit" style="position: relative; left:82%;" OnClientClick = "SetSource(this.id)" OnClick="BtnCumulativeSubmit_Click" />
     </div>
     <div>
         <asp:TextBox ID="TbxResult" runat="server" TextMode="MultiLine" Width="40%" BorderStyle="Ridge" Height="95px" ReadOnly="True" Visible="False"></asp:TextBox>
