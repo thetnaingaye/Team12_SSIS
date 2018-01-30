@@ -896,7 +896,12 @@ namespace Team12_SSIS.BusinessLogic
                     
             }
         }
-        
+        public static string GetUOM(string ItemID,string supplierId)
+        {
+            using (SA45Team12AD entities=new SA45Team12AD()){
+                return (string)entities.SupplierCatalogues.Where(x => x.ItemID == ItemID).Where(x => x.SupplierID == supplierId).Select(x => x.UOM).FirstOrDefault();
+            }
+        }
         public static List<PORecord> ListPORecords()
         {
             using (SA45Team12AD entities = new SA45Team12AD())
