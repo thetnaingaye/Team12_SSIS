@@ -39,7 +39,7 @@ namespace Team12_SSIS.StoreClerk
             // Populating our Image
             ImgChart.Visible = true;
             //ImgChart.ImageUrl = "C:/inetpub/wwwroot/Team12_SSIS/RScripts/Charts/Chart.png";
-            ImgChart.ImageUrl = "~/RScripts/Charts/chart1.png";
+            ImgChart.ImageUrl = "~/images/Charts/chart1.png";
 
             // Populating our GridView
             GridViewForecastList.Visible = true;

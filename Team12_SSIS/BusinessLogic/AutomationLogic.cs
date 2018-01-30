@@ -205,8 +205,8 @@ namespace Team12_SSIS.BusinessLogic
                 {
                     try
                     {
-                        CallForecastingScript();
                         CheckActualData();
+                        CallForecastingScript();
                         UpdatingBufferStock();
                     }
                     catch (Exception ee)
@@ -233,22 +233,6 @@ namespace Team12_SSIS.BusinessLogic
                     Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
                 }
             }
-        }
-
-        // Calling the R script
-        private static void CallForecastingScript()
-        {
-            ProcessStartInfo process = new ProcessStartInfo();
-            Process rScript;
-
-            // Running our bat file which will execute the R compiler with the R script
-            process.FileName = @"C:/inetpub/wwwroot/Team12_SSIS/RScripts/RExec.bat";
-            // Specify your preferences when running the script
-            process.CreateNoWindow = false;
-            process.UseShellExecute = false;      //Set 'true' if you want the cmd panel to pop up
-
-            rScript = Process.Start(process);
-            rScript.Close();
         }
 
         // Retrieving info from the inventory retrieval table and then populating into the actual data table
@@ -321,6 +305,22 @@ namespace Team12_SSIS.BusinessLogic
 
                 }
             }
+        }
+
+        // Calling the R script
+        private static void CallForecastingScript()
+        {
+            ProcessStartInfo process = new ProcessStartInfo();
+            Process rScript;
+
+            // Running our bat file which will execute the R compiler with the R script
+            process.FileName = @"C:/inetpub/wwwroot/Team12_SSIS/BusinessLogic/RScripts/RExec.bat";
+            // Specify your preferences when running the script
+            process.CreateNoWindow = false;
+            process.UseShellExecute = false;      //Set 'true' if you want the cmd panel to pop up
+
+            rScript = Process.Start(process);
+            rScript.Close();
         }
 
         // Updating the buffer stock in the inventory catelogue table

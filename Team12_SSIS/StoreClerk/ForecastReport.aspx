@@ -46,7 +46,7 @@
                     <asp:Panel ID="PanelChart" runat="server" HorizontalAlign="Center">
                         <asp:Label ID="LblChartHeader" runat="server" Text="Demand for the period January 2014 to January 2018" Font-Size="Large" Visible="False"></asp:Label><br /><br />
                         <div>
-                            <asp:Image ID="ImgChart" class="center-block" runat="server" ImageUrl="~/RScripts/Charts/chart1.png" width="75%" BorderStyle="Inset" BorderWidth="1px" Visible="False"/>
+                            <asp:Image ID="ImgChart" class="center-block" runat="server" ImageUrl="~/images/Charts/chart1.png" width="75%" BorderStyle="Inset" BorderWidth="1px" Visible="False"/>
                         </div>    
                     </asp:Panel>
                 </div>

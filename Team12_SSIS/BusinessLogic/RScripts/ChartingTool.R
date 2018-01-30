@@ -8,7 +8,7 @@ itemID <- as.character(args[1])
 
 
 # 1. Set directory
-tempwd <- 'C:/inetpub/wwwroot/Team12_SSIS/RScripts'
+tempwd <- 'C:/inetpub/wwwroot/Team12_SSIS/BusinessLogic/RScripts'
 setwd(tempwd)
 #Check: tempwd
 
@@ -181,7 +181,8 @@ resultF <- forecast(fitData, 5)
 
 # 10. Identify our dir to store our charts
 #Finding a dir to paste the html file
-imagedir <- paste(tempwd, "/Charts", sep="")
+#imagedir <- paste(tempwd, "/Charts", sep="")
+imagedir <- 'C:/inetpub/wwwroot/Team12_SSIS/Images/Charts'
 
 #This method below does not crash when there is an existing dir. It just shows a warning [Good exception handler]
 dir.create(file.path(imagedir), showWarnings = FALSE)
@@ -196,7 +197,7 @@ imageFile <- 'chart1.png'
 #Checking if file with specified name exist in the working directory, if it does, remove it
 if(file.exists(imageFile)) file.remove(imageFile)
 
-png(filename=paste(tempwd, "/Charts/", imageFile, sep=""), units="in", width=8, height=5, res=700)
+png(filename=paste(imagedir, "/", imageFile, sep=""), units="in", width=8, height=5, res=700)
 plot(resultF)
 dev.off()
 
