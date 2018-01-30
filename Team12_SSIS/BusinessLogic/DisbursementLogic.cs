@@ -351,7 +351,7 @@ namespace Team12_SSIS.BusinessLogic
             {
                 string departmentId = GetCurrentDep();
                 var q = (from di in entities.DisbursementLists
-                         where di.RepresentativeName.Contains(rep)   && di.DepartmentID == departmentId
+                         where di.RepresentativeName.Contains(rep) && di.DepartmentID == departmentId
                          select di);
                 List<DisbursementList> dList = q.ToList<DisbursementList>();
                 return dList;
