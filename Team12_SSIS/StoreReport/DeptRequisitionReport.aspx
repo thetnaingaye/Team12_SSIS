@@ -34,11 +34,11 @@
 
         <tr>
             <td colspan="2">Starting:
-                                <input type="text" id="datepickerStart" name="datepickerStart" readonly="true" />
+                                <input type="text" id="datepickerStart" name="datepickerStart" />
 
             </td>
             <td colspan="2">Ending:
-                                <input type="text" id="datepickerEnd" name="datepickerEnd" readonly="true" />
+                                <input type="text" id="datepickerEnd" name="datepickerEnd" />
 
             </td>
         </tr>
