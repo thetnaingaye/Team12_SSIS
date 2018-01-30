@@ -189,7 +189,6 @@
     <Content Include="SA45Team12ADDataSet.xsc">
       <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
     </Content>
-    <Content Include="RScripts\RExec.bat" />
     <None Include="SA45Team12ADDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>SA45Team12ADDataSet.Designer.cs</LastGenOutput>
@@ -290,7 +289,6 @@
     <Compile Include="BusinessLogic\PurchasingLogic.cs" />
     <Compile Include="BusinessLogic\ReportLogic.cs" />
     <Compile Include="BusinessLogic\RequisitionLogic.cs" />
-    <Compile Include="BusinessLogic\RScripts\TopSecret.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -729,7 +727,7 @@
     <Compile Include="WebServices\WCF_Model\WCF_TempInventoryRetrieval.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="RScripts\Charts\" />
+    <Folder Include="BusinessLogic\RScripts\" />
     <Folder Include="Utility\TempImageFiles\" />
   </ItemGroup>
   <ItemGroup>
