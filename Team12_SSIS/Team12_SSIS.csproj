@@ -158,6 +158,7 @@
     <Content Include="Images\brandimg.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\logosmall.png" />
+    <Content Include="Images\search.png" />
     <Content Include="Logout.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">

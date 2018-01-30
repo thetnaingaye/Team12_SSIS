@@ -3,22 +3,7 @@
     
   
 
-  <%-- 
-<%--        .auto-style2 {
-            margin-top: 77;
-        }
-        .auto-style3 {
-            height: 69px;
-        }
-        .auto-style4 {
-            width: 89px;
-        }
-        .auto-style5 {
-            margin-top: 77;
-            width: 84px;
-            height: 23px;
-        }--%>
-    </style>--%>
+
     </asp:Content>
 
  
@@ -136,7 +121,7 @@
                   <asp:GridView ID="GridViewStockCard" Class="table" runat="server" AutoGenerateColumns="False"
                                         Style="width:100%;padding-top:50px" 
                                        
-                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID" ShowHeaderWhenEmpty="True" EmptyDataText="">
+                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID" ShowHeaderWhenEmpty="True" EmptyDataText="No Record Found">
                                         <AlternatingRowStyle BackColor="#f9f9f9"  />
                                         <Columns>
 
@@ -205,7 +190,7 @@
         </table>
                
 
-     </div>
+    
   
 </asp:Content>
 
