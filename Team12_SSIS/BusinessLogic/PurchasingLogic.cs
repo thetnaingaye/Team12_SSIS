@@ -20,7 +20,7 @@ namespace Team12_SSIS.BusinessLogic
         //----------------------------         KHAIR's               ----------------------------// 
 
         // Checks if the current inventory is sufficient for the qty specified to be withdrawn by the user.
-        public double FindTotalByPONum(int poNum)
+        public static double FindTotalByPONum(int poNum)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -35,7 +35,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Passess a completely organized list based on data from the ReorderRecord table
-        public List<ReorderRecord> PopulateReorderTable()
+        public static List<ReorderRecord> PopulateReorderTable()
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -77,7 +77,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieving supplier name
-        public string GetSuppilerName(string suppID)
+        public static string GetSuppilerName(string suppID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -86,8 +86,24 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        // Removing selected entries from the Reorder table
+        public static void RemoveReorderRecord(string itemID, string suppID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                List<ReorderRecord> r = context.ReorderRecords.Where(x => x.ItemID.Equals(itemID)).Where(y => y.SupplierID.Equals(suppID)).ToList();
+
+                // Remove everything retrieved in the list
+                foreach (var item in r)
+                {
+                    context.ReorderRecords.Remove(item);
+                }
+                context.SaveChanges();
+            }
+        }
+
         // Create multiple PO from a list of reorder records
-        public string CreateMultiplePO(List<ReorderRecord> tempList)
+        public static string CreateMultiplePO(List<ReorderRecord> tempList)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -123,7 +139,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Creating a single PO entry
-        public bool CreateSinglePO(ReorderRecord r)
+        public static bool CreateSinglePO(ReorderRecord r)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -153,7 +169,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Creating a single PODetails entry
-        public bool CreateSinglePODetails(ReorderRecord r)
+        public static bool CreateSinglePODetails(ReorderRecord r)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -533,8 +549,15 @@ namespace Team12_SSIS.BusinessLogic
                     if (prd.Quantity > 0)
                         poDetailListWithGR.Add(prd);                    
                 }
-                //Check for PO completion and if yes, change the PO Status
-                IsPOCompleted(poDetailListWithGR.Count, POnumber);
+                try
+                {
+                    //Check for PO completion and if yes, change the PO Status
+                    IsPOCompleted(poDetailListWithGR.Count, POnumber);
+                }catch(Exception ex)
+                {
+                    //Exception will be thrown if an invalid PO number is entered, returning null value;
+                    Console.WriteLine(ex.ToString());
+                }
                 //Return the Order list that has the updated reamining quantity.
                 return poDetailListWithGR;
             }
@@ -625,6 +648,7 @@ namespace Team12_SSIS.BusinessLogic
                 ctx.GoodReceiptDetails.Add(grd);
                 ctx.SaveChanges();
             }
+            InventoryLogic.LessUnitsOnOrder(itemID, quantity);
         }
 
         public GoodReceipt GetGoodsReceipt(int goodReceiptNumber)
@@ -872,7 +896,12 @@ namespace Team12_SSIS.BusinessLogic
                     
             }
         }
-        
+        public static string GetUOM(string ItemID,string supplierId)
+        {
+            using (SA45Team12AD entities=new SA45Team12AD()){
+                return (string)entities.SupplierCatalogues.Where(x => x.ItemID == ItemID).Where(x => x.SupplierID == supplierId).Select(x => x.UOM).FirstOrDefault();
+            }
+        }
         public static List<PORecord> ListPORecords()
         {
             using (SA45Team12AD entities = new SA45Team12AD())
@@ -911,10 +940,26 @@ namespace Team12_SSIS.BusinessLogic
                 entities.SaveChanges();
                 email = Utility.Utility.GetUserEmailAddress(po.CreatedBy);
             }
+            if (status == "Approved")
+                PurchaseOrderIsApproved(poNumber);
 
             using (EmailControl em = new EmailControl())
             {
                 em.ChangeInPurchaseOrderStatusNotification(email, poNumber.ToString(), dateProcessed.ToString("d"), status);
+            }
+            
+        }
+
+        static void PurchaseOrderIsApproved(int poNumber)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                List<PORecordDetail> poDList = ctx.PORecordDetails.Where(x => x.PONumber == poNumber).ToList();
+                foreach(PORecordDetail p in poDList)
+                {
+                    InventoryLogic.UpdateUnitsOnOrder(p.ItemID, (int)p.Quantity);
+                }
+                
             }
         }
 
@@ -2403,7 +2448,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void UpdateSupplier(string SupplierID, string SupplierName, string GSTRegistrationNo, string ContactName, int PhoneNo, int FaxNo, string Address, int OrderLeadTime)
+        public static void UpdateSupplier(string SupplierID, string SupplierName, string GSTRegistrationNo, string ContactName, int PhoneNo, int FaxNo, string Address, int OrderLeadTime, string Discontinued)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -2415,6 +2460,7 @@ namespace Team12_SSIS.BusinessLogic
                 supplier.FaxNo = FaxNo;
                 supplier.Address = Address;
                 supplier.OrderLeadTime = OrderLeadTime;
+                supplier.Discontinued = Discontinued;
                 entities.SaveChanges();
             }
         }
@@ -2427,7 +2473,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void AddSupplier(string SupplierID, string SupplierName, string GSTRegistrationNo, string ContactName, int PhoneNo, int FaxNo, string Address, int OrderLeadTime)
+        public static void AddSupplier(string SupplierID, string SupplierName, string GSTRegistrationNo, string ContactName, int PhoneNo, int FaxNo, string Address, int OrderLeadTime, string Discontinued)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -2440,6 +2486,7 @@ namespace Team12_SSIS.BusinessLogic
                 supplier.FaxNo = FaxNo;
                 supplier.Address = Address;
                 supplier.OrderLeadTime = OrderLeadTime;
+                supplier.Discontinued = Discontinued;
                 entities.SupplierLists.Add(supplier);
                 entities.SaveChanges();
             }

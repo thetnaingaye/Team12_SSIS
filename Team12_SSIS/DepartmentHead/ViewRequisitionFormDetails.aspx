@@ -66,12 +66,12 @@
     <br />
     <div>
         <asp:Label ID="LblRemarks" runat="server" Text="Remarks: " ></asp:Label><asp:TextBox ID="TxtRemarks" runat="server" Text="" Width="40%"></asp:TextBox>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="BtnApprove" runat="server" Text="Approve" Visible="false" OnClick="BtnApprove_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="BtnReject" runat="server" Text="Reject" Visible="false" OnClick="BtnReject_Click" />
+        <asp:Button ID="BtnApprove" class="btn-primary" runat="server" Text="Approve" Visible="false" OnClick="BtnApprove_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="BtnReject" class="btn-danger" runat="server" Text="Reject" Visible="false" OnClick="BtnReject_Click" />
     </div>
     <br />
     <br />
     <div>
-        <asp:Button ID="BtnBack" runat="server" Text="Back" OnClick="BtnBack_Click" />
+        <asp:Button ID="BtnBack" class="btn-success" runat="server" Text="Back" OnClick="BtnBack_Click" />
     </div>
 </asp:Content>

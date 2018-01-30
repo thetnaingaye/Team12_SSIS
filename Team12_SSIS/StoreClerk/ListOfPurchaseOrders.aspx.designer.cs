@@ -22,42 +22,6 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// UserLbl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label UserLbl;
-        
-        /// <summary>
-        /// ULbl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ULbl;
-        
-        /// <summary>
-        /// RoleLbl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label RoleLbl;
-        
-        /// <summary>
-        /// RLbl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label RLbl;
-        
-        /// <summary>
         /// LblShow control.
         /// </summary>
         /// <remarks>

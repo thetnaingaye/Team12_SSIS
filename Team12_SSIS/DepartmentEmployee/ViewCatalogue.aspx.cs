@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.ModelBinding;
@@ -11,38 +12,49 @@ using Team12_SSIS.Model;
 
 namespace Team12_SSIS.DepartmentEmployee
 {
-    public partial class ViewCatalogue : System.Web.UI.Page
+    public partial class ViewCatalogue : Page
     {
-        SA45Team12AD entities = new SA45Team12AD();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 BindGrid();
-                if (Session["CartList"] != null)
-                {
-                    List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
-                    LblCount.Text = "Number of items requested : " + (temp.Count() + 0).ToString();
-                }
-                else
-                {
-                    List<InventoryCatalogue> temp = new List<InventoryCatalogue>();
-                    Session["CartList"] = temp;
-                    LblCount.Text = "Number of items requested : " + (temp.Count() + 0).ToString();
-                }
+            }
+
+            if (Session["CartList"] != null && ((List<InventoryCatalogue>)Session["CartList"]).Count != 0)
+            {
+                List<InventoryCatalogue> cartList = (List<InventoryCatalogue>)Session["CartList"];
+
+                GridViewCheckOut.Visible = true;
+                GridViewCheckOut.DataSource = cartList;
+                GridViewCheckOut.DataBind();
+
+                LblCount.Text = "Number of items requested: " + cartList.Count();
+                LblCount.ForeColor = Color.Black;
+
+                BtnCheckOut.Visible = true;
             }
             else
             {
-                List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
-                BindGrid();
-                LblCount.Text = "Number of items requested : " + (temp.Count() + 1).ToString();
+                LblCount.Text = "You can make stationery requisition now";
+                LblCount.ForeColor = Color.Black;
+                GridViewCheckOut.Visible = false;
+                BtnCheckOut.Visible = false;
             }
         }
+
         protected void BindGrid()
         {
-            GridViewAddRequest.DataSource = entities.InventoryCatalogues.Select(i => new { i.ItemID, i.Description }
-            ).ToList();
+            InventoryLogic il = new InventoryLogic();
+            List<InventoryCatalogue> itemList = il.GetAllCatalogue();
+            GridViewAddRequest.DataSource = itemList;
             GridViewAddRequest.DataBind();
+        }
+
+        protected void GridViewAddRequest_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridViewAddRequest.PageIndex = e.NewPageIndex;
+            BindGrid();
         }
 
         RequisitionLogic requisitionLogic = new RequisitionLogic();
@@ -53,21 +65,74 @@ namespace Team12_SSIS.DepartmentEmployee
             GridViewAddRequest.DataBind();
         }
 
-        protected void LinkButtonCount_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("CheckOutRequest.aspx");
-        }
-
         protected void BtnAddRequest_Click(object sender, EventArgs e)
         {
-            Button btn = sender as Button;
-            GridViewRow row = btn.NamingContainer as GridViewRow;
-            string click = GridViewAddRequest.DataKeys[row.RowIndex].Values[0].ToString();
-            string ItemID = click;
-            InventoryCatalogue ic = entities.InventoryCatalogues.Where(x => x.ItemID == ItemID).First();
-            List<InventoryCatalogue> temp = (List<InventoryCatalogue>)Session["CartList"];
-            temp.Add(ic);
-            Session["CartList"] = temp;
+            Button btnAddRequest = sender as Button;
+            GridViewRow row = btnAddRequest.NamingContainer as GridViewRow;
+            string itemId = GridViewAddRequest.DataKeys[row.RowIndex].Values[0].ToString();
+            InventoryCatalogue item = InventoryLogic.GetInventoryItem(itemId);
+            List<InventoryCatalogue> cartList;
+
+            if (Session["CartList"] != null)
+            {
+                cartList = (List<InventoryCatalogue>)Session["CartList"];
+                bool Exist = cartList.Any(x => x.ItemID == itemId);
+                if (Exist)
+                {
+                    LblCount.Text = "You cannot request same item twice.";
+                    LblCount.ForeColor = Color.Red;
+                    return;
+                }
+                else
+                {
+                    cartList.Add(item);
+                    Session["CartList"] = cartList;
+                    Response.Redirect("~/DepartmentEmployee/ViewCatalogue.aspx");
+
+                }
+            }
+
+            else
+            {
+                cartList = new List<InventoryCatalogue>();
+                cartList.Add(item);
+                Session["CartList"] = cartList;
+                Response.Redirect("~/DepartmentEmployee/ViewCatalogue.aspx");
+            }
         }
+
+        protected void BtnCheckOut_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CreateRequisitionForm.aspx");
+        }
+
+        protected void GridViewCheckOut_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            string ItemID = Convert.ToString(GridViewCheckOut.DataKeys[e.RowIndex].Values[0]);
+            List<InventoryCatalogue> ic = (List<InventoryCatalogue>)Session["CartList"];
+            List<InventoryCatalogue> icNew = RequisitionLogic.DeleteOrder(ic, ItemID);
+            GridViewCheckOut.DataSource = icNew;
+            GridViewCheckOut.DataBind();
+            Session["CartList"] = icNew;
+            Response.Redirect("~/DepartmentEmployee/ViewCatalogue.aspx");
+        }
+
+        protected void GridViewCheckOut_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                InventoryCatalogue ic = (InventoryCatalogue)e.Row.DataItem;
+                string ItemID = ic.ItemID;
+            }
+        }
+
+        protected void GridViewCheckOut_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            List<InventoryCatalogue> ic = (List<InventoryCatalogue>)Session["CartList"];
+            GridViewCheckOut.PageIndex = e.NewPageIndex;
+            GridViewCheckOut.DataSource = ic;
+            GridViewCheckOut.DataBind();
+        }
+
     }
 }

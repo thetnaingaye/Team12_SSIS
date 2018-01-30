@@ -271,8 +271,6 @@ body{
             <ItemStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
                <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
         </asp:TemplateField>
-
-        
          <asp:TemplateField HeaderText="Level">
             <ItemTemplate>
                 <asp:Label ID="LblLevel" runat="server" Text='<%# HighlightText(TxtSearch.Text, Convert.ToString( Eval("Level")))%> '></asp:Label>

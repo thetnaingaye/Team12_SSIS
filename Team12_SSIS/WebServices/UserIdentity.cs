@@ -23,15 +23,20 @@ namespace Team12_SSIS.WebServices
         { get; set; }
 
         [DataMember]
-        public string userName
-        { get; set; }
+        public string UserRole
+        {get; set;}
+
         [DataMember]
-        public string userRole
+        public string Team12Token
+        { get; set; }
+
+        [DataMember]
+        public string userName
         {
             get; set;
         }
+
         [DataMember]
-        public string password
-        { get; set; }
+        public string password { get; set; }
     }
 }

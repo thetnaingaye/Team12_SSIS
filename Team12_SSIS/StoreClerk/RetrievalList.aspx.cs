@@ -11,8 +11,6 @@ namespace Team12_SSIS.StoreClerk
 {
     public partial class RetrievalList : System.Web.UI.Page
     {
-        RequisitionLogic r = new RequisitionLogic();
-        InventoryLogic i = new InventoryLogic();
         List<RequisitionRecordDetail> tempListDetails = new List<RequisitionRecordDetail>();
 
 
@@ -54,17 +52,22 @@ namespace Team12_SSIS.StoreClerk
             return InventoryLogic.GetTotalQtyNeeded(itemID).ToString();
         }
 
+        public string GetExistingQuantity(string itemID)
+        {
+            return InventoryLogic.GetQuantity(itemID).ToString();
+        }
+
         // Identifying dept name
         public string GetDepartmentName(string deptID)
         {
-            string temp = r.GetDepartmentName(deptID);
+            string temp = RequisitionLogic.GetDepartmentName(deptID);
             return temp.ToString();
         }
 
         // Determining qty ordered from the details table
         public string GetQtyNeeded(string reqID)
         {
-            var temp = r.GetDepartmentName(reqID);
+            var temp = RequisitionLogic.GetDepartmentName(reqID);
             return temp.ToString();
         }
 
@@ -77,7 +80,7 @@ namespace Team12_SSIS.StoreClerk
         // Identifying the priority for each req per item
         public string GetPriority(int reqDetailID)
         {
-            var temp = r.GetPriority(reqDetailID);
+            var temp = RequisitionLogic.GetPriority(reqDetailID);
             if (temp.Equals("Yes")) return "Priority Given";
             else return "None";
         }
@@ -142,7 +145,7 @@ namespace Team12_SSIS.StoreClerk
                             else
                             {
                                 // Processing our inventory withdrawal process
-                                string result = i.CreateNewInventoryRetrievalEntry(Convert.ToInt32(LblReqID.Text.ToString()), Convert.ToInt32(LblReqDetailID.Text.ToString()), LblItemID1.Text.ToString(),
+                                string result = InventoryLogic.CreateNewInventoryRetrievalEntry(Convert.ToInt32(LblReqID.Text.ToString()), Convert.ToInt32(LblReqDetailID.Text.ToString()), LblItemID1.Text.ToString(),
                                     LblDeptID.Text.ToString(), Convert.ToInt32(LblQtyNeeded.Text), Convert.ToInt32(TbxActualQty.Text), Boolean.Parse(LblIsOverride.Text));
 
                                 // Displaying its result

@@ -25,25 +25,26 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void DeleteCatalogue(string ItemID)
-        {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                InventoryCatalogue catalogue = entities.InventoryCatalogues.Where(c => c.ItemID == ItemID).First<InventoryCatalogue>();
-                entities.InventoryCatalogues.Remove(catalogue);
-                entities.SaveChanges();
-            }
-        }
-
-        public static void UpdateCatalogue(string ItemID, string Description, int ReorderLevel, int ReorderQty, string UOM)
+        public static void UpdateCatalogue(string ItemID, string Description,string CategoryID,string BIN, string Shelf, int Level,
+            int ReorderLevel, int UnitsInStock, int ReorderQty, string UOM, string Discontinued,
+            int UnitsOnOrder, int BufferStockLevel, int BFSProportion)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 InventoryCatalogue catalogue = entities.InventoryCatalogues.Where(c => c.ItemID == ItemID).First<InventoryCatalogue>();
                 catalogue.Description = Description;
+                catalogue.CategoryID = CategoryID;
+                catalogue.BIN = BIN;
+                catalogue.Shelf = Shelf;
+                catalogue.Level = Level;
                 catalogue.ReorderLevel = ReorderLevel;
+                catalogue.UnitsInStock = UnitsInStock;
                 catalogue.ReorderQty = ReorderQty;
                 catalogue.UOM = UOM;
+                catalogue.Discontinued = Discontinued;
+                catalogue.UnitsOnOrder = UnitsOnOrder;
+                catalogue.BufferStockLevel = BufferStockLevel;
+                catalogue.BFSProportion = BFSProportion;
                 entities.SaveChanges();
             }
         }
@@ -56,17 +57,27 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void AddCatalogue(string ItemID, string CategoryID, string Description, int ReorderLevel, int ReorderQty, string UOM)
+        public static void AddCatalogue(string ItemID, string BIN, string Shelf, int Level, string CategoryID, string Description,
+            int ReorderLevel, int UnitsInStock, int ReorderQty, string UOM,
+            string Discontinued, int UnitsOnOrder, int BufferStockLevel, int BFSProportion)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 InventoryCatalogue inventoryCatalogue = new InventoryCatalogue();
                 inventoryCatalogue.ItemID = ItemID;
+                inventoryCatalogue.BIN = BIN;
+                inventoryCatalogue.Shelf = Shelf;
+                inventoryCatalogue.Level = Level;
                 inventoryCatalogue.CategoryID = CategoryID;
                 inventoryCatalogue.Description = Description;
                 inventoryCatalogue.ReorderLevel = ReorderLevel;
+                inventoryCatalogue.UnitsInStock = UnitsInStock;
                 inventoryCatalogue.ReorderQty = ReorderQty;
                 inventoryCatalogue.UOM = UOM;
+                inventoryCatalogue.Discontinued = Discontinued;
+                inventoryCatalogue.UnitsOnOrder = UnitsOnOrder;
+                inventoryCatalogue.BufferStockLevel = BufferStockLevel;
+                inventoryCatalogue.BFSProportion = BFSProportion;
                 entities.InventoryCatalogues.Add(inventoryCatalogue);
                 entities.SaveChanges();
             }
@@ -76,7 +87,15 @@ namespace Team12_SSIS.BusinessLogic
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
-                return entities.InventoryCatalogues.Where(i => i.ItemID.Contains(value) || i.CategoryID.Contains(value)).ToList();
+                return entities.InventoryCatalogues.Where(i => i.ItemID.Contains(value) || i.Description.Contains(value) || i.CategoryID.Contains(value)).ToList();
+            }
+        }
+
+        public static string GetCatalogueName(string CategoryID)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.CatalogueCategories.Where(x => x.CategoryID == CategoryID).Select(x => x.CatalogueName).First();
             }
         }
 
@@ -316,7 +335,7 @@ namespace Team12_SSIS.BusinessLogic
         //----------------------------         KHAIR's               ----------------------------// 
 
         // Retrieve ALL items
-        public List<InventoryCatalogue> ListAllItems()
+        public static List<InventoryCatalogue> ListAllItems()
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -324,7 +343,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        // Retrieve ALL items by 
+        // Find items by ItemID
         public static InventoryCatalogue FindItemByItemID(string itemID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
@@ -334,7 +353,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve specific item name
-        public string GetItemDescription(string itemID)
+        public static string GetItemDescription(string itemID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -343,7 +362,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        // Retrieving status for each reqrecorddetails item
+        // Retrieving quantity from inventory catelogue table
         public static int GetQuantity(string itemID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
@@ -354,7 +373,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve specific item units of measure
-        public string GetUnitsOfMeasure(string itemID)
+        public static string GetUnitsOfMeasure(string itemID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -364,7 +383,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Checks if the current inventory is sufficient for the qty specified to be withdrawn by the user.
-        public bool CheckAgainstInventoryQty(string itemID, int neededQty)
+        public static bool CheckAgainstInventoryQty(string itemID, int neededQty)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -375,7 +394,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Inventory retrieval processes
-        public string CreateNewInventoryRetrievalEntry(int reqID, int reqDetailID, string itemID, string deptID, int reqQty, int actQty, bool isOverride)
+        public static string CreateNewInventoryRetrievalEntry(int reqID, int reqDetailID, string itemID, string deptID, int reqQty, int actQty, bool isOverride)
         {
             bool isFulfilled = true;
             bool isEnough = true;
@@ -447,17 +466,15 @@ namespace Team12_SSIS.BusinessLogic
                         {
                             AutoCreateRR(reqID);
                             AutoCreateRRDetails(itemID, (reqQty - actQty));
+
+                            //Performing check through the MRP model [Create entry in the reorder record table]
+                            MRPInitialize(itemID);
                         }
                         catch (Exception)
                         {
-                            return (itemID + ": Automated requisition record creation was not succesfully carried out.").ToString();
+                            return (itemID + ": Automated processes was not succesfully carried out.").ToString();
                         }
                     }
-
-                    //Performing check through the MRP model [Create entry in the reorder record table]
-                    //MRPInitialize(itemID);
-
-
                     //Completing changes to the DB
                     context.SaveChanges();
 
@@ -472,7 +489,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Creating a new req record - auto by the system
-        public void AutoCreateRR(int reqID)
+        private static void AutoCreateRR(int reqID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -500,7 +517,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Creating a new req record details - auto by the system
-        public void AutoCreateRRDetails(string itemID, int newReqQty)
+        private static void AutoCreateRRDetails(string itemID, int newReqQty)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -526,8 +543,8 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        // Materials Resource Planning (MRP) model processes    -    Always using the top priority supplier
-        public void MRPInitialize(string itemID)
+        // Materials Resource Planning (MRP) model    -    Always using the top priority supplier [auto by the system as well]
+        public static void MRPInitialize(string itemID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -540,17 +557,17 @@ namespace Team12_SSIS.BusinessLogic
 
 
                 // Init the diff tables to retrieve the required variables
-                InventoryCatalogue item = context.InventoryCatalogues.Where(x => x.ItemID.Equals(itemID)).First();
+                InventoryCatalogue pdt = context.InventoryCatalogues.Where(x => x.ItemID.Equals(itemID)).First();
                 SupplierCatalogue supCat = context.SupplierCatalogues.Where(x => x.ItemID.Equals(itemID)).Where(y => y.Priority == 1).First();
                 SupplierList supp = context.SupplierLists.Where(x => x.SupplierID.Equals(supCat.SupplierID)).First();
+                List<ReorderRecord> reod = context.ReorderRecords.Where(x => x.ItemID.Equals(itemID)).Where(y => y.SupplierID.Equals(supCat.SupplierID)).ToList();
                 List<ForecastedData> prediction = context.ForecastedDatas.Where(x => x.ItemID.Equals(itemID)).Where(y => y.Season == DateTime.Now.Year).Where(z => z.Period > currentPeriod).ToList();
 
 
                 // Declare all our req variables
-                int existingQty = (int)item.UnitsInStock;
-                int unitsOnOrder = (int)item.UnitsOnOrder;
-                int reorderQty = (int)item.ReorderQty;    // aka min qty to make an order for the item
-                int bufferStock = (int)item.BufferStockLevel;
+                int existingQty = (int)pdt.UnitsInStock;
+                int reorderQty = (int)pdt.ReorderQty;    // aka min qty to make an order for the item
+                int bufferStock = (int)pdt.BufferStockLevel;
                 int orderLeadTime = (int)supp.OrderLeadTime;
 
 
@@ -568,32 +585,51 @@ namespace Team12_SSIS.BusinessLogic
 
                 // Det the total expected demand up till our forcasting week
                 int totalDd = 0;
-                foreach (var d in forecastList)
+                for (int i = 0; i < forecastList.Count - 1; i++)   // We are minusing from one cos we are not including the Dd of the 'forecasting' week
                 {
-                    totalDd += d;
+                    totalDd += forecastList[i];
                 }
 
-                // Send an order request if incapable of supporting of meeting the forecasted demand for the week after next
+                // Send an order request if incapable of supporting of meeting the forecasted demand for the week after next (aka 'forecasting week')
                 if (forecastList[forecastList.Count - 1] >= ((existingQty - bufferStock) - totalDd))
                 {
                     // Det how much to order
                     int orderQty = (forecastList[forecastList.Count - 1] - ((existingQty - bufferStock) - totalDd));
 
-                    ReorderRecord r = new ReorderRecord();
-                    r.ItemID = itemID;
-                    r.SupplierID = supCat.SupplierID;
-
-                    if (orderQty > reorderQty)
+                    // Checks if there are any existing entries in the reorder record table
+                    if (reod == null || reod.Count == 0)
                     {
-                        r.OrderedQuantity = orderQty;
-                    }
-                    else   // If unable to satisfy the minimum qty in order to make an order for the item, must use the min qty instead lol
-                    {
-                        r.OrderedQuantity = reorderQty;
-                    }
+                        ReorderRecord r = new ReorderRecord();   // If none, create a new one
+                        r.ItemID = itemID;
+                        r.SupplierID = supCat.SupplierID;
 
-                    context.ReorderRecords.Add(r);
-                    context.SaveChanges();
+                        if (orderQty > reorderQty)
+                        {
+                            r.OrderedQuantity = orderQty;
+                        }
+                        else   // If unable to satisfy the minimum qty in order to make an order for the item, must use the min qty instead lol
+                        {
+                            r.OrderedQuantity = reorderQty;
+                        }
+
+                        context.ReorderRecords.Add(r);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        int rTotal = 0;
+                        foreach (var item in reod)
+                        {
+                            rTotal += (int)item.OrderedQuantity;
+                        }
+
+                        if (orderQty > rTotal)   // If there is and the most recent calculated orderQty is more than rTotal, amend it.
+                        {
+                            reod[0].OrderedQuantity += orderQty - rTotal;
+                            context.SaveChanges();
+                        }
+
+                    }
                 }
                 // If able to meet the demand, then no need do anything liao :)
             }
@@ -2213,11 +2249,53 @@ namespace Team12_SSIS.BusinessLogic
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 InventoryRetrievalList iRL = ctx.InventoryRetrievalLists.Where(x => x.RetrievalID == retrievalId).FirstOrDefault();
-                iRL.Status = status;
+                iRL.Status += ":"+status;
                 ctx.SaveChanges();
                 success = true;
             }
             return success;
+        }
+
+
+        public static bool LessUnitsOnOrder(string itemId, int quantity)          
+        {
+            bool success = false;
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryCatalogue ic = ctx.InventoryCatalogues.Where(x => x.ItemID == itemId).FirstOrDefault();
+                ic.UnitsOnOrder -= quantity;
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
+
+        public static bool UpdateUnitsOnOrder(string itemId, int quantity)
+        {
+            bool success = false;
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryCatalogue ic = ctx.InventoryCatalogues.Where(x => x.ItemID.Equals(itemId)).FirstOrDefault();
+                ic.UnitsOnOrder += quantity;
+                ctx.SaveChanges();
+                success = true;
+            }
+            return success;
+        }
+      
+        public static bool IsUnitsInStock(string itemId, int quantity)
+        {
+            bool isInStock = true;
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                InventoryCatalogue ic = ctx.InventoryCatalogues.Where(x => x.ItemID == itemId).FirstOrDefault();
+                if(ic.UnitsInStock < quantity)
+                {
+                    isInStock = false;
+                    return isInStock;
+                }
+            }
+            return isInStock;
         }
     }
 }

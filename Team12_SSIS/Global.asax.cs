@@ -17,8 +17,7 @@ namespace Team12_SSIS
     public class Global : System.Web.HttpApplication
     {
 
-
-        protected void Application_Start(object sender, EventArgs e)
+		protected void Application_Start(object sender, EventArgs e)
 		{
 			Application["count"] = 0;
 			Thread thread = new Thread(new ThreadStart(ThreadFunc));
@@ -26,11 +25,24 @@ namespace Team12_SSIS
 			thread.Name = "ThreadFunc";
 			thread.Start();
 
-            // Thread for auto running the reorder list
-            //Thread threadEndOfDay = new Thread(new ThreadStart(AutomationLogic.BeginEndOfDayProcesses));
-            //threadEndOfDay.IsBackground = true;
-            //threadEndOfDay.Name = "ThreadEndOfDay";
-            //threadEndOfDay.Start();
+
+
+
+
+            // NOTE: We recommend to NOT perform the first initialization of the program (publishing it) on a Saturday or any weekdays between (10pm and 12am)
+            // Failure to comply may result in delays of certain background processes in performing their tasks.
+
+            // Thread for auto running the clearance of the reorder list table
+            Thread threadEndOfDae = new Thread(new ThreadStart(ThreadEODFunc));
+            threadEndOfDae.IsBackground = true;
+            threadEndOfDae.Name = "ThreadEndOfDae";
+            threadEndOfDae.Start();
+
+            // Thread for auto running the clearance of the reorder list table
+            Thread threadSundae = new Thread(new ThreadStart(ThreadSundaeFunc));
+            threadSundae.IsBackground = true;
+            threadSundae.Name = "ThreadSundae";
+            threadSundae.Start();
         }
 
         void AuthenticationService_Authenticating(object sender, System.Web.ApplicationServices.AuthenticatingEventArgs e)
@@ -46,7 +58,50 @@ namespace Team12_SSIS
 			t.AutoReset = true;
 			t.Start();
 		}
-		protected void AddDeptHeadRoleToUserWithDateCheck(object sender, System.Timers.ElapsedEventArgs e)
+
+        //Send reminder email to department rep 2 days before the collection date
+        //This Thread will trigger every 24 hours 
+        protected void ThreadFuncForCollectionReminder()
+        {
+            System.Timers.Timer t = new System.Timers.Timer();
+            t.Elapsed += new System.Timers.ElapsedEventHandler(SendCollectionReminder);
+
+            t.Interval = 86400000;
+            t.Enabled = true;
+            t.AutoReset = true;
+            t.Start();
+        }
+
+        protected void SendCollectionReminder(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            DisbursementLogic.SendCollectionReminder(DateTime.Now.Date);
+        }
+
+        // Checks and calls the reorder table clearance method   -   Runs every 18 hours
+        protected void ThreadEODFunc()
+        {
+            System.Timers.Timer t = new System.Timers.Timer();
+            t.Elapsed += new System.Timers.ElapsedEventHandler(AutomationLogic.BeginEndOfDayProcesses);
+
+            t.Interval = (18 * 60 * 60 * 1000);
+            t.Enabled = true;
+            t.AutoReset = true;
+            t.Start();
+        }
+
+        // Checks and calls the forecasting algo method   -   Runs every 24 hours
+        protected void ThreadSundaeFunc()
+        {
+            System.Timers.Timer t = new System.Timers.Timer();
+            t.Elapsed += new System.Timers.ElapsedEventHandler(AutomationLogic.ForecastingAlgorithm);
+
+            t.Interval = (24 * 60 * 60 * 1000);
+            t.Enabled = true;
+            t.AutoReset = true;
+            t.Start();
+        }
+
+        protected void AddDeptHeadRoleToUserWithDateCheck(object sender, System.Timers.ElapsedEventArgs e)
 		{
 			List<Department> depwithdelegateslist = new List<Department>();
 			List<Department> deplist = new List<Department>();
@@ -134,11 +189,13 @@ namespace Team12_SSIS
 			}
 		}
 
-        protected void Application_BeginRequest(object sender, EventArgs e)
+
+		protected void Session_Start(object sender, EventArgs e)
         {
+
         }
 
-        protected void Session_Start(object sender, EventArgs e)
+        protected void Application_BeginRequest(object sender, EventArgs e)
         {
 
         }

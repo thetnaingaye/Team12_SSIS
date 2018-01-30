@@ -11,9 +11,20 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor
 {
     public partial class ApprovePurchaseOrder : System.Web.UI.Page
     {
+        Label statusMessage;
         PurchasingLogic p = new PurchasingLogic();
         protected void Page_Load(object sender, EventArgs e)
         {
+            statusMessage = this.Master.FindControl("LblStatus") as Label;
+           
+
+            if (Session["POstatusMsg"] != null)
+            {
+                LblStatus.Text = (string)Session["POstatusMsg"];
+                LblStatus.Visible = true;
+                LblStatus.ForeColor = System.Drawing.Color.Green;
+                Session["POstatusMsg"] = null;
+            }
             if (!IsPostBack)
             {
                 if(Session["PONumber"] != null)
@@ -44,12 +55,16 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor
             LblAddress.Text = poR.DeliveryAddress;
             LblRequest.Text = poR.CreatedBy;
             LblCode.Text = PurchasingLogic.ListSuppliers().Where(x => x.SupplierID == poR.SupplierID).Select(x => x.SupplierName).FirstOrDefault();
-            if(poR.Status != "Pending")
+            if (poR.Status != "Pending")
             {
                 btnapr.Visible = false;
                 btncancel.Visible = false;
             }
+            
+
         }
+
+
 
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -75,10 +90,13 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor
             //ponumber status dateprocessed handledby
             int poNumber = int.Parse(LblNumbeer.Text);
             string status = "Approved";
+            LblStatus.Text = "Approved";
             DateTime dateProcessed = DateTime.Now.Date;
             string handledBy = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
             PurchasingLogic.UpdatePurchaseOrderStatus(poNumber, status, dateProcessed, handledBy);
-            Response.Redirect("~/StoreManager/StoreSupervisor/ApprovePurchaseOrder.aspx");
+            statusMessage.Text = "Approved successfully";
+            statusMessage.ForeColor = System.Drawing.Color.Green;
+
 
         }
 
@@ -86,10 +104,13 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor
         {
             int poNumber = int.Parse(LblNumbeer.Text);
             string status = "Rejected";
+            LblStatus.Text = "Rejected";
             DateTime dateProcessed = DateTime.Now.Date;
             string handledBy = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
             PurchasingLogic.UpdatePurchaseOrderStatus(poNumber, status, dateProcessed, handledBy);
-            Response.Redirect("~/StoreManager/StoreSupervisor/ApprovePurchaseOrder.aspx");
+            statusMessage.Text = "Rejected successfully";
+            statusMessage.ForeColor = System.Drawing.Color.Green;
+
         }
     }
 }

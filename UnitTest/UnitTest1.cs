@@ -9,6 +9,8 @@ using System.Data;
 using System.Linq;
 using Team12_SSIS.Model;
 using System.Web.Security;
+using System.Text.RegularExpressions;
+using System.Text;
 
 namespace UnitTest
 {
@@ -53,20 +55,30 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod6()
         {
-			List<string> testlist = Utility.GetClerksEmailAddressList();
-			foreach(string s in testlist)
-			{
-				Console.WriteLine(s);
-			}
+            string userName = "clerk1";
+            string password = "Password@#1";
+            char seperator = '/';
+
+            var topSecret = userName + seperator + password;
+            int shft = 5;
+            string encrypted = topSecret.Select(ch => ((int)ch) << shft).Aggregate("", (current, val) => current + (char)(val * 2));
+            encrypted = Convert.ToBase64String(Encoding.UTF8.GetBytes(encrypted));
+            string decrypted = Encoding.UTF8.GetString(Convert.FromBase64String(encrypted)).Select(ch => ((int)ch) >> shft).Aggregate("", (current, val) => current + (char)(val / 2));
+            Console.WriteLine(topSecret);
+            Console.WriteLine(encrypted);
+            string[] splitString = decrypted.Split(seperator);
+            foreach(string s in splitString)
+            {
+                Console.WriteLine(s);
+            }
 
         }
         [TestMethod]
         public void TestMail()
         {
-            using(EmailControl em = new EmailControl())
-            {
-                em.DisburstmentPointChangeNotification("lim.chang.siang@gmail.com", "English", "Naiag", "Science");
-            }
+            DisbursementLogic dl = new DisbursementLogic();
+            for (int i = 15; i < 43; i++)
+                dl.UpdateDisbursementListDetails(i, 5, "Test Cases");
         }
 
 

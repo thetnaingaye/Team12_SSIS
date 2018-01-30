@@ -1,0 +1,160 @@
+﻿## Store Procedure for SupplierOrderReport
+## Start of Script ##
+CREATE PROCEDURE StoreOrderHistory(@startDate Date, @endDate Date, @itemId VARCHAR(255),@supplierId VARCHAR(255))
+AS 
+IF (@supplierId != '*' AND @itemId != '*')
+BEGIN
+SELECT DISTINCT
+ic.Description,
+po.SupplierID,
+sl.SupplierName,
+AVG(por.UnitPrice * por.Quantity) AS AVG_Amount,
+AVG(por.Quantity) AS AVG_Quantity
+FROM PORecords po, PORecordDetails por, SupplierList sl, InventoryCatalogue ic 
+WHERE 
+po.PONumber = por.PONumber
+AND po.SupplierID = sl.SupplierID
+AND po.DateRequested BETWEEN @startDate and @endDate
+AND po.SupplierID = @supplierId
+AND por.ItemID = @itemId
+AND por.ItemID = ic.ItemID
+GROUP BY IC.Description, po.SupplierID, sl.SupplierName
+END 
+ELSE
+IF @itemId != '*'
+BEGIN
+SELECT DISTINCT
+ic.Description,
+po.SupplierID,
+sl.SupplierName,
+AVG(por.UnitPrice * por.Quantity) AS AVG_Amount,
+AVG(por.Quantity) AS AVG_Quantity
+FROM PORecords po, PORecordDetails por, SupplierList sl, InventoryCatalogue ic 
+WHERE 
+po.PONumber = por.PONumber
+AND po.SupplierID = sl.SupplierID
+AND po.DateRequested BETWEEN @startDate and @endDate
+AND por.ItemID = @itemId
+AND por.ItemID = ic.ItemID
+GROUP BY IC.Description, po.SupplierID, sl.SupplierName
+END
+ELSE
+BEGIN
+SELECT DISTINCT
+ic.Description,
+po.SupplierID,
+sl.SupplierName,
+AVG(por.UnitPrice * por.Quantity) AS AVG_Amount,
+AVG(por.Quantity) AS AVG_Quantity
+FROM PORecords po, PORecordDetails por, SupplierList sl, InventoryCatalogue ic 
+WHERE 
+po.PONumber = por.PONumber
+AND po.SupplierID = sl.SupplierID
+AND po.DateRequested BETWEEN @startDate and @endDate
+AND por.ItemID = ic.ItemID
+GROUP BY IC.Description, po.SupplierID, sl.SupplierName
+END
+## END OF SCRIPT ##
+
+## Stored Procedure for Dept Requisition Report ##
+## Start of Script ##
+CREATE PROCEDURE RequisitionHistory(@startDate Date, @endDate Date, @itemId VARCHAR(255), @deptId VARCHAR(255))
+AS 
+-- This is specific Item for a Specific Dept
+IF(@itemId != '*' AND @deptId != '*')
+BEGIN
+SELECT DISTINCT
+ic.Description,
+rq.DepartmentID,
+dl.DepartmentName,
+COUNT(rq.RequestID) AS NO_OF_REQUESTS,
+AVG(rqd.RequestedQuantity) AS AVG_REQUEST_QTY
+FROM RequisitionRecords rq, RequisitionRecordDetails rqd, Departments dl, InventoryCatalogue ic 
+WHERE 
+rq.RequestID = rqd.RequestID
+AND rq.DepartmentID = dl.DeptID
+AND rq.RequestDate BETWEEN @startDate and @endDate
+AND rq.DepartmentID = @deptId
+AND rqd.ItemID = @itemId
+AND rqd.ItemID = ic.ItemID
+GROUP BY IC.Description, rq.DepartmentID, dl.DepartmentName
+END 
+--This is all Specific Dept regardless of item code
+ELSE IF (@deptId != '*') 
+BEGIN
+SELECT DISTINCT
+ic.Description,
+rq.DepartmentID,
+dl.DepartmentName,
+COUNT(rq.RequestID) AS NO_OF_REQUESTS,
+AVG(rqd.RequestedQuantity) AS AVG_REQUEST_QTY
+FROM RequisitionRecords rq, RequisitionRecordDetails rqd, Departments dl, InventoryCatalogue ic 
+WHERE 
+rq.RequestID = rqd.RequestID
+AND rq.DepartmentID = dl.DeptID
+AND rq.RequestDate BETWEEN @startDate and @endDate
+AND rq.DepartmentID = @deptId
+AND rqd.ItemID = ic.ItemID
+GROUP BY IC.Description, rq.DepartmentID, dl.DepartmentName
+END 
+-- This is specifc item department regardless of item code
+ELSE IF (@itemId != '*')
+BEGIN
+SELECT DISTINCT
+ic.Description,
+rq.DepartmentID,
+dl.DepartmentName,
+COUNT(rq.RequestID) AS NO_OF_REQUESTS,
+AVG(rqd.RequestedQuantity) AS AVG_REQUEST_QTY
+FROM RequisitionRecords rq, RequisitionRecordDetails rqd, Departments dl, InventoryCatalogue ic 
+WHERE 
+rq.RequestID = rqd.RequestID
+AND rq.DepartmentID = dl.DeptID
+AND rq.RequestDate BETWEEN @startDate and @endDate
+AND rqd.ItemID = @itemId
+AND rqd.ItemID = ic.ItemID
+GROUP BY IC.Description, rq.DepartmentID, dl.DepartmentName
+END 
+-- This is all items from all dept
+ELSE
+BEGIN
+SELECT DISTINCT
+ic.Description,
+rq.DepartmentID,
+dl.DepartmentName,
+COUNT(rq.RequestID) AS NO_OF_REQUESTS,
+AVG(rqd.RequestedQuantity) AS AVG_REQUEST_QTY
+FROM RequisitionRecords rq, RequisitionRecordDetails rqd, Departments dl, InventoryCatalogue ic 
+WHERE 
+rq.RequestID = rqd.RequestID
+AND rq.DepartmentID = dl.DeptID
+AND rq.RequestDate BETWEEN @startDate and @endDate
+AND rqd.ItemID = ic.ItemID
+GROUP BY IC.Description, rq.DepartmentID, dl.DepartmentName
+END 
+
+## End of Script ##
+
+## Stored Procedure for Trend analysis. Pending aspx code ##
+CREATE PROCEDURE RequisitionTrend(@startDate Date, @endDate Date)
+AS 
+-- This is specific Item for a Specific Dept
+BEGIN
+SELECT DISTINCT
+SUM (rqd.RequestedQuantity) as Total_Req_Qty,
+ic.ItemID,
+ic.Description,
+cc.CategoryID,
+cc.CatalogueName,
+COUNT(rq.RequestID) AS NO_OF_REQUESTS,
+AVG(rqd.RequestedQuantity) AS AVG_REQUEST_QTY
+FROM RequisitionRecords rq, RequisitionRecordDetails rqd, InventoryCatalogue ic, CatalogueCategory cc 
+WHERE 
+rq.RequestID = rqd.RequestID
+AND rqd.ItemID = ic.ItemID
+AND ic.CategoryID = cc.CategoryID
+AND rq.RequestDate BETWEEN @startDate and @endDate
+GROUP BY ic.ItemID, cc.CategoryID, ic.Description, cc.CatalogueName
+END 
+
+## End of Script ##
