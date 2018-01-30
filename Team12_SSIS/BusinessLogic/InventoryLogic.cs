@@ -25,7 +25,9 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void UpdateCatalogue(string ItemID, string Description,string CategoryID,string BIN, string Shelf, int Level, int ReorderLevel, int ReorderQty, string UOM, string Discontinued)
+        public static void UpdateCatalogue(string ItemID, string Description,string CategoryID,string BIN, string Shelf, int Level,
+            int ReorderLevel, int UnitsInStock, int ReorderQty, string UOM, string Discontinued,
+            int UnitsOnOrder, int BufferStockLevel, int BFSProportion)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -36,9 +38,13 @@ namespace Team12_SSIS.BusinessLogic
                 catalogue.Shelf = Shelf;
                 catalogue.Level = Level;
                 catalogue.ReorderLevel = ReorderLevel;
+                catalogue.UnitsInStock = UnitsInStock;
                 catalogue.ReorderQty = ReorderQty;
                 catalogue.UOM = UOM;
                 catalogue.Discontinued = Discontinued;
+                catalogue.UnitsOnOrder = UnitsOnOrder;
+                catalogue.BufferStockLevel = BufferStockLevel;
+                catalogue.BFSProportion = BFSProportion;
                 entities.SaveChanges();
             }
         }
@@ -51,7 +57,9 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void AddCatalogue(string ItemID, string BIN, string Shelf, int Level, string CategoryID, string Description, int ReorderLevel, int ReorderQty, string UOM, string Discontinued)
+        public static void AddCatalogue(string ItemID, string BIN, string Shelf, int Level, string CategoryID, string Description,
+            int ReorderLevel, int UnitsInStock, int ReorderQty, string UOM,
+            string Discontinued, int UnitsOnOrder, int BufferStockLevel, int BFSProportion)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -63,9 +71,13 @@ namespace Team12_SSIS.BusinessLogic
                 inventoryCatalogue.CategoryID = CategoryID;
                 inventoryCatalogue.Description = Description;
                 inventoryCatalogue.ReorderLevel = ReorderLevel;
+                inventoryCatalogue.UnitsInStock = UnitsInStock;
                 inventoryCatalogue.ReorderQty = ReorderQty;
                 inventoryCatalogue.UOM = UOM;
                 inventoryCatalogue.Discontinued = Discontinued;
+                inventoryCatalogue.UnitsOnOrder = UnitsOnOrder;
+                inventoryCatalogue.BufferStockLevel = BufferStockLevel;
+                inventoryCatalogue.BFSProportion = BFSProportion;
                 entities.InventoryCatalogues.Add(inventoryCatalogue);
                 entities.SaveChanges();
             }

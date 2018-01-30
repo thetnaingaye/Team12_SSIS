@@ -2059,10 +2059,11 @@ namespace Team12_SSIS.BusinessLogic
         public static List<InventoryCatalogue> DeleteOrder(List<InventoryCatalogue> _itemList, string ItemID)
         {
             List<InventoryCatalogue> itemList = _itemList;
-            InventoryCatalogue removeRequest = itemList.Where(i => i.ItemID == ItemID).First();
-            itemList.Remove(removeRequest);
+            InventoryCatalogue removeItem = itemList.Where(i => i.ItemID == ItemID).First();
+            itemList.Remove(removeItem);
             return itemList;
         }
+
 
 
 

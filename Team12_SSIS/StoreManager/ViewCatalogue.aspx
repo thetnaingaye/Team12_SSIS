@@ -1,5 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewCatalogue.aspx.cs" Inherits="Team12_SSIS.StoreManager.ViewCatalogue" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .auto-style2 {
+            width: 1115px;
+            overflow: auto;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -7,38 +13,36 @@
     <table style="width: 100%">
         <tr>
             <td>
-                <asp:LinkButton ID="LinkButtonCreate" runat="server" OnClick="LinkButtonCreate_Click" Text="Create New Catalogue" />
+                <asp:Button ID="BtnCreate" cssclass="btn btn-primary" runat="server" OnClick="BtnCreate_Click" Text="Create" />
             </td>
             </tr>
+      
+        <tr>
+            <td>
+                <div style="float: right"; vertical-align: middle" >
+                <asp:TextBox ID="TxtSearch" placeholder="Search Item" Height="45px" Width="150px" runat="server"></asp:TextBox>
+                <asp:Button ID="BtnSearch" cssclass="btn btn-primary" runat="server" Text="Search" OnClick="BtnSearch_Click" />
+                    </div>
+            </td>
+        </tr>
         <tr>
             <td>
             </td>
         </tr>
         <tr>
-            <td>
-                <asp:TextBox ID="TxtSearch" placeholder="Search Item" runat="server"></asp:TextBox>
-                <asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="12">
-                <asp:GridView ID="GridViewCatalogue" runat="server" AutoGenerateColumns="False"
-                    Style="width: 100%"
-                    AllowPaging="True" PageSize="8" OnPageIndexChanging="GridViewCatalogue_PageIndexChanging"
-                    CellPadding="4" ForeColor="#333333"
+            <td style="width: 100%">
+                <div style="overflow-x:auto;width:1100px">
+                <asp:GridView ID="GridViewCatalogue" class="table" runat="server" AutoGenerateColumns="False" Style="width:100%"
+                    AllowPaging="True" PageSize="10" OnPageIndexChanging="GridViewCatalogue_PageIndexChanging"
                     OnRowDataBound="GridViewCatalogue_RowDataBound"
                     OnRowEditing="GridViewCatalogue_RowEditing"
                     OnRowCancelingEdit="GridViewCatalogue_RowCancelingEdit"
                     OnRowUpdating="GridViewCatalogue_RowUpdating"
-                    DataKeyNames="ItemID"
-                    GridLines="None">
-                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                    DataKeyNames="ItemID">
+                    <AlternatingRowStyle BackColor="#f9f9f9"  />
+                    <PagerStyle HorizontalAlign="Center" />
                     <pagersettings mode="Numeric" position="Bottom" />
+                    <RowStyle HorizontalAlign="Center" />
                     <Columns>
 
                         <asp:TemplateField HeaderText="Item ID" SortExpression="ItemID">
@@ -48,7 +52,7 @@
                             <HeaderStyle CssClass="text-center" />
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText=" Item Description" SortExpression="Description">
+                        <asp:TemplateField HeaderText="Description" SortExpression="Description">
                             <EditItemTemplate>
                                 <asp:TextBox ID="TxtDescription" runat="server" Text='<%# Bind("Description") %>'></asp:TextBox>
                             </EditItemTemplate>
@@ -61,6 +65,8 @@
                         <asp:TemplateField HeaderText="Category ID" SortExpression="CategoryID">
                             <EditItemTemplate>
                                 <asp:DropDownList ID="DdlCategoryID" runat="server" OnSelectedIndexChanged="DdlCategoryID_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidatorCatID" runat="server" ControlToValidate="DdlCategoryID"
+                        ForeColor="Red" ErrorMessage="*CategoryID Required"/>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblCategoryID" runat="server" Text='<%# Bind("CategoryID") %>'></asp:Label>
@@ -100,7 +106,9 @@
 
                         <asp:TemplateField HeaderText="Level" SortExpression="Level">
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtLevel" runat="server" Text='<%# Bind("Level") %>'></asp:TextBox>
+                                <asp:TextBox ID="TxtLevel" TextMode="Number" runat="server" Text='<%# Bind("Level") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorlVL" ControlToValidate="TxtLevel" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblLevel" runat="server" Text='<%# Bind("Level") %>'></asp:Label>
@@ -111,6 +119,8 @@
                         <asp:TemplateField HeaderText="Reorder Level" SortExpression="ReorderLevel">
                             <EditItemTemplate>
                                 <asp:TextBox ID="TxtReorderLevel" runat="server" Text='<%# Bind("ReorderLevel") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorReLvl" ControlToValidate="TxtReorderLevel" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblReorderLevel" runat="server" Text='<%# Bind("ReorderLevel") %>'></asp:Label>
@@ -118,9 +128,25 @@
                             <HeaderStyle CssClass="text-center" />
                         </asp:TemplateField>
 
+                        <asp:TemplateField HeaderText="Units In Stock" SortExpression="UnitsInStock">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtUnitsInStock" runat="server" Text='<%# Bind("UnitsInStock") %>'></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidatorUIS" runat="server" ControlToValidate="TxtUnitsInStock"
+                        ForeColor="Red" ErrorMessage="*UnitsInStock Required"/>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorUIS" ControlToValidate="TxtUnitsInStock" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblUnitsInStock" runat="server" Text='<%# Bind("UnitsInStock") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
                         <asp:TemplateField HeaderText="Reorder Quantity" SortExpression="ReorderQty">
                             <EditItemTemplate>
                                 <asp:TextBox ID="TxtReorderQty" runat="server" Text='<%# Bind("ReorderQty") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorReQty" ControlToValidate="TxtReorderQty" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblReorderQty" runat="server" Text='<%# Bind("ReorderQty") %>'></asp:Label>
@@ -140,7 +166,7 @@
 
                         <asp:TemplateField HeaderText="Discontinued" SortExpression="Discontinued">
                             <EditItemTemplate>
-                                <asp:DropDownList ID="DdlDiscontinued" runat="server" AutoPostBack="true">
+                                <asp:DropDownList ID="DdlDiscontinued" runat="server" AutoPostBack="false">
                                     <asp:ListItem Selected="True" Value="N"> N </asp:ListItem>
                                      <asp:ListItem Value="Y"> Y </asp:ListItem>
                                 </asp:DropDownList>
@@ -151,20 +177,50 @@
                             <HeaderStyle CssClass="text-center" />
                         </asp:TemplateField>
 
-                        <asp:CommandField ButtonType="Button" ShowEditButton="True" HeaderText ="Edit"
-                            EditText="Edit" UpdateText="Update" CancelText="Cancel" >
+                        <asp:TemplateField HeaderText="Units On Order" SortExpression="UnitsOnOrder">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtUnitsOnOrder" runat="server" Text='<%# Bind("UnitsOnOrder") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorUOO" ControlToValidate="TxtUnitsOnOrder" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblUnitsOnOrder" runat="server" Text='<%# Bind("UnitsOnOrder") %>'></asp:Label>
+                            </ItemTemplate>
                             <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Buffer Stock Level" SortExpression="BufferStockLevel">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtBufferStockLevel" runat="server" Text='<%# Bind("BufferStockLevel") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorBSL" ControlToValidate="TxtBufferStockLevel" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblBufferStockLevel" runat="server" Text='<%# Bind("BufferStockLevel") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                       <asp:TemplateField HeaderText="BFS Proportion" SortExpression="BFSProportion">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TxtBFSProportion" TextMode="Number" runat="server" Text='<%# Bind("BFSProportion") %>'></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorBFSP" ControlToValidate="TxtBFSProportion" ErrorMessage="*Positive Number Only" ForeColor="Red"
+                        runat="server" ValidationExpression="^\d+$"/>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="LblBFSProportion" runat="server" Text='<%# Bind("BFSProportion") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
+
+                        <asp:CommandField ButtonType="Button" ShowEditButton="True" HeaderText ="Edit Item" CausesValidation="true"
+                            EditText="Edit" UpdateText="Update" CancelText="Cancel" ><ControlStyle cssClass="btn btn-primary btn-xs" />
                         </asp:CommandField>
 
                     </Columns>
 
-                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                    <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                    <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                    <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                    <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-
                 </asp:GridView>
+                    </div>
             </td>
         </tr>
     </table>
