@@ -119,7 +119,7 @@ namespace Team12_SSIS.WebServices
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json, 
             BodyStyle = WebMessageBodyStyle.Wrapped)]
-        string SubmitInventoryRetrieval(List<WCF_TempInventoryRetrieval> tempObj, string token);
+        string SubmitInventoryRetrieval(List<WCF_TempInventoryRetrieval> tempList, string token);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "/ApproveRequisition", Method = "POST",
