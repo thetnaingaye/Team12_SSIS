@@ -52,7 +52,7 @@ namespace Team12_SSIS.DepartmentHead
         }
 
 
-
+        //--------------------------------Redirect to View Disbursementlist page to see the Disbursement details-----------------------//
 
         protected void GridViewDisbList_RowCommand(object sender, GridViewCommandEventArgs e)
         {
