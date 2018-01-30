@@ -11,6 +11,7 @@ using Team12_SSIS.Model;
 using System.Web.Security;
 using System.Text.RegularExpressions;
 using System.Text;
+using Team12_SSIS.Supplier;
 
 namespace UnitTest
 {
@@ -76,52 +77,12 @@ namespace UnitTest
         [TestMethod]
         public void TestMail()
         {
-            DisbursementLogic dl = new DisbursementLogic();
-            for (int i = 15; i < 43; i++)
-                dl.UpdateDisbursementListDetails(i, 5, "Test Cases");
+            SendPurchaseOrderToSupplier.SendPurchaseOrder();
         }
 
 
         public void TestMethod7()
         {
-            //Start Here....
-
-
-
-
-
-
-
-
-            //Some things there
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
     }
 }

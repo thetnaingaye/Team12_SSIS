@@ -930,10 +930,11 @@ namespace Team12_SSIS.BusinessLogic
         }
         public static void UpdatePurchaseOrderStatus(int poNumber, string status ,DateTime dateProcessed, string handledBy)
         {
+            PORecord po;
             string email = "";
             using (SA45Team12AD entities = new SA45Team12AD())
             {
-                PORecord po = entities.PORecords.Where(x => x.PONumber == poNumber).FirstOrDefault();
+                po = entities.PORecords.Where(x => x.PONumber == poNumber).FirstOrDefault();
                 po.Status = status;
                 po.DateProcessed = dateProcessed;
                 po.HandledBy = handledBy;
@@ -952,15 +953,23 @@ namespace Team12_SSIS.BusinessLogic
 
         static void PurchaseOrderIsApproved(int poNumber)
         {
+            PORecord po;
+            double totalPrice = 0;
             using(SA45Team12AD ctx = new SA45Team12AD())
             {
+                po = ctx.PORecords.Where(x => x.PONumber == poNumber).FirstOrDefault();
                 List<PORecordDetail> poDList = ctx.PORecordDetails.Where(x => x.PONumber == poNumber).ToList();
-                foreach(PORecordDetail p in poDList)
+                foreach (PORecordDetail p in poDList)
                 {
                     InventoryLogic.UpdateUnitsOnOrder(p.ItemID, (int)p.Quantity);
+                    totalPrice += (double)(p.UnitPrice * p.Quantity);
                 }
-                
             }
+            using (EmailControl em = new EmailControl())
+            {
+                em.SendPurchaseOrder("sa45team12ssis+supplier@gmail.com", po.PONumber, po.RecipientName, po.DeliveryAddress, GetSuppilerName(po.SupplierID), (DateTime)po.ExpectedDelivery, totalPrice);
+            }
+
         }
 
         public static PORecord GetPurchaseOrderRecord(int poNo)

@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using Team12_SSIS.Exceptions;
+using Microsoft.Reporting.WebForms;
+using System.IO;
+using System.Collections;
+using System.Web;
 
 namespace Team12_SSIS.Utility
 {
@@ -1088,6 +1092,69 @@ namespace Team12_SSIS.Utility
             catch (Exception e)
             {
                 throw new EmailControlException("CustomEmailNotification Exception\n" + e.Message);
+            }
+        }
+        #endregion
+
+        #region Email Notification for external supplier
+        public string SendPurchaseOrder(string supplierEmail, int poNumber, string deliverTo, string deliveryAddress, string supplierName, DateTime deliverByDate,double totalPrice)
+        {
+            string success = "Email Ok";
+            string messageBody = greeting +
+                twoLineSpacing +
+                "We are pleased to issue you a Purchase Order." +
+                twoLineSpacing +
+                "Please supply the item by " + deliverByDate.ToString("d") +
+                twoLineSpacing +
+                "We would appreciate your acknowledgement of this Purchase Order." +
+                twoLineSpacing +
+                "Thank you." +
+                twoLineSpacing +
+                systemGen;
+            try
+            {
+                Warning[] warnings;
+                string[] streamids;
+                string mimeType;
+                string encoding;
+                string extension;
+
+
+                ReportParameter poNumberParam = new ReportParameter("PONumber", poNumber.ToString());
+                ReportParameter deliverToParam = new ReportParameter("DeliverTo", deliverTo);
+                ReportParameter deliverAddressParam = new ReportParameter("DeliverAddress", deliveryAddress);
+                ReportParameter supplierNameParam = new ReportParameter("SupplierName", supplierName);
+                ReportParameter supplyDateParam = new ReportParameter("SupplyDate", deliverByDate.ToString("d"));
+                ReportParameter totalPriceParam = new ReportParameter("TotalPrice", totalPrice.ToString());
+                LocalReport lr = new LocalReport();
+                string test =
+                lr.ReportPath = "C:\\PurchaseOrder.rdlc";
+                lr.SetParameters(new ReportParameter[] { poNumberParam, deliverToParam, deliverAddressParam, supplierNameParam, supplyDateParam, totalPriceParam });
+
+
+
+                SA45Team12ADDataSetPOTableAdapters.PurchaseOrderReportTableAdapter ta = new SA45Team12ADDataSetPOTableAdapters.PurchaseOrderReportTableAdapter();
+                SA45Team12ADDataSetPO.PurchaseOrderReportDataTable dt = ta.GetData(1);
+                ReportDataSource ds = new ReportDataSource("PurchaseOrderDocument", (IEnumerable)dt);
+                lr.DataSources.Add(ds);
+
+                byte[] bytes = lr.Render("PDF", null, out mimeType, out encoding, out extension, out streamids, out warnings);
+                MemoryStream s = new MemoryStream(bytes);
+                s.Seek(0, SeekOrigin.Begin);
+                Attachment a = new Attachment(s, "PurchaseOrder" + poNumber.ToString() + ".pdf");
+
+                SmtpClient client = new SmtpClient();
+                MailMessage message = new MailMessage();
+                message.Body = messageBody;
+                message.Subject = "Logic University Stationery Store Purchase Order Number "+poNumber.ToString();
+                message.To.Add(supplierEmail);
+                message.Attachments.Add(a);
+                client.Send(message);
+
+                return success;
+            }catch(Exception e)
+            {
+                return "Email Faliure at SendPurchaseOrderToSupplier" + e.ToString();
             }
         }
         #endregion
