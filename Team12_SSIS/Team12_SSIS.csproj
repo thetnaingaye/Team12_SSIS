@@ -3548,6 +3548,7 @@
     <Compile Include="WebServices\WCF_Model\WCF_DisbursementListDetail.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_InventoryCatalogue.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_InventoryRetrievalList.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_JsonObject.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_RequisitionRecord.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_RequisitionRecordDetail.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_StockCard.cs" />

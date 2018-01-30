@@ -58,7 +58,8 @@ namespace Team12_SSIS.StoreManager
             int FaxNo = Convert.ToInt32((row.FindControl("TxtFaxNo") as TextBox).Text);
             string Address = Convert.ToString((row.FindControl("TxtAddress") as TextBox).Text);
             int OrderLeadTime = Convert.ToInt32((row.FindControl("TxtOrderLeadTime") as TextBox).Text);
-            BusinessLogic.PurchasingLogic.UpdateSupplier(SupplierID, SupplierName, GSTRegistrationNo, ContactName, PhoneNo, FaxNo, Address, OrderLeadTime);
+            string Discontinued = Convert.ToString((row.FindControl("DdlDiscontinued") as DropDownList).Text);
+            PurchasingLogic.UpdateSupplier(SupplierID, SupplierName, GSTRegistrationNo, ContactName, PhoneNo, FaxNo, Address, OrderLeadTime, Discontinued);
             GridViewSupplier.EditIndex = -1;
             BindGrid();
         }
@@ -78,7 +79,7 @@ namespace Team12_SSIS.StoreManager
             }
         }
 
-        protected void LinkButtonCreate_Click(object sender, EventArgs e)
+        protected void BtnCreate_Click(object sender, EventArgs e)
         {
             Response.Redirect("CreateSupplier.aspx");
         }

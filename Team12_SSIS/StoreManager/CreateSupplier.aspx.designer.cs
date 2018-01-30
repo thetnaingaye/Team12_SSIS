@@ -22,6 +22,24 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtSupplierID;
         
         /// <summary>
+        /// LblExist control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblExist;
+        
+        /// <summary>
+        /// RequiredFieldValidatorSupplierID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorSupplierID;
+        
+        /// <summary>
         /// TxtSupplierName control.
         /// </summary>
         /// <remarks>
@@ -58,6 +76,15 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.TextBox TxtPhoneNo;
         
         /// <summary>
+        /// RegularExpressionValidatorPhone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorPhone;
+        
+        /// <summary>
         /// TxtFaxNo control.
         /// </summary>
         /// <remarks>
@@ -65,6 +92,15 @@ namespace Team12_SSIS.StoreManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtFaxNo;
+        
+        /// <summary>
+        /// RegularExpressionValidatorFax control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorFax;
         
         /// <summary>
         /// TxtAddress control.
@@ -83,6 +119,15 @@ namespace Team12_SSIS.StoreManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtOrderLeadTime;
+        
+        /// <summary>
+        /// RegularExpressionValidatorOLT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorOLT;
         
         /// <summary>
         /// BtnSubmit control.

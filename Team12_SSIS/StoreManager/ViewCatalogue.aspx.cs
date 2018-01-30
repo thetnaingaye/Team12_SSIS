@@ -44,10 +44,16 @@ namespace Team12_SSIS.StoreManager
             string Shelf= Convert.ToString((row.FindControl("TxtShelf") as TextBox).Text);
             int Level=Convert.ToInt32((row.FindControl("TxtLevel") as TextBox).Text);
             int ReorderLevel = Convert.ToInt32((row.FindControl("TxtReorderLevel") as TextBox).Text);
+            int UnitsInStock = Convert.ToInt32((row.FindControl("TxtUnitsInStock") as TextBox).Text);
             int ReorderQty = Convert.ToInt32((row.FindControl("TxtReorderQty") as TextBox).Text);
             string UOM = Convert.ToString((row.FindControl("TxtUOM") as TextBox).Text);
             string Discontinued=Convert.ToString((row.FindControl("DdlDiscontinued") as DropDownList).Text);
-            InventoryLogic.UpdateCatalogue(ItemID, Description, CategoryID, BIN, Shelf, Level, ReorderLevel, ReorderQty, UOM, Discontinued);
+            int UnitsOnOrder = Convert.ToInt32((row.FindControl("TxtUnitsOnOrder") as TextBox).Text);
+            int BufferStockLevel = Convert.ToInt32((row.FindControl("TxtBufferStockLevel") as TextBox).Text);
+            int BFSProportion = Convert.ToInt32((row.FindControl("TxtBFSProportion") as TextBox).Text);
+            InventoryLogic.UpdateCatalogue(ItemID, Description, CategoryID, BIN, Shelf, Level,
+                ReorderLevel, UnitsInStock, ReorderQty, UOM, Discontinued,
+              UnitsOnOrder, BufferStockLevel, BFSProportion);
             GridViewCatalogue.EditIndex = -1;
             BindGrid();
         }
@@ -90,7 +96,7 @@ namespace Team12_SSIS.StoreManager
             BindGrid();
         }
 
-        protected void LinkButtonCreate_Click(object sender, EventArgs e)
+        protected void BtnCreate_Click(object sender, EventArgs e)
         {
             Response.Redirect("CreateCatalogue.aspx");
         }
