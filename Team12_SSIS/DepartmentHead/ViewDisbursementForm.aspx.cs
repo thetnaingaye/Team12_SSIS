@@ -15,7 +15,7 @@ namespace Team12_SSIS.DepartmentHead
     {
         List<DisbursementList> dsList;
         List<DisbursementList> uList;
-        List<DisbursementList> rList;
+      
         DisbursementLogic disbursement = new DisbursementLogic();
 
         
@@ -53,14 +53,6 @@ namespace Team12_SSIS.DepartmentHead
 
 
 
-        //-------------------------gridview details link button click event.........//
-        //-------------------------  directing to Disbursement detail page---//
-        //protected void Btndetailclick(Object sender, CommandEventArgs e)
-        //{
-        //    int dId = Convert.ToInt32(e.CommandArgument.ToString());
-        //    Response.Redirect("ViewDisbursementList.aspx?DisbursementID="+dId);
-
-        //}
 
         protected void GridViewDisbList_RowCommand(object sender, GridViewCommandEventArgs e)
         {

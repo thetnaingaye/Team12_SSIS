@@ -83,9 +83,9 @@
             <br />
             <br />
                        <table style="width: 100%">
-            <tbody style="width: 75%">
+                        <tbody style="width: 100%">
                       <tr style="height:20px">
-                      <td class="auto-style2">
+                      <td margin-top:77>
                          
                       <asp:Label ID="LblId" runat="server" Text="ItemCode: " Style="padding-right: 10px"></asp:Label>
                       <asp:Label ID="LblIdD" runat="server" Font-Bold="true"></asp:Label>
@@ -93,24 +93,24 @@
                       </td>
                       </tr>
                       <tr style="height:20px">
-                      <td class="auto-style2">
+                      <td margin-top:77>
                       <asp:Label ID="LbldDes" runat="server" Text="Description: " Style="padding-right: 10px"></asp:Label>
                       <asp:Label ID="LblDesD" runat="server" Font-Bold="true"></asp:Label>
                           <br />
                       </td>
-                      <td class="auto-style2">
+                      <td margin-top:77>
                       <asp:Label ID="LblS1" runat="server" Text="Supplier1: " Style="padding-right: 10px"></asp:Label>
                       <asp:Label ID="LblS1D" runat="server" Font-Bold="true"></asp:Label>
                       </td>
                       </tr>
 
                      <tr style="height:20px">
-                     <td class="auto-style2">
+                     <td margin-top:77>
                       <asp:Label ID="LblUom" runat="server" Text="Unit Of Measurement: " Style="padding-right: 10px"></asp:Label>
                       <asp:Label ID="LblUomD" runat="server" Font-Bold="true"></asp:Label>
                          <br />
                       </td>
-                      <td class="auto-style2">
+                      <td margin-top:77>
                       <asp:Label ID="LblS2" runat="server" Text="Supplier2: " Style="padding-right: 10px"></asp:Label>
                       <asp:Label ID="LblS2D" runat="server" Font-Bold="true"></asp:Label>
                      </td>
@@ -135,7 +135,7 @@
                
                   <asp:GridView ID="GridViewStockCard" Class="table" runat="server" AutoGenerateColumns="False"
                                         Style="width:100%;padding-top:50px" 
-                                        OnRowDataBound="GridViewStockCard_RowDataBound"
+                                       
                                         CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID" ShowHeaderWhenEmpty="True" EmptyDataText="">
                                         <AlternatingRowStyle BackColor="#f9f9f9"  />
                                         <Columns>

@@ -2,10 +2,19 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .auto-style1 {
+            width: 70px;
+        }
+        .auto-style2 {
+            width: 89px;
+        }
+    </style>
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
-    <asp:Label ID="LblTitle" runat="server" Text="DisbursementList" Font-Size="Large"></asp:Label>
+    <%--<asp:Label ID="LblTitle" runat="server" Text="DisbursementList" Font-Size="Large"></asp:Label>--%>
+    <h2>DisbursementList</h2>
     <br />
     <br />
     <asp:Label ID="LblDate" runat="server" Text="Filter by date range:"></asp:Label>
@@ -29,9 +38,8 @@
         });
     </script>
 
-	&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="datepicker" name="datepicker" readonly="true" />
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:Label ID="Label2" runat="server" Text="End Date:"> </asp:Label>&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" />
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="datepicker" name="datepicker" readonly="true" class="auto-style1" />
+    &nbsp;&nbsp;<asp:Label ID="Label2" runat="server" Text="End Date:"> </asp:Label>&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" class="auto-style2" />
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
      <asp:Button ID="BtnFindDate" runat="server" Text="FIND" OnClick="BtnFindDate_Click" Height="25px" />
      <br />

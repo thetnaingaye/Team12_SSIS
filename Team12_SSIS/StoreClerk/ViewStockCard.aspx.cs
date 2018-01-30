@@ -41,6 +41,7 @@ namespace Team12_SSIS.StoreClerk
 
                 details(itemId);
                 tList = InventoryLogic.GetStockCardList(itemId);
+                //----------if list has records,display in datagrid view--------------------------------------------//
                 if (tList.Count != 0)
                 {
 
@@ -48,6 +49,8 @@ namespace Team12_SSIS.StoreClerk
                 GridViewStockCard.DataBind();
                 LblMsg.Visible = false;
                 }
+
+                //------------------------------------Status message for no record found--------------------------------//
                 else
                 {
                     LblMsg.Visible = true;
@@ -55,17 +58,18 @@ namespace Team12_SSIS.StoreClerk
                     LblMsg.Text = "No Transaction Records Found for" + " " + detFromInventory.Description;
                 }
 
-
             }
 
         }
 
-
+        //------------------------Find transaction details button click event-------------------------------------------//
         protected void BtnFind_Click(object sender, EventArgs e)
         {
             try {
                 DatgridViewRefresh();
                 ControlVisibleTrue();
+
+                //-----------------------------Getting the value from the date time picker---------------------------------//
                 try
                 {
                     date1 = DateTime.ParseExact(Request.Form["datepicker"], "MM/dd/yyyy", CultureInfo.InvariantCulture);
@@ -75,7 +79,7 @@ namespace Team12_SSIS.StoreClerk
                 { }
 
 
-
+                //--------------convert date toi string--------------------------------------------------------------------------------//
                 string d1 = Convert.ToString(date1);
                 string d2 = Convert.ToString(date2);
 
@@ -130,6 +134,7 @@ namespace Team12_SSIS.StoreClerk
                 }
 
             }
+            //-----------------------catch the invalid item code-----------display status message------------------------------------//
             catch
             {
                 ControlVisibleFalse();
@@ -156,11 +161,7 @@ namespace Team12_SSIS.StoreClerk
             LblS3D.Text = sCatList[2].SupplierID;
         }
 
-        protected void GridViewStockCard_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-               // e.Row.Cells[0].Visible = false;
-            
-        }
+       
         //-----------------------setting the visiblity of control false-------------------------------------//
         public void ControlVisibleFalse()
         {
