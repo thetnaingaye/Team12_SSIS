@@ -2,12 +2,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <p>
-        Delegation History</p>
+    <h2>Delegation History</h2>
     <p>
         Search Employee:<asp:TextBox ID="SearchTxt" runat="server"></asp:TextBox>
-        <asp:Button ID="SearchBtn" runat="server" OnClick="SearchBtn_Click" Text="Search" />
-        <asp:Button ID="ViewAllBtn" runat="server" OnClick="ViewAllBtn_Click" Text="View All" />
+        <asp:Button ID="SearchBtn" CssClass="btn btn-primary" runat="server" OnClick="SearchBtn_Click" Text="Search" />
+        <asp:Button ID="ViewAllBtn" CssClass="btn btn-primary" runat="server" OnClick="ViewAllBtn_Click" Text="View All" />
     </p>
     <p>
         <asp:GridView ID="GridViewDelegationHistory" runat="server" AutoGenerateColumns="False"

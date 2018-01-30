@@ -2017,22 +2017,30 @@ namespace Team12_SSIS.BusinessLogic
 			Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
 			Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
 
-			using(EmailControl em = new EmailControl())
+			using (EmailControl em = new EmailControl())
 			{
-				List<string> allemails = new List<string>();
 				List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
-				List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
-				foreach(string s in clerkemails)
-				{
-					allemails.Add(s);
-				}
-				foreach(string s in depusersemails)
-				{
-					allemails.Add(s);
-				}
-
-				em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
+				em.CollectionRepChangeNotification(clerkemails, GetDepNameByDepID(dept), newrepfullname);
 			}
+
+		
+			//Send to clerks AND all department users
+			//using(EmailControl em = new EmailControl())
+			//{
+			//	List<string> allemails = new List<string>();
+			//	List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+			//	List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
+			//	foreach(string s in clerkemails)
+			//	{
+			//		allemails.Add(s);
+			//	}
+			//	foreach(string s in depusersemails)
+			//	{
+			//		allemails.Add(s);
+			//	}
+
+			//	em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
+			//}
 			
 			
 		}

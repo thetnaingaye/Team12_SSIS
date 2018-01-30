@@ -39,6 +39,8 @@ namespace Team12_SSIS.DepartmentHead
 		{
 			EmployeesDdl.DataSource = DisbursementLogic.GetAllEmployeeFullNamesFromDept(DisbursementLogic.GetCurrentDep());
 			EmployeesDdl.DataBind();
+			CalStartAddDelegate.SelectedDate = DateTime.Today;
+			CalEndAddDelegate.SelectedDate = DateTime.Today;
 		}
 
 		protected void ShowCurrentDelegate()
@@ -134,6 +136,8 @@ namespace Team12_SSIS.DepartmentHead
 				statusMessage.ForeColor = Color.Red;
 			}
 		}
+
+	
 	}
 
 }
