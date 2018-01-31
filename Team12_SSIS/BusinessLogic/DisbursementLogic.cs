@@ -1936,14 +1936,18 @@ namespace Team12_SSIS.BusinessLogic
 				department.CollectionPointID = cpid;
 				entities.SaveChanges();
 			}
-			using (EmailControl em = new EmailControl())
-			{
-				
-				List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
-				string newCPID = GetCurrentCPIDByDep(depid);
-				string newCPName = GetCurrentCPWithTimeByID(Int32.Parse(newCPID));
-				em.DisburstmentPointChangeNotification(clerkemails, GetDepNameByDepID(depid), GetDeptRepFullName(depid),newCPName);
-			}
+            Thread collectPointThread = new Thread(delegate ()
+            {
+                using (EmailControl em = new EmailControl())
+                {
+
+                    List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+                    string newCPID = GetCurrentCPIDByDep(depid);
+                    string newCPName = GetCurrentCPWithTimeByID(Int32.Parse(newCPID));
+                    em.DisburstmentPointChangeNotification(clerkemails, GetDepNameByDepID(depid), GetDeptRepFullName(depid), newCPName);
+                }
+            });
+            collectPointThread.Start();
 		}
 
 		public static List<MembershipUser> GetUsersFromDept(string dept)
