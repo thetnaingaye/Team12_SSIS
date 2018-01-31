@@ -96,7 +96,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("DisburstmentPointChangeNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         public bool DisburstmentPointChangeNotification(string storeClerkEmailAddress, string departmentName, string collectionRepName, string newDisburstmentPoint)
@@ -122,7 +123,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("DisburstmentPointChangeNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         /// <summary>
@@ -155,7 +157,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("CollectionRepChangeNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
             return success;
         }
@@ -182,7 +185,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("CollectionRepChangeNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         /// <summary>
@@ -227,7 +231,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewPurchaseOrderBySystemNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         public bool NewPurchaseOrderBySystemNotification(string storeClerkEmailAddress, string poNumber, string dateTime, List<string> productName, List<string> orderQuantity)
@@ -265,7 +270,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewPurchaseOrderBySystemNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         public bool NewPurchaseOrderBySystemNotification(List<string> storeClerkEmailAddress, string poNumber, string dateTime)
@@ -293,7 +299,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewPurchaseOrderBySystemNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
 
@@ -319,7 +326,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewPurchaseOrderBySystemNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
 
@@ -357,7 +365,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewRequestFormReceivedNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         public bool NewRequestFormReceivedNotification(string storeClerkEmailAddress, string departmentName, string departmentEmployee, string requestId)
@@ -385,7 +394,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewRequestFormReceivedNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         /// <summary>
@@ -422,7 +432,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("ChangeInPurchaseOrderStatusNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
 
         }
@@ -452,7 +463,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("ChangeInPurchaseOrderStatusNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         /// <summary>
@@ -488,7 +500,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("ChangeInAdjustmentVoucherStatus Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
 
@@ -522,7 +535,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("ChangeInAdjustmentVoucherStatus Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
 
         }
@@ -551,7 +565,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("ChangeInAdjustmentVoucherStatus Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
 
@@ -582,7 +597,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("ChangeInAdjustmentVoucherStatus Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
 
         }
@@ -631,7 +647,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewAdjustmentVoucherRequestNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         public bool NewAdjustmentVoucherRequestNotification(string storeSupervisorEmailAddress, string adjustmentVId, string storeClerkName)
@@ -659,7 +676,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewAdjustmentVoucherRequestNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         /// <summary>
@@ -708,7 +726,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewPurchaseOrderForApprovalNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         public bool NewPurchaseOrderForApprovalNotification(string storeSupervisorEmailAddress, string poCreater, string poNumber, string dateTime, List<string> productName, List<string> orderQuantity)
@@ -747,7 +766,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewPurchaseOrderForApprovalNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         public bool NewPurchaseOrderForApprovalNotification(List<string> storeSupervisorEmailAddress, string poCreater, string poNumber, string dateTime)
@@ -778,7 +798,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewPurchaseOrderForApprovalNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         public bool NewPurchaseOrderForApprovalNotification(string storeSupervisorEmailAddress, string poCreater, string poNumber, string dateTime)
@@ -806,7 +827,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewPurchaseOrderForApprovalNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
 
@@ -849,7 +871,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("ChangeInStationeryRequestStatusNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
 
@@ -880,7 +903,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("ChangeInAdjustmentVoucherStatus Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
 
         }
@@ -928,7 +952,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewStationeryCollectionNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
 
@@ -953,7 +978,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewStationeryCollectionNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
 
@@ -978,7 +1004,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("CancelStationeryCollectionNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         public bool RemindStationeryCollectionNotification(string deptRepEmailAddress, string collectionPoint, string dateTime)
@@ -1002,7 +1029,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("RemindStationeryCollectionNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
 
@@ -1043,7 +1071,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("NewStationeryRequestNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         #endregion
@@ -1070,7 +1099,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("CustomEmailNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
 
@@ -1091,7 +1121,8 @@ namespace Team12_SSIS.Utility
             }
             catch (Exception e)
             {
-                throw new EmailControlException("CustomEmailNotification Exception\n" + e.Message);
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         #endregion
@@ -1156,7 +1187,8 @@ namespace Team12_SSIS.Utility
                 return success;
             }catch(Exception e)
             {
-                return "Email Faliure at SendPurchaseOrderToSupplier" + e.ToString();
+                Console.WriteLine(e.ToString());
+                return false;
             }
         }
         #endregion
