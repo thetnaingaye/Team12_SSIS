@@ -25,6 +25,7 @@ namespace Team12_SSIS.StoreClerk
                 int disbId = (int)Session["DisbId"];
                 SetStatusLabel();
                 BindGrid(disbId);
+                Session["DisbId"] = null;
             }
         }
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
