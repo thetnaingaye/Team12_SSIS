@@ -1725,7 +1725,7 @@ namespace Team12_SSIS.BusinessLogic
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
-           return  entity.StockCards.Where(x => x.ItemID == itemid).ToList<StockCard>(); ;
+           return  entity.StockCards.Where(x => x.ItemID == itemid).ToList<StockCard>(); 
                
             }
         }

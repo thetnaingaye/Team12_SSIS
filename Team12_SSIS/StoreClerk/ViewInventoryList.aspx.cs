@@ -172,7 +172,7 @@ namespace Team12_SSIS.StoreClerk
         //----------------------------------------search button click event.---------------------------------------------------//
         protected void Btnsearch_Click(object sender, EventArgs e)
         {
-            //---------------------------------filter the selected category items from the inventory list------Category<=>All------------------//
+            //---------------------------------retrieve all the items under the selected category from the inventory list------Category<=>All------------------//
             TxtSearch.Text = string.Empty;
             if (DdlCatagory.SelectedValue != "All" && DdlUIS.SelectedValue == "0")
             {
