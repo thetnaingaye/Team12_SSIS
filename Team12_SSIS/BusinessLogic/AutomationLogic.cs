@@ -61,8 +61,8 @@ namespace Team12_SSIS.BusinessLogic
                 int hour;
                 int minute;
                 int second;
-                int targetHour = 12;             // Change this to manually set our hour [For testing purposes - Default should be 17]
-                int targetMinute = 59;          // Change this to manually set our minute [For testing purposes - Default should be 59] 
+                int targetHour = 13;             // Change this to manually set our hour [For testing purposes - Default should be 17]
+                int targetMinute = 18;          // Change this to manually set our minute [For testing purposes - Default should be 59] 
 
 
                 // Checking for the right hour
