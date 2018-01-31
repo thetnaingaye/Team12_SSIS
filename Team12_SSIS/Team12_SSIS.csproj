@@ -139,6 +139,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EODAutomationLog.txt" />
+    <Content Include="ForecastAutomationLog.txt" />
     <Content Include="default.aspx" />
     <Content Include="DepartmentHead\ViewRequisitionFormDetails.aspx" />
     <Content Include="DepartmentHead\ViewRequisitionFormList.aspx" />
