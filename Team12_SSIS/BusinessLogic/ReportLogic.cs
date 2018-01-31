@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -43,8 +44,19 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Here we run our R script to populate our chart
-        public static void GetChart(string itemID)
+        public static void GetChart(string itemID, DateTime dateFrom, DateTime dateTo)
         {
+            // We gotta break down our DateTime objects to two diff variables for each (Season and period)
+            int seasonFrom = dateFrom.Year;
+            DateTimeFormatInfo dfi1 = DateTimeFormatInfo.CurrentInfo;
+            Calendar cal = dfi1.Calendar;
+            int periodFrom = cal.GetWeekOfYear(dateFrom, dfi1.CalendarWeekRule, dfi1.FirstDayOfWeek);
+
+            int seasonTo = dateTo.Year;
+            DateTimeFormatInfo dfi2 = DateTimeFormatInfo.CurrentInfo;
+            Calendar cal2 = dfi2.Calendar;
+            int periodTo = cal2.GetWeekOfYear(dateTo, dfi2.CalendarWeekRule, dfi2.FirstDayOfWeek);
+
             // Modify our .bat file
             String path = "C:/inetpub/wwwroot/Team12_SSIS/BusinessLogic/RScripts/ChartExec.bat";
             using (var stream = new FileStream(path, FileMode.Truncate))   // This ensures that all data inside the file is cleared first before we add new data to it
@@ -53,7 +65,7 @@ namespace Team12_SSIS.BusinessLogic
                 {
                     writetext.WriteLine("@echo off");
                     string temp = "\"C:/Program Files/R/R-3.4.1/bin/x64/Rscript.exe\" \"C:/inetpub/wwwroot/Team12_SSIS/BusinessLogic/RScripts/ChartingTool.R\" ";
-                    temp += itemID;
+                    temp += itemID + " " + seasonFrom + " " + periodFrom + " " + seasonTo + " " + periodTo;
                     writetext.WriteLine(temp);
                     writetext.WriteLine("exit");     //Initially 'pause'
                 }

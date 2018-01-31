@@ -5,7 +5,16 @@
 ## This here allows us to retrieve from cmd
 args <- commandArgs(trailingOnly = TRUE)
 itemID <- as.character(args[1])
+seasonFrom <- as.numeric(args[2])
+periodFrom <- as.numeric(args[3])
+seasonTo <- as.numeric(args[4])
+periodTo <- as.numeric(args[5])
 
+
+print(seasonFrom)
+print(periodFrom)
+print(seasonTo)
+print(periodTo)
 
 # 1. Set directory
 tempwd <- 'C:/inetpub/wwwroot/Team12_SSIS/BusinessLogic/RScripts'

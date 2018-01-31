@@ -58,6 +58,78 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.HtmlControls.HtmlButton BtnSubmit1;
         
         /// <summary>
+        /// LblSelectedItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblSelectedItem;
+        
+        /// <summary>
+        /// LblItemDesc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblItemDesc;
+        
+        /// <summary>
+        /// LblItemID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblItemID;
+        
+        /// <summary>
+        /// LblDateFrom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblDateFrom;
+        
+        /// <summary>
+        /// DateFrom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl DateFrom;
+        
+        /// <summary>
+        /// LblDateTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblDateTo;
+        
+        /// <summary>
+        /// DateTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl DateTo;
+        
+        /// <summary>
+        /// BtnGenerate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnGenerate;
+        
+        /// <summary>
         /// UpdateProgress control.
         /// </summary>
         /// <remarks>

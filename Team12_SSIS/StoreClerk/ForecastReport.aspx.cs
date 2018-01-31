@@ -18,10 +18,50 @@ namespace Team12_SSIS.StoreClerk
 
             // Setting the value back to our search bar
             inputValue.Value = temp;
+
+            // Auto-populate the date for the date time picker
+            DateTime earliestTime = new DateTime(2014, 1, 1);
+            DateFrom.Value = earliestTime.ToString("yyyy-MM-dd");
+            DateTo.Value = DateTime.Now.ToString("yyyy-MM-dd");
+
+            if (IsPostBack)
+            {
+                string str = DateFrom.Value;
+                DateTime dt = DateTime.ParseExact(str, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                inputValue.Value = dt.ToString();
+            }
         }
 
         // Searching for the item...and populating our report
         protected void BtnSubmit1_Click(object sender, EventArgs e)
+        {
+            // Retrieving our value from the search bar
+            string itemID = inputValue.Value;
+
+            // Search....
+
+        }
+
+        // Set all controls to default
+        protected void ResetControls()
+        {
+            LblHeader.Visible = false;
+            LblChartHeader.Visible = false;
+            LblExpectedDemand.Visible = false;
+            LblCode.Visible = false;
+            LblItemCode.Visible = false;
+            LblItemCode.Text = null;
+            LblDescription.Visible = false;
+            LblItemDescription.Visible = false;
+            LblItemDescription.Text = null;
+            LblCategory.Visible = false;
+            LblItemCategory.Visible = false;
+            LblItemCategory.Text = null;
+            BtnPrint.Visible = false;
+        }
+
+        // This will retrieve all the necessary values and use it to generate our report
+        protected void BtnGenerate_Click(object sender, EventArgs e)
         {
             // Resets all controls to default first
             LblHeader.Visible = false;
@@ -29,12 +69,20 @@ namespace Team12_SSIS.StoreClerk
             // Gotta perform validation here......................
 
 
+            // Retrieve Item id
+            string itemID = LblItemID.Text;
+            itemID = "C006";
 
-            // Retrieving our value from the search bar
-            string itemID = inputValue.Value;
+            // Retrieve both of our dates
+            string temp1 = DateFrom.Value;
+            DateTime dateFrom = DateTime.ParseExact(temp1, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+
+            string temp2 = DateTo.Value;
+            DateTime dateTo = DateTime.ParseExact(temp2, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+
 
             // Pass our value to the method in the biz logic side
-            ReportLogic.GetChart(itemID);
+            ReportLogic.GetChart(itemID, dateFrom, dateTo);
 
             // Populating our Image
             ImgChart.Visible = true;
@@ -62,27 +110,8 @@ namespace Team12_SSIS.StoreClerk
             LblItemCategory.Text = InventoryLogic.GetCatalogueName(item.CategoryID);
             BtnPrint.Visible = true;
 
-
             // Updating the UpdatePanel
             UpdatePanelChart.Update();
-        }
-
-        // Set all controls to default
-        protected void ResetControls()
-        {
-            LblHeader.Visible = false;
-            LblChartHeader.Visible = false;
-            LblExpectedDemand.Visible = false;
-            LblCode.Visible = false;
-            LblItemCode.Visible = false;
-            LblItemCode.Text = null;
-            LblDescription.Visible = false;
-            LblItemDescription.Visible = false;
-            LblItemDescription.Text = null;
-            LblCategory.Visible = false;
-            LblItemCategory.Visible = false;
-            LblItemCategory.Text = null;
-            BtnPrint.Visible = false;
         }
     }
 }
