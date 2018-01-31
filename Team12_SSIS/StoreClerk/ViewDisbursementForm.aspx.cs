@@ -82,7 +82,7 @@ namespace Team12_SSIS.StoreClerk
                     {
                         BtnCancelDis.Visible = false;
                         LblCollectedBy.Visible = true;
-                        ImgSignature.ImageUrl = Server.MapPath("~/Images/") + "DL" + dL.DisbursementID + ".jpg";
+                        ImgSignature.ImageUrl = "http://localhost/Team12_SSIS/Images/" + "DL" + dL.DisbursementID + ".jpg";
                         ImgSignature.Visible = true;
                         break;
                     }

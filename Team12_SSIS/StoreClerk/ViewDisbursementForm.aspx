@@ -162,7 +162,7 @@
                     <td colspan="7" align="right">
                         <asp:Label ID="LblCollectedBy" runat="server" Text="Collected By:" Visible="false"></asp:Label>
                         <br />
-                        <asp:Image ID="ImgSignature" runat="server" Visible="false"/>
+                        <asp:Image ID="ImgSignature" runat="server" Visible="false" Height="250px" Width="250px"/>
                     </td>
                 </tr>
             </tbody>
