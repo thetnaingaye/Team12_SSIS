@@ -28,6 +28,7 @@
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+    <link href="~/Images/logosmall.png" rel="icon" type="image/x-icon" />
 
 </head>
 

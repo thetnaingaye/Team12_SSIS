@@ -149,8 +149,13 @@
     <Content Include="Images\birds2.jpg" />
     <Content Include="Images\birds3.jpg" />
     <Content Include="Images\brandimg.png" />
+    <Content Include="Images\check.png" />
+    <Content Include="Images\favicon-16x16.png" />
+    <Content Include="Images\favicon.ico" />
+    <Content Include="Images\findout.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\logosmall.png" />
+    <Content Include="Images\requisition.png" />
     <Content Include="Logout.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
