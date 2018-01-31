@@ -130,7 +130,7 @@
 
                                     <asp:TemplateField HeaderText="Unit Price">
                                         <ItemTemplate>
-                                            <asp:Label ID="LblUnp" runat="server"></asp:Label>
+                                            <asp:Label ID="LblUnp"  runat="server"></asp:Label>
                                         </ItemTemplate>
                                          <HeaderStyle CssClass="text-center" Font-Size="Smaller" ></HeaderStyle>
                                         <ItemStyle CssClass="text-center"></ItemStyle>
@@ -142,7 +142,7 @@
                                          <HeaderStyle CssClass="text-center" Font-Size="Smaller" ></HeaderStyle>
                                         <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
-                                    <asp:CommandField ButtonType="Button" ShowDeleteButton="True" ControlStyle-CssClass="btn btn-danger" />
+                                    <asp:CommandField ButtonType="Button" ShowDeleteButton="True" DeleteText="Delete" ControlStyle-CssClass="btn btn-danger" />
                                     
                                 </Columns>
                                 <EditRowStyle BackColor="#999999" />
