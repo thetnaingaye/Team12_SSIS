@@ -200,6 +200,17 @@
     <Content Include="SA45Team12ADDataSetReqHx.xsc">
       <DependentUpon>SA45Team12ADDataSetReqHx.xsd</DependentUpon>
     </Content>
+    <Content Include="SA45Team12ADDataSetPO.xsc">
+      <DependentUpon>SA45Team12ADDataSetPO.xsd</DependentUpon>
+    </Content>
+    <None Include="SA45Team12ADDataSetPO.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SA45Team12ADDataSetPO.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SA45Team12ADDataSetPO.xss">
+      <DependentUpon>SA45Team12ADDataSetPO.xsd</DependentUpon>
+    </Content>
     <None Include="SA45Team12ADDataSetReqHx.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>SA45Team12ADDataSetReqHx.Designer.cs</LastGenOutput>
@@ -445,6 +456,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SA45Team12ADDataSetPO.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA45Team12ADDataSetPO.xsd</DependentUpon>
     </Compile>
     <Compile Include="SA45Team12ADDataSetReqHx.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -694,6 +710,7 @@
     <Compile Include="StoreReport\SupplierOrderReport.aspx.designer.cs">
       <DependentUpon>SupplierOrderReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Supplier\SendPurchaseOrderToSupplier.cs" />
     <Compile Include="Utility\Utility.cs" />
     <Compile Include="Utility\EmailControl.cs" />
     <Compile Include="Utility\Validator.cs" />
@@ -738,6 +755,8 @@
     <EmbeddedResource Include="StoreReport\DeptRequisitionReportTemplate.rdlc" />
     <EmbeddedResource Include="StoreReport\RequisitionTrendReportTemplate.rdlc" />
     <EmbeddedResource Include="StoreReport\SupplierOrderReportTemplate.rdlc" />
+    <EmbeddedResource Include="Supplier\PurchaseOrder.rdlc" />
+    <EmbeddedResource Include="Utility\PurchaseOrder.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
