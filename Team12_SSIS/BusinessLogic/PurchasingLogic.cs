@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Web;
+using System.Web.Security;
 using Team12_SSIS.Model;
 using Team12_SSIS.Utility;
 
@@ -212,7 +213,7 @@ namespace Team12_SSIS.BusinessLogic
                 DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
                 Calendar cal = dfi.Calendar;
                 //Uncomment for final ver: int currentPeriod = cal.GetWeekOfYear(DateTime.Now, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
-                DateTime date1 = new DateTime(2018, 2, 1);   
+                DateTime date1 = new DateTime(2018, 2, 1);
                 int currentPeriod = cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
 
                 // Creating our obj from DB
@@ -548,13 +549,14 @@ namespace Team12_SSIS.BusinessLogic
                     //Add the updated Order detail into the fresh list.
                     PORecordDetail prd = CheckForGRQuantity(grRecords, orderedItem);
                     if (prd.Quantity > 0)
-                        poDetailListWithGR.Add(prd);                    
+                        poDetailListWithGR.Add(prd);
                 }
                 try
                 {
                     //Check for PO completion and if yes, change the PO Status
                     IsPOCompleted(poDetailListWithGR.Count, POnumber);
-                }catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
                     //Exception will be thrown if an invalid PO number is entered, returning null value;
                     Console.WriteLine(ex.ToString());
@@ -586,7 +588,7 @@ namespace Team12_SSIS.BusinessLogic
             }
             return isCompleted;
         }
-        
+
         private PORecordDetail CheckForGRQuantity(dynamic grRecords, PORecordDetail orderedItem)
         {
             //for each GR record, check if the ItemID matches with the Order item ItemID
@@ -595,8 +597,8 @@ namespace Team12_SSIS.BusinessLogic
                 if (orderedItem.ItemID == received.ItemID)
                 {
                     //Minus ordered quantity with received quantity
-                    int qty = (int) orderedItem.Quantity - (int)received.Quantity;
-                    orderedItem.Quantity = qty;                    
+                    int qty = (int)orderedItem.Quantity - (int)received.Quantity;
+                    orderedItem.Quantity = qty;
                 }
             }
             return orderedItem;
@@ -605,7 +607,7 @@ namespace Team12_SSIS.BusinessLogic
         //Method for Posting GR
         public int CreateGoodsReceipt(DateTime dateProcessed, int poNumber, string receivedBy, string doNumber)
         {
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 GoodReceipt goodReceipt = new GoodReceipt
                 {
@@ -618,10 +620,10 @@ namespace Team12_SSIS.BusinessLogic
                 ctx.SaveChanges();
                 return goodReceipt.GRNumber;
             }
-            
+
         }
 
-        public PORecord GetPORecords (int poNumber)
+        public PORecord GetPORecords(int poNumber)
         {
             using (SA45Team12AD ctx = new SA45Team12AD())
                 return ctx.PORecords.FirstOrDefault(x => x.PONumber == poNumber);
@@ -632,8 +634,8 @@ namespace Team12_SSIS.BusinessLogic
         //    using (SA45Team12AD context = new SA45Team12AD())
 
 
-                // return (context.PORecords.FirstOrDefault(x => x.PONumber == poNumber));
-                //return context.PORecords.Where(x => x.Status.Equals("Pending"));
+        // return (context.PORecords.FirstOrDefault(x => x.PONumber == poNumber));
+        //return context.PORecords.Where(x => x.Status.Equals("Pending"));
 
         //}
         public void CreateGoodsReceiptDetails(int grNumber, string itemID, int quantity, string uom, string remarks)
@@ -644,7 +646,7 @@ namespace Team12_SSIS.BusinessLogic
             grd.Quantity = quantity;
             grd.UOM = uom;
             grd.Remarks = remarks;
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 ctx.GoodReceiptDetails.Add(grd);
                 ctx.SaveChanges();
@@ -654,7 +656,7 @@ namespace Team12_SSIS.BusinessLogic
 
         public GoodReceipt GetGoodsReceipt(int goodReceiptNumber)
         {
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 return ctx.GoodReceipts.FirstOrDefault(x => x.GRNumber == goodReceiptNumber);
             }
@@ -662,13 +664,13 @@ namespace Team12_SSIS.BusinessLogic
 
         public List<GoodReceiptDetail> GetGoodsReceiptDetails(int goodReceiptNumber)
         {
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 return ctx.GoodReceiptDetails.Where(x => x.GRNumber == goodReceiptNumber).ToList();
             }
         }
 
-       
+
 
 
 
@@ -857,11 +859,14 @@ namespace Team12_SSIS.BusinessLogic
 
 
         //--- Jianing Here
-        public static int AddText(string Deliverto, string Address ,string SupplierID,DateTime RequestedDate,string userName,DateTime ExpectedBy)
+        public static int AddText(string Deliverto, string Address, string SupplierID, DateTime RequestedDate, string userName, DateTime ExpectedBy)
         {
+            //Put here so other methods can use even after the EF object is disposed.
+            PORecord poRecord;
+
             using (SA45Team12AD entities = new SA45Team12AD())
             {
-                PORecord poRecord = new PORecord();
+                poRecord = new PORecord();
                 poRecord.RecipientName = Deliverto;
                 poRecord.DeliveryAddress = Address;
                 poRecord.SupplierID = SupplierID;
@@ -871,10 +876,21 @@ namespace Team12_SSIS.BusinessLogic
                 poRecord.ExpectedDelivery = ExpectedBy;
                 entities.PORecords.Add(poRecord);
                 entities.SaveChanges();
-                return poRecord.PONumber;
-
-
             }
+            //Using System.Web.Security feature.
+            List<MembershipUser> userList = Utility.Utility.GetListOfMembershipUsers();
+            string[] approveAuthList = Roles.GetUsersInRole("Supervisor");
+            string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
+            foreach (string s in approveAuthList)
+            {
+                var User = userList.Find(x => x.UserName == s);
+                using (EmailControl em = new EmailControl())
+                {
+                    em.NewPurchaseOrderForApprovalNotification(User.Email.ToString(), clerkName, poRecord.PONumber.ToString(), DateTime.Now.Date.ToString("d"));
+                }
+            }
+            //Return the new PONumber.
+            return poRecord.PONumber;
         }
         public static void AddItem(string ItemID, int Quantity, string UOM, double UnitPrice)
         {
@@ -891,15 +907,16 @@ namespace Team12_SSIS.BusinessLogic
         }
         public static double GetUnitPrice(string ItemID, string supplierId)
         {
-            using(SA45Team12AD entities=new SA45Team12AD())
+            using (SA45Team12AD entities = new SA45Team12AD())
             {
                 return (double)entities.SupplierCatalogues.Where(x => x.ItemID == ItemID).Where(x => x.SupplierID == supplierId).Select(x => x.Price).FirstOrDefault();
-                    
+
             }
         }
-        public static string GetUOM(string ItemID,string supplierId)
+        public static string GetUOM(string ItemID, string supplierId)
         {
-            using (SA45Team12AD entities=new SA45Team12AD()){
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
                 return (string)entities.SupplierCatalogues.Where(x => x.ItemID == ItemID).Where(x => x.SupplierID == supplierId).Select(x => x.UOM).FirstOrDefault();
             }
         }
@@ -912,15 +929,16 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public void CreatePurchaseOrderDetails(int poNumber,string itemId, int quantity, string uom,  double unitPrice)
+        public void CreatePurchaseOrderDetails(int poNumber, string itemId, int quantity, string uom, double unitPrice)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 PORecordDetail poRecordDetail = new PORecordDetail
-                { PONumber = poNumber,
+                {
+                    PONumber = poNumber,
 
                     ItemID = itemId,
-                   
+
                     Quantity = quantity,
                     UOM = uom,
                     UnitPrice = unitPrice,
@@ -929,7 +947,7 @@ namespace Team12_SSIS.BusinessLogic
                 entities.SaveChanges();
             }
         }
-        public static void UpdatePurchaseOrderStatus(int poNumber, string status ,DateTime dateProcessed, string handledBy)
+        public static void UpdatePurchaseOrderStatus(int poNumber, string status, DateTime dateProcessed, string handledBy)
         {
             PORecord po;
             string email = "";
@@ -949,14 +967,14 @@ namespace Team12_SSIS.BusinessLogic
             {
                 em.ChangeInPurchaseOrderStatusNotification(email, poNumber.ToString(), dateProcessed.ToString("d"), status);
             }
-            
+
         }
 
         static void PurchaseOrderIsApproved(int poNumber)
         {
             PORecord po;
             double totalPrice = 0;
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 po = ctx.PORecords.Where(x => x.PONumber == poNumber).FirstOrDefault();
                 List<PORecordDetail> poDList = ctx.PORecordDetails.Where(x => x.PONumber == poNumber).ToList();
@@ -1024,7 +1042,7 @@ namespace Team12_SSIS.BusinessLogic
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
-                return entities.PORecordDetails.Where(x => x.PONumber == poNo).Select(x =>x.ID).FirstOrDefault();
+                return entities.PORecordDetails.Where(x => x.PONumber == poNo).Select(x => x.ID).FirstOrDefault();
             }
         }
 
@@ -1034,7 +1052,7 @@ namespace Team12_SSIS.BusinessLogic
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 PORecord poRecord = entities.PORecords.FirstOrDefault(x => x.PONumber == poNo);
-                
+
                 entities.SaveChanges();
                 success = true;
             }
@@ -1044,9 +1062,9 @@ namespace Team12_SSIS.BusinessLogic
         public static bool CancelPORecordRequest(int poNo)
         {
             bool success = false;
-            using (SA45Team12AD entities= new SA45Team12AD())
+            using (SA45Team12AD entities = new SA45Team12AD())
             {
-                PORecord poRecord = entities.PORecords.FirstOrDefault(x => x.PONumber ==poNo);
+                PORecord poRecord = entities.PORecords.FirstOrDefault(x => x.PONumber == poNo);
                 poRecord.Status = "Cancelled";
                 entities.SaveChanges();
                 success = true;
@@ -1601,73 +1619,73 @@ namespace Team12_SSIS.BusinessLogic
 
 
         public static List<SupplierList> ListSuppliers()
-		{
-			using (SA45Team12AD entities = new SA45Team12AD())
-			{
-				return entities.SupplierLists.ToList();
-			}
-		}
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.SupplierLists.ToList();
+            }
+        }
 
-		public static void UpdateOrderLeadTime(int orderLeadTime, string supplierID)
-		{
-			using (SA45Team12AD entities = new SA45Team12AD())
-			{
-				SupplierList supplier = entities.SupplierLists.Where(p => p.SupplierID == supplierID).First<SupplierList>();
-				supplier.OrderLeadTime = orderLeadTime;
-				entities.SaveChanges();
-			}
-		}
+        public static void UpdateOrderLeadTime(int orderLeadTime, string supplierID)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                SupplierList supplier = entities.SupplierLists.Where(p => p.SupplierID == supplierID).First<SupplierList>();
+                supplier.OrderLeadTime = orderLeadTime;
+                entities.SaveChanges();
+            }
+        }
 
 
-		public static int GetCurrentBufferStock(string itemid)
-		{
-			using (SA45Team12AD entities = new SA45Team12AD())
-			{
-				if(entities.InventoryCatalogues.Where(x => x.ItemID == itemid).Select(x => x.BufferStockLevel).Single() != null)
-				{
-					return (int)entities.InventoryCatalogues.Where(x => x.ItemID == itemid).Select(x => x.BufferStockLevel).Single();
-				}
-				else
-				{
-					return -1;
-				}
-			}
-		}
-		public static string GetCurrentAutomationStatus(string itemid)
-		{
-			using (SA45Team12AD entities = new SA45Team12AD())
-			{
-				InventoryCatalogue inventory = entities.InventoryCatalogues.Where(x => x.ItemID == itemid).First<InventoryCatalogue>();
-				if (inventory.BufferStockLevel == null)
-				{
-					return "The buffer stock level is currently calculated automatically for the current item.";
-				}
-				else
-				{
-					return "The buffer stock level for the current item is " + inventory.BufferStockLevel.ToString();
-				}
-			}
-		}
+        public static int GetCurrentBufferStock(string itemid)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                if (entities.InventoryCatalogues.Where(x => x.ItemID == itemid).Select(x => x.BufferStockLevel).Single() != null)
+                {
+                    return (int)entities.InventoryCatalogues.Where(x => x.ItemID == itemid).Select(x => x.BufferStockLevel).Single();
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+        public static string GetCurrentAutomationStatus(string itemid)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                InventoryCatalogue inventory = entities.InventoryCatalogues.Where(x => x.ItemID == itemid).First<InventoryCatalogue>();
+                if (inventory.BufferStockLevel == null)
+                {
+                    return "The buffer stock level is currently calculated automatically for the current item.";
+                }
+                else
+                {
+                    return "The buffer stock level for the current item is " + inventory.BufferStockLevel.ToString();
+                }
+            }
+        }
 
-		public static void UpdateBufferStockLevel(string itemid, int newbufferstocklevel)
-		{
-			using (SA45Team12AD entities = new SA45Team12AD())
-			{
-				InventoryCatalogue inventory = entities.InventoryCatalogues.Where(x => x.ItemID == itemid).Single();
-				inventory.BufferStockLevel = newbufferstocklevel;
+        public static void UpdateBufferStockLevel(string itemid, int newbufferstocklevel)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                InventoryCatalogue inventory = entities.InventoryCatalogues.Where(x => x.ItemID == itemid).Single();
+                inventory.BufferStockLevel = newbufferstocklevel;
                 inventory.BFSProportion = 0;
-				entities.SaveChanges();
-			}
-		}
+                entities.SaveChanges();
+            }
+        }
 
-		public static int GetCurrentOrderLeadTime(string supplierid)
-		{
-			using (SA45Team12AD entities = new SA45Team12AD())
-			{
-				SupplierList supplier = entities.SupplierLists.Where(x => x.SupplierID == supplierid).First<SupplierList>();
-				return (int)supplier.OrderLeadTime;
-			}
-		}
+        public static int GetCurrentOrderLeadTime(string supplierid)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                SupplierList supplier = entities.SupplierLists.Where(x => x.SupplierID == supplierid).First<SupplierList>();
+                return (int)supplier.OrderLeadTime;
+            }
+        }
 
 
 
@@ -2504,7 +2522,7 @@ namespace Team12_SSIS.BusinessLogic
                 entities.SupplierLists.Add(supplier);
                 entities.SaveChanges();
             }
-            }
-        
+        }
+
     }
 }

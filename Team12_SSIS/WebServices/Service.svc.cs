@@ -370,29 +370,87 @@ namespace Team12_SSIS.WebServices
                 return "Invalid user.";
             }
 
+            bool anyErrors1 = false;
+            bool anyErrors2 = true;
+
             // Checking against existing quantity in the store currently
             string itemID = "";
             int totalRetrievedQty = 0;
             foreach (var item in tempList)
             {
                 itemID = item.ItemID;
-                totalRetrievedQty += item.RequestedQty;
+                totalRetrievedQty += item.ActualQty;
             }
             int currentQty = InventoryLogic.GetQuantity(itemID);
 
-            if (totalRetrievedQty <= currentQty)
+            if (totalRetrievedQty > currentQty)
+            {
+                anyErrors1 = true;
+            }
+
+            bool isEnough = true;
+
+            // If still no errors, will perform more checks till an error is found.
+            if (!anyErrors1)
+            {
+                foreach (var item in tempList)
+                {
+                    InventoryCatalogue ic = InventoryLogic.FindItemByItemID(itemID);
+
+                    //Check if there is insufficient quantity in the inventory
+                    if (ic.UnitsInStock < item.RequestedQty || ic.UnitsInStock < item.RequestedQty)
+                    {
+                        isEnough = false;
+
+                        if (!isEnough && ic.UnitsInStock < item.RequestedQty)
+                        {
+                            anyErrors1 = true;
+                        }
+                    }
+
+                    //If inventory is not enough and isOverride is true
+                    if (item.IsOverride)
+                    {
+                        isEnough = false;
+                        anyErrors2 = false;
+                    }
+
+                    //Check if user is withdrawing more than requested 
+                    if (item.RequestedQty < item.ActualQty)
+                    {
+                        anyErrors1 = true;
+                    }
+
+                    //Check if user is withdrawing less than requested despite having enough in the inventory
+                    if (isEnough && item.RequestedQty > item.ActualQty && !item.IsOverride)
+                    {
+                        anyErrors1 = true;
+                    }
+
+
+                    if (anyErrors1)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            // If there is a single error, the process will terminate without updating any of the entries
+            if (anyErrors1 && anyErrors2)
+            {
+                return "Failure.";
+            }
+            else
             {
                 foreach (WCF_TempInventoryRetrieval item in tempList)
                 {
                     string str = InventoryLogic.CreateNewInventoryRetrievalEntry(item.RequestID, item.RequestDetailID, item.ItemID, item.DepartmentID, item.RequestedQty, item.ActualQty, item.IsOverride);
                 }
 
-                return "Success";
+                return "Success.";
             }
-            else
-            {
-                return "Failure. Insufficient quanitity in inventory for item " + itemID + ".";
-            }
+            
+
         }
 
         // Approve requisition [DEPT HEAD]

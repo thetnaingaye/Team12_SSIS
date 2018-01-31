@@ -12,7 +12,7 @@
                     <asp:Label ID="LblShow" runat="server" Text="Show:"></asp:Label>
                 </td>
                 <td>
-                    <asp:DropDownList ID="DdlShow" runat="server" Height="20px" Width="117px" OnSelectedIndexChanged="DdlShow_SelectedIndexChanged" AutoPostBack="true">
+                    <asp:DropDownList ID="DdlShow" runat="server" OnSelectedIndexChanged="DdlShow_SelectedIndexChanged" AutoPostBack="true">
                         <asp:ListItem Value="Pending" Selected="True">Pending</asp:ListItem>
                         <asp:ListItem Value="Approved">Approved</asp:ListItem>
                         <asp:ListItem Value="Rejected">Rejected</asp:ListItem>
