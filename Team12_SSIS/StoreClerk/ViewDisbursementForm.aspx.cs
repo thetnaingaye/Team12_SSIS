@@ -68,6 +68,7 @@ namespace Team12_SSIS.StoreClerk
         {
             DisbursementList dL = DisbursementLogic.GetDisbursementList(disbursementId);
 
+            string status = dL.Status;
             LblDisbId.Text = "DL" + disbursementId.ToString("0000");
             LblColDate.Text = ((DateTime)dL.CollectionDate).ToString("d");
             LblCollectPoint.Text = DisbursementLogic.GetCurrentCPWithTimeByID(dL.CollectionPointID);
@@ -75,12 +76,23 @@ namespace Team12_SSIS.StoreClerk
             LblDeptName.Text = DisbursementLogic.GetListofDepartments().Where(x => x.DeptID == dL.DepartmentID).Select(x => x.DepartmentName).FirstOrDefault();
             LblStatus.Text = dL.Status;
 
-            if (dL.Status == "Pending Collection")
+            switch (status)
             {
-                BtnCancelDis.Visible = true;
+                case ("Collected"):
+                    {
+                        BtnCancelDis.Visible = false;
+                        LblCollectedBy.Visible = true;
+                        ImgSignature.ImageUrl = Server.MapPath("~/Images/") + "DL" + dL.DisbursementID + ".jpg";
+                        ImgSignature.Visible = true;
+                        break;
+                    }
+                case ("Pending Collection"):
+                    BtnCancelDis.Visible = true;
+                    break;
+                default:
+                    BtnCancelDis.Visible = false;
+                    break;
             }
-            else
-                BtnCancelDis.Visible = false;
         }
         private void SetStatusLabel()
         {
@@ -93,6 +105,7 @@ namespace Team12_SSIS.StoreClerk
             }
             else
                 statusMessage.Visible = false;
+
         }
     }
 
