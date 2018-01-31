@@ -61,8 +61,8 @@ namespace Team12_SSIS.BusinessLogic
                 int hour;
                 int minute;
                 int second;
-                int targetHour = 13;             // Change this to manually set our hour [For testing purposes - Default should be 17]
-                int targetMinute = 18;          // Change this to manually set our minute [For testing purposes - Default should be 59] 
+                int targetHour = 17;             // Change this to manually set our hour [For testing purposes - Default should be 17]
+                int targetMinute = 59;          // Change this to manually set our minute [For testing purposes - Default should be 59] 
 
 
                 // Checking for the right hour
@@ -135,29 +135,14 @@ namespace Team12_SSIS.BusinessLogic
                         UpdateAutomationLog(DateTime.Now + ": EOD processes successfully completed.", 1);
                     }
                 }
-
-
-                if (DateTime.Now.Hour < 22)
+                else
                 {
-                    // Once all is done, perform a force sleep so that the timing is resetted back to about 10+pm
-                    hour = DateTime.Now.Hour;
-                    int hoursToSleep = 22 - hour;
-                    UpdateAutomationLog(DateTime.Now + ": Thread will initiate sleep for " + hoursToSleep + " hours.", 1);
-                    Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
-                    // This ensures that the thread which will trigger this method (Every 18 hours) is done correctly.
-                    UpdateAutomationLog(DateTime.Now + ": Thread has woken and will now end for the day.", 1);
+                    UpdateAutomationLog(DateTime.Now + ": EOD processes will now stop as now is beyond the intended scheduled time.", 1);
                 }
             }
             else
             {
-                UpdateAutomationLog(DateTime.Now + "Today is a " + dayTodae + ". Since it is a weekend, EDO processes will not be carried out.", 1);
-                // Gotta reset it back to about 10pm as well
-                int hour = DateTime.Now.Hour;
-                int hoursToSleep = 22 - hour;
-                UpdateAutomationLog(DateTime.Now + ": Thread will initiate sleep for " + hoursToSleep + " hours.", 1);
-                Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
-                // This ensures that the thread which will trigger this method (Every 18 hours) is done correctly.
-                UpdateAutomationLog(DateTime.Now + ": Thread has woken and will now end for the day.", 1);
+                UpdateAutomationLog(DateTime.Now + ": Today is a " + dayTodae + ". Since it is a weekend, EOD processes will not be carried out.", 1);
             }
         }
 
@@ -260,31 +245,14 @@ namespace Team12_SSIS.BusinessLogic
                         UpdateAutomationLog(DateTime.Now + ": Forecasting processes successfully completed.", 2);
                     }
                 }
-
-
-                if (DateTime.Now.Hour < 22)
+                else
                 {
-                    // Once all is done, perform a force sleep so that the timing is resetted back to btw 3.00 to 3.59am
-                    hour = DateTime.Now.Hour;
-                    int hoursToSleep = (23 - hour) + 4;
-                    UpdateAutomationLog(DateTime.Now + ": Thread will initiate sleep for " + hoursToSleep + " hours.", 2);
-                    Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
-                    // This ensures that the thread which will trigger this method (Every 24 hours) is done correctly before a scheduled forecast run.  
-                    UpdateAutomationLog(DateTime.Now + ": Thread has woken and will now end for the day.", 2);
+                    UpdateAutomationLog(DateTime.Now + ": Forecasting processes will now stop as now is beyond the intended scheduled time.", 2);
                 }
             }
             else
             {
-                UpdateAutomationLog(DateTime.Now + "Today is a " + dayTodae + ". Hence forecasting processes will not be carried out.", 2);
-                // Gotta reset as well back to btw 3.00 to 3.59am
-                int hour = DateTime.Now.Hour;
-                if (hour >= 4)
-                {
-                    int hoursToSleep = (23 - hour) + 4;
-                    UpdateAutomationLog(DateTime.Now + ": Thread will initiate sleep for " + hoursToSleep + " hours.", 2);
-                    Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
-                }
-                UpdateAutomationLog(DateTime.Now + ": Thread has woken and will now end for the day.", 2);
+                UpdateAutomationLog(DateTime.Now + ": Today is a " + dayTodae + ". Hence forecasting processes will not be carried out.", 2);
             }
         }
 
