@@ -158,3 +158,17 @@ GROUP BY ic.ItemID, cc.CategoryID, ic.Description, cc.CatalogueName
 END 
 
 ## End of Script ##
+
+## Stored Procedure for Purchase Order ##
+CREATE PROCEDURE PurchaseOrderReport (@poNumber int)
+AS
+BEGIN
+SELECT
+pod.ItemID, pod.Quantity, pod.Quantity, pod.UnitPrice, pod.UOM, ic.Description
+FROM PORecordDetails pod, InventoryCatalogue ic
+WHERE 
+pod.PONumber = @poNumber
+AND pod.ItemID = ic.ItemID
+END
+
+## End of Script ##

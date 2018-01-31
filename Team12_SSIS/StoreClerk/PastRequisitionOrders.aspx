@@ -5,7 +5,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
-        <h1>Past Requisition Records</h1>
+        <h2>Past Requisition Records</h2>
     </div>
     <div>
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -94,7 +94,7 @@
         <asp:UpdatePanel ID="UpdatePanelDetailsView" runat="server" >
             <ContentTemplate>
                 <div>
-                    <h3><asp:Label ID="LblDetails" runat="server" Text="" EnableViewState="false"></asp:Label></h3>
+                    <h4><asp:Label ID="LblDetails" runat="server" Text="" EnableViewState="false"></asp:Label></h4>
                     <asp:Label ID="LblSelected" runat="server" Text="" EnableViewState="false"></asp:Label><asp:Label ID="LblItemIDInfo" runat="server" Text="" EnableViewState="false"></asp:Label>
                     <br /><br />
                 </div>

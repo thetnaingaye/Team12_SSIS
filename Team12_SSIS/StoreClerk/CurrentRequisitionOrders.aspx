@@ -6,11 +6,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
-        <h1>Current Requisition Orders</h1>
-        <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
+        <h2>Current Requisition Orders</h2>
     </div>
-    <h3>Departments with pending requisition orders:</h3>
-    <h3><asp:Label ID="LblMessage" runat="server" Text=""></asp:Label></h3>
+    <h4>Departments with pending requisition orders:</h4>
+    <h4><asp:Label ID="LblMessage" runat="server" Text=""></asp:Label></h4>
     <div>
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanelList" runat="server">
@@ -78,7 +77,7 @@
         <asp:UpdatePanel ID="UpdatePanelDetailsView" runat="server" >
             <ContentTemplate>
                 <div>
-                    <h3><asp:Label ID="LblDetails" runat="server" Text=""></asp:Label></h3>
+                    <h4><asp:Label ID="LblDetails" runat="server" Text=""></asp:Label></h4>
                     <asp:Label ID="LblSelected" runat="server" Text="" EnableViewState="false"></asp:Label><asp:Label ID="LblItemIDInfo" runat="server" Text="" EnableViewState="false"></asp:Label>
                     <br /><br />
                 </div>

@@ -90,7 +90,6 @@ namespace Team12_SSIS.StoreClerk
             DateTime date = DateTime.ParseExact(Request.Form["datepicker"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
             int collectionId = DisbursementLogic.GetListofDepartments().Where(x => x.DeptID == DdlDept.SelectedValue).Select(x => x.CollectionPointID).FirstOrDefault();
             string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
-            int disbLNumber = dl.CreateDisbursementList(DdlDept.SelectedValue, collectionId, date, LblDeptRep.Text);
 
             if (!Utility.Validator.IsDateRangeValid(DateTime.Now.Date, date))
             {
@@ -100,7 +99,7 @@ namespace Team12_SSIS.StoreClerk
                 return;
             }
 
-
+            int disbLNumber = dl.CreateDisbursementList(DdlDept.SelectedValue, collectionId, date, LblDeptRep.Text);
             foreach (GridViewRow r in GridViewDisbList.Rows)
             {
                 int retrievalId = int.Parse((r.FindControl("HideRetriId") as HiddenField).Value);

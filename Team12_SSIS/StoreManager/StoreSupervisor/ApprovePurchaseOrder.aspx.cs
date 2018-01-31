@@ -96,6 +96,8 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor
             PurchasingLogic.UpdatePurchaseOrderStatus(poNumber, status, dateProcessed, handledBy);
             statusMessage.Text = "Approved successfully";
             statusMessage.ForeColor = System.Drawing.Color.Green;
+            btnapr.Visible = false;
+            btncancel.Visible = false;
 
 
         }
@@ -110,7 +112,8 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor
             PurchasingLogic.UpdatePurchaseOrderStatus(poNumber, status, dateProcessed, handledBy);
             statusMessage.Text = "Rejected successfully";
             statusMessage.ForeColor = System.Drawing.Color.Green;
-
+            btnapr.Visible = false;
+            btncancel.Visible = false;            
         }
     }
 }

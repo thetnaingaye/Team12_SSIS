@@ -4,8 +4,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
-        <h1>System-Generated Order List</h1>
-        <h5><%#:DateTime.Now %></h5>
+        <h2>System-Generated Order List</h2>
+        <h5><%#:DateTime.Now.ToString() %></h5>
         <asp:Label ID="LblMessage" runat="server" Text=""></asp:Label>
     </div>
     <br />
@@ -73,7 +73,7 @@
 
                  <asp:TemplateField HeaderText="Delete" HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle">
                         <ItemTemplate>
-                            <asp:Button ID="BtnDelete" class="btn-danger" runat="server" Text="Delete" CommandArgument='<%#:Item.ItemID + "," + Item.SupplierID %>' CommandName="ThisBtnClick" OnClick="btnDelete_Click"/>
+                            <asp:Button ID="BtnDelete" ControlStyle-CssClass="btn btn-danger" runat="server" Text="Delete" CommandArgument='<%#:Item.ItemID + "," + Item.SupplierID %>' CommandName="ThisBtnClick" OnClick="btnDelete_Click"/>
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                         <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
@@ -92,6 +92,6 @@
     <div>
         <br />
         <br />
-        <asp:Button ID="BtnSubmitAll" class="btn-primary" runat="server" Text="Send all for approval" OnClick="BtnSubmitAll_Click" />
+        <asp:Button ID="BtnSubmitAll" CssClass="btn btn-primary" runat="server" Text="Send all for approval" OnClick="BtnSubmitAll_Click" />
     </div>
 </asp:Content>

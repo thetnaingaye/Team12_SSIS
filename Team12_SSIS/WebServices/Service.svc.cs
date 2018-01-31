@@ -358,7 +358,7 @@ namespace Team12_SSIS.WebServices
         }
 
         // Creating new entry
-        public string SubmitInventoryRetrieval(List<WCF_TempInventoryRetrieval> tempObj, string token)
+        public string SubmitInventoryRetrieval(List<WCF_TempInventoryRetrieval> tempList, string token)
         {
             //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
             if (!IsAuthanticateUser(token))
@@ -370,30 +370,100 @@ namespace Team12_SSIS.WebServices
                 return "Invalid user.";
             }
 
-            // ADD VALIDATION HERE!!!!!!!!!!
+            bool anyErrors1 = false;
+            bool anyErrors2 = true;
 
-            foreach (WCF_TempInventoryRetrieval item in tempObj)
+            // Checking against existing quantity in the store currently
+            string itemID = "";
+            int totalRetrievedQty = 0;
+            foreach (var item in tempList)
             {
-                string str = InventoryLogic.CreateNewInventoryRetrievalEntry(item.RequestID, item.RequestDetailID, item.ItemID, item.DepartmentID, item.RequestedQty, item.ActualQty, item.IsOverride);
+                itemID = item.ItemID;
+                totalRetrievedQty += item.ActualQty;
+            }
+            int currentQty = InventoryLogic.GetQuantity(itemID);
+
+            if (totalRetrievedQty > currentQty)
+            {
+                anyErrors1 = true;
             }
 
+            bool isEnough = true;
 
-            return "Success";
+            // If still no errors, will perform more checks till an error is found.
+            if (!anyErrors1)
+            {
+                foreach (var item in tempList)
+                {
+                    InventoryCatalogue ic = InventoryLogic.FindItemByItemID(itemID);
+
+                    //Check if there is insufficient quantity in the inventory
+                    if (ic.UnitsInStock < item.RequestedQty || ic.UnitsInStock < item.RequestedQty)
+                    {
+                        isEnough = false;
+
+                        if (!isEnough && ic.UnitsInStock < item.RequestedQty)
+                        {
+                            anyErrors1 = true;
+                        }
+                    }
+
+                    //If inventory is not enough and isOverride is true
+                    if (item.IsOverride)
+                    {
+                        isEnough = false;
+                        anyErrors2 = false;
+                    }
+
+                    //Check if user is withdrawing more than requested 
+                    if (item.RequestedQty < item.ActualQty)
+                    {
+                        anyErrors1 = true;
+                    }
+
+                    //Check if user is withdrawing less than requested despite having enough in the inventory
+                    if (isEnough && item.RequestedQty > item.ActualQty && !item.IsOverride)
+                    {
+                        anyErrors1 = true;
+                    }
+
+
+                    if (anyErrors1)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            // If there is a single error, the process will terminate without updating any of the entries
+            if (anyErrors1 && anyErrors2)
+            {
+                return "Failure.";
+            }
+            else
+            {
+                foreach (WCF_TempInventoryRetrieval item in tempList)
+                {
+                    string str = InventoryLogic.CreateNewInventoryRetrievalEntry(item.RequestID, item.RequestDetailID, item.ItemID, item.DepartmentID, item.RequestedQty, item.ActualQty, item.IsOverride);
+                }
+
+                return "Success.";
+            }
+            
+
         }
 
-        // Approve requisition [DEPT HEAD}
+        // Approve requisition [DEPT HEAD]
         public string ApproveRequisition(WCF_RequisitionRecord tempObj, string token)
         {
             string temp = RequisitionLogic.ProcessRequsitionRequest(tempObj.RequestID, "Approved", GetUserFullName(token), tempObj.Remarks);
-
             return temp;
         }
 
-        // Reject requisition [DEPT HEAD}
+        // Reject requisition [DEPT HEAD]
         public string RejectRequisition(WCF_RequisitionRecord tempObj, string token)
         {
             string temp = RequisitionLogic.ProcessRequsitionRequest(tempObj.RequestID, "Rejected", GetUserFullName(token), tempObj.Remarks);
-
             return temp;
         }
 

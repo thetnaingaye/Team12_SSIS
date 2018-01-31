@@ -45,72 +45,90 @@ namespace Team12_SSIS.BusinessLogic
 
 
             // Checking for the right day aka weekday
-            if (!dayTodae.Equals(DayOfWeek.Saturday) || !dayTodae.Equals(DayOfWeek.Sunday) && DateTime.Now.Hour > 13)
+            if (!dayTodae.Equals(DayOfWeek.Saturday) || !dayTodae.Equals(DayOfWeek.Sunday))
             {
                 // Init all req attrs
+                bool isOverride = false;
                 bool rightHour = false;
                 bool rightMinute = false;
                 bool rightSecond = false;
                 int hour;
                 int minute;
                 int second;
+                int targetHour = 10;             // Change this to manually set our hour [For testing purposes - Default should be 17]
+                int targetMinute = 10;          // Change this to manually set our minute [For testing purposes - Default should be 59] 
 
                 // Checking for the right hour
                 do
                 {
                     hour = DateTime.Now.Hour;      // Retrieving current hour
 
-                    if (hour == 17)
+                    if (hour == targetHour)
                     {
                         rightHour = true;
                     }
-                    else if (hour < 17)
+                    else if (hour < targetHour)
                     {
-                        Thread.Sleep((17 - hour) * 60 * 60 * 1000);
+                        Thread.Sleep((targetHour - hour) * 60 * 60 * 1000);
                     }
                     else
                     {
-                        Thread.Sleep(6 * 60 * 60 * 1000);   // Sleep for 6 hours so will proceed to the next day
+                        //Thread.Sleep(6 * 60 * 60 * 1000);   // Sleep for 6 hours so will proceed to the next day
+                        isOverride = true;
+                        rightHour = true;
                     }
 
                 } while (!rightHour);
 
-                // Checking for the right minute
-                do
+                
+                if (!isOverride)   // If it is not after 6pm
                 {
-                    minute = DateTime.Now.Minute;    // Retrieving current minute
-
-                    if (minute == 59)
+                    // Checking for the right minute
+                    do
                     {
-                        rightMinute = true;
-                    }
-                    else
+                        minute = DateTime.Now.Minute;    // Retrieving current minute
+
+                        if (minute == targetMinute)
+                        {
+                            rightMinute = true;
+                        }
+                        else
+                        {
+                            Thread.Sleep((targetMinute - minute) * 60 * 1000);
+                            rightMinute = true;
+                        }
+
+                    } while (!rightMinute);
+
+                    // Checking for the right second
+                    do
                     {
-                        Thread.Sleep((59 - minute) * 60 * 1000);
-                        rightMinute = true;
-                    }
+                        second = DateTime.Now.Second;    // Retrieving current second
 
-                } while (!rightMinute);
+                        if (second == 59)
+                        {
+                            rightSecond = true;
+                        }
+                        else
+                        {
+                            Thread.Sleep((59 - second) * 1000);
+                            Thread.Sleep(1000);   // Adds another milliseconds to make it a full minute.
+                            rightSecond = true;
+                        }
 
-                // Checking for the right second
-                do
-                {
-                    second = DateTime.Now.Second;    // Retrieving current second
+                    } while (!rightSecond);
 
-                    if (second == 59)
-                    {
-                        rightSecond = true;
-                    }
-                    else
-                    {
-                        Thread.Sleep((59 - second) * 1000);
-                        rightSecond = true;
-                    }
+                    //if (rightHour && rightMinute && rightSecond)
+                    //{
+                    //    // Performing our clearing code here
+                    //    var temp = PurchasingLogic.PopulateReorderTable();
 
-                } while (!rightSecond);
+                    //    if (temp != null && temp.Count > 0)
+                    //    {
+                    //        string s = PurchasingLogic.CreateMultiplePO(temp);
+                    //    }
+                    //}
 
-                if (rightHour && rightMinute && rightSecond)
-                {
                     // Performing our clearing code here
                     var temp = PurchasingLogic.PopulateReorderTable();
 
@@ -121,11 +139,14 @@ namespace Team12_SSIS.BusinessLogic
                 }
 
 
-                // Once all is done, perform a force sleep so that the timing is resetted back to about 10+pm
-                hour = DateTime.Now.Hour;
-                int hoursToSleep = 22 - hour;
-                Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
-                // This ensures that the thread which will trigger this method (Every 18 hours) is done correctly.
+                if (DateTime.Now.Hour <= 22)
+                {
+                    // Once all is done, perform a force sleep so that the timing is resetted back to about 10+pm
+                    hour = DateTime.Now.Hour;
+                    int hoursToSleep = 22 - hour;
+                    Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
+                    // This ensures that the thread which will trigger this method (Every 18 hours) is done correctly.
+                }
             }
             else
             {

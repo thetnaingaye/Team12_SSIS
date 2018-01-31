@@ -415,7 +415,7 @@ namespace Team12_SSIS.BusinessLogic
                 }
 
                 //If inventory is not enough and isOverride is true
-                if (isOverride && ic.UnitsInStock > actQty)
+                if (isOverride)
                 {
                     isEnough = false;
                 }
@@ -458,6 +458,9 @@ namespace Team12_SSIS.BusinessLogic
                     //Updating the requsitionrecord table   --   Need to check if there are any 'approved' item requests under this requestID
                     RequisitionRecordDetail rr = context.RequisitionRecordDetails.Where(x => x.RequestDetailID == reqDetailID).First();
                     rr.Status = "Processed";
+
+                    // Gotta create an entry inside the stock card table
+                    CreatestockCard(itemID, DateTime.Now, "Item retrieval for RQ" + reqID + ".", "Minus", actQty, ic.UOM, (currentQty - actQty));
 
                     // Checking whether req qty is fulfilled   -   Separate this shit out  [Creating requisition records and details]
                     if (isFulfilled == false)
@@ -638,62 +641,55 @@ namespace Team12_SSIS.BusinessLogic
         // Retrieve RRDetails that are relevant to the inventory retrieval process
         public static List<RequisitionRecordDetail> GetRelevantDetailList()
         {
-            using (SA45Team12AD context = new SA45Team12AD())
+            List<RequisitionRecordDetail> tempListDetails = new List<RequisitionRecordDetail>();
+            List<int> currentReqIDs = new List<int>();
+            List<RequisitionRecord> tempReqList = new List<RequisitionRecord>();
+
+            // Retrieve all the req IDs of all current requisition orders
+            tempReqList = RequisitionLogic.ListCurrentRequisitionRecord();
+
+            foreach (var item in tempReqList)
             {
-
-                List<RequisitionRecordDetail> tempListDetails = new List<RequisitionRecordDetail>();
-                List<int> currentReqIDs = new List<int>();
-                List<RequisitionRecord> tempReqList = new List<RequisitionRecord>();
-
-                // Retrieve all the req IDs of all current requisition orders
-                tempReqList = RequisitionLogic.ListCurrentRequisitionRecord();
-
-                foreach (var item in tempReqList)
-                {
-                    currentReqIDs.Add(item.RequestID);
-                }
-
-
-                // Retrieve list of all the chosen req details
-                foreach (var item in currentReqIDs)
-                {
-                    tempListDetails.AddRange(RequisitionLogic.RetrieveRequisitionRecordDetails(item, "Approved"));
-                }
-
-                return tempListDetails;
+                currentReqIDs.Add(item.RequestID);
             }
+
+
+            // Retrieve list of all the chosen req details
+            foreach (var item in currentReqIDs)
+            {
+                tempListDetails.AddRange(RequisitionLogic.RetrieveRequisitionRecordDetails(item, "Approved"));
+            }
+
+            return tempListDetails;
         }
 
         // Building our custom item list for inventory retrieval process
         public static List<InventoryCatalogue> GetRelevantItemList(List<RequisitionRecordDetail> tempListDetails)
         {
-            using (SA45Team12AD context = new SA45Team12AD())
+            List<InventoryCatalogue> tempListItems = new List<InventoryCatalogue>();
+
+            // From our details list, extract its itemID and retrieve the list of items
+            foreach (var item1 in tempListDetails)
             {
-                List<InventoryCatalogue> tempListItems = new List<InventoryCatalogue>();
+                bool check = false;
 
-                // From our details list, extract its itemID and retrieve the list of items
-                foreach (var item1 in tempListDetails)
+                // Check if there is a similar item in tempListItems
+                foreach (var item2 in tempListItems)
                 {
-                    bool check = false;
-
-                    // Check if there is a similar item in tempListItems
-                    foreach (var item2 in tempListItems)
+                    if (item2.ItemID == item1.ItemID)
                     {
-                        if (item2.ItemID == item1.ItemID)
-                        {
-                            check = true;
-                            break;
-                        }
-                    }
-
-                    // only add if there are no similar item in the list
-                    if (check == false)
-                    {
-                        tempListItems.Add(FindItemByItemID(item1.ItemID));
+                        check = true;
+                        break;
                     }
                 }
-                return tempListItems;
+
+                // only add if there are no similar item in the list
+                if (check == false)
+                {
+                    tempListItems.Add(FindItemByItemID(item1.ItemID));
+                }
             }
+            return tempListItems;
         }
 
         // Calculating the total qty needed per item for inventory retrieval
@@ -716,16 +712,16 @@ namespace Team12_SSIS.BusinessLogic
         // Segregating our per item for retrieval by dept and generating the tempList
         public static List<TempInventoryRetrieval> RetrieveTempInventoryList(string itemID)
         {
-            // Intialize our list
+            // Intialize our lists
             List<RequisitionRecordDetail> tempList = new List<RequisitionRecordDetail>();
             List<TempInventoryRetrieval> ti = new List<TempInventoryRetrieval>();
 
-            int totalAct = 0;
+            int totalReq = 0;
 
-            // Creating our ReqRecord list that is relevant to this "main" row.
+            // Creating our ReqRecord list that is relevant to this "main" row, i.e those that are "approved" and not yet "processed"
             foreach (var item in GetRelevantDetailList())
             {
-                if (item.ItemID == itemID)
+                if (item.ItemID == itemID)  // From our list, we are only taking those that are relevant (i.e same itemID as our param)
                 {
                     tempList.Add(RequisitionLogic.FindRequisitionRecordDetails(item.RequestDetailID));
                 }
@@ -738,11 +734,11 @@ namespace Team12_SSIS.BusinessLogic
             // This takes the overall qty requested per item (combines all relevant req together) and compares it to the existing inventory
             foreach (var item in ti)
             {
-                totalAct += item.ActualQty;
+                totalReq += item.RequestedQty;
             }
             foreach (var item in ti)
             {
-                if (totalAct <= GetQuantity(itemID))
+                if (totalReq > GetQuantity(itemID))  // If total req qty is more than the current quantity in the inventory (aka insufficient qty for the "batch")
                 {
                     item.IsOverride = true;
                 }
@@ -2210,7 +2206,7 @@ namespace Team12_SSIS.BusinessLogic
 
                 using (EmailControl em = new EmailControl())
                 {
-                    em.NewAdjustmentVoucherRequestNotification(User.Email.ToString(), avRId.ToString(), clerkName);
+                    em.NewAdjustmentVoucherRequestNotification(User.Email.ToString(), "AVR" + avRId.ToString("0000"), clerkName);
                 }
             }
         }
