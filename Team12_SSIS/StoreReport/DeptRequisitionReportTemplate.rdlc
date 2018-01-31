@@ -317,6 +317,7 @@
                     <Color>#5c5c5c</Color>
                   </Style>
                 </ChartAxisTitle>
+                <Interval>=1</Interval>
                 <ChartMajorGridLines>
                   <Enabled>False</Enabled>
                   <Style>
@@ -587,13 +588,13 @@
               <Width>2.79104cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>6.16821cm</Width>
+              <Width>7.06779cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.19848cm</Width>
+              <Width>2.2989cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.84938cm</Width>
+              <Width>3.62373cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -615,7 +616,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox27</rd:DefaultName>
@@ -647,7 +650,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox29</rd:DefaultName>
@@ -673,13 +678,15 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>NO OF REQUESTS</Value>
+                              <Value>Number of Requests</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox31</rd:DefaultName>
@@ -705,13 +712,15 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>AVG REQUEST QTY</Value>
+                              <Value>Average Quantity per Request</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox33</rd:DefaultName>
@@ -726,6 +735,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -876,10 +886,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>SA45Team12ADDataSetReqHx</DataSetName>
-        <Top>13.80808cm</Top>
-        <Left>1.52905cm</Left>
+        <Top>14.15204cm</Top>
+        <Left>1.67023cm</Left>
         <Height>1.75562cm</Height>
-        <Width>16.00711cm</Width>
+        <Width>15.78146cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
