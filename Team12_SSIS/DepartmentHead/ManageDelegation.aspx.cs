@@ -98,6 +98,7 @@ namespace Team12_SSIS.DepartmentHead
 
 		protected void BtnEdit_Click(object sender, EventArgs e)
 		{
+			statusMessage.Visible = false;
 			MultiView1.ActiveViewIndex = 1;
 			string currentdep = DisbursementLogic.GetCurrentDep();
 			DDelegateDetail currentdelegate = RequisitionLogic.GetLatestDelegate(currentdep);

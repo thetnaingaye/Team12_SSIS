@@ -17,9 +17,9 @@
             &nbsp;&nbsp; To:<asp:Label ID="LblCurrentDelEndDate" runat="server"></asp:Label>
             <br />
             <br />
-            <asp:Button ID="BtnEdit" CssClass="btn btn-primary" runat="server" OnClick="BtnEdit_Click" Text="Edit" />
+            <asp:Button ID="BtnEdit" CssClass="btn btn-primary btn-xs" runat="server" OnClick="BtnEdit_Click" Text="Edit" />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Button ID="CancelDelegationBtn" CssClass="btn btn-primary" runat="server" OnClick="CancelDelegationBtn_Click" Text="Cancel Delegation" />
+            <asp:Button ID="CancelDelegationBtn" CssClass="btn btn-primary btn-xs" runat="server" OnClick="CancelDelegationBtn_Click" Text="Cancel Delegation" />
         </asp:View>
         
         <asp:View ID="View2" runat="server">
@@ -30,10 +30,11 @@
             From:
             <asp:Calendar ID="CalStartEditDelegate" runat="server"></asp:Calendar>
             </div>
-            <div id="endeditdelegate" style="position: relative; left: 40%; margin-top: -270px;">
+            <div id="endeditdelegate" style="position: relative; left: 30%; margin-top: -270px;">
             To:
             <asp:Calendar ID="CalEndEditDelegate" runat="server"></asp:Calendar>
              </div>
+            <br />
             <asp:Button ID="ApplyBtn" CssClass="btn btn-primary" runat="server" OnClick="ApplyBtn_Click" Text="Apply" />
         </asp:View>
         
@@ -48,9 +49,10 @@
               <div id="startadddelegate">
             From:<asp:Calendar ID="CalStartAddDelegate" runat="server"></asp:Calendar>
             </div>
-              <div id="endadddelegate" style="position: relative; left: 40%; margin-top: -270px;">
+              <div id="endadddelegate" style="position: relative; left: 30%; margin-top: -270px;">
             To:<asp:Calendar ID="CalEndAddDelegate" runat="server"></asp:Calendar>
             </div>
+            <br />
             <asp:Button ID="BtnAddDelegate" CssClass="btn btn-primary" runat="server" OnClick="BtnAddDelegate_Click" Text="Add Delegate" />
             <br />
         </asp:View>

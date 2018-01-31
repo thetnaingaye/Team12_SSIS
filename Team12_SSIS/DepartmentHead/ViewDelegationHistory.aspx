@@ -5,10 +5,11 @@
     <h2>Delegation History</h2>
     <p>
         Search Employee:<asp:TextBox ID="SearchTxt" runat="server"></asp:TextBox>
-        <asp:Button ID="SearchBtn" CssClass="btn btn-primary" runat="server" OnClick="SearchBtn_Click" Text="Search" />
-        <asp:Button ID="ViewAllBtn" CssClass="btn btn-primary" runat="server" OnClick="ViewAllBtn_Click" Text="View All" />
+        <asp:Button ID="SearchBtn" CssClass="btn btn-primary btn-xs" runat="server" OnClick="SearchBtn_Click" Text="Search" />
+        <asp:Button ID="ViewAllBtn" CssClass="btn btn-primary btn-xs" runat="server" OnClick="ViewAllBtn_Click" Text="View All" />
     </p>
     <p>
+        
         <asp:GridView ID="GridViewDelegationHistory" runat="server" AutoGenerateColumns="False"
                                 ShowHeaderWhenEmpty="True"
                                 CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ID" AllowPaging="true"

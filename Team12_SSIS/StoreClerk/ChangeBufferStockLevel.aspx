@@ -5,18 +5,19 @@
     
         
         <asp:MultiView ID="MultiView1" runat="server">
+            <br />
             <asp:View ID="View1" runat="server">
-                <h2>Ammend Buffer Stock Level</h2><br />
+                <h2>Amend Buffer Stock Level</h2>
                 <br />
                 Item Code:&nbsp;<asp:TextBox ID="TxtItemCode" runat="server"></asp:TextBox>
-                &nbsp;&nbsp;<asp:Button ID="FindBtn" CssClass="btn btn-primary" runat="server" OnClick="FindBtn_Click" Text="Find" />
+                &nbsp;&nbsp;<asp:Button ID="FindBtn" runat="server" CssClass="btn btn-primary" OnClick="FindBtn_Click" Text="Find" />
                 &nbsp;
                 <br />
-                
             </asp:View>
             <br/>
             <asp:View ID="View2" runat="server">
-                <strong>Ammend Buffer Stock Level<br /> <br /> Item Code:
+                <h2>Amend Buffer Stock Level</h2>
+                <strong> <br /> Item Code:
                 <asp:Label ID="LblItemCode" runat="server"></asp:Label>
                 <br />
                 Item Description:<asp:Label ID="LblItemDescription" runat="server"></asp:Label>
