@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Profile;
 using System.Web.Security;
@@ -2074,23 +2075,26 @@ namespace Team12_SSIS.BusinessLogic
             Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
             Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
 
-            using (EmailControl em = new EmailControl())
+            Thread bgThread = new Thread(delegate()
             {
-                List<string> allemails = new List<string>();
-                List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
-                List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
-                foreach (string s in clerkemails)
+                using (EmailControl em = new EmailControl())
                 {
-                    allemails.Add(s);
-                }
-                foreach (string s in depusersemails)
-                {
-                    allemails.Add(s);
-                }
+                    List<string> allemails = new List<string>();
+                    List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+                    List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
+                    foreach (string s in clerkemails)
+                    {
+                        allemails.Add(s);
+                    }
+                    foreach (string s in depusersemails)
+                    {
+                        allemails.Add(s);
+                    }
 
-                em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
-            }
-
+                    em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
+                }
+            });
+            bgThread.Start();
 
         }
     }
