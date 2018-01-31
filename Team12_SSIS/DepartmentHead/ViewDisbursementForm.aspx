@@ -2,10 +2,19 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .auto-style1 {
+            width: 70px;
+        }
+        .auto-style2 {
+            width: 89px;
+        }
+    </style>
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
-    <asp:Label ID="LblTitle" runat="server" Text="DisbursementList" Font-Size="Large"></asp:Label>
+    <%--<asp:Label ID="LblTitle" runat="server" Text="DisbursementList" Font-Size="Large"></asp:Label>--%>
+    <h2>DisbursementList</h2>
     <br />
     <br />
     <asp:Label ID="LblDate" runat="server" Text="Filter by date range:"></asp:Label>
@@ -29,9 +38,8 @@
         });
     </script>
 
-	&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="datepicker" name="datepicker" readonly="true" />
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:Label ID="Label2" runat="server" Text="End Date:"> </asp:Label>&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" />
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="datepicker" name="datepicker" readonly="true" class="auto-style1" />
+    &nbsp;&nbsp;<asp:Label ID="Label2" runat="server" Text="End Date:"> </asp:Label>&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" class="auto-style2" />
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
      <asp:Button ID="BtnFindDate" runat="server" Text="FIND" OnClick="BtnFindDate_Click" Height="25px" />
      <br />
@@ -44,11 +52,6 @@
 
     <asp:Label ID="LblRep" runat="server" Text="Department Representative:"></asp:Label>
      
-     <asp:DropDownList ID="DdlSal" runat="server">
-         <asp:ListItem>Mr</asp:ListItem>
-         <asp:ListItem>Ms</asp:ListItem>
-         <asp:ListItem>Mrs</asp:ListItem>
-     </asp:DropDownList> 
        &nbsp; 
        <asp:TextBox ID="TxtRep" runat="server"></asp:TextBox>
      &nbsp;
@@ -62,18 +65,13 @@
                                           <asp:TemplateField HeaderText="Disbursement ID" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
                                                    <%-- <asp:Label ID="LblDate" runat="server" CssClass="center-block" Text='<%# Eval("DisbursementID")%>'></asp:Label>--%>
-                                                 <asp:LinkButton ID="LBtnListID" runat="server" Text='<%# "DL" + (Eval("DisbursementID")) %>' CommandName="show" CommandArgument='<%# Bind("DisbursementID") %>'></asp:LinkButton>
+                                                 <asp:LinkButton ID="LBtnListID" runat="server" Text='<%# "DL" + (Eval("DisbursementID","{0:0000}")) %>' CommandName="show" CommandArgument='<%# Bind("DisbursementID") %>'></asp:LinkButton>
                                                 </ItemTemplate>
                                          <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
 
 
-                                     <asp:TemplateField HeaderText="Department" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="LblDepartment" runat="server" CssClass="center-block" Text='<%# Eval("DepartmentName")%>'></asp:Label>
-                                                </ItemTemplate>
-                                         <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
-                                            </asp:TemplateField>
+                                  
 
             <asp:TemplateField HeaderText="Collection Date" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
@@ -82,12 +80,12 @@
                                          <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
 
-             <asp:TemplateField HeaderText="Collection Point" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+            <%-- <asp:TemplateField HeaderText="Collection Point" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
                                                     <asp:Label ID="LblCPoint" runat="server" CssClass="center-block" Text='<%# Eval("CollectionPoint")%>'></asp:Label>
                                                 </ItemTemplate>
                                          <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
-                                            </asp:TemplateField>
+                                            </asp:TemplateField>--%>
 
 
              <asp:TemplateField HeaderText="Representative Name" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">

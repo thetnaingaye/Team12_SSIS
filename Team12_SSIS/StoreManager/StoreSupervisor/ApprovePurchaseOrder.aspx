@@ -77,6 +77,7 @@
                             </ItemTemplate>
 
                             <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="52%"></HeaderStyle>
+                            <ItemStyle CssClass="text-center"></ItemStyle>
                         </asp:TemplateField>
 
                         <asp:TemplateField HeaderText="Quantity">
@@ -84,6 +85,7 @@
                                 <asp:Label ID="Lblquantity" runat="server" Text='<%# Bind("Quantity") %>' OnTextChanged="Txtquantity_TextChanged" AutoPostBack="true"></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="10%"></HeaderStyle>
+                            <ItemStyle CssClass="text-center"></ItemStyle>
                         </asp:TemplateField>
 
                         <asp:TemplateField HeaderText="UOM" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
@@ -92,18 +94,21 @@
                             </ItemTemplate>
 
                             <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                            <ItemStyle CssClass="text-center"></ItemStyle>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Unit Price" HeaderStyle-Width="22%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                             <ItemTemplate>
                                 <asp:Label ID="LblUnp" runat="server" Width="100%" CssClass="center-block" Text='<%# ((double)Eval("UnitPrice")).ToString("c") %>'></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="22%"></HeaderStyle>
+                            <ItemStyle CssClass="text-center"></ItemStyle>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Price" HeaderStyle-Width="22%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                             <ItemTemplate>
                                 <asp:Label ID="LblPrice" runat="server" Width="100%" CssClass="center-block" Text=""></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="22%"></HeaderStyle>
+                            <ItemStyle CssClass="text-center"></ItemStyle>
                         </asp:TemplateField>
                     </Columns>
                     <EditRowStyle BackColor="#999999" />
@@ -121,21 +126,13 @@
             </td>
 
             <tr>
-                <td>
-                    <asp:Label ID="LblRmk" runat="server" Text="Remarks :"></asp:Label></td>
-                <td>
-                    <asp:TextBox ID="txtRmk" runat="server"></asp:TextBox>
-                </td>
-            </tr>
-
-            <tr>
 
                 <td>
-                    <asp:Button ID="btnapr" runat="server" Text="Approve" Height="27px" Width="64px" OnClick="btnapr_Click" /></td>
+                    <asp:Button ID="btnapr" runat="server" Text="Approve" CssClass="btn btn-success" OnClick="btnapr_Click" /></td>
 
 
                 <td>
-                    <asp:Button ID="btncancel" runat="server" Text="Reject" Height="27px" Width="64px" OnClick="btncancel_Click" /></td>
+                    <asp:Button ID="btncancel" runat="server" Text="Reject" CssClass="btn btn-danger" OnClick="btncancel_Click" /></td>
 
             </tr>
         </table>

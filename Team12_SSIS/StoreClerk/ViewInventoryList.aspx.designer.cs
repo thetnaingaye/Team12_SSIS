@@ -13,58 +13,13 @@ namespace Team12_SSIS.StoreClerk {
     public partial class ViewInventoryList {
         
         /// <summary>
-        /// LblTitle control.
+        /// TxtSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblTitle;
-        
-        /// <summary>
-        /// LblInput control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblInput;
-        
-        /// <summary>
-        /// RbtnFilter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList RbtnFilter;
-        
-        /// <summary>
-        /// LblItemCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblItemCode;
-        
-        /// <summary>
-        /// TxtId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtId;
-        
-        /// <summary>
-        /// BtnId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnId;
+        protected global::System.Web.UI.WebControls.TextBox TxtSearch;
         
         /// <summary>
         /// LblCatagory control.
@@ -85,13 +40,31 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.DropDownList DdlCatagory;
         
         /// <summary>
-        /// BtnCatagory control.
+        /// LblUIS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnCatagory;
+        protected global::System.Web.UI.WebControls.Label LblUIS;
+        
+        /// <summary>
+        /// DdlUIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DdlUIS;
+        
+        /// <summary>
+        /// BtnSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnSearch;
         
         /// <summary>
         /// LblCatName control.

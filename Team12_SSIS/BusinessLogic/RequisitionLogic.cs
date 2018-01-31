@@ -20,7 +20,7 @@ namespace Team12_SSIS.BusinessLogic
 
 
         // Retrieve requisition order by RequestID
-        public RequisitionRecord FindRequisitionRecord(int reqID)
+        public static RequisitionRecord FindRequisitionRecord(int reqID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -29,7 +29,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve requisition order details by RequestDetailID
-        public RequisitionRecordDetail FindRequisitionRecordDetails(int reqDetailID)
+        public static RequisitionRecordDetail FindRequisitionRecordDetails(int reqDetailID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -38,7 +38,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve requisition order details by RequestID
-        public List<RequisitionRecordDetail> FindRequisitionRecordDetailsByReqID(int reqID)
+        public static List<RequisitionRecordDetail> FindRequisitionRecordDetailsByReqID(int reqID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -56,7 +56,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve ALL requisition orders
-        public List<RequisitionRecord> ListAllRequisitionRecords()
+        public static List<RequisitionRecord> ListAllRequisitionRecords()
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -65,7 +65,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve all requisition orders by dept
-        public List<RequisitionRecord> ListAllRRBySpecificDept(string deptID)
+        public static List<RequisitionRecord> ListAllRRBySpecificDept(string deptID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -74,7 +74,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve all requisition orders by dept and status [Used by dept head]
-        public List<RequisitionRecord> ListAllRRBySpecificDeptAndStatus(string deptID, string status)
+        public static List<RequisitionRecord> ListAllRRBySpecificDeptAndStatus(string deptID, string status)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -94,7 +94,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Processing requisition requests by DEPARTMENT HEAD
-        public string ProcessRequsitionRequest(int reqID, string status, string approverName, string remarks)
+        public static string ProcessRequsitionRequest(int reqID, string status, string approverName, string remarks)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -132,7 +132,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve all CURRENT requisition records
-        public List<RequisitionRecord> ListCurrentRequisitionRecord()
+        public static List<RequisitionRecord> ListCurrentRequisitionRecord()
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -141,7 +141,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve all PAST requisition orders
-        public List<RequisitionRecord> ListPastRequisitionRecord()
+        public static List<RequisitionRecord> ListPastRequisitionRecord()
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -150,7 +150,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve details from RequisitionRecordDetails
-        public List<RequisitionRecordDetail> RetrieveRequisitionRecordDetails(int reqID, string status)
+        public static List<RequisitionRecordDetail> RetrieveRequisitionRecordDetails(int reqID, string status)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -159,7 +159,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve specific dept name
-        public string GetDepartmentName(string deptID)
+        public static string GetDepartmentName(string deptID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -169,7 +169,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve all PAST requisition orders according to the specified department name
-        public List<RequisitionRecord> ListPastRequisitionRecordsByDept(string input)
+        public static List<RequisitionRecord> ListPastRequisitionRecordsByDept(string input)
         {
             List<RequisitionRecord> temp;
             using (SA45Team12AD context = new SA45Team12AD())
@@ -187,7 +187,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve list of all department names
-        public List<string> GetDeptNameList()
+        public static List<string> GetDeptNameList()
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -203,7 +203,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieving deptID from the requisition record table
-        public string GetDeptID(int reqID)
+        public static string GetDeptID(int reqID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -213,7 +213,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieving deptID from the requisition record table
-        public string GetReqRemarks(int reqID)
+        public static string GetReqRemarks(int reqID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -223,7 +223,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieving priority for each reqrecorddetails item
-        public string GetPriority(int reqDetailID)
+        public static string GetPriority(int reqDetailID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -233,7 +233,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieving status for each reqrecorddetails item
-        public string GetStatus(int reqID)
+        public static string GetStatus(int reqID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -243,7 +243,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Checking status for each reqrecorddetails item
-        public bool CheckStatus(int reqID, string status)
+        public static bool CheckStatus(int reqID, string status)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -260,7 +260,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Creating our list to be populated into the stationery retrieval list --- Priority is assessed and done here.
-        public List<TempInventoryRetrieval> CreateTempList(List<RequisitionRecordDetail> tempList, string itemID)
+        public static List<TempInventoryRetrieval> CreateTempList(List<RequisitionRecordDetail> tempList, string itemID)
         {
             List<TempInventoryRetrieval> result = new List<TempInventoryRetrieval>();
             using (SA45Team12AD context = new SA45Team12AD())
@@ -2059,10 +2059,11 @@ namespace Team12_SSIS.BusinessLogic
         public static List<InventoryCatalogue> DeleteOrder(List<InventoryCatalogue> _itemList, string ItemID)
         {
             List<InventoryCatalogue> itemList = _itemList;
-            InventoryCatalogue removeRequest = itemList.Where(i => i.ItemID == ItemID).First();
-            itemList.Remove(removeRequest);
+            InventoryCatalogue removeItem = itemList.Where(i => i.ItemID == ItemID).First();
+            itemList.Remove(removeItem);
             return itemList;
         }
+
 
 
 
@@ -2199,7 +2200,38 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
+        //Yishu will be here
 
+        public static int CreateRequisitionRecord(string requestorName, string departmentId, DateTime requestDate)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                RequisitionRecord r = new RequisitionRecord();
+                r.RequestorName = requestorName;
+                r.DepartmentID = departmentId;
+                r.RequestDate = requestDate;
+                ctx.RequisitionRecords.Add(r);
+                ctx.SaveChanges();
+
+                return r.RequestID;
+            }
+        }
+
+        public static RequisitionRecordDetail CreateRequisitionRecordDetail(int requestId, string itemCode, int quantity, string status, string priority)
+        {
+            using(SA45Team12AD ctx = new SA45Team12AD())
+            {
+                RequisitionRecordDetail r = new RequisitionRecordDetail();
+                r.RequestID = requestId;
+                r.ItemID = itemCode;
+                r.RequestedQuantity = quantity;
+                r.Status = status;
+                r.Priority = priority;
+                ctx.RequisitionRecordDetails.Add(r);
+                ctx.SaveChanges();
+                return r;
+            }
+        }
 
 
 

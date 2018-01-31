@@ -33,7 +33,7 @@ namespace Team12_SSIS.StoreClerk
         {
             if (e.CommandName == "ViewDetails")
             {
-                Session["PONumber"] = e.CommandArgument;
+                Session["PONumber"] = int.Parse(e.CommandArgument.ToString());
                 Server.Transfer("ViewPurchaseOrder.aspx", true);
             }
         }
@@ -51,8 +51,7 @@ namespace Team12_SSIS.StoreClerk
 
         protected string GetTotal(object poNum)
         {
-            PurchasingLogic p = new PurchasingLogic();
-            double temp = p.FindTotalByPONum(Convert.ToInt32(poNum.ToString()));
+            double temp = PurchasingLogic.FindTotalByPONum(Convert.ToInt32(poNum.ToString()));
             return temp.ToString("C0");
         }
 

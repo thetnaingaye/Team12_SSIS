@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
-        <h1>Requisition Form</h1>
+        <h2>Requisition Form</h2>
         <h4><asp:Label ID="LblCurrentUser" runat="server" Text=""></asp:Label></h4>
     </div>
     <div>
@@ -66,12 +66,12 @@
     <br />
     <div>
         <asp:Label ID="LblRemarks" runat="server" Text="Remarks: " ></asp:Label><asp:TextBox ID="TxtRemarks" runat="server" Text="" Width="40%"></asp:TextBox>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="BtnApprove" runat="server" Text="Approve" Visible="false" OnClick="BtnApprove_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="BtnReject" runat="server" Text="Reject" Visible="false" OnClick="BtnReject_Click" />
+        <asp:Button ID="BtnApprove" CssClass="btn btn-primary" runat="server" Text="Approve" Visible="false" OnClick="BtnApprove_Click" Width="9%" />&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="BtnReject" ControlStyle-CssClass="btn btn-danger" runat="server" Text="Reject" Visible="false" OnClick="BtnReject_Click" Width="9%" />
     </div>
     <br />
     <br />
     <div>
-        <asp:Button ID="BtnBack" runat="server" Text="Back" OnClick="BtnBack_Click" />
+        <asp:Button ID="BtnBack" class="btn btn-success" runat="server" Text="Back" OnClick="BtnBack_Click" />
     </div>
 </asp:Content>

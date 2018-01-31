@@ -38,7 +38,7 @@ namespace Team12_SSIS.StoreManager
             {
                 case ("Approved"):
                     {
-                        LblPageTitle.Text = "Inventory Adjustment Voucher";
+                       
                         LblReqID.Text = "Inventory Adjustment Voucher ID: ";
                         LblRequestID.Text = InventoryLogic.GetAdjustmentVoucherApproveID(aVRequest.AVRID).ToString();
                         LblHandledByD.Text = aVRequest.HandledBy;
@@ -50,7 +50,7 @@ namespace Team12_SSIS.StoreManager
                     }
                 case ("Rejected"):
                     {
-                        LblPageTitle.Text = "Inventory Adjustment Voucher Request";
+                      
                         LblReqID.Text = "Inventory Adjustment Voucher Request ID: ";
                         LblRequestID.Text = aVRequest.AVRID.ToString();
                         LblHandledByD.Text = aVRequest.HandledBy;
@@ -63,7 +63,7 @@ namespace Team12_SSIS.StoreManager
                     }
                 case ("Cancelled"):
                     {
-                        LblPageTitle.Text = "Inventory Adjustment Voucher Request";
+                        
                         LblReqID.Text = "Inventory Adjustment Voucher Request ID: ";
                         LblRequestID.Text = aVRequest.AVRID.ToString();
                         LblHandledByD.Text = aVRequest.HandledBy;
@@ -80,7 +80,7 @@ namespace Team12_SSIS.StoreManager
                     {
                         if(((User.IsInRole("Supervisor")&& (aVRequest.HandledBy=="Supervisor"))|((User.IsInRole("Manager") && (aVRequest.HandledBy == "Manager")))))
                             { 
-                        LblPageTitle.Text = "Inventory Adjustment Voucher Request";
+                      
                         LblReqID.Text = "Inventory Adjustment Voucher Request ID: ";
                         LblRequestID.Text = aVRequest.AVRID.ToString();
                         LblHandledBy.Visible = false;
@@ -94,7 +94,7 @@ namespace Team12_SSIS.StoreManager
                         }
                         else
                         {
-                            LblPageTitle.Text = "Inventory Adjustment Voucher Request";
+                           
                             LblReqID.Text = "Inventory Adjustment Voucher Request ID: ";
                             LblRequestID.Text = aVRequest.AVRID.ToString();
                             LblHandledBy.Visible = false;
@@ -110,7 +110,7 @@ namespace Team12_SSIS.StoreManager
                 default:
                     {
 
-                        LblPageTitle.Text = "Inventory Adjustment Voucher Request";
+                      
                         LblReqID.Text = "Inventory Adjustment Voucher Request ID: ";
                         LblRequestID.Text = aVRequest.AVRID.ToString();
                         LblHandledBy.Visible = false;

@@ -11,9 +11,6 @@ namespace Team12_SSIS.StoreClerk
 {
     public partial class PastRequisitionOrders : System.Web.UI.Page
     {
-        RequisitionLogic r = new RequisitionLogic();
-        InventoryLogic i = new InventoryLogic();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -21,13 +18,13 @@ namespace Team12_SSIS.StoreClerk
                 LblDetails.Text = "";
 
                 // Populating the first gridview with all past req records
-                GridViewReqList.DataSource = r.ListPastRequisitionRecord();
+                GridViewReqList.DataSource = RequisitionLogic.ListPastRequisitionRecord();
                 GridViewReqList.DataBind();
 
                 // Populating the dropdownlist
                 List<string> temp1 = new List<string>();
                 temp1.Add("All");
-                temp1.AddRange(r.GetDeptNameList());
+                temp1.AddRange(RequisitionLogic.GetDeptNameList());
                 DdlDeptList.DataSource = temp1;
                 DdlDeptList.DataBind();
             }
@@ -38,19 +35,19 @@ namespace Team12_SSIS.StoreClerk
         // Retrieving selected col values from the diff tables - To populate into the respective GridViews
         public string GetDepartmentName(string deptID)
         {
-            string temp = r.GetDepartmentName(deptID);
+            string temp = RequisitionLogic.GetDepartmentName(deptID);
             return temp.ToString();
         }
 
         public string GetItemDescription(string itemID)
         {
-            string temp = i.GetItemDescription(itemID);
+            string temp = InventoryLogic.GetItemDescription(itemID);
             return temp.ToString();
         }
 
         public string GetUnitsOfMeasure(string itemID)
         {
-            string temp = i.GetUnitsOfMeasure(itemID);
+            string temp = InventoryLogic.GetUnitsOfMeasure(itemID);
             return temp.ToString();
         }
 
@@ -64,7 +61,7 @@ namespace Team12_SSIS.StoreClerk
 
             
             // Retrieve details list
-            var tempList = r.RetrieveRequisitionRecordDetails(reqID, "Processed");
+            var tempList = RequisitionLogic.RetrieveRequisitionRecordDetails(reqID, "Processed");
             if (tempList.Count() != 0)
             {
                 // Populating the labels associated with the gridview
@@ -94,13 +91,13 @@ namespace Team12_SSIS.StoreClerk
             if (val == "All")
             {
                 // Populating all past req records
-                temp = r.ListPastRequisitionRecord();
+                temp = RequisitionLogic.ListPastRequisitionRecord();
                 GridViewReqList.DataSource = temp;
             }
             else
             {
                 // Populating the first gridview based on the selected department
-                temp = r.ListPastRequisitionRecordsByDept(val);
+                temp = RequisitionLogic.ListPastRequisitionRecordsByDept(val);
                 GridViewReqList.DataSource = temp;
             }
             GridViewReqList.DataBind();

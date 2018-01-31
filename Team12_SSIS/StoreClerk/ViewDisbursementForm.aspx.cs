@@ -43,6 +43,7 @@ namespace Team12_SSIS.StoreClerk
                 if (LblUom != null)
                     LblUom.Text = uom;
             }
+            
         }
         protected void BtnCancelDis_Click(object sender, EventArgs e)
         {

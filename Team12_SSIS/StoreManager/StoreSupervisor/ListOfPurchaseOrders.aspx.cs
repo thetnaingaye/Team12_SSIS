@@ -29,9 +29,9 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor
             LinkButton LBtnPONumber = (e.Row.FindControl("LBtnPONumber") as LinkButton);
 
         }
-        protected void GridViewVPO_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void GridViewAPO_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "ViewDetails")
+            if (e.CommandName == "ViewApproveDetails")
             {
                 Session["PONumber"] = e.CommandArgument.ToString();
                 Server.Transfer("ApprovePurchaseOrder.aspx", true);
@@ -51,8 +51,7 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor
 
         protected string GetTotal(object poNum)
         {
-            PurchasingLogic p = new PurchasingLogic();
-            double temp = p.FindTotalByPONum(Convert.ToInt32(poNum.ToString()));
+            double temp = PurchasingLogic.FindTotalByPONum(Convert.ToInt32(poNum.ToString()));
             return temp.ToString("C0");
         }
 

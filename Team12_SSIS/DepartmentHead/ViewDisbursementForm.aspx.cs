@@ -13,16 +13,20 @@ namespace Team12_SSIS.DepartmentHead
 {
     public partial class ViewDisbursementForm : System.Web.UI.Page
     {
-        List<Object> dsList;
-        List<Object> uList;
+        List<DisbursementList> dsList;
+        List<DisbursementList> uList;
+      
         DisbursementLogic disbursement = new DisbursementLogic();
+
         
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 uList = disbursement.GetDisbursementForm();
-                GridViewDisbursement.DataSource = uList;
+             var lastNlist = uList.Skip(Math.Max(0, uList.Count() -10)).Take(10); ;
+
+                GridViewDisbursement.DataSource = lastNlist;
                 GridViewDisbursement.DataBind();
 
             }
@@ -30,8 +34,8 @@ namespace Team12_SSIS.DepartmentHead
         //-------------------------Filter by rep-----------//
        protected void BtnFindrep_Click(object sender, EventArgs e)
         {
-            string sal = DdlSal.SelectedItem.Text;
-            dsList = disbursement.GetDisbursementByRep(sal + " " + TxtRep.Text);
+           
+            dsList = disbursement.GetDisbursementByRep(TxtRep.Text);
             GridViewDisbursement.DataSource = dsList;
             GridViewDisbursement.DataBind();
 
@@ -48,15 +52,7 @@ namespace Team12_SSIS.DepartmentHead
         }
 
 
-
-        //-------------------------gridview details link button click event.........//
-        //-------------------------  directing to Disbursement detail page---//
-        //protected void Btndetailclick(Object sender, CommandEventArgs e)
-        //{
-        //    int dId = Convert.ToInt32(e.CommandArgument.ToString());
-        //    Response.Redirect("ViewDisbursementList.aspx?DisbursementID="+dId);
-
-        //}
+        //--------------------------------Redirect to View Disbursementlist page to see the Disbursement details-----------------------//
 
         protected void GridViewDisbList_RowCommand(object sender, GridViewCommandEventArgs e)
         {

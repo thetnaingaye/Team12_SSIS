@@ -45,9 +45,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DynamicInterop, Version=0.8.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DynamicInterop.0.8.1\lib\netstandard1.2\DynamicInterop.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -89,23 +86,33 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RDotNet, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\R.NET.1.7.0\lib\net40\RDotNet.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="RDotNet.NativeLibrary, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\R.NET.1.7.0\lib\net40\RDotNet.NativeLibrary.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
@@ -141,7 +148,6 @@
     <Content Include="Images\birds3.jpg" />
     <Content Include="Images\brandimg.png" />
     <Content Include="Images\logo.png" />
-    <Content Include="DepartmentEmployee\CheckOutRequest.aspx" />
     <Content Include="Images\logosmall.png" />
     <Content Include="Logout.aspx" />
     <Content Include="packages.config" />
@@ -149,6 +155,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Site.Master" />
+    <Content Include="SQLStoredProcedureForReports%28ChangSiang%29.txt" />
     <Content Include="SSIS_UserPassword.txt" />
     <Content Include="StoreClerk\CurrentRequisitionOrders.aspx" />
     <Content Include="StoreClerk\PastRequisitionOrders.aspx" />
@@ -170,16 +177,66 @@
     </Content>
     <None Include="Properties\PublishProfiles\AD.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <Content Include="SA45Team12ADDataSet.xsc">
+      <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="SA45Team12ADDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SA45Team12ADDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SA45Team12ADDataSet.xss">
+      <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="SA45Team12ADDataSetReqHx.xsc">
+      <DependentUpon>SA45Team12ADDataSetReqHx.xsd</DependentUpon>
+    </Content>
+    <Content Include="SA45Team12ADDataSetPO.xsc">
+      <DependentUpon>SA45Team12ADDataSetPO.xsd</DependentUpon>
+    </Content>
+    <None Include="SA45Team12ADDataSetPO.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SA45Team12ADDataSetPO.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SA45Team12ADDataSetPO.xss">
+      <DependentUpon>SA45Team12ADDataSetPO.xsd</DependentUpon>
+    </Content>
+    <None Include="SA45Team12ADDataSetReqHx.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SA45Team12ADDataSetReqHx.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SA45Team12ADDataSetReqHx.xss">
+      <DependentUpon>SA45Team12ADDataSetReqHx.xsd</DependentUpon>
+    </Content>
+    <Content Include="SA45Team12ADDataSetReqTrend.xsc">
+      <DependentUpon>SA45Team12ADDataSetReqTrend.xsd</DependentUpon>
+    </Content>
+    <None Include="SA45Team12ADDataSetReqTrend.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SA45Team12ADDataSetReqTrend.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SA45Team12ADDataSetReqTrend.xss">
+      <DependentUpon>SA45Team12ADDataSetReqTrend.xsd</DependentUpon>
+    </Content>
+    <Content Include="StoreReport\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="StoreReport\RequisitionTrendReport.aspx" />
+    <Content Include="StoreReport\DeptRequisitionReport.aspx" />
+    <Content Include="StoreReport\SupplierOrderReport.aspx" />
     <Content Include="Style\bootstrap.css" />
     <Content Include="Style\bootstrap.min.css" />
     <Content Include="Style\Site.css" />
     <Content Include="WebServices\AuthService.svc" />
+    <Content Include="WebServices\FormUpload.aspx" />
+    <Content Include="WebServices\upload.html" />
     <Content Include="WebServices\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -235,20 +292,12 @@
     <Compile Include="BusinessLogic\PurchasingLogic.cs" />
     <Compile Include="BusinessLogic\ReportLogic.cs" />
     <Compile Include="BusinessLogic\RequisitionLogic.cs" />
-    <Compile Include="BusinessLogic\RScripts\TopSecret.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DepartmentEmployee\CheckOutRequest.aspx.cs">
-      <DependentUpon>CheckOutRequest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DepartmentEmployee\CheckOutRequest.aspx.designer.cs">
-      <DependentUpon>CheckOutRequest.aspx</DependentUpon>
     </Compile>
     <Compile Include="DepartmentEmployee\CreateRequisitionForm.aspx.cs">
       <DependentUpon>CreateRequisitionForm.aspx</DependentUpon>
@@ -394,6 +443,26 @@
     <Compile Include="Model\sysdiagram.cs" />
     <Compile Include="Model\TempInventoryRetrieval.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SA45Team12ADDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SA45Team12ADDataSetPO.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA45Team12ADDataSetPO.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SA45Team12ADDataSetReqHx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA45Team12ADDataSetReqHx.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SA45Team12ADDataSetReqTrend.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA45Team12ADDataSetReqTrend.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -611,11 +680,40 @@
     <Compile Include="StoreManager\ViewSupplierList.aspx.designer.cs">
       <DependentUpon>ViewSupplierList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="StoreReport\RequisitionTrendReport.aspx.cs">
+      <DependentUpon>RequisitionTrendReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreReport\RequisitionTrendReport.aspx.designer.cs">
+      <DependentUpon>RequisitionTrendReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreReport\DeptRequisitionReport.aspx.cs">
+      <DependentUpon>DeptRequisitionReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreReport\DeptRequisitionReport.aspx.designer.cs">
+      <DependentUpon>DeptRequisitionReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreReport\SupplierOrderReport.aspx.cs">
+      <DependentUpon>SupplierOrderReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreReport\SupplierOrderReport.aspx.designer.cs">
+      <DependentUpon>SupplierOrderReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier\SendPurchaseOrderToSupplier.cs" />
     <Compile Include="Utility\Utility.cs" />
     <Compile Include="Utility\EmailControl.cs" />
     <Compile Include="Utility\Validator.cs" />
     <Compile Include="WebServices\AuthService.svc.cs">
       <DependentUpon>AuthService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WebServices\FormUpload.aspx.cs">
+      <DependentUpon>FormUpload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebServices\FormUpload.aspx.designer.cs">
+      <DependentUpon>FormUpload.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebServices\IAuthService.cs" />
     <Compile Include="WebServices\IService.cs" />
@@ -626,19 +724,30 @@
     <Compile Include="WebServices\WCF_Model\WCF_AdjustmentVoucher.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_AVRequest.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_AVRequestDetail.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_Department.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_DisbursementList.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_DisbursementListDetail.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_InventoryCatalogue.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_InventoryRetrievalList.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_JsonObject.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_RequisitionRecord.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_RequisitionRecordDetail.cs" />
     <Compile Include="WebServices\WCF_Model\WCF_StockCard.cs" />
+    <Compile Include="WebServices\WCF_Model\WCF_TempInventoryRetrieval.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="BusinessLogic\RScripts\" />
     <Folder Include="Utility\TempImageFiles\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="StoreReport\DeptRequisitionReportTemplate.rdlc" />
+    <EmbeddedResource Include="StoreReport\RequisitionTrendReportTemplate.rdlc" />
+    <EmbeddedResource Include="StoreReport\SupplierOrderReportTemplate.rdlc" />
+    <EmbeddedResource Include="Supplier\PurchaseOrder.rdlc" />
+    <EmbeddedResource Include="Utility\PurchaseOrder.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

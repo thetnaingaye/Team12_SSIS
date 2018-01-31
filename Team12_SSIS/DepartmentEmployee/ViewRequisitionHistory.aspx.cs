@@ -63,12 +63,11 @@ namespace Team12_SSIS.DepartmentEmployee
 
         protected void LBtnRID_Click(object sender, EventArgs e)
         {
-            RequisitionLogic r = new RequisitionLogic();
             LinkButton lb = (LinkButton)sender;
             int reqID = Convert.ToInt32(lb.Text);
 
             // Retrieve details list
-            var tempList = r.FindRequisitionRecordDetailsByReqID(reqID);
+            var tempList = RequisitionLogic.FindRequisitionRecordDetailsByReqID(reqID);
             if (tempList.Count() != 0)
             {
                 // Populating the labels associated with the gridview
@@ -94,15 +93,13 @@ namespace Team12_SSIS.DepartmentEmployee
 
         public string GetItemDescription(string itemID)
         {
-            InventoryLogic i = new InventoryLogic();
-            string temp = i.GetItemDescription(itemID);
+            string temp = InventoryLogic.GetItemDescription(itemID);
             return temp.ToString();
         }
 
         public string GetUnitsOfMeasure(string itemID)
         {
-            InventoryLogic i = new InventoryLogic();
-            string temp = i.GetUnitsOfMeasure(itemID);
+            string temp = InventoryLogic.GetUnitsOfMeasure(itemID);
             return temp.ToString();
         }
     }
@@ -114,13 +111,7 @@ namespace Team12_SSIS.DepartmentEmployee
     //}
 
 
-    //protected void DdlShow_SelectedIndexChanged(object sender, EventArgs e)
-    //{
-    //    List<RequisitionRecord> requisitionList = DdlShow.SelectedValue == "All" ? RequisitionLogic.GetListOfRequisitionRecords() : RequisitionLogic.GetListOfRequisitionRecordDetails((DdlShow.SelectedValue);
-    //    GridViewVPR.DataSource = requisitionList;
-    //    GridViewVPR.DataBind();
-    //    LblSupplier.Text = PurchasingLogic.ListSuppliers().Where(x => x.SupplierID == poRecord.SupplierID).Select(x => x.SupplierName).FirstOrDefault();
-    //}
+    
 }
     
    

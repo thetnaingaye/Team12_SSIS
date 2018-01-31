@@ -24,8 +24,7 @@ namespace Team12_SSIS.StoreClerk
             {
                 statusMessage.Visible = false;
                 DisplayEmptyGrid();
-            }
-
+            }           
         }
 
         protected void BtnRetrievePO_Click(object sender, EventArgs e)
@@ -67,12 +66,15 @@ namespace Team12_SSIS.StoreClerk
                 Label LblDesc = (e.Row.FindControl("LblDesc") as Label);
                 if (LblDesc != null)
                     LblDesc.Text = itemName;
-
             }
+            
         }
 
         protected void BtnPostGR_Click(object sender, EventArgs e)
         {
+            if (!ValidQty())
+                return;
+
             DateTime date = DateTime.ParseExact(Request.Form["datepicker"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
             string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
             string doNumber = TxtDoNumber.Text;
@@ -81,6 +83,13 @@ namespace Team12_SSIS.StoreClerk
             InventoryLogic il = new InventoryLogic();
             PORecord pr = pl.GetPORecords(poNumber);
 
+            if (!Utility.Validator.IsDateRangeValid(date, DateTime.Now.Date, true))
+            {
+                statusMessage.Text = "Error! You cannot make a future date Goods Receipt!";
+                statusMessage.ForeColor = Color.Red;
+                statusMessage.Visible = true;
+                return;
+            }            
             int grNumber = pl.CreateGoodsReceipt(date, poNumber, clerkName, doNumber);
             foreach (GridViewRow r in GridViewGR.Rows)
             {
@@ -88,23 +97,51 @@ namespace Team12_SSIS.StoreClerk
                 int quantity = int.Parse((r.FindControl("TxtQty") as TextBox).Text);
                 string uom = (r.FindControl("LblUom") as Label).Text;
                 string remarks = (r.FindControl("TxtRemarks") as TextBox).Text;
+
                 pl.CreateGoodsReceiptDetails(grNumber, itemID, quantity, uom, remarks);
 
-                string stockCardDesc = "Goods Receipt - " + grNumber + " Supplier " + pr.SupplierID;
+                string stockCardDesc = "Goods Receipt - GR" + grNumber.ToString("0000") + " Supplier " + pr.SupplierID;
                 il.UpdateStockCard(stockCardDesc, itemID, date, "Add", quantity, uom);
             }
             //Here will check if the PO is already completed
             pl.GetPurchaseOrdersForGR(poNumber);
-
             poNumber = -1;
+            LblQtyValid.Visible = false;
+            DisplaySuccessMessage(grNumber);
+            DisplayEmptyGrid();
+        }
 
-            statusMessage.Text = "Goods Receipt " + grNumber + " Posted Successfully.";
+        bool ValidQty()
+        {
+            bool isValid = true;
+            foreach (GridViewRow r in GridViewGR.Rows)
+            {
+                string itemName = (r.FindControl("LblDesc") as Label).Text;
+                int quantityOrd = int.Parse((r.FindControl("LblOrd") as Label).Text);
+                int quantityRecd = int.Parse((r.FindControl("TxtQty") as TextBox).Text);
+
+                if (Utility.Validator.IsIntMoreThan(quantityRecd, quantityOrd) || quantityRecd < 0)
+                {
+                    LblQtyValid.Text = "Error! Invalid Goods Receipt Quantity " + itemName;
+                    LblQtyValid.ForeColor = Color.Red;
+                    LblQtyValid.Visible = true;
+                    isValid = false;
+                    return isValid;
+                }
+            }
+            return isValid;
+        }
+
+        void DisplaySuccessMessage(int grNumber)
+        {
+            statusMessage.Text = "Goods Receipt GR" + grNumber.ToString("0000") + " Posted Successfully.";
             statusMessage.ForeColor = Color.Green;
             statusMessage.Visible = true;
             BtnPostGR.Visible = false;
             TxtPONumber.Text = string.Empty;
             TxtDoNumber.Text = string.Empty;
             DisplayEmptyGrid();
+
         }
     }
 }

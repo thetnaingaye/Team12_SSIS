@@ -23,6 +23,7 @@
                                             <asp:LinkButton ID="LBtnRID" runat="server" Visible="true" Text='<%# Bind("RequestID") %>' OnClick="LBtnRID_Click"></asp:LinkButton>
                                         </ItemTemplate>
                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" ></HeaderStyle>
+                                    <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
                                 
 
@@ -34,6 +35,7 @@
                                 </ItemTemplate>
 
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" ></HeaderStyle>
+                                <ItemStyle CssClass="text-center"></ItemStyle>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Status"  HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
@@ -42,6 +44,7 @@
                                                   
                                 </ItemTemplate>
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller"></HeaderStyle>
+                                <ItemStyle CssClass="text-center"></ItemStyle>
                             </asp:TemplateField>
                  <asp:TemplateField HeaderText="Date Processed"  HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                 <ItemTemplate>
@@ -51,6 +54,7 @@
                                 </ItemTemplate>
 
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" ></HeaderStyle>
+                     <ItemStyle CssClass="text-center"></ItemStyle>
                             </asp:TemplateField>
                            
 
@@ -60,6 +64,7 @@
                                                             
                                 </ItemTemplate>
                                 <HeaderStyle CssClass="text-center" Font-Size="Smaller" ></HeaderStyle>
+                                <ItemStyle CssClass="text-center"></ItemStyle>
                             </asp:TemplateField>
 
             </Columns>

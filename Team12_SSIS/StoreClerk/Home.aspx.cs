@@ -58,7 +58,7 @@ namespace Team12_SSIS.StoreClerk
         protected int GetReorders(String status)
         {
 
-            List<ReorderRecord> list = new PurchasingLogic().PopulateReorderTable();
+            List<ReorderRecord> list = PurchasingLogic.PopulateReorderTable();
 
             if (list == null)
             { return 0; }
@@ -78,7 +78,7 @@ namespace Team12_SSIS.StoreClerk
 
         private void BindGrid()
         {
-            GridView1.DataSource = new RequisitionLogic().ListCurrentRequisitionRecord();
+            GridView1.DataSource = RequisitionLogic.ListCurrentRequisitionRecord();
             GridView1.DataBind();
         }
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -89,7 +89,7 @@ namespace Team12_SSIS.StoreClerk
                 Label l = e.Row.FindControl("LblDept") as Label;
                 string id = l.Text;
 
-                string deptname = new RequisitionLogic().GetDepartmentName(id);
+                string deptname = RequisitionLogic.GetDepartmentName(id);
                 l.Text = deptname;
             }
 

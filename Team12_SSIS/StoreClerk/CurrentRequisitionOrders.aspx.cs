@@ -11,15 +11,12 @@ namespace Team12_SSIS.StoreClerk
 {
     public partial class CurrentRequisitionOrders : System.Web.UI.Page
     {
-        RequisitionLogic r = new RequisitionLogic();
-        InventoryLogic i = new InventoryLogic();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 LblDetails.Text = "";
-                var temp = r.ListCurrentRequisitionRecord();
+                var temp = RequisitionLogic.ListCurrentRequisitionRecord();
                 if (temp == null)
                 {
                     LblMessage.Text = "There are no requisition orders at present.";
@@ -36,19 +33,19 @@ namespace Team12_SSIS.StoreClerk
         // Retrieving selected col values from the diff tables - To populate into the respective GridViews
         public string GetDepartmentName(string deptID)
         {
-            string temp = r.GetDepartmentName(deptID);
+            string temp = RequisitionLogic.GetDepartmentName(deptID);
             return temp.ToString();
         }
 
         public string GetItemName(string itemID)
         {
-            string temp = i.GetItemDescription(itemID);
+            string temp = InventoryLogic.GetItemDescription(itemID);
             return temp.ToString();
         }
 
         public string GetUnitsOfMeasure(string itemID)
         {
-            string temp = i.GetUnitsOfMeasure(itemID);
+            string temp = InventoryLogic.GetUnitsOfMeasure(itemID);
             return temp.ToString();
         }
 
@@ -65,7 +62,7 @@ namespace Team12_SSIS.StoreClerk
             LblDetails.Text = "Details";
 
             // Changing the visibility of the button
-            var tempList = r.RetrieveRequisitionRecordDetails(reqID, "Approved");
+            var tempList = RequisitionLogic.RetrieveRequisitionRecordDetails(reqID, "Approved");
 
             // Binding the gridview
             GridViewDetails.DataSource = tempList;

@@ -11,9 +11,6 @@ namespace Team12_SSIS.StoreClerk
 {
     public partial class RetrievalList : System.Web.UI.Page
     {
-        //string ReqID = "10";
-        RequisitionLogic r = new RequisitionLogic();
-        InventoryLogic i = new InventoryLogic();
         List<RequisitionRecordDetail> tempListDetails = new List<RequisitionRecordDetail>();
 
 
@@ -21,47 +18,9 @@ namespace Team12_SSIS.StoreClerk
         {
             if (!IsPostBack)
             {
-                List<int> currentReqIDs = new List<int>();
-                List<RequisitionRecord> tempReqList = new List<RequisitionRecord>();
-                List<InventoryCatalogue> tempListItems = new List<InventoryCatalogue>();
+                tempListDetails = InventoryLogic.GetRelevantDetailList();
+                List<InventoryCatalogue> tempListItems = InventoryLogic.GetRelevantItemList(tempListDetails);
 
-                // Retrieve all the req IDs of all current requisition orders
-                tempReqList = r.ListCurrentRequisitionRecord();
-
-                foreach (var item in tempReqList)
-                {
-                    currentReqIDs.Add(item.RequestID);
-                }
-
-
-                // Retrieve list of all the chosen req details
-                foreach (var item in currentReqIDs)
-                {
-                    tempListDetails.AddRange(r.RetrieveRequisitionRecordDetails(item, "Approved"));
-                }
-
-
-                // From the prev list, extract its itemID and retrieve the list of items
-                foreach (var item1 in tempListDetails)
-                {
-                    bool check = false;
-
-                    // Check if there is a similar item in tempListItems
-                    foreach (var item2 in tempListItems)
-                    {
-                        if (item2.ItemID == item1.ItemID)
-                        {
-                            check = true;
-                            break;
-                        }
-                    }
-
-                    // only add if there are no similar item in the list
-                    if (check == false)
-                    {
-                        tempListItems.Add(i.FindItemByItemID(item1.ItemID));
-                    }
-                }
 
                 // Bind data to the list
                 GridViewMainList.DataSource = tempListItems;
@@ -90,30 +49,25 @@ namespace Team12_SSIS.StoreClerk
         // Retrieving the summation of all items needed by the diff depts for this specific item
         public string GetTotalQtyNeeded(string itemID)
         {
-            int tqNeeded = 0;
+            return InventoryLogic.GetTotalQtyNeeded(itemID).ToString();
+        }
 
-            // Taking the requested quantity only for those selected items
-            foreach (var item in tempListDetails)
-            {
-                if (item.ItemID == itemID)
-                {
-                    tqNeeded += Convert.ToInt32(item.RequestedQuantity);
-                }
-            }
-            return tqNeeded.ToString();
+        public string GetExistingQuantity(string itemID)
+        {
+            return InventoryLogic.GetQuantity(itemID).ToString();
         }
 
         // Identifying dept name
         public string GetDepartmentName(string deptID)
         {
-            string temp = r.GetDepartmentName(deptID);
+            string temp = RequisitionLogic.GetDepartmentName(deptID);
             return temp.ToString();
         }
 
         // Determining qty ordered from the details table
         public string GetQtyNeeded(string reqID)
         {
-            var temp = r.GetDepartmentName(reqID);
+            var temp = RequisitionLogic.GetDepartmentName(reqID);
             return temp.ToString();
         }
 
@@ -126,7 +80,7 @@ namespace Team12_SSIS.StoreClerk
         // Identifying the priority for each req per item
         public string GetPriority(int reqDetailID)
         {
-            var temp = r.GetPriority(reqDetailID);
+            var temp = RequisitionLogic.GetPriority(reqDetailID);
             if (temp.Equals("Yes")) return "Priority Given";
             else return "None";
         }
@@ -139,48 +93,9 @@ namespace Team12_SSIS.StoreClerk
                 // Retreiving the row's item ID
                 string itemID = GridViewMainList.DataKeys[e.Row.RowIndex].Value.ToString();
 
-                // Specifyingother attrs
-                Label temp = (Label)GridViewMainList.FindControl("LblTotalQtyNeeded");
-                int totalReqQty = Convert.ToInt32(temp);
-                int totalAct = 0;
-
-                // Intialize our list
-                List<RequisitionRecordDetail> tempList = new List<RequisitionRecordDetail>();
-                List<TempInventoryRetrieval> ti = new List<TempInventoryRetrieval>();
-
-                // Creating our ReqRecord list that is relevant to this "main" row.
-                foreach (var item in tempListDetails)
-                {
-                    if (item.ItemID == itemID)
-                    {
-                        tempList.Add(r.FindRequisitionRecordDetails(item.RequestDetailID));
-                    }
-                }
-
-                // Creating our TempInvRetrieval list with the needed quantities
-                ti = r.CreateTempList(tempList, itemID);
-
-                // Setting the appropriate isOverride value for each item using to diff sets of foreach
-                // This takes the overall qty requested per item (combines all relevant req together) and compares it to the existing inventory
-                foreach (var item in ti)
-                {
-                    totalAct += item.ActualQty;
-                }
-                foreach (var item in ti)
-                {
-                    if (totalAct <= i.GetQuantity(itemID))
-                    {
-                        item.IsOverride = true;
-                    }
-                    else
-                    {
-                        item.IsOverride = false;
-                    }
-                }
-
                 // Binding data to the nested gridview
                 GridView gridViewSubList = (GridView)e.Row.FindControl("GridViewSubList");
-                gridViewSubList.DataSource = ti;
+                gridViewSubList.DataSource = InventoryLogic.RetrieveTempInventoryList(itemID);
                 gridViewSubList.DataBind();
             }
         }
@@ -230,7 +145,7 @@ namespace Team12_SSIS.StoreClerk
                             else
                             {
                                 // Processing our inventory withdrawal process
-                                string result = i.CreateNewInventoryRetrievalEntry(Convert.ToInt32(LblReqID.Text.ToString()), Convert.ToInt32(LblReqDetailID.Text.ToString()), LblItemID1.Text.ToString(),
+                                string result = InventoryLogic.CreateNewInventoryRetrievalEntry(Convert.ToInt32(LblReqID.Text.ToString()), Convert.ToInt32(LblReqDetailID.Text.ToString()), LblItemID1.Text.ToString(),
                                     LblDeptID.Text.ToString(), Convert.ToInt32(LblQtyNeeded.Text), Convert.ToInt32(TbxActualQty.Text), Boolean.Parse(LblIsOverride.Text));
 
                                 // Displaying its result
