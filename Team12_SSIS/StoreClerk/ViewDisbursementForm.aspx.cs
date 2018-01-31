@@ -25,7 +25,6 @@ namespace Team12_SSIS.StoreClerk
                 int disbId = (int)Session["DisbId"];
                 SetStatusLabel();
                 BindGrid(disbId);
-                Session["DisbId"] = null;
             }
         }
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -103,6 +102,7 @@ namespace Team12_SSIS.StoreClerk
                 statusMessage.Text = (string)Session["statusMsg"];
                 statusMessage.ForeColor = Color.Green;
                 statusMessage.Visible = true;
+                Session["statusMsg"] = null;
             }
             else
                 statusMessage.Visible = false;
