@@ -1188,7 +1188,7 @@ namespace Team12_SSIS.Utility
             }catch(Exception e)
             {
                 Console.WriteLine(e.ToString());
-                return false;
+                return e.ToString() + "send po to supplier error";
             }
         }
         #endregion
