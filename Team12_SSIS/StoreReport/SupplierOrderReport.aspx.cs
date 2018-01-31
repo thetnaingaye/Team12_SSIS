@@ -14,8 +14,10 @@ namespace Team12_SSIS.StoreReport
 {
     public partial class ReportViewer : System.Web.UI.Page
     {
+        Label statusMessage;
         protected void Page_Load(object sender, EventArgs e)
         {
+            statusMessage = this.Master.FindControl("LblStatus") as Label;
             if (!IsPostBack)
             {
                 Session["SupplierList"] = new List<SupplierList>();
@@ -65,8 +67,21 @@ namespace Team12_SSIS.StoreReport
         protected void Button1_Click(object sender, EventArgs e)
         {
             string itemCode = TxtItemCode.Text;
-            DateTime startDate = DateTime.ParseExact(Request.Form["datepickerStart"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime endDate = DateTime.ParseExact(Request.Form["datepickerEnd"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime startDate;
+            DateTime endDate;
+            try
+            {
+                startDate = DateTime.ParseExact(Request.Form["datepickerStart"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                endDate = DateTime.ParseExact(Request.Form["datepickerEnd"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            }
+            catch (Exception)
+            {
+                //DateParsing Exception..
+                statusMessage.Text = "Date Error. Please enter a valid date in dd/MM/yyyy format.";
+                statusMessage.ForeColor = System.Drawing.Color.Red;
+                statusMessage.Visible = true;
+                return;
+            }
             SA45Team12ADDataSet.StoreOrderHistoryDataTable dt = new SA45Team12ADDataSet.StoreOrderHistoryDataTable();
             SA45Team12ADDataSetTableAdapters.StoreOrderHistoryTableAdapter ta = new SA45Team12ADDataSetTableAdapters.StoreOrderHistoryTableAdapter();
             SA45Team12ADDataSet ds = new SA45Team12ADDataSet();

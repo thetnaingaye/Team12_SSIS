@@ -45,9 +45,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DynamicInterop, Version=0.8.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DynamicInterop.0.8.1\lib\netstandard1.2\DynamicInterop.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -117,12 +114,6 @@
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RDotNet, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\R.NET.1.7.0\lib\net40\RDotNet.dll</HintPath>
-    </Reference>
-    <Reference Include="RDotNet.NativeLibrary, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\R.NET.1.7.0\lib\net40\RDotNet.NativeLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -158,7 +149,6 @@
     <Content Include="Images\brandimg.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\logosmall.png" />
-    <Content Include="Images\search.png" />
     <Content Include="Logout.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -190,7 +180,6 @@
     <Content Include="SA45Team12ADDataSet.xsc">
       <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
     </Content>
-    <Content Include="RScripts\RExec.bat" />
     <None Include="SA45Team12ADDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>SA45Team12ADDataSet.Designer.cs</LastGenOutput>
@@ -201,6 +190,17 @@
     </Content>
     <Content Include="SA45Team12ADDataSetReqHx.xsc">
       <DependentUpon>SA45Team12ADDataSetReqHx.xsd</DependentUpon>
+    </Content>
+    <Content Include="SA45Team12ADDataSetPO.xsc">
+      <DependentUpon>SA45Team12ADDataSetPO.xsd</DependentUpon>
+    </Content>
+    <None Include="SA45Team12ADDataSetPO.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SA45Team12ADDataSetPO.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SA45Team12ADDataSetPO.xss">
+      <DependentUpon>SA45Team12ADDataSetPO.xsd</DependentUpon>
     </Content>
     <None Include="SA45Team12ADDataSetReqHx.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -221,6 +221,7 @@
     <Content Include="SA45Team12ADDataSetReqTrend.xss">
       <DependentUpon>SA45Team12ADDataSetReqTrend.xsd</DependentUpon>
     </Content>
+    <Content Include="StoreReport\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -291,7 +292,6 @@
     <Compile Include="BusinessLogic\PurchasingLogic.cs" />
     <Compile Include="BusinessLogic\ReportLogic.cs" />
     <Compile Include="BusinessLogic\RequisitionLogic.cs" />
-    <Compile Include="BusinessLogic\RScripts\TopSecret.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -447,6 +447,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SA45Team12ADDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SA45Team12ADDataSetPO.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA45Team12ADDataSetPO.xsd</DependentUpon>
     </Compile>
     <Compile Include="SA45Team12ADDataSetReqHx.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -696,6 +701,7 @@
     <Compile Include="StoreReport\SupplierOrderReport.aspx.designer.cs">
       <DependentUpon>SupplierOrderReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Supplier\SendPurchaseOrderToSupplier.cs" />
     <Compile Include="Utility\Utility.cs" />
     <Compile Include="Utility\EmailControl.cs" />
     <Compile Include="Utility\Validator.cs" />
@@ -730,11 +736,18 @@
     <Compile Include="WebServices\WCF_Model\WCF_TempInventoryRetrieval.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="RScripts\Charts\" />
+    <Folder Include="BusinessLogic\RScripts\" />
     <Folder Include="Utility\TempImageFiles\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="StoreReport\DeptRequisitionReportTemplate.rdlc" />
+    <EmbeddedResource Include="StoreReport\RequisitionTrendReportTemplate.rdlc" />
+    <EmbeddedResource Include="StoreReport\SupplierOrderReportTemplate.rdlc" />
+    <EmbeddedResource Include="Supplier\PurchaseOrder.rdlc" />
+    <EmbeddedResource Include="Utility\PurchaseOrder.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
