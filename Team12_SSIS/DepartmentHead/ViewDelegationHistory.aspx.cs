@@ -35,6 +35,7 @@ namespace Team12_SSIS.DepartmentHead
 
 		protected void ViewAllBtn_Click(object sender, EventArgs e)
 		{
+			SearchTxt.Text = "";
 			BindGrid();
 		}
 	}
