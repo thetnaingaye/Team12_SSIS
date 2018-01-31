@@ -33,14 +33,14 @@ namespace Team12_SSIS
 		protected void ThreadFunc()
 		{
 			System.Timers.Timer t = new System.Timers.Timer();
-			t.Elapsed += new System.Timers.ElapsedEventHandler(AddDeptHeadRoleToUserWithDateCheck);
+			t.Elapsed += new System.Timers.ElapsedEventHandler(ManageDeptHeadRoleToUserWithDateCheck);
 			
-			t.Interval = 5000;
+			t.Interval = 28800000;
 			t.Enabled = true;
 			t.AutoReset = true;
 			t.Start();
 		}
-		protected void AddDeptHeadRoleToUserWithDateCheck(object sender, System.Timers.ElapsedEventArgs e)
+		protected void ManageDeptHeadRoleToUserWithDateCheck(object sender, System.Timers.ElapsedEventArgs e)
 		{
 			List<Department> depwithdelegateslist = new List<Department>();
 			List<Department> deplist = new List<Department>();
