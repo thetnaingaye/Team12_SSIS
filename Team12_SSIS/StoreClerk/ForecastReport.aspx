@@ -63,7 +63,13 @@
                     <div>
                         <asp:Panel ID="Panel2" runat="server" HorizontalAlign="Center">
                             <asp:Label ID="LblExpectedDemand" runat="server" Text="Expected demand for the next five weeks" Font-Size="Large" Visible="false"></asp:Label><br /><br />
-                            <asp:GridView ID="GridViewForecastList" runat="server" AutoGenerateColumns="False" Width="80%" DataKeyNames="FID" ItemType="Team12_SSIS.Model.ForecastedData"
+                            <asp:Image ID="ImgTableResult" class="center-block" runat="server" ImageUrl="~/images/Charts/tableResults.png" width="90%" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br />
+                            <asp:Image ID="ImgTableAccuracy" class="center-block" runat="server" ImageUrl="~/images/Charts/tableAccuracy.png" height="50px" width="100%" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br />
+                            <asp:Image ID="ImgTableModel" class="center-block" runat="server" ImageUrl="~/images/Charts/tableModel.png" Height="370px" width="100%" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br />
+
+
+
+                            <%--<asp:GridView ID="GridViewForecastList" runat="server" AutoGenerateColumns="False" Width="80%" DataKeyNames="FID" ItemType="Team12_SSIS.Model.ForecastedData"
                                     BackColor="White" BorderColor="#CCCCCC" BorderStyle="Inset" Visible="false" HorizontalAlign="Center">
                                 <Columns>
                                     <asp:TemplateField HeaderText="Season">
@@ -130,10 +136,10 @@
                                                 </tr>
                                             </table>
                                         </EmptyDataTemplate>
-                            </asp:GridView>        
+                            </asp:GridView>--%>        
                             <div>
                                 <br /><br />
-                                <asp:button id="BtnPrint" runat="server" onclientclick="javascript:CallPrint('MainArea');" text="Print" xmlns:asp="#unknown" Visible="false"/>
+                                <asp:button id="BtnPrint" ControlStyle-CssClass="btn btn-success" style="position: absolute; top: 19%; right: 9%;" runat="server" onclientclick="javascript:CallPrint('MainArea');" text="Print" xmlns:asp="#unknown" Visible="false"/>
                             </div>
                         </asp:Panel>
                     </div>

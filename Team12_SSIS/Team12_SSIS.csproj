@@ -183,9 +183,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="BusinessLogic\RScripts\ChartExec.bat" />
-    <Content Include="BusinessLogic\RScripts\ChartingTool.R" />
     <Content Include="BusinessLogic\RScripts\ForecastingAlgorithm.R" />
     <Content Include="BusinessLogic\RScripts\RExec.bat" />
+    <Content Include="BusinessLogic\RScripts\ChartingTool.R" />
     <None Include="Properties\PublishProfiles\AD.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="SA45Team12ADDataSet.xsc">

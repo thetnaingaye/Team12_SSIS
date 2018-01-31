@@ -84,15 +84,20 @@ namespace Team12_SSIS.StoreClerk
             // Pass our value to the method in the biz logic side
             ReportLogic.GetChart(itemID, dateFrom, dateTo);
 
-            // Populating our Image
+            // Populating our Images
             ImgChart.Visible = true;
-            //ImgChart.ImageUrl = "C:/inetpub/wwwroot/Team12_SSIS/RScripts/Charts/Chart.png";
             ImgChart.ImageUrl = "~/images/Charts/chart1.png";
+            ImgTableResult.Visible = true;
+            ImgTableResult.ImageUrl = "~/images/Charts/tableResults.png";
+            ImgTableAccuracy.Visible = true;
+            ImgTableAccuracy.ImageUrl = "~/images/Charts/tableAccuracy.png";
+            ImgTableModel.Visible = true;
+            ImgTableModel.ImageUrl = "~/images/Charts/tableModel.png";
 
             // Populating our GridView
-            GridViewForecastList.Visible = true;
-            GridViewForecastList.DataSource = ReportLogic.RetrieveForecastedData(itemID);
-            GridViewForecastList.DataBind();
+            //GridViewForecastList.Visible = true;
+            //GridViewForecastList.DataSource = ReportLogic.RetrieveForecastedData(itemID);
+            //GridViewForecastList.DataBind();
 
             // Populating misc controls
             LblHeader.Visible = true;
