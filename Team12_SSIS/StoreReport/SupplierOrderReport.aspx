@@ -17,10 +17,16 @@
         });
     </script>
     <table style="width: 100%; vertical-align: top">
-                <tr>
+        <tr>
             <td colspan="4">
-            <h2>Supplier Order Report</h2>
-                </td>
+                <h2>Supplier Order Report</h2>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">Supplier:
+                            <asp:DropDownList ID="DdlSupplier" runat="server" DataTextField="SupplierName" DataValueField="SupplierID"></asp:DropDownList>
+                <asp:Button ID="BtnAddSupplier" runat="server" Text="Add Supplier..." OnClick="BtnAddSupplier_Click" CssClass="btn btn-primary btn-xs" />
+            </td>
         </tr>
         <tr>
             <td colspan="2">Starting:
@@ -30,12 +36,6 @@
             <td colspan="2">Ending:
                                 <input type="text" id="datepickerEnd" name="datepickerEnd" readonly="true" />
 
-            </td>
-        </tr>
-        <tr>
-            <td colspan="4">Supplier:
-                            <asp:DropDownList ID="DdlSupplier" runat="server" DataTextField="SupplierName" DataValueField="SupplierID"></asp:DropDownList>
-                <asp:Button ID="BtnAddSupplier" runat="server" Text="Add Supplier..." OnClick="BtnAddSupplier_Click" CssClass="btn btn-primary btn-xs" />
             </td>
         </tr>
         <tr>
@@ -70,7 +70,7 @@
 
         <tr>
             <td colspan="4">
-                <asp:Button ID="Button1" runat="server" Text="Generate Report" ValidationGroup="GenerateReport" OnClick="Button1_Click" CssClass="btn btn-primary btn-xs"/>
+                <asp:Button ID="Button1" runat="server" Text="Generate Report" ValidationGroup="GenerateReport" OnClick="Button1_Click" CssClass="btn btn-primary btn-xs" />
             </td>
         </tr>
         <tr>

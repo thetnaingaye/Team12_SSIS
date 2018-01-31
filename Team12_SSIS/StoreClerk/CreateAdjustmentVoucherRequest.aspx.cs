@@ -35,15 +35,25 @@ namespace Team12_SSIS.StoreClerk
         protected void BtnAddItem_Click(object sender, EventArgs e)
         {
             List<AVRequestDetail> adjDetailList = new List<AVRequestDetail>();
-            foreach (GridViewRow r in GridViewAdjV.Rows)
+            try
             {
-                AVRequestDetail adjVDetail = new AVRequestDetail();
-                adjVDetail.ItemID = (r.FindControl("TxtItemCode") as TextBox).Text;
-                adjVDetail.Type = (r.FindControl("DdlAdjType") as DropDownList).SelectedValue;
-                adjVDetail.Quantity = int.Parse((r.FindControl("TxtAdjQty") as TextBox).Text);
-                adjVDetail.Reason = (r.FindControl("TxtReason") as TextBox).Text;
-                adjVDetail.UOM = (r.FindControl("LblUOM") as Label).Text;
-                adjDetailList.Add(adjVDetail);
+                foreach (GridViewRow r in GridViewAdjV.Rows)
+                {
+                    AVRequestDetail adjVDetail = new AVRequestDetail();
+                    adjVDetail.ItemID = (r.FindControl("TxtItemCode") as TextBox).Text;
+                    adjVDetail.Type = (r.FindControl("DdlAdjType") as DropDownList).SelectedValue;
+                    adjVDetail.Quantity = int.Parse((r.FindControl("TxtAdjQty") as TextBox).Text);
+                    adjVDetail.Reason = (r.FindControl("TxtReason") as TextBox).Text;
+                    adjVDetail.UOM = (r.FindControl("LblUOM") as Label).Text;
+                    adjDetailList.Add(adjVDetail);
+                }
+            }catch (Exception ex)
+            {
+                statusMessage.Text = "Error! Please enter an item before added new line item.";
+                statusMessage.ForeColor = Color.Red;
+                statusMessage.Visible = true;
+                Console.WriteLine(ex.ToString());
+                return;
             }
             AVRequestDetail adjVDetailNew = new AVRequestDetail();
             adjDetailList.Add(adjVDetailNew);

@@ -14,8 +14,10 @@ namespace Team12_SSIS.StoreReport
 {
     public partial class RequisitionTrendReport : System.Web.UI.Page
     {
+        Label statusMessage;
         protected void Page_Load(object sender, EventArgs e)
         {
+            statusMessage = this.Master.FindControl("LblStatus") as Label;
             if (!IsPostBack)
             {
                 Session["DepartmentList"] = new List<Department>();
@@ -25,8 +27,21 @@ namespace Team12_SSIS.StoreReport
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            DateTime startDate = DateTime.ParseExact(Request.Form["datepickerStart"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime endDate = DateTime.ParseExact(Request.Form["datepickerEnd"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime startDate;
+            DateTime endDate;
+            try
+            {
+                startDate = DateTime.ParseExact(Request.Form["datepickerStart"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                endDate = DateTime.ParseExact(Request.Form["datepickerEnd"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            }
+            catch (Exception)
+            {
+                //DateParsing Exception..
+                statusMessage.Text = "Date Error. Please enter a valid date in dd/MM/yyyy format.";
+                statusMessage.ForeColor = System.Drawing.Color.Red;
+                statusMessage.Visible = true;
+                return;
+            }
             SA45Team12ADDataSetReqTrend.RequisitionTrendDataTable dt = new SA45Team12ADDataSetReqTrend.RequisitionTrendDataTable();
             SA45Team12ADDataSetReqTrendTableAdapters.RequisitionTrendTableAdapter ta = new SA45Team12ADDataSetReqTrendTableAdapters.RequisitionTrendTableAdapter();
             SA45Team12ADDataSetReqTrend ds = new SA45Team12ADDataSetReqTrend();
