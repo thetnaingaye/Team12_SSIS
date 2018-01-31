@@ -415,7 +415,7 @@ namespace Team12_SSIS.BusinessLogic
                 }
 
                 //If inventory is not enough and isOverride is true
-                if (isOverride && ic.UnitsInStock > actQty)
+                if (isOverride)
                 {
                     isEnough = false;
                 }
@@ -712,16 +712,16 @@ namespace Team12_SSIS.BusinessLogic
         // Segregating our per item for retrieval by dept and generating the tempList
         public static List<TempInventoryRetrieval> RetrieveTempInventoryList(string itemID)
         {
-            // Intialize our list
+            // Intialize our lists
             List<RequisitionRecordDetail> tempList = new List<RequisitionRecordDetail>();
             List<TempInventoryRetrieval> ti = new List<TempInventoryRetrieval>();
 
-            int totalAct = 0;
+            int totalReq = 0;
 
-            // Creating our ReqRecord list that is relevant to this "main" row.
+            // Creating our ReqRecord list that is relevant to this "main" row, i.e those that are "approved" and not yet "processed"
             foreach (var item in GetRelevantDetailList())
             {
-                if (item.ItemID == itemID)
+                if (item.ItemID == itemID)  // From our list, we are only taking those that are relevant (i.e same itemID as our param)
                 {
                     tempList.Add(RequisitionLogic.FindRequisitionRecordDetails(item.RequestDetailID));
                 }
@@ -734,11 +734,11 @@ namespace Team12_SSIS.BusinessLogic
             // This takes the overall qty requested per item (combines all relevant req together) and compares it to the existing inventory
             foreach (var item in ti)
             {
-                totalAct += item.ActualQty;
+                totalReq += item.RequestedQty;
             }
             foreach (var item in ti)
             {
-                if (totalAct <= GetQuantity(itemID))
+                if (totalReq > GetQuantity(itemID))  // If total req qty is more than the current quantity in the inventory (aka insufficient qty for the "batch")
                 {
                     item.IsOverride = true;
                 }
