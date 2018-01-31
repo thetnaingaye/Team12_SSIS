@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="Team12_SSIS.DepartmentEmployee.Home" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-            <style type="text/css">
+    <style type="text/css">
         .auto-style2 {
             padding: 5px 15px 0px 15px;
             text-align: center;
@@ -9,34 +10,39 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <!-- First Container - quick research-->
-    <div class="container-fluid">
-                <asp:Xml ID="Xml1" runat="server"></asp:Xml>
+    <!-- First Container - quick research-->
+    <div class="container-fluid" style="padding: 0px 0px 0px 150px">
 
-      <!-- Second Container - quick research-->
-    <div class="col-lg-12 text-center">
-        <h3 class="margin">Looking for an item</h3>
-        <p>It's one click away. </p>
-        <asp:TextBox ID="TxtSearch" runat="server"></asp:TextBox>
-        <asp:Button ID="BtnSearch" runat="server" Text="Search" OnClick="BtnSearch_Click" />
-    </div>
-    <br />
-    <br />
-    <!-- Third Container - quick buttons -->
+        <!-- Third Container - quick buttons -->
 
-        <div class="row">
-            <div class="col-sm-4">
-                <p>Raise another requisition.</p>
-                <img src="../Images/birds3.jpg"" class="img-responsive margin" style="width: 100%" alt="Image"/>
+        <div class="row" style="align-content: center">
+            <a href="ViewCatalogue.aspx" style="text-decoration: none">
+                <div class="col-sm-6">
+
+                    <img src="../Images/requisition.png" class="img-responsive margin" style="width: 60%" alt="Image" />
+                    <h5>Raise another requisition...</h5>
+                </div>
+            </a>
+            <div class="col-sm-6" style="text-combine-upright: all">
+                <div class="panel">
+                </div>
+
             </div>
-            <div class="col-sm-4">
-                <p>Check the status of recent requests.</p>
-                <img src="../Images/birds2.jpg"" class="img-responsive margin" style="width: 100%" alt="Image"/>
+        </div>
+        <div class="row" style="align-content: center">
+
+
+            <div class="col-sm-6" style="align-content: center">
+                <div class="panel">
+                </div>
             </div>
-            <div class="col-sm-4">
-                <p>When and where is the next collection?</p>
-                <a href="#"><img src="../Images/birds1.jpg"" class="img-responsive margin" style="width: 100%" alt="Image"/></a>
-            </div>
+            <a href="ViewRequisitionHistory.aspx" style="text-decoration: none">
+                <div class="col-sm-6" style="align-content: center">
+
+                    <img src="../Images/check.png" class="img-responsive margin" style="width: 60%" alt="Image" />
+                    <h5>Check the status of recent requests...</h5>
+                </div>
+            </a>
         </div>
     </div>
 </asp:Content>
