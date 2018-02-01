@@ -43,6 +43,7 @@
 
                 </div>
                      </a>
+                 <a href="ListOfPurchaseOrders.aspx" style="text-decoration:none"> 
                 <div class="well" style="background-color: transparent; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
 
                     <div class="auto-style2">
@@ -61,6 +62,7 @@
                     </div>
 
                 </div>
+                     </a>
 
             </div>
             <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:SA45Team12AD %>" SelectCommand="SELECT CategoryID, COUNT(*) AS TotalItem FROM InventoryCatalogue GROUP BY CategoryID" OnSelecting="SqlDataSource3_Selecting"></asp:SqlDataSource>
@@ -124,6 +126,7 @@
 
         <div class="row">
             <div class="col-md-5 col-sm-12">
+                      <a href="../StoreReport/RequisitionTrendReport.aspx" style="text-decoration:none"> 
                 <div class="panel panel-default" style="border-color: #006699; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
                      <div class="panel-heading" style="text-align: left; background-color: transparent; color: #1A6ECC";font-weight:600><h4>Requisition Trend</h4><h6>number of requisitions current and past two months</h6></div>
                     <div class="auto-style2">
@@ -171,8 +174,10 @@ GROUP BY FORMAT(RequestDate, 'MMM_yyyy')
                         </asp:UpdatePanel>
                     </div>
                 </div>
+                          </a>
             </div>
             <div class="col-md-7 col-sm-12">
+                  <a href="../StoreReport/RequisitionTrendReport.aspx" style="text-decoration:none"> 
                 <div class="panel panel-default" style="border-color: #006699; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
                      <div class="panel-heading" style="text-align: left; background-color: transparent; color: #1A6ECC";font-weight:600><h4>Requisition Trend</h4><h6>number of requisitions by department for current and past two months</h6></div>
                     <div class="auto-style2">
@@ -219,6 +224,7 @@ GROUP BY DepartmentID"></asp:SqlDataSource>
 
                     </div>
                 </div>
+                      </a>
             </div>
         </div>
     </div>
