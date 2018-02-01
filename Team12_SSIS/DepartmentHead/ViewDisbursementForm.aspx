@@ -40,7 +40,7 @@
 	&nbsp;<input type="text" id="datepicker" name="datepicker" readonly="true" class="auto-style1" />&nbsp;
     &nbsp;&nbsp;&nbsp; <asp:Label ID="Label2" runat="server" Text="End Date:"> </asp:Label>&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" class="auto-style2" />
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     <asp:Button ID="BtnFindDate" runat="server" Text="FIND" OnClick="BtnFindDate_Click" Height="25px" Width="70px" />
+     <asp:Button ID="BtnFindDate" class="btn btn-primary" runat="server" Text="FIND" OnClick="BtnFindDate_Click" Height="45px" Width="71px" />
      <br />
     &nbsp;
 &nbsp;&nbsp;
@@ -54,7 +54,7 @@
        &nbsp; 
        <asp:TextBox ID="TxtRep" runat="server" Width="142px"></asp:TextBox>
      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     <asp:Button ID="BtnFindrep" runat="server" Text="FIND" OnClick="BtnFindrep_Click" Width="72px" />
+     <asp:Button ID="BtnFindrep" runat="server"  class="btn btn-primary" Text="FIND" OnClick="BtnFindrep_Click" Width="72px" />
      <br />
        <br />
     <asp:GridView ID="GridViewDisbursement" runat="server"  Class="table"  autogeneratecolumns="false" Width="100%" GridLines="None"  BackColor="White"    ShowHeaderWhenEmpty="True" OnRowCommand="GridViewDisbList_RowCommand" EmptyDataText="No Record Found">

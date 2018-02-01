@@ -277,7 +277,7 @@
     <Content Include="StoreManager\Home.aspx" />
     <Content Include="StoreManager\IssueAdjustmentVoucher.aspx" />
     <Content Include="StoreManager\StoreSupervisor\ApprovePurchaseOrder.aspx" />
-    <Content Include="StoreManager\ViewAdjustmentVoucherDetails.aspx" />
+    <Content Include="Style\ViewAdjustmentVoucherDetails.aspx" />
     <Content Include="StoreManager\ViewCatalogue.aspx" />
     <Content Include="StoreManager\ViewSupplierList.aspx" />
     <Content Include="Web.config">
@@ -659,11 +659,11 @@
     <Compile Include="StoreManager\StoreSupervisor\ListOfPurchaseOrders.aspx.designer.cs">
       <DependentUpon>ListOfPurchaseOrders.aspx</DependentUpon>
     </Compile>
-    <Compile Include="StoreManager\ViewAdjustmentVoucherDetails.aspx.cs">
+    <Compile Include="Style\ViewAdjustmentVoucherDetails.aspx.cs">
       <DependentUpon>ViewAdjustmentVoucherDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="StoreManager\ViewAdjustmentVoucherDetails.aspx.designer.cs">
+    <Compile Include="Style\ViewAdjustmentVoucherDetails.aspx.designer.cs">
       <DependentUpon>ViewAdjustmentVoucherDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoreManager\ViewCatalogue.aspx.cs">
