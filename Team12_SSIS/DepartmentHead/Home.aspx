@@ -16,11 +16,11 @@
 
     <asp:Timer ID="Timer3" runat="server" Interval="600000"></asp:Timer>
 
-    <div class="container-fluid" style="padding: 2px 2px 2px 2px">
-        <div class="container-fluid">
+    <div class="container-fluid">
+        <div class="container-fluid" style="padding: 50px 2px 50px 80px">
             <asp:Xml ID="Xml1" runat="server"></asp:Xml>
-            <div class="row">
-                <div class="col-sm-6" style="text-align: left">
+            <a href="ViewRequisitionFormList.aspx" style="text-decoration: none">
+                <div class="col-sm-5" style="text-align: left; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
                     <p style="color: #1A6ECC">No of pending requisitions:</p>
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                         <Triggers>
@@ -31,18 +31,25 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
-                <div class="col-sm-6" style="text-align: left">
-                    <p style="color: #1A6ECC">Upcoming Collection - number of disbursement lists:</p>
+            </a>
+            <div class="col-sm-2">
+                <div class="panel">
+                </div>
+
+            </div>
+            <a href="ManageDepartmentRep.aspx" style="text-decoration: none">
+                <div class="col-sm-5" style="text-align: left; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+                    <p style="color: #1A6ECC">Current department representative:</p>
                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="Timer1" />
                         </Triggers>
                         <ContentTemplate>
-                            <h1 style="color: #1A6ECC"><strong><%= GetDisbursementCount() %></strong></h1>
+                            <h2 style="color: #1A6ECC"><strong><%= GetRep() %></strong></h2>
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
-            </div>
+            </a>
             <br />
             <br />
         </div>
@@ -55,28 +62,27 @@
 
         <!-- Full width Chart-->
 
-        <div class="col-lg-12">
+        <div class="container-fluid" style="padding: 2px 2px 20px 100px">
             <a href="ViewRequisitionFormList.aspx" style="text-decoration: none">
                 <div class="col-sm-4">
                     <p>Approve requisition.</p>
-                    <img src="../Images/check.png" class="img-responsive margin" style="width: 100%" alt="Image" />
+                    <img src="../Images/approvereq.png" class="img-responsive margin" style="width: 70%" alt="Image" />
 
                 </div>
             </a>
             <a href="ManageDelegation.aspx" style="text-decoration: none">
                 <div class="col-sm-4">
                     <p>Manage Delegation.</p>
-                    <img src="../Images/requisition.png" class="img-responsive margin" style="width: 100%" alt="Image" />
+                    <img src="../Images/managedis.png" class="img-responsive margin" style="width: 70%" alt="Image" />
 
                 </div>
             </a>
-            <a href="ManageDelegation.aspx" style="text-decoration: none">
-                <a href="ViewDisbursementForm.aspx" style="text-decoration: none">
-                    <div class="col-sm-4">
-                          <p>View Disbursements</p>
-                        <img src="../Images/findout.png" class="img-responsive margin" style="width: 100%" alt="Image" />
-                    </div>
-                </a>
+            <a href="ViewDisbursementForm.aspx" style="text-decoration: none">
+                <div class="col-sm-4">
+                    <p>View Disbursements</p>
+                    <img src="../Images/viewreq.png" class="img-responsive margin" style="width: 70%" alt="Image" />
+                </div>
+            </a>
         </div>
 
 

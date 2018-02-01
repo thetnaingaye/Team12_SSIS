@@ -145,6 +145,8 @@
     <Content Include="DepartmentHead\ViewRequisitionFormDetails.aspx" />
     <Content Include="DepartmentHead\ViewRequisitionFormList.aspx" />
     <Content Include="Images\2-2-calendar-png-image.png" />
+    <Content Include="Images\approvereq.png" />
+    <Content Include="Images\bg.png" />
     <Content Include="Images\birds1.jpg" />
     <Content Include="Images\birds2.jpg" />
     <Content Include="Images\birds3.jpg" />
@@ -155,7 +157,11 @@
     <Content Include="Images\findout.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\logosmall.png" />
+    <Content Include="Images\managedis.png" />
+    <Content Include="Images\raisereq.png" />
     <Content Include="Images\requisition.png" />
+    <Content Include="Images\viewhistory.png" />
+    <Content Include="Images\viewreq.png" />
     <Content Include="Logout.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
