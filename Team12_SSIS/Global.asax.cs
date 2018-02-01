@@ -63,7 +63,7 @@ namespace Team12_SSIS
 			System.Timers.Timer t = new System.Timers.Timer();
 			t.Elapsed += new System.Timers.ElapsedEventHandler(AddDeptHeadRoleToUserWithDateCheck);
 			
-			t.Interval = 5000;
+			t.Interval = 28800000;
 			t.Enabled = true;
 			t.AutoReset = true;
 			t.Start();

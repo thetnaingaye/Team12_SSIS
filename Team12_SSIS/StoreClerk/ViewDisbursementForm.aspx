@@ -158,6 +158,13 @@
                         <asp:Button ID="BtnCancelDis" runat="server" Text="Cancel Disbursement List" CssClass="btn btn-primary" Visible="false" OnClick="BtnCancelDis_Click" OnClientClick="this.disabled=true;" UseSubmitBehavior="false" />
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="7" align="right">
+                        <asp:Label ID="LblCollectedBy" runat="server" Text="Collected By:" Visible="false"></asp:Label>
+                        <br />
+                        <asp:Image ID="ImgSignature" runat="server" Visible="false" Height="250px" Width="250px"/>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </asp:Content>

@@ -1506,17 +1506,27 @@
     <Content Include="DepartmentHead\ViewRequisitionFormDetails.aspx" />
     <Content Include="DepartmentHead\ViewRequisitionFormList.aspx" />
     <Content Include="Images\2-2-calendar-png-image.png" />
+    <Content Include="Images\approvereq.png" />
+    <Content Include="Images\bg.png" />
     <Content Include="Images\birds1.jpg" />
     <Content Include="Images\birds2.jpg" />
     <Content Include="Images\birds3.jpg" />
     <Content Include="Images\brandimg.png" />
+    <Content Include="Images\check.png" />
+    <Content Include="Images\favicon-16x16.png" />
+    <Content Include="Images\favicon.ico" />
+    <Content Include="Images\findout.png" />
     <Content Include="Images\Charts\chart1.png" />
     <Content Include="Images\Charts\tableAccuracy.png" />
     <Content Include="Images\Charts\tableModel.png" />
     <Content Include="Images\Charts\tableResults.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\logosmall.png" />
-    <Content Include="Images\wait.gif" />
+    <Content Include="Images\managedis.png" />
+    <Content Include="Images\raisereq.png" />
+    <Content Include="Images\requisition.png" />
+    <Content Include="Images\viewhistory.png" />
+    <Content Include="Images\viewreq.png" />
     <Content Include="Logout.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -3102,8 +3112,8 @@
     <Content Include="Style\bootstrap.min.css" />
     <Content Include="Style\Site.css" />
     <Content Include="WebServices\AuthService.svc" />
-    <Content Include="WebServices\FormUpload.aspx" />
-    <Content Include="WebServices\upload.html" />
+    <Content Include="FormUpload.aspx" />
+    <Content Include="upload.html" />
     <Content Include="WebServices\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -3142,7 +3152,6 @@
     <Content Include="StoreManager\CreateCatalogue.aspx" />
     <Content Include="StoreManager\CreateSupplier.aspx" />
     <Content Include="StoreManager\Home.aspx" />
-    <Content Include="StoreManager\IssueAdjustmentVoucher.aspx" />
     <Content Include="StoreManager\StoreSupervisor\ApprovePurchaseOrder.aspx" />
     <Content Include="StoreManager\ViewAdjustmentVoucherDetails.aspx" />
     <Content Include="StoreManager\ViewCatalogue.aspx" />
@@ -3505,13 +3514,6 @@
     <Compile Include="StoreManager\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
-    <Compile Include="StoreManager\IssueAdjustmentVoucher.aspx.cs">
-      <DependentUpon>IssueAdjustmentVoucher.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="StoreManager\IssueAdjustmentVoucher.aspx.designer.cs">
-      <DependentUpon>IssueAdjustmentVoucher.aspx</DependentUpon>
-    </Compile>
     <Compile Include="StoreManager\ListOfAdjustmentVouchers.aspx.cs">
       <DependentUpon>ListOfAdjustmentVouchers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3582,11 +3584,11 @@
     <Compile Include="WebServices\AuthService.svc.cs">
       <DependentUpon>AuthService.svc</DependentUpon>
     </Compile>
-    <Compile Include="WebServices\FormUpload.aspx.cs">
+    <Compile Include="FormUpload.aspx.cs">
       <DependentUpon>FormUpload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebServices\FormUpload.aspx.designer.cs">
+    <Compile Include="FormUpload.aspx.designer.cs">
       <DependentUpon>FormUpload.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebServices\IAuthService.cs" />
