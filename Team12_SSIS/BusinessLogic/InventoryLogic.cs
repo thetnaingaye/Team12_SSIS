@@ -554,9 +554,7 @@ namespace Team12_SSIS.BusinessLogic
                 // Finding the week no for the year (aka our period currently)
                 DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
                 Calendar cal = dfi.Calendar;
-                //Uncomment for final ver: int currentPeriod = cal.GetWeekOfYear(DateTime.Now, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
-                DateTime date1 = new DateTime(2018, 1, 2);
-                int currentPeriod = cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+                int currentPeriod = cal.GetWeekOfYear(DateTime.Now, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
 
 
                 // Init the diff tables to retrieve the required variables
