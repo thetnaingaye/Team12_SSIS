@@ -112,5 +112,10 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor
             statusMessage.ForeColor = System.Drawing.Color.Green;
 
         }
+
+        protected void GridViewAPO_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

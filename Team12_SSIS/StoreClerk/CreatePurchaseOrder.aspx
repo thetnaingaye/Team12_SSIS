@@ -174,7 +174,8 @@
 
             <tr>
                 <td>
-                    <asp:Button ID="BtnSfa" runat="server" Text="Submit for approval" OnClick="BtnSfa_Click" />
+                    <asp:Button ID="BtnSfa" CssClass="btn btn-primary" runat="server" Text="Submit for approval" OnClick="BtnSfa_Click" />
+                    
 
                 </td>
                 
