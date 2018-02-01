@@ -9,6 +9,8 @@ seasonFrom <- as.numeric(args[2])
 periodFrom <- as.numeric(args[3])
 seasonTo <- as.numeric(args[4])
 periodTo <- as.numeric(args[5])
+numPeriods <- as.numeric(args[6])
+typeOfChart <- as.numeric(args[7])
 
 
 
@@ -201,7 +203,7 @@ fitData <- auto.arima(tsData)
 #fitData    #Can see that R will use arima 2,1,2 to perform the focus
 
 #Determining the forecasted value
-resultF <- forecast(fitData, 5)
+resultF <- forecast(fitData, numPeriods)
 
 
 
@@ -229,7 +231,25 @@ imageFile <- 'chart1.png'
 if(file.exists(imageFile)) file.remove(imageFile)
 
 png(filename=paste(imagedir, "/", imageFile, sep=""), units="in", width=8, height=5, res=700)
-plot(resultF)
+
+# Choose the type of chart that you want.
+if (typeOfChart == 1)
+{
+  plot(resultF, xlab="Year", ylab="Actual Demand", main=paste0("Forecasted Demand for ", tempName1), type = 'l')
+}
+if (typeOfChart == 2)
+{
+  plot(resultF, xlab="Year", ylab="Actual Demand", main=paste0("Forecasted Demand for ", tempName1), type = 'b')
+}
+if (typeOfChart == 3)
+{
+  plot(resultF, xlab="Year", ylab="Actual Demand", main=paste0("Forecasted Demand for ", tempName1), type = 's')
+}
+if (typeOfChart == 4)
+{
+  plot(resultF, xlab="Year", ylab="Actual Demand", main=paste0("Forecasted Demand for ", tempName1), type = 'h')
+}
+
 dev.off()
 
 

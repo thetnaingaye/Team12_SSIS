@@ -44,7 +44,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Here we run our R script to populate our chart
-        public static void GetChart(string itemID, DateTime dateFrom, DateTime dateTo)
+        public static void GetChart(string itemID, DateTime dateFrom, DateTime dateTo, int numPeriods, int typeOfChart)
         {
             // We gotta break down our DateTime objects to two diff variables for each (Season and period)
             int seasonFrom = dateFrom.Year;
@@ -65,27 +65,11 @@ namespace Team12_SSIS.BusinessLogic
                 {
                     writetext.WriteLine("@echo off");
                     string temp = "\"C:/Program Files/R/R-3.4.1/bin/x64/Rscript.exe\" \"C:/inetpub/wwwroot/Team12_SSIS/BusinessLogic/RScripts/ChartingTool.R\" ";
-                    temp += itemID + " " + seasonFrom + " " + periodFrom + " " + seasonTo + " " + periodTo;
+                    temp += itemID + " " + seasonFrom + " " + periodFrom + " " + seasonTo + " " + periodTo + " " + numPeriods + " " + typeOfChart;
                     writetext.WriteLine(temp);
                     writetext.WriteLine("exit");     //Initially 'pause'
                 }
             }
-
-            //// Running our .bat file
-            //ProcessStartInfo process = new ProcessStartInfo();
-            //Process rScript;
-
-            //// Running our bat file which will execute the R compiler with the R script
-            //process.FileName = @"C:/inetpub/wwwroot/Team12_SSIS/BusinessLogic/RScripts/ChartExec.bat";
-            //process.Arguments = "/c start /wait";  // Initially not here
-            //// Specify your preferences when running the script
-            //process.CreateNoWindow = false;
-            //process.UseShellExecute = false;      //Set 'true' if you want the cmd panel to pop up
-
-
-            //rScript = Process.Start(process);
-            //rScript.Close();
-
 
             // Running our .bat file
             ProcessStartInfo process = new ProcessStartInfo();
@@ -100,7 +84,34 @@ namespace Team12_SSIS.BusinessLogic
             Process.Start(process).WaitForExit();
         }
 
+        // Retrieve latest date from actual data table
+        public static bool CheckIfBeyondLatestData(DateTime tempDate)
+        {
+            using(SA45Team12AD context = new SA45Team12AD())
+            {
+                ActualData temp = context.Database.SqlQuery<ActualData>("EXEC [SA45Team12AD].[dbo].[LatestActualDataEntry]").First();
+                int lSeason = temp.Season;
+                int lPeriod = temp.Period;
 
+                // Check if the year selected is more than the latest we have in our db, return false
+                if (lSeason < tempDate.Year)
+                {
+                    return false;
+                }
+                if (lSeason == tempDate.Year)
+                {
+                    // Check if the period selected is more than the latest we have in our db, return false
+                    DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+                    Calendar cal = dfi.Calendar;
+                    int selectedPeriod = cal.GetWeekOfYear(tempDate, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+                    if (lPeriod <= selectedPeriod)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
 
 
 

@@ -7,24 +7,51 @@
     <link rel='stylesheet prefetch' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <br />
     <div style="width: 100%;">
-        <div style="float:left; width: 22%; height:400px; background-color:#D8E2FF; border-radius: 25px;">
+        <div style="float:left; width: 22%; height:555px; background-color:#D8E2FF; border-radius: 25px;">
             <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
             <asp:Panel ID="PanelControl" runat="server" HorizontalAlign="Center">
                 <asp:UpdatePanel ID="UpdatePanelControl" runat="server">
                     <ContentTemplate>
-                        <div class="wrap">
-	                        <div class="search">
-			                    <input runat="server" id="inputValue" type="text" class="searchTerm" placeholder="Search..." name="inputValue" value="" enableviewstate="true"/>
-			                    <button runat="server" id="BtnSubmit1" class="searchPicture" type="submit" onServerClick="BtnSubmit1_Click"><i class="fa fa-search"></i></button>
-	                        </div>
-                        </div>
-                        <br /><br /><br /><br />
+                        <br /><br />
                         <div>
-                            <asp:Label ID="LblSelectedItem" runat="server" Text="Selected Item: "></asp:Label><br /><asp:Label ID="LblItemDesc" runat="server" Text="I like to eat loads apples!" ></asp:Label>
-                            <asp:Label ID="LblItemID" runat="server" Text="" Visible="false" ></asp:Label><br /><br />
-                            <asp:Label ID="LblDateFrom" runat="server" Text="From: "></asp:Label><br /><input runat="server" id="DateFrom" type="date" width="4px" /><br /><br />
-                            <asp:Label ID="LblDateTo" runat="server" Text="To: "></asp:Label><br /><input runat="server" id="DateTo" type="date" width="4px" /><br /><br /><br />
-                            <asp:Button ID="BtnGenerate" CssClass="btn btn-primary" runat="server" Text="Generate" OnClick="BtnGenerate_Click" />
+                            <td>
+                                <asp:TextBox id="inputValue" Text="" runat="server" Width="66%" ControlStyle-CssClass="searchTerm" placeholder="Search..." OnTextChanged="inputValue_TextChanged" AutoPostBack="True"/>
+                                <button runat="server" id="BtnSubmit1" type="submit" class="searchPicture" onServerClick="BtnSubmit1_Click"><i class="fa fa-search"></i></button>
+                            </td>
+                        </div>
+                        <br />
+                        <div>
+                            <asp:Label ID="LblSelectedItem" runat="server" Text="Selected Item: " Font-Bold="True" Visible="false"></asp:Label><br /><asp:Label ID="LblItemDesc" runat="server" Text="" ></asp:Label>
+                            <asp:Label ID="LblItemID" runat="server" Text="" Visible="false"></asp:Label><br /><br />
+                            <asp:Label ID="LblSelectNumber" runat="server" Text="Select period(s) to forecast: " Font-Bold="True" Visible="false" ></asp:Label><br />
+                            <asp:DropDownList ID="DdlNoForeacast" runat="server" Width="30%" ControlStyle-CssClass="basicTerm" Visible="false" >
+                                <asp:ListItem Text="1" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="2" Value="2"></asp:ListItem>
+                                <asp:ListItem Text="3" Value="3"></asp:ListItem>
+                                <asp:ListItem Text="4" Value="4"></asp:ListItem>
+                                <asp:ListItem Text="5" Value="5"></asp:ListItem>
+                                <asp:ListItem Text="6" Value="6"></asp:ListItem>
+                                <asp:ListItem Text="7" Value="7"></asp:ListItem>
+                                <asp:ListItem Text="8" Value="8"></asp:ListItem>
+                                <asp:ListItem Text="9" Value="9"></asp:ListItem>
+                                <asp:ListItem Text="10" Value="10"></asp:ListItem>
+                                <asp:ListItem Text="11" Value="11"></asp:ListItem>
+                                <asp:ListItem Text="12" Value="12"></asp:ListItem>
+                                <asp:ListItem Text="13" Value="13"></asp:ListItem>
+                                <asp:ListItem Text="14" Value="14"></asp:ListItem>
+                                <asp:ListItem Text="15" Value="15"></asp:ListItem>
+                            </asp:DropDownList><br /><br />
+                            <asp:Label ID="LblSelectType" runat="server" Text="Select chart type: " Font-Bold="True" Visible="false" ></asp:Label><br />
+                            <asp:DropDownList ID="DdlTypeChart" runat="server" Width="50%" Visible="false" >
+                                <asp:ListItem Text="Line" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="Points and line" Value="2"></asp:ListItem>
+                                <asp:ListItem Text="Steps" Value="3"></asp:ListItem>
+                                <asp:ListItem Text="Histogram" Value="4"></asp:ListItem>
+                            </asp:DropDownList><br /><br />
+                            <asp:Label ID="LblDateFrom" runat="server" Text="From: " Font-Bold="True" Visible="false" ></asp:Label><br /><input runat="server" id="DateFrom" type="date" style="width: 50%" visible="false" /><br /><br />
+                            <asp:Label ID="LblDateTo" runat="server" Text="To: " Font-Bold="True" Visible="false" ></asp:Label><br /><input runat="server" id="DateTo" type="date" style="width: 50%" visible="false" /><br /><br /><br />
+                            <asp:Button ID="BtnGenerate" CssClass="btn btn-primary" runat="server" Text="Generate" OnClick="BtnGenerate_Click" Visible="false" /><br /><br />
+                            <asp:Label ID="LblErrorMsg" runat="server" Text="" ForeColor="Red" Visible="false" Width="70%"></asp:Label>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -53,7 +80,7 @@
                     </div>
                     <div>
                         <asp:Panel ID="PanelChart" runat="server" HorizontalAlign="Center">
-                            <asp:Label ID="LblChartHeader" runat="server" Text="Demand for the period January 2014 to January 2018" Font-Size="Large" Visible="False"></asp:Label><br /><br />
+                            <asp:Label ID="LblChartHeader" runat="server" Text="Chart" Font-Size="Large" Visible="False"></asp:Label><br /><br />
                             <div>
                                 <asp:Image ID="ImgChart" class="center-block" runat="server" ImageUrl="~/images/Charts/chart1.png" width="75%" BorderStyle="Inset" BorderWidth="1px" Visible="False"/>
                             </div>    
@@ -62,81 +89,12 @@
                     <br /><br /><br />
                     <div>
                         <asp:Panel ID="Panel2" runat="server" HorizontalAlign="Center">
-                            <asp:Label ID="LblExpectedDemand" runat="server" Text="Expected demand for the next five weeks" Font-Size="Large" Visible="false"></asp:Label><br /><br />
-                            <asp:Image ID="ImgTableResult" class="center-block" runat="server" ImageUrl="~/images/Charts/tableResults.png" width="90%" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br />
-                            <asp:Image ID="ImgTableAccuracy" class="center-block" runat="server" ImageUrl="~/images/Charts/tableAccuracy.png" height="50px" width="100%" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br />
-                            <asp:Image ID="ImgTableModel" class="center-block" runat="server" ImageUrl="~/images/Charts/tableModel.png" Height="370px" width="100%" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br />
-
-
-
-                            <%--<asp:GridView ID="GridViewForecastList" runat="server" AutoGenerateColumns="False" Width="80%" DataKeyNames="FID" ItemType="Team12_SSIS.Model.ForecastedData"
-                                    BackColor="White" BorderColor="#CCCCCC" BorderStyle="Inset" Visible="false" HorizontalAlign="Center">
-                                <Columns>
-                                    <asp:TemplateField HeaderText="Season">
-                                        <ItemTemplate>
-                                            <asp:Label ID="LblSeason" runat="server" Text='<%#:Item.Season %>'></asp:Label>
-                                        </ItemTemplate>
-                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
-                                    </asp:TemplateField>
-                                
-                                    <asp:TemplateField HeaderText="Period">
-                                        <ItemTemplate>
-                                            <asp:Label ID="LblPeriod" runat="server" Text='<%#:Item.Period %>'></asp:Label>
-                                        </ItemTemplate>
-                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
-                                    </asp:TemplateField>
-                                
-                                    <asp:TemplateField HeaderText="Forecasted Demand">
-                                        <ItemTemplate>
-                                            <asp:Label ID="LblForecastedDemand" runat="server" Text='<%#:Item.ForecastedDemand %>'></asp:Label>
-                                        </ItemTemplate>
-                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
-                                    </asp:TemplateField>
-                                
-                                    <asp:TemplateField HeaderText="Low 80">
-                                        <ItemTemplate>
-                                            <asp:Label ID="LblReqID" runat="server" Text='<%#:Item.Low80 %>'></asp:Label>
-                                        </ItemTemplate>
-                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
-                                    </asp:TemplateField>
-                                
-                                    <asp:TemplateField HeaderText="High 80">
-                                        <ItemTemplate>
-                                            <asp:Label ID="LblHigh80" runat="server" Text='<%#:Item.High80 %>'></asp:Label>
-                                        </ItemTemplate>
-                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
-                                    </asp:TemplateField>
-                                
-                                    <asp:TemplateField HeaderText="Low 95">
-                                        <ItemTemplate>
-                                            <asp:Label ID="LblLow95" runat="server" Text='<%#:Item.Low95 %>'></asp:Label>
-                                        </ItemTemplate>
-                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
-                                    </asp:TemplateField>
-                                
-                                    <asp:TemplateField HeaderText="High 95">
-                                        <ItemTemplate>
-                                            <asp:Label ID="LblHigh95" runat="server" Text='<%#:Item.High95 %>'></asp:Label>
-                                        </ItemTemplate>
-                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                        <HeaderStyle CssClass="text-center" Font-Size="Small" ></HeaderStyle>
-                                    </asp:TemplateField>
-                                </Columns>
-                                    <EmptyDataRowStyle Font-Italic="True" Font-Size="Medium" Font-Underline="False" ForeColor="#FF3300" />
-                                        <EmptyDataTemplate>
-                                            <table runat="server">
-                                                <tr>
-                                                    <td>There are no requisition orders at present.</td>
-                                                </tr>
-                                            </table>
-                                        </EmptyDataTemplate>
-                            </asp:GridView>--%>        
+                            <asp:Label ID="LblExpectedDemand" runat="server" Text="Forecasted Demand" Font-Size="Large" Visible="false"></asp:Label><br /><br />
+                            <asp:Image ID="ImgTableResult" class="center-block" runat="server" style="max-width:100%;height:auto;width:auto;" ImageUrl="~/images/Charts/tableResults.png" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br />
+                            <asp:Label ID="LblAccuracy" runat="server" Text="Measures of Accuracy" Font-Size="Large" Visible="false"></asp:Label><br /><br />
+                            <asp:Image ID="ImgTableAccuracy" class="center-block" runat="server" style="max-width:100%;height:auto;width:auto;" ImageUrl="~/images/Charts/tableAccuracy.png" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br />
+                            <asp:Label ID="LblModel" runat="server" Text="Model Details" Font-Size="Large" Visible="false"></asp:Label><br /><br />
+                            <asp:Image ID="ImgTableModel" class="center-block" runat="server" style="max-width:100%;max-height:500px;height:auto;width:auto;" ImageUrl="~/images/Charts/tableModel.png" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br /> 
                             <div>
                                 <br /><br />
                                 <asp:button id="BtnPrint" ControlStyle-CssClass="btn btn-success" style="position: absolute; top: 19%; right: 9%;" runat="server" onclientclick="javascript:CallPrint('MainArea');" text="Print" xmlns:asp="#unknown" Visible="false"/>
@@ -187,21 +145,13 @@
 
 <style>
 /* For the search bar */
-.search {
-	width: 100%;
-	position: relative
-}
 
 .searchTerm {
-	float: left;
-	width: 90%;
 	border: 3px solid #4769CA;
-	padding: 5px;
-	height: 33px;
 	border-radius: 5px;
 	outline: none;
 	color: #4769CA;
-	font-size: 13px;
+    height: 35px;
 }
 
 .searchTerm:focus {
@@ -209,25 +159,14 @@
 }
 
 .searchPicture {
-	position: absolute;
-	right: -3%;
-	width: 30px;
-	height: 33px;
 	border: 1px solid #4769CA;
 	background: #4769CA;
 	text-align: center;
 	color: #fff;
 	border-radius: 5px;
 	cursor: pointer;
-	font-size: 20px;
-}
-
-.wrap {
-	width: 12%;
-	position: absolute;
-	top: 24%;
-	left: 19.8%;
-	transform: translate(-50%, -50%);
+    height: 35px;
+    width: 30px;
 }
 </style>
 </asp:Content>

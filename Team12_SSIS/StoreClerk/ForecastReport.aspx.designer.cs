@@ -46,7 +46,7 @@ namespace Team12_SSIS.StoreClerk {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText inputValue;
+        protected global::System.Web.UI.WebControls.TextBox inputValue;
         
         /// <summary>
         /// BtnSubmit1 control.
@@ -83,6 +83,42 @@ namespace Team12_SSIS.StoreClerk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblItemID;
+        
+        /// <summary>
+        /// LblSelectNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblSelectNumber;
+        
+        /// <summary>
+        /// DdlNoForeacast control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DdlNoForeacast;
+        
+        /// <summary>
+        /// LblSelectType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblSelectType;
+        
+        /// <summary>
+        /// DdlTypeChart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DdlTypeChart;
         
         /// <summary>
         /// LblDateFrom control.
@@ -128,6 +164,15 @@ namespace Team12_SSIS.StoreClerk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnGenerate;
+        
+        /// <summary>
+        /// LblErrorMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblErrorMsg;
         
         /// <summary>
         /// UpdateProgress control.
@@ -274,6 +319,15 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Image ImgTableResult;
         
         /// <summary>
+        /// LblAccuracy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblAccuracy;
+        
+        /// <summary>
         /// ImgTableAccuracy control.
         /// </summary>
         /// <remarks>
@@ -281,6 +335,15 @@ namespace Team12_SSIS.StoreClerk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image ImgTableAccuracy;
+        
+        /// <summary>
+        /// LblModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblModel;
         
         /// <summary>
         /// ImgTableModel control.
