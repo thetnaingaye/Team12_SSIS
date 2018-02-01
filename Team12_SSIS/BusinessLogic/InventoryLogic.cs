@@ -751,6 +751,30 @@ namespace Team12_SSIS.BusinessLogic
             return ti;
         }
 
+        // Searching item catalogue for forecast report page
+        public static InventoryCatalogue SearchItemForReport(string value)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                try
+                {
+                    InventoryCatalogue a = context.InventoryCatalogues.Where(x => x.ItemID.Contains(value)).First();
+                    return a;
+                }
+                catch (Exception)
+                {
+                    try
+                    {
+                        InventoryCatalogue b = context.InventoryCatalogues.Where(x => x.Description.Contains(value)).First();
+                        return b;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
 
 
 
