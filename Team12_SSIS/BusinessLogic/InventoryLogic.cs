@@ -331,8 +331,8 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        
-        //----------------------------         KHAIR's               ----------------------------// 
+
+        //----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------//
 
         // Retrieve ALL items
         public static List<InventoryCatalogue> ListAllItems()

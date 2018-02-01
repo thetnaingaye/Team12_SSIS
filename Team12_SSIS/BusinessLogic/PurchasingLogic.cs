@@ -19,7 +19,7 @@ namespace Team12_SSIS.BusinessLogic
     public class PurchasingLogic
     {
 
-        //----------------------------         KHAIR's               ----------------------------// 
+        //----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------//
 
         // Checks if the current inventory is sufficient for the qty specified to be withdrawn by the user.
         public static double FindTotalByPONum(int poNum)

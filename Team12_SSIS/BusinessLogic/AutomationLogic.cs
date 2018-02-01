@@ -8,9 +8,10 @@ using System.Threading;
 using System.Web;
 using Team12_SSIS.Model;
 
+//----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------//
+
 namespace Team12_SSIS.BusinessLogic
 {
-    //Whole thing belongs to Khair
     public class AutomationLogic
     {
         
