@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Web;
@@ -43,10 +44,15 @@ namespace Team12_SSIS.BusinessLogic
             // These lines of code will ensure that the reorder table is cleared at the end of each working day (about 6pm).
             DayOfWeek dayTodae = DateTime.Now.DayOfWeek;
 
+            // Start message
+            UpdateAutomationLog(DateTime.Now + ": Checking the day.", 1);
+
 
             // Checking for the right day aka weekday
             if (!dayTodae.Equals(DayOfWeek.Saturday) || !dayTodae.Equals(DayOfWeek.Sunday))
             {
+                UpdateAutomationLog(DateTime.Now + ": EOD processes will begin as today is a weekday.", 1);
+
                 // Init all req attrs
                 bool isOverride = false;
                 bool rightHour = false;
@@ -55,8 +61,9 @@ namespace Team12_SSIS.BusinessLogic
                 int hour;
                 int minute;
                 int second;
-                int targetHour = 10;             // Change this to manually set our hour [For testing purposes - Default should be 17]
-                int targetMinute = 10;          // Change this to manually set our minute [For testing purposes - Default should be 59] 
+                int targetHour = 17;             // Change this to manually set our hour [For testing purposes - Default should be 17]
+                int targetMinute = 59;          // Change this to manually set our minute [For testing purposes - Default should be 59] 
+
 
                 // Checking for the right hour
                 do
@@ -66,22 +73,23 @@ namespace Team12_SSIS.BusinessLogic
                     if (hour == targetHour)
                     {
                         rightHour = true;
+                        UpdateAutomationLog("Hour Checked: " + hour, 1);
                     }
                     else if (hour < targetHour)
                     {
-                        Thread.Sleep((targetHour - hour) * 60 * 60 * 1000);
+                        Thread.Sleep(1 * 60 * 60 * 1000);  // WIll sleep for 1hr before checking again
                     }
                     else
                     {
-                        //Thread.Sleep(6 * 60 * 60 * 1000);   // Sleep for 6 hours so will proceed to the next day
                         isOverride = true;
                         rightHour = true;
+                        UpdateAutomationLog(DateTime.Now + ": Unable to proceed as current time is beyond 6pm.", 1);
                     }
 
                 } while (!rightHour);
 
-                
-                if (!isOverride)   // If it is not after 6pm
+
+                if (!isOverride)   // If it is not after 6.00pm (aka more than target hour)
                 {
                     // Checking for the right minute
                     do
@@ -91,11 +99,11 @@ namespace Team12_SSIS.BusinessLogic
                         if (minute == targetMinute)
                         {
                             rightMinute = true;
+                            UpdateAutomationLog("Minute Checked: " + minute, 1);
                         }
                         else
                         {
-                            Thread.Sleep((targetMinute - minute) * 60 * 1000);
-                            rightMinute = true;
+                            Thread.Sleep(10000);  // Wait 10s before checking again
                         }
 
                     } while (!rightMinute);
@@ -108,52 +116,33 @@ namespace Team12_SSIS.BusinessLogic
                         if (second == 59)
                         {
                             rightSecond = true;
-                        }
-                        else
-                        {
-                            Thread.Sleep((59 - second) * 1000);
                             Thread.Sleep(1000);   // Adds another milliseconds to make it a full minute.
-                            rightSecond = true;
+                            UpdateAutomationLog("Second Checked: " + second, 1);
                         }
 
                     } while (!rightSecond);
 
-                    //if (rightHour && rightMinute && rightSecond)
-                    //{
-                    //    // Performing our clearing code here
-                    //    var temp = PurchasingLogic.PopulateReorderTable();
-
-                    //    if (temp != null && temp.Count > 0)
-                    //    {
-                    //        string s = PurchasingLogic.CreateMultiplePO(temp);
-                    //    }
-                    //}
-
-                    // Performing our clearing code here
-                    var temp = PurchasingLogic.PopulateReorderTable();
-
-                    if (temp != null && temp.Count > 0)
+                    if (rightHour && rightMinute && rightSecond)
                     {
-                        string s = PurchasingLogic.CreateMultiplePO(temp);
+                        // Performing our clearing code here
+                        var temp = PurchasingLogic.PopulateReorderTable();
+
+                        if (temp != null && temp.Count > 0)
+                        {
+                            string s = PurchasingLogic.CreateMultiplePO(temp);
+                        }
+
+                        UpdateAutomationLog(DateTime.Now + ": EOD processes successfully completed.", 1);
                     }
                 }
-
-
-                if (DateTime.Now.Hour <= 22)
+                else
                 {
-                    // Once all is done, perform a force sleep so that the timing is resetted back to about 10+pm
-                    hour = DateTime.Now.Hour;
-                    int hoursToSleep = 22 - hour;
-                    Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
-                    // This ensures that the thread which will trigger this method (Every 18 hours) is done correctly.
+                    UpdateAutomationLog(DateTime.Now + ": EOD processes will now stop as now is beyond the intended scheduled time.", 1);
                 }
             }
             else
             {
-                // Gotta reset it back to about 10pm as well
-                int hour = DateTime.Now.Hour;
-                int hoursToSleep = 22 - hour;
-                Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
+                UpdateAutomationLog(DateTime.Now + ": Today is a " + dayTodae + ". Since it is a weekend, EOD processes will not be carried out.", 1);
             }
         }
 
@@ -162,97 +151,108 @@ namespace Team12_SSIS.BusinessLogic
         {
             DayOfWeek dayTodae = DateTime.Now.DayOfWeek;
 
+            // Start message
+            UpdateAutomationLog(DateTime.Now + ": Checking the day.", 2);
+
+
+            // Checking for the right day aka Sundae
             if (dayTodae.Equals(DayOfWeek.Sunday))
             {
-                //Init all req attrs
+                UpdateAutomationLog(DateTime.Now + ": Forecasting processes start as it is a Sunday.", 2);
+
+                // Init all req attrs
+                bool isOverride = false;
                 bool rightHour = false;
                 bool rightMinute = false;
                 bool rightSecond = false;
                 int hour;
                 int minute;
                 int second;
+                int targetHour = 6;             // Change this to manually set our hour [For testing purposes - Default should be 6]
+                int targetMinute = 59;          // Change this to manually set our minute [For testing purposes - Default should be 59] 
+
 
                 // Checking for the right hour
                 do
                 {
                     hour = DateTime.Now.Hour;      // Retrieving current hour
 
-                    if (hour == 6)
+                    if (hour == targetHour)
                     {
                         rightHour = true;
+                        UpdateAutomationLog("Hour Checked: " + hour, 2);
                     }
-                    else if (hour < 6)
+                    else if (hour < targetHour)
                     {
-                        Thread.Sleep((6 - hour) * 60 * 60 * 1000);
+                        Thread.Sleep(1 * 60 * 60 * 1000);  // WIll sleep for 1hr before checking again
+                    }
+                    else
+                    {
+                        isOverride = true;
+                        rightHour = true;
+                        UpdateAutomationLog(DateTime.Now + ": Unable to proceed as current time is beyond 7am.", 2);
                     }
 
                 } while (!rightHour);
 
-                // Checking for the right minute
-                do
+
+                if (!isOverride)   // If it is not after 6.00pm (aka more than target hour)
                 {
-                    minute = DateTime.Now.Minute;    // Retrieving current minute
-
-                    if (minute == 59)
+                    // Checking for the right minute
+                    do
                     {
-                        rightMinute = true;
-                    }
-                    else
-                    {
-                        Thread.Sleep((59 - minute) * 60 * 1000);
-                        rightMinute = true;
-                    }
+                        minute = DateTime.Now.Minute;    // Retrieving current minute
 
-                } while (!rightMinute);
+                        if (minute == targetMinute)
+                        {
+                            rightMinute = true;
+                            UpdateAutomationLog("Minute Checked: " + minute, 2);
+                        }
+                        else
+                        {
+                            Thread.Sleep(10000);  // Wait 10s before checking again
+                        }
 
-                // Checking for the right second
-                do
-                {
-                    second = DateTime.Now.Second;    // Retrieving current second
+                    } while (!rightMinute);
 
-                    if (second == 59)
+                    // Checking for the right second
+                    do
                     {
-                        rightSecond = true;
-                    }
-                    else
-                    {
-                        Thread.Sleep((59 - second) * 1000);
-                        rightSecond = true;
-                    }
+                        second = DateTime.Now.Second;    // Retrieving current second
 
-                } while (!rightSecond);
+                        if (second == 59)
+                        {
+                            rightSecond = true;
+                            Thread.Sleep(1000);   // Adds another milliseconds to make it a full minute.
+                            UpdateAutomationLog("Second Checked: " + second, 2);
+                        }
 
-                if (rightHour && rightMinute && rightSecond)
-                {
-                    try
+                    } while (!rightSecond);
+
+                    if (rightHour && rightMinute && rightSecond)
                     {
-                        CallForecastingScript();
-                        CheckActualData();
-                        UpdatingBufferStock();
-                    }
-                    catch (Exception ee)
-                    {
-                        Console.WriteLine(ee.Message);
+                        try   // Performing our necessary logic...
+                        {
+                            CallForecastingScript();
+                            CheckActualData();
+                            UpdatingBufferStock();
+                        }
+                        catch (Exception ee)
+                        {
+                            Console.WriteLine(ee.Message);
+                        }
+
+                        UpdateAutomationLog(DateTime.Now + ": Forecasting processes successfully completed.", 2);
                     }
                 }
-
-
-                // Once all is done, perform a force sleep so that the timing is resetted back to btw 3.00 to 3.59am
-                hour = DateTime.Now.Hour;
-                int hoursToSleep = (23 - hour) + 4;
-                Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
-                // This ensures that the thread which will trigger this method (Every 24 hours) is done correctly before a scheduled forecast run.  
+                else
+                {
+                    UpdateAutomationLog(DateTime.Now + ": Forecasting processes will now stop as now is beyond the intended scheduled time.", 2);
+                }
             }
             else
             {
-                // Gotta reset as well back to btw 3.00 to 3.59am
-                int hour = DateTime.Now.Hour;
-                
-                if (hour >= 4)
-                {
-                    int hoursToSleep = (23 - hour) + 4;
-                    Thread.Sleep(hoursToSleep * 60 * 60 * 1000);
-                }
+                UpdateAutomationLog(DateTime.Now + ": Today is a " + dayTodae + ". Hence forecasting processes will not be carried out.", 2);
             }
         }
 
@@ -363,6 +363,25 @@ namespace Team12_SSIS.BusinessLogic
                         PurchasingLogic.SetProportionalBFS(item.ItemID, (int)item.BFSProportion);
                     }
                     // Will not update those that have 0, i.e those that are manually set by the user.
+                }
+            }
+        }
+
+        // Update automation log
+        public static void UpdateAutomationLog(string msg, int x)    // 1 => EOD Automation & 2 => Sunday Automation
+        {
+            if (x == 1)
+            {
+                using (StreamWriter writetext = new StreamWriter("C:\\inetpub\\wwwroot\\Team12_SSIS\\EODAutomationLog.txt", true))    // EOD automation log file
+                {
+                    writetext.WriteLine(msg);
+                }
+            }
+            if (x == 2)
+            {
+                using (StreamWriter writetext = new StreamWriter("C:\\inetpub\\wwwroot\\Team12_SSIS\\ForecastAutomationLog.txt", true))    // Sunday automation log file
+                {
+                    writetext.WriteLine(msg);
                 }
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -43,11 +44,19 @@ namespace Team12_SSIS.StoreClerk
         private void BindDdls()
         {
             List<Department> deptList = DisbursementLogic.GetListofDepartments();
+            Department allDept = new Department();
+            allDept.DepartmentName = "All";
+            allDept.DeptID = "All";
+            deptList.Add(allDept);
             DdlDept.DataSource = deptList;
             DdlDept.DataBind();
             DdlDept.SelectedIndex = 0;
 
             List<CollectionPoint> colPointList = DisbursementLogic.GetListofColPoint();
+            CollectionPoint allColPoint = new CollectionPoint();
+            allColPoint.CollectionPointID = -1;
+            allColPoint.CollectionPoint1 = "All";
+            colPointList.Add(allColPoint);
             DdlColPoint.DataSource = colPointList;
             DdlColPoint.DataBind();
             DdlColPoint.SelectedIndex = 0;
@@ -63,7 +72,16 @@ namespace Team12_SSIS.StoreClerk
         protected void BtnRetrieve_Click(object sender, EventArgs e)
         {
             string dept = DdlDept.SelectedValue;
-            List<DisbursementList> dList = DisbursementLogic.GetListOfDisbursements("DepartmentID", dept);
+            List<DisbursementList> dList;
+            switch (dept)
+            {
+                case ("All"):
+                    dList = DisbursementLogic.GetListOfDisbursements();
+                    break;
+                default:
+                    dList = DisbursementLogic.GetListOfDisbursements("DepartmentID", dept);
+                    break;
+            }
             GridViewDisbList.DataSource = dList;
             GridViewDisbList.DataBind();
         }
@@ -72,9 +90,10 @@ namespace Team12_SSIS.StoreClerk
         {
             string status = DdlStatus.SelectedValue;
             int colPointId = int.Parse(DdlColPoint.SelectedValue);
+            DateTime collectionDate = DateTime.ParseExact(Request.Form["datepicker"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
             List<DisbursementList> dList = status == "All" ? DisbursementLogic.GetListOfDisbursements() : DisbursementLogic.GetListOfDisbursements("Status", status);
-            dList = dList.Where(x => x.CollectionPointID == colPointId).ToList();
-
+            dList =  colPointId == -1 ? dList : dList.Where(x => x.CollectionPointID == colPointId).ToList();
+            dList = dList.Where(x => x.CollectionDate == collectionDate).ToList();
             GridViewDisbList.DataSource = dList;
             GridViewDisbList.DataBind();
         }

@@ -2213,7 +2213,7 @@ namespace Team12_SSIS.BusinessLogic
 
                 using (EmailControl em = new EmailControl())
                 {
-                    em.NewAdjustmentVoucherRequestNotification(User.Email.ToString(), avRId.ToString(), clerkName);
+                    em.NewAdjustmentVoucherRequestNotification(User.Email.ToString(), "AVR" + avRId.ToString("0000"), clerkName);
                 }
             }
         }
