@@ -22,7 +22,7 @@
     <div class="container-fluid" style="padding: 5px 40px 0px 40px">
 
         <div class="row">
-            <div class="col-md-6 well col-sm-12" style="background-color: transparent; border: none; box-shadow: none; padding: 5px 30px 0px 30px">
+            <div class="col-md-6 well col-sm-12" style="background-color: transparent; border: none; box-shadow: none; padding: 0px 15px 0px 15px">
                  <a href="ReorderList.aspx" style="text-decoration:none"> 
                 <div class="well" style="background-color: transparent; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
 
