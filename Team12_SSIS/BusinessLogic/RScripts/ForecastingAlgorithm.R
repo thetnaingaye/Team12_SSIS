@@ -188,13 +188,8 @@ for (x in 1:nrow(listItems)) {
 	tempP <- tempP + 1
 	
 	#Querying the DB
-	if (check == FALSE) {
-	  stmt <- sprintf('EXEC [SA45Team12AD].[dbo].[Insert_Forecast] @ItemID=%s, @varSeason=%d, @varPeriod=%d, @varDd=%f, @varLo80=%f, 
+	stmt <- sprintf('EXEC [SA45Team12AD].[dbo].[Insert_Forecast] @ItemID=%s, @varSeason=%d, @varPeriod=%d, @varDd=%f, @varLo80=%f, 
 				  @varHi80=%f, @varLo95=%f, @varHi95=%f', tempID1, tempS, tempP, tM[x], tL[x], tH[x], tL[x + 5], tH[x + 5])
-	} else {
-	  stmt <- sprintf('EXEC [SA45Team12AD].[dbo].[Insert_Forecast] @ItemID=%s, @varSeason=%d, @varPeriod=%d, @varDd=%f, @varLo80=%f, 
-				  @varHi80=%f, @varLo95=%f, @varHi95=%f', tempID1, tempS, tempP, tM[x], tL[x], tH[x], tL[x + 5], tH[x + 5])
-	}
 	sqlQuery(dbconnection, stmt)
   }
   odbcClose(dbconnection)  #Close connection
@@ -202,9 +197,9 @@ for (x in 1:nrow(listItems)) {
   
   
   if (check == FALSE) {
-	print(paste0("Item ", tempName1, "was successfully processed."))
+	print(paste0("Item ", tempName1, " was successfully processed."))
   } else {
-	print(paste0("Item ", tempName2, "was successfully processed."))
+	print(paste0("Item ", tempName1, " was successfully processed. [Using ", tempName2, "'s data]"))
   }
 }
 
