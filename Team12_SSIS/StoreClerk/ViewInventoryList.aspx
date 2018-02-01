@@ -128,12 +128,6 @@ body{
       <br />
     </div> 
 
-      
-
-  
-    <%--  <button type="submit" class="glyphicon glyphicon-search" style="left: 0px; top: 1px; width: 20px">
-       
-     </button>--%>
                                  
       <asp:TextBox ID="TxtSearch" placeholder="Enter keyword to search" runat="server" AutoPostBack="True" OnTextChanged="TxtSearch_TextChanged" CssClass="auto-style12" Height="32px" Width="485px"></asp:TextBox>
   <br />
@@ -217,8 +211,6 @@ body{
                      </tr>
                   <tr style="height:20px">
                      <td class="auto-style2">
-                      <asp:Label ID="LblUOM" runat="server" Text="Unit Of Measurement: " Style="padding-right: 10px"></asp:Label>
-                      <asp:Label ID="LblUOMD" runat="server" Font-Bold="true"></asp:Label>
                          <br />
                       </td>
                 </tr>

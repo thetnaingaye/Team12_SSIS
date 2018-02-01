@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+//---------------------------------------------*Written by Thanisha*-----------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -29,7 +32,7 @@ namespace Team12_SSIS.StoreClerk
             ControlVisibleFalse();
             LblMsg.Visible = false;
 
-            //---------------------------retrieving the itemId from the session(from inventory page)----------------------------------//
+//---------------------------retrieving the itemId from the session(from inventory page)--------------------------------//
 
             if (Session["Itemid"] != null)
             {
@@ -37,11 +40,11 @@ namespace Team12_SSIS.StoreClerk
 
                 itemId = (string)Session["Itemid"];
 
-                //---------------------populating the transaction details of the item seleted-------------------//
+//---------------------populating the transaction details of the item seleted------------------------------------------//
 
                 details(itemId);
                 tList = InventoryLogic.GetStockCardList(itemId);
-                //----------if list has records,display in datagrid view--------------------------------------------//
+//------------------------------if list has records,display in datagrid view--------------------------------------------//
                 if (tList.Count != 0)
                 {
 
@@ -50,7 +53,7 @@ namespace Team12_SSIS.StoreClerk
                 LblMsg.Visible = false;
                 }
 
-                //------------------------------------Status message for no record found--------------------------------//
+//-----------------------------------Status message for no record found------------------------------------------------//
                 else
                 {
                     LblMsg.Visible = true;
@@ -62,14 +65,14 @@ namespace Team12_SSIS.StoreClerk
 
         }
 
-        //------------------------Find transaction details button click event-------------------------------------------//
+//-----------------------Find transaction details button click event----------------------------------------------------//
         protected void BtnFind_Click(object sender, EventArgs e)
         {
             try {
                 DatgridViewRefresh();
                 ControlVisibleTrue();
 
-                //-----------------------------Getting the value from the date time picker---------------------------------//
+//-----------------------------Getting the value from the date time picker----------------------------------------------//
                 try
                 {
                     date1 = DateTime.ParseExact(Request.Form["datepicker"], "MM/dd/yyyy", CultureInfo.InvariantCulture);
@@ -79,11 +82,11 @@ namespace Team12_SSIS.StoreClerk
                 { }
 
 
-                //--------------convert date toi string--------------------------------------------------------------------------------//
+//--------------convert date to string----------------------------------------------------------------------------------//
                 string d1 = Convert.ToString(date1);
                 string d2 = Convert.ToString(date2);
 
-                //if user wont select a date default value is "1/1/0001 12:00:00 AM".setting that to null here-------------------------//
+//---------If user wont select a date default value is "1/1/0001 12:00:00 AM".setting that to null here-----------------//
                 if (d1 == "1/1/0001 12:00:00 AM" || d2 == "1/1/0001 12:00:00 AM")
                 {
                     d1 = null;
@@ -91,8 +94,8 @@ namespace Team12_SSIS.StoreClerk
 
                 }
 
-                //-----------------------------Search based on item code &transaction dates
-                //-----------------.Datagrid view load with transaction records of selected item within the selected dates
+//-----------------------------Search based on item code & transaction dates-------------------------------------------//
+//-----------------Datagrid view load with transaction records of selected item within the selected dates--------------//
 
                 if (TxtId.Text != string.Empty && d1 != null && d2 != null)
                 {
@@ -105,7 +108,7 @@ namespace Team12_SSIS.StoreClerk
 
                 }
 
-                //-------------------------------Transaction records of selected item----here user not selected any dates---------------//
+//-----------------------------Transaction records of selected item----here user not selected any dates-----------------//
                 else if (TxtId.Text != string.Empty && d1 == null && d2 == null)
                 {
                     string id = TxtId.Text;
@@ -116,7 +119,7 @@ namespace Team12_SSIS.StoreClerk
                     LblMsg.Visible = false;
 
                 }
-                //---------------------------------Transaction records within the selected date range-------------------------//
+//--------------------------------Transaction records within the selected date range------------------------------------//
                 else if (TxtId.Text == string.Empty && d1 != null && d2 != null)
                 {
                     tList = InventoryLogic.GetAllTransactionByDate(date1, date2);
@@ -125,16 +128,16 @@ namespace Team12_SSIS.StoreClerk
                     LblMsg.Visible = false;
                     ControlVisibleFalse();
                 }
-                //--------------------user don't give any input.just click search button.then this condition will fire------------//
+//--------------------user don't give any input.just click search button.then this condition will fire------------------//
                 else if (TxtId.Text == string.Empty && d1 == null && d2 == null)
                 {
                     ControlVisibleFalse();
                     LblMsg.Visible = true;
-                    LblMsg.Text = "Please give a valid data to search";
+                    LblMsg.Text = "*Please give valid data to search in the inventory";
                 }
 
             }
-            //-----------------------catch the invalid item code-----------display status message------------------------------------//
+//-----------------------catch the invalid item code-----------display status message-----------------------------------//
             catch
             {
                 ControlVisibleFalse();
@@ -145,24 +148,24 @@ namespace Team12_SSIS.StoreClerk
 
         
         
-        //----------------------------To get the item details---------------------------------//
+//--------------------------To get the item details---------------------------------------------------------------------//
         public void details(string itemid)
         {
-            //---------------------------from InventoryCatalogue table(BIN,Description,UOM)------//
-            detFromInventory = i.getInventoryDetails(itemid);
+//--------------------------from InventoryCatalogue table(BIN,Description,UOM)------------------------------------------//
+            detFromInventory = InventoryLogic.GetInventoryDetails(itemid);
             LblDesD.Text = detFromInventory.Description;
             LblUomD.Text = detFromInventory.UOM;
             LblBinD.Text = detFromInventory.BIN;
             LblIdD.Text = detFromInventory.ItemID;
-            //---------------------------from SupplierCatalogue table(Supplier details)------//
-            sCatList = i.getSCatalogueDetails(itemid);
+//---------------------------from SupplierCatalogue table(Supplier details)--------------------------------------------//
+            sCatList = InventoryLogic.GetCatalogueDetails(itemid);
             LblS1D.Text = sCatList[0].SupplierID;
             LblS2D.Text = sCatList[1].SupplierID;
             LblS3D.Text = sCatList[2].SupplierID;
         }
 
        
-        //-----------------------setting the visiblity of control false-------------------------------------//
+//--------------------setting the visiblity of control false------------------------------------------------------------//
         public void ControlVisibleFalse()
         {
             LblId.Visible = false;
@@ -201,7 +204,7 @@ namespace Team12_SSIS.StoreClerk
             LblUomD.Visible = true;
 
         }
-        //-------------------------------------redirect to inventory page while click event------------------------------//
+//----------------------------------redirect to inventory page while click event---------------------------------------//
 
         protected void BtnInventory_Click(object sender, EventArgs e)
         {

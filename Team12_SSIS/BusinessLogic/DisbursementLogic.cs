@@ -319,7 +319,7 @@ namespace Team12_SSIS.BusinessLogic
 
         //-------------------------Getting disbursement details------------------------------//
         //-----------------------Entire disbursement List------------------------------------//
-        public List<DisbursementList> GetDisbursementForm()
+        public static List<DisbursementList> GetDisbursementForm()
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -330,7 +330,7 @@ namespace Team12_SSIS.BusinessLogic
 
 
         //-------------------------------Filter the disbursement details  by date range-------------------------------------------------------------------//
-        public List<DisbursementList> GetDisbursementByDate(DateTime startDate, DateTime enddate)
+        public static List<DisbursementList> GetDisbursementByDate(DateTime startDate, DateTime enddate)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -345,7 +345,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         //-------------------------------Filter the disbursement details  by rep-------------------------------------------------------------------//
-        public List<DisbursementList> GetDisbursementByRep(string rep)
+        public static List<DisbursementList> GetDisbursementByRep(string rep)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -360,7 +360,7 @@ namespace Team12_SSIS.BusinessLogic
 
         //-------------------------------get departments()-------------------------------------------------------------------//
 
-        public List<Department> GetDepartmentList()
+        public static List<Department> GetDepartmentList()
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -370,7 +370,7 @@ namespace Team12_SSIS.BusinessLogic
 
         //-------------------------------filter disbursement by department------------------------------------------------------------------//
 
-        public List<DisbursementList> GetDisbursementmentListByDep(string dep)
+        public static List<DisbursementList> GetDisbursementmentListByDep(string dep)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -383,85 +383,10 @@ namespace Team12_SSIS.BusinessLogic
 
       
 
-        //-----------------------------using join to get disbursement form details from 3 tables:1)DisbursementLists 2)Departments 3)CollectionPoints --------//
-        //public List<Object> GetDisbursementForm()
-        //{
-        //   ;
-        //    using (SA45Team12AD entities = new SA45Team12AD())
-        //    {
-        //        var q = (from di in entities.DisbursementLists
-        //                 join de in entities.Departments on di.DepartmentID equals de.DeptID
-        //                 join co in entities.CollectionPoints on di.CollectionPointID equals co.CollectionPointID
-
-
-        //                 select new
-        //                 {
-        //                     DisbursementID = di.DisbursementID,
-        //                     DepartmentName = de.DepartmentName,
-        //                     CollectionDate = di.CollectionDate,
-        //                     CollectionPoint = co.CollectionPoint1,
-        //                     RepresentativeName = di.RepresentativeName,
-        //                     status = di.Status
-        //                 });
-        //        List<Object> dList = q.ToList<Object>();
-
-
-        //        return dList;
-
-
-        //    }
-        //}
-
-        //public List<Object> GetDisbursementByRep(string rep)
-        //{
-
-        //    using (SA45Team12AD entities = new SA45Team12AD())
-        //    {
-        //        var q = (from di in entities.DisbursementLists
-        //                 join de in entities.Departments on di.DepartmentID equals de.DeptID
-        //                 join co in entities.CollectionPoints on di.CollectionPointID equals co.CollectionPointID
-        //                 where di.RepresentativeName == rep
-        //                 select new
-        //                 {
-        //                     DisbursementID = di.DisbursementID,
-        //                     DepartmentName = de.DepartmentName,
-        //                     CollectionDate = di.CollectionDate,
-        //                     CollectionPoint = co.CollectionPoint1,
-        //                     RepresentativeName = di.RepresentativeName,
-        //                     status = di.Status
-        //                 });
-        //        List<Object> dList = q.ToList<Object>();
-        //        return dList;
-        //    }
-        //}
-
-        ////-----------------------------using join to get disbursement form details from 3 tables:1). DisbursementLists 2).Departments 3).CollectionPoints----------------//
-        ////-------------------------------Filter the disbursement details  by date range-------------------------------------------------------------------//
-        //public List<Object> GetDisbursementByDate(DateTime startDate, DateTime enddate)
-        //{
-        //    using (SA45Team12AD entities = new SA45Team12AD())
-        //    {
-        //        var q = (from di in entities.DisbursementLists
-        //                 join de in entities.Departments on di.DepartmentID equals de.DeptID
-        //                 join co in entities.CollectionPoints on di.CollectionPointID equals co.CollectionPointID
-        //                 where di.CollectionDate >= startDate && di.CollectionDate <= enddate
-        //                 select new
-        //                 {
-        //                     DisbursementID = di.DisbursementID,
-        //                     DepartmentName = de.DepartmentName,
-        //                     CollectionDate = di.CollectionDate,
-        //                     CollectionPoint = co.CollectionPoint1,
-        //                     RepresentativeName = di.RepresentativeName,
-        //                     status = di.Status
-        //                 });
-        //        List<Object> dList = q.ToList<Object>();
-        //        return dList;
-        //    }
-        //}
 
         //----------------------------------for Disbursement Details page--------------------------//
 
-        public List<Object> GetDisbursementDetails(int id)
+        public static List<Object> GetDisbursementDetails(int id)
         {
 
             using (SA45Team12AD entities = new SA45Team12AD())
@@ -483,7 +408,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public DisbursementList GetDisbursementtextDetails(int id)
+        public static DisbursementList GetDisbursementtextDetails(int id)
         {
 
             using (SA45Team12AD entities = new SA45Team12AD())
@@ -496,7 +421,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public CollectionPoint GetDisbursementCollectionDetails(int id)
+        public static CollectionPoint GetDisbursementCollectionDetails(int id)
         {
 
             using (SA45Team12AD entities = new SA45Team12AD())

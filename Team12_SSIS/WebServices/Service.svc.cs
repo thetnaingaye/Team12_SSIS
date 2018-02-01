@@ -155,7 +155,7 @@ namespace Team12_SSIS.WebServices
                 return wcf_UnAuthObj;
             }
             InventoryLogic inventoryLogic = new InventoryLogic();
-            List<StockCard> stockCard = inventoryLogic.GetStockcardByItemId(itemId);
+            List<StockCard> stockCard = InventoryLogic.GetStockcardByItemId(itemId);
             List<WCF_StockCard> wcfList = new List<WCF_StockCard>();
             foreach (StockCard i in stockCard)
             {

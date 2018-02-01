@@ -1,4 +1,8 @@
-﻿using System;
+﻿
+//-------------------------------Written by Thanisha-------------------------------------------------------------------//
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,10 +19,12 @@ namespace Team12_SSIS.StoreManager
         string remarks;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+//--------------------------Getting AdjustmentVoucherId from teh session----------------------------------------------//
             int avID = (int)Session["AdjustVID"];
             BindGrid(avID);
         }
+
+//----------------------Bibding datatgrid with data-------------------------------------------------------------------//
         protected void BindGrid(int avRId)
         {
             AVRequest aVRequest = InventoryLogic.GetAdjustmentVoucherRequest(avRId);
@@ -28,6 +34,7 @@ namespace Team12_SSIS.StoreManager
             GridViewAdjVoucher.DataBind();
         }
 
+//-------------------Changing the view according the the adjustment voucher request.----------------------------------//
         protected void statusView(AVRequest aVRequest)
         {
             DateTime dateReq = (DateTime)aVRequest.DateRequested;
@@ -46,6 +53,9 @@ namespace Team12_SSIS.StoreManager
                         LblDateProcessedD.Text = dateProcessed.ToString("d");
                         Btnapprove.Visible = false;
                         Btnreject.Visible = false;
+                        TxtRemarks.Visible = false;
+                        LblRemarks.Visible = false;
+                        LblMsg.Visible = false;
                         break;
                     }
                 case ("Rejected"):
@@ -59,6 +69,8 @@ namespace Team12_SSIS.StoreManager
                         Btnapprove.Visible = false;
                         Btnreject.Visible = false;
                         LblMsg.Visible = false;
+                        TxtRemarks.Visible = false;
+                        LblRemarks.Visible = false;
                         break;
                     }
                 case ("Cancelled"):
@@ -72,13 +84,19 @@ namespace Team12_SSIS.StoreManager
                         Btnapprove.Visible = false;
                         Btnreject.Visible = false;
                         LblMsg.Visible = false;
-                       break;
+                        TxtRemarks.Visible = false;
+                        LblRemarks.Visible = false;
+                        break;
                     }
 
-
+ //------------------------------------If it is the case of pending there are two cases.
+ //-------------Pending request need to handle by the user and request that hasn't to be handle by the user logged in
                 case ("Pending"):
                     {
-                        if(((User.IsInRole("Supervisor")&& (aVRequest.HandledBy=="Supervisor"))|((User.IsInRole("Manager") && (aVRequest.HandledBy == "Manager")))))
+
+ //---------checking weather the request is under the category of "For Approval.
+ //----------------------------------------------If it is "Approve" or "Reject" button is visible----------------//
+                        if (((User.IsInRole("Supervisor")&& (aVRequest.HandledBy=="Supervisor"))|((User.IsInRole("Manager") && (aVRequest.HandledBy == "Manager")))))
                             { 
                       
                         LblReqID.Text = "Inventory Adjustment Voucher Request ID: ";
@@ -90,6 +108,7 @@ namespace Team12_SSIS.StoreManager
                         Btnapprove.Visible = true;
                         Btnreject.Visible = true;
                             LblMsg.Visible = false;
+                           
                             break;
                         }
                         else
@@ -97,14 +116,18 @@ namespace Team12_SSIS.StoreManager
                            
                             LblReqID.Text = "Inventory Adjustment Voucher Request ID: ";
                             LblRequestID.Text = aVRequest.AVRID.ToString();
+
                             LblHandledBy.Visible = false;
                             LblHandledByD.Visible = false;
                             LblDateProcessed.Visible = false;
                             LblDateProcessedD.Visible = false;
                             Btnapprove.Visible = false;
-                            Btnreject.Visible =false;
+                            Btnreject.Visible = false;
+                            TxtRemarks.Visible = false;
+                            LblRemarks.Visible = false;
                             LblMsg.Visible = false;
                             break;
+                           
                         }
                     }
                 default:
@@ -119,12 +142,14 @@ namespace Team12_SSIS.StoreManager
                         LblDateProcessedD.Visible = false;
                         Btnapprove.Visible = false;
                         Btnreject.Visible = false;
+                        TxtRemarks.Visible = false;
                         LblMsg.Visible =false;
                         break;
                     }
             }
         }
 
+//--------------------------OnRowDataBoundEvent------------------------------------------------------------------------//
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow && ((AVRequestDetail)e.Row.DataItem).ItemID != null)
@@ -139,10 +164,10 @@ namespace Team12_SSIS.StoreManager
                     LblDesc.Text = itemName;
                 Label LblValue = (e.Row.FindControl("LblValue") as Label);
                 if (LblValue != null)
-                    LblValue.Text = adjValue;
+                    LblValue.Text = "$"+adjValue;
             }
         }
-
+//-------------------------------------Approve Button click event----------------------------------------------------//
         protected void Btnapprove_Click(object sender, EventArgs e)
         {
             Btnreject.Visible = false;
@@ -155,7 +180,7 @@ namespace Team12_SSIS.StoreManager
             LblStatusD.Text = "Approved";
         
         }
-
+//------------------------------------Reject Button click event------------------------------------------------------//
         protected void Btnreject_Click(object sender, EventArgs e)
         {
             Btnreject.Visible = false;
