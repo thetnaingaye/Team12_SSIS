@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Team12_SSIS.BusinessLogic;
-
+using Team12_SSIS.Model;
 
 namespace Team12_SSIS.StoreManager
 {
@@ -41,8 +41,31 @@ namespace Team12_SSIS.StoreManager
 
         protected string GetPendingAVR()
         {
+            int supervisor_count = 0;
+            int manager_count = 0;
 
-                 return InventoryLogic.GetListOfAdjustmentRequests("Pending").Count.ToString();
+            List<AVRequest> pendingList = InventoryLogic.GetListOfAdjustmentRequests("Pending");
+            foreach(AVRequest a in pendingList)
+            {
+                if(a.HandledBy == "Supervisor")
+                {
+                    supervisor_count++;
+                }
+                if(a.HandledBy == "Manager")
+                {
+                    manager_count++;
+                }
+            }
+
+            if(User.IsInRole("Supervisor"))
+            {
+                return supervisor_count.ToString();
+            }
+            if(User.IsInRole("Manager"))
+            {
+                return manager_count.ToString();
+            }
+            return "0";
   
         }
 
