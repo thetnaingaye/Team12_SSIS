@@ -81,6 +81,9 @@ namespace Team12_SSIS.StoreClerk
                         LblRequestIDLabel.Text = "Inventory Adjustment Voucher ID: ";
                         LblRequestID.Text = "AV" + InventoryLogic.GetAdjustmentVoucherApproveID(aVRequest.AVRID).ToString("0000");
                         LblHandledBy.Text = aVRequest.HandledBy;
+                        LblRemarks.Text = aVRequest.Remarks;
+                        LblRmk.Visible = true;
+                        LblRemarks.Visible = true;
                         DateTime dateProcessed = (DateTime)aVRequest.DateProcessed;
                         LblDateProcessed.Text = dateProcessed.ToString("d");
                         break;
@@ -91,6 +94,9 @@ namespace Team12_SSIS.StoreClerk
                         LblRequestIDLabel.Text = "Inventory Adjustment Voucher Request ID: ";
                         LblRequestID.Text = "AVR" + aVRequest.AVRID.ToString("0000");
                         LblHandledBy.Text = aVRequest.HandledBy;
+                        LblRemarks.Text = aVRequest.Remarks;
+                        LblRmk.Visible = true;
+                        LblRemarks.Visible = true;
                         DateTime dateProcessed = (DateTime)aVRequest.DateProcessed;
                         LblDateProcessed.Text = dateProcessed.ToString("d");
                         break;
@@ -117,6 +123,8 @@ namespace Team12_SSIS.StoreClerk
                         LblHandledBy.Visible = false;
                         LblDateProcessedLabel.Visible = false;
                         LblDateProcessed.Visible = false;
+                        LblRmk.Visible = false;
+                        LblRemarks.Visible = false;
                         BtnCancelReq.Visible = true;
                         break;
                     }

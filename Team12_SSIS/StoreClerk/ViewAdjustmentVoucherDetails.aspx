@@ -7,14 +7,15 @@
         }
     </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" >
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
-        
+
         <table style="width: 100%">
             <tbody style="width: 100%">
                 <tr>
                     <td colspan="2" style="height: 25px">
-                        <h2><asp:Label ID="LblPageTitle" runat="server"></asp:Label></h2>
+                        <h2>
+                            <asp:Label ID="LblPageTitle" runat="server"></asp:Label></h2>
                     </td>
                 </tr>
                 <tr>
@@ -55,7 +56,7 @@
                             <asp:UpdatePanel ID="Up1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
                                 <ContentTemplate>
                                     <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False"
-                                        Style="width:100%" ShowHeaderWhenEmpty="True"
+                                        Style="width: 100%" ShowHeaderWhenEmpty="True"
                                         OnRowDataBound="OnRowDataBound"
                                         CellPadding="4" ForeColor="#333333" DataKeyNames="ItemID">
                                         <AlternatingRowStyle BackColor="#F9F9F9" />
@@ -155,7 +156,11 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <asp:Button ID="BtnCancelReq" runat="server" Text="Cancel Request" CssClass="btn btn-primary btn-xs" OnClick="BtnCancelReq_Click" Visible="false"/>
+                        <asp:Button ID="BtnCancelReq" runat="server" Text="Cancel Request" CssClass="btn btn-primary btn-xs" OnClick="BtnCancelReq_Click" Visible="false" />
+                        <br />
+                        <b><asp:Label ID="LblRmk" runat="server" Text="Remarks" Visible="false"></asp:Label></b>
+                        <br />
+                        <asp:Label ID="LblRemarks" runat="server" Visible="false"></asp:Label>
                     </td>
                 </tr>
             </tbody>
