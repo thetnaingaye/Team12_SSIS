@@ -141,6 +141,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BusinessLogic\RScripts\RLibraries\Empty.txt" />
+    <Content Include="BusinessLogic\RScripts\RPackages\Empty.txt" />
     <Content Include="EODAutomationLog.txt" />
     <Content Include="ForecastAutomationLog.txt" />
     <Content Include="default.aspx" />
@@ -759,8 +761,6 @@
     <Compile Include="WebServices\WCF_Model\WCF_TempInventoryRetrieval.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BusinessLogic\RScripts\RLibraries\" />
-    <Folder Include="BusinessLogic\RScripts\RPackages\" />
     <Folder Include="Utility\TempImageFiles\" />
   </ItemGroup>
   <ItemGroup>
