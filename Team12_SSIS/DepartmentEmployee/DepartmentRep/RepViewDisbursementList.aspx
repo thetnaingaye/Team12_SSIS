@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewDisbursementList.aspx.cs" Inherits="Team12_SSIS.DepartmentHead.ViewDisbursementList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="RepViewDisbursementList.aspx.cs" Inherits="Team12_SSIS.DepartmentEmployee.DepartmentRep.RepViewDisbursementList" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
         .auto-style1 {
@@ -69,14 +69,13 @@
                                                 </ItemTemplate>
                                          <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
-                          <asp:TemplateField HeaderText="Remarks" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+
+              <asp:TemplateField HeaderText="status" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
-                                                    <asp:Label ID="LblRemarks" runat="server" CssClass="center-block" Text='<%# Eval("Remarks")%>'></asp:Label>
+                                                    <asp:Label ID="LblDepartment" runat="server" CssClass="center-block" Text='<%# Eval("status")%>'></asp:Label>
                                                 </ItemTemplate>
                                          <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
-
-
             </Columns>
             <EditRowStyle BackColor="#999999" />
                                         <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -91,13 +90,4 @@
 
 
     </asp:GridView>
-    <table style="width:100%">
-        <tr>
-            <td>
-                <asp:Label ID="LblCollectedBy" runat="server" Text="Collected By: " Visible="false"></asp:Label>
-                <br />
-               <asp:Image ID="ImgSignature" runat="server" Visible="false" Height="250px" Width="250px"/>
-            </td>
-        </tr>
-    </table>
 </asp:Content>

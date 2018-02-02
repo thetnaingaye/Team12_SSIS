@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Team12_SSIS.DepartmentHead {
+namespace Team12_SSIS.DepartmentEmployee.DepartmentRep {
     
     
-    public partial class ViewDisbursementList {
+    public partial class RepViewDisbursementList {
         
         /// <summary>
         /// LblId control.
@@ -92,23 +92,5 @@ namespace Team12_SSIS.DepartmentHead {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridViewDisbursementDetails;
-        
-        /// <summary>
-        /// LblCollectedBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblCollectedBy;
-        
-        /// <summary>
-        /// ImgSignature control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImgSignature;
     }
 }

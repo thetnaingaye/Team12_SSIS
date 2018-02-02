@@ -402,7 +402,7 @@ namespace Team12_SSIS.BusinessLogic
                              QuantityRequested = dl.QuantityRequested,
                              QuantityCollected = dl.QuantityCollected,
                              UnitOfMeasurement = dl.UOM,
-                             status = dl.Remarks
+                             Remarks = dl.Remarks
                          });
                 List<Object> dList = q.ToList<Object>();
                 return dList;

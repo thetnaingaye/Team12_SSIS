@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewDisbursementForm.aspx.cs" Inherits="Team12_SSIS.DepartmentHead.ViewDisbursementForm" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="RepViewDisbursementForm.aspx.cs" Inherits="Team12_SSIS.DepartmentEmployee.DepartmentRep.RepViewDisbursementForm" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -25,12 +25,12 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(function () {
-            $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" }).datepicker("setDate", new Date());
+            $("#datepicker").datepicker().datepicker("setDate", new Date());
         });
     </script>
     <script>
         $(function () {
-            $("#datepicker2").datepicker({ dateFormat: "dd/mm/yy" }).datepicker("setDate", new Date());
+            $("#datepicker2").datepicker().datepicker("setDate", new Date());
         });
     </script>
 

@@ -18,7 +18,7 @@
                 </div>
                 <br />
                 <asp:GridView ID="GridViewReqList" runat="server" AutoGenerateColumns="False" Width="85%" DataKeyNames="RequestID" ItemType="Team12_SSIS.Model.RequisitionRecord"
-                        BackColor="White" BorderColor="#CCCCCC" BorderStyle="Inset" AllowPaging="True" AllowSorting="True" style="margin-top: 5px">
+                        BackColor="White" BorderColor="#CCCCCC" BorderStyle="Inset" AllowSorting="True" style="margin-top: 5px">
                     <Columns>
                         <asp:TemplateField HeaderText="RequestID">
                             <ItemTemplate>

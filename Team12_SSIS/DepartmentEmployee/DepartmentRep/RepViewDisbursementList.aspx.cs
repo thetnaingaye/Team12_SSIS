@@ -26,8 +26,7 @@ namespace Team12_SSIS.DepartmentHead
 
             int DisbursementID = Convert.ToInt32(id);
             LblIdD.Text = id;
-            DisbursementList dL = DisbursementLogic.GetDisbursementList(DisbursementID);
-            DisplaySignature(dL.Status, DisbursementID);
+
 //------------------------Getting RepresentaTive name------------------------------------------------------------------//
 
             detail = DisbursementLogic.GetDisbursementtextDetails(DisbursementID);
@@ -45,17 +44,8 @@ namespace Team12_SSIS.DepartmentHead
             detailList = DisbursementLogic.GetDisbursementDetails(DisbursementID);
             GridViewDisbursementDetails.DataSource = detailList;
             GridViewDisbursementDetails.DataBind();
+           
           
-        }
-
-        void DisplaySignature(string status, int disbursementID)
-        {
-            if(status == "Collected")
-            {
-                LblCollectedBy.Visible = true;
-                ImgSignature.ImageUrl = "http://localhost/Team12_SSIS/Images/" + "DL" + disbursementID + ".jpg";
-                ImgSignature.Visible = true;
-            }
         }
 
        

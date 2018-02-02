@@ -31,7 +31,7 @@
         </tr>
         <tr>
             <td style="width: 100%">
-                <div style="overflow-x:auto;width:1100px">
+                <div >
                 <asp:GridView ID="GridViewCatalogue" class="table" runat="server" AutoGenerateColumns="False" Style="width:100%"
                     AllowPaging="True" PageSize="10" OnPageIndexChanging="GridViewCatalogue_PageIndexChanging"
                     OnRowDataBound="GridViewCatalogue_RowDataBound"
@@ -129,13 +129,7 @@
                         </asp:TemplateField>
 
                         <asp:TemplateField HeaderText="Units In Stock" SortExpression="UnitsInStock">
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TxtUnitsInStock" runat="server" Text='<%# Bind("UnitsInStock") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidatorUIS" runat="server" ControlToValidate="TxtUnitsInStock"
-                        ForeColor="Red" ErrorMessage="*UnitsInStock Required"/>
-                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorUIS" ControlToValidate="TxtUnitsInStock" ErrorMessage="*Positive Number Only" ForeColor="Red"
-                        runat="server" ValidationExpression="^\d+$"/>
-                            </EditItemTemplate>
+                            
                             <ItemTemplate>
                                 <asp:Label ID="LblUnitsInStock" runat="server" Text='<%# Bind("UnitsInStock") %>'></asp:Label>
                             </ItemTemplate>
@@ -155,9 +149,7 @@
                         </asp:TemplateField>
 
                         <asp:TemplateField HeaderText="Unit Of Measure" SortExpression="UOM">
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TxtUOM" runat="server" Text='<%# Bind("UOM") %>'></asp:TextBox>
-                            </EditItemTemplate>
+                           
                             <ItemTemplate>
                                 <asp:Label ID="LblUOM" runat="server" Text='<%# Bind("UOM") %>'></asp:Label>
                             </ItemTemplate>
@@ -178,11 +170,7 @@
                         </asp:TemplateField>
 
                         <asp:TemplateField HeaderText="Units On Order" SortExpression="UnitsOnOrder">
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TxtUnitsOnOrder" runat="server" Text='<%# Bind("UnitsOnOrder") %>'></asp:TextBox>
-                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorUOO" ControlToValidate="TxtUnitsOnOrder" ErrorMessage="*Positive Number Only" ForeColor="Red"
-                        runat="server" ValidationExpression="^\d+$"/>
-                            </EditItemTemplate>
+                            
                             <ItemTemplate>
                                 <asp:Label ID="LblUnitsOnOrder" runat="server" Text='<%# Bind("UnitsOnOrder") %>'></asp:Label>
                             </ItemTemplate>
@@ -190,11 +178,7 @@
                         </asp:TemplateField>
 
                         <asp:TemplateField HeaderText="Buffer Stock Level" SortExpression="BufferStockLevel">
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TxtBufferStockLevel" runat="server" Text='<%# Bind("BufferStockLevel") %>'></asp:TextBox>
-                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorBSL" ControlToValidate="TxtBufferStockLevel" ErrorMessage="*Positive Number Only" ForeColor="Red"
-                        runat="server" ValidationExpression="^\d+$"/>
-                            </EditItemTemplate>
+                        
                             <ItemTemplate>
                                 <asp:Label ID="LblBufferStockLevel" runat="server" Text='<%# Bind("BufferStockLevel") %>'></asp:Label>
                             </ItemTemplate>
@@ -202,11 +186,7 @@
                         </asp:TemplateField>
 
                        <asp:TemplateField HeaderText="BFS Proportion" SortExpression="BFSProportion">
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TxtBFSProportion" TextMode="Number" runat="server" Text='<%# Bind("BFSProportion") %>'></asp:TextBox>
-                                <asp:RegularExpressionValidator ID="RegularExpressionValidatorBFSP" ControlToValidate="TxtBFSProportion" ErrorMessage="*Positive Number Only" ForeColor="Red"
-                        runat="server" ValidationExpression="^\d+$"/>
-                            </EditItemTemplate>
+                      
                             <ItemTemplate>
                                 <asp:Label ID="LblBFSProportion" runat="server" Text='<%# Bind("BFSProportion") %>'></asp:Label>
                             </ItemTemplate>
