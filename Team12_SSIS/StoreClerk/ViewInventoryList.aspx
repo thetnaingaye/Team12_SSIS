@@ -30,35 +30,11 @@
         {
             color: Red;
         }
-         .auto-style2 {
-             width: 179px;
-         }
-         .auto-style4 {
-             width: 324px;
-         }
-         .auto-style5 {
-             width: 1038px;
-         }
-         .auto-style6 {
-             width: 179px;
-             height: 20px;
-         }
-         .auto-style7 {
-             margin-left: 142;
-             margin-top: 8;
-         }
-         .auto-style8 {
-             width: 756px;
-         }
-    </style>
+         </style>
      <style type="text/css">
          .highlight{
              background-color: #FFFF00;
              
-         }
-         .auto-style9 {
-             height: 32px;
-             width: 756px;
          }
          </style>
     
@@ -113,8 +89,22 @@ body{
   left: 50%;
   transform: translate(-50%, -50%);
 }
-         .auto-style12 {
-             margin-top: 0px;
+         .auto-style14 {
+             width: 1018px;
+             height: 20px;
+         }
+         .auto-style15 {
+             width: 428px;
+             height: 20px;
+         }
+         .auto-style16 {
+             width: 1018px;
+         }
+         .auto-style17 {
+             width: 650px;
+         }
+         .auto-style18 {
+             width: 718px;
          }
          </style>    
 
@@ -128,37 +118,36 @@ body{
       <br />
     </div> 
 
-      
-
-  
-    <%--  <button type="submit" class="glyphicon glyphicon-search" style="left: 0px; top: 1px; width: 20px">
-       
-     </button>--%>
                                  
-      <asp:TextBox ID="TxtSearch" placeholder="Enter keyword to search" runat="server" AutoPostBack="True" OnTextChanged="TxtSearch_TextChanged" CssClass="auto-style12" Height="32px" Width="485px"></asp:TextBox>
+      &nbsp;<asp:TextBox ID="TxtSearch" placeholder="Enter keyword to search" runat="server" AutoPostBack="True" OnTextChanged="TxtSearch_TextChanged" CssClass="auto-style12" Height="34px" Width="365px"></asp:TextBox>
+                <asp:Button ID="Button1" runat="server" CssClass="auto-style19" Height="34px" Text="Search" Width="57px" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <br />
+    &nbsp;<br />
     <br />
-    <br />
-    <table class="auto-style5">
-         <tr>
-                            <td class="auto-style9">
-                                <%----%>
-                                 
-                            </td>
-                        </tr>
-        
+  
+
+
+
+
+
+
+
+
+    <table class="nav-justified">
+             <tbody style="width: 100%">
+                    
         <tr>
-            <td class="auto-style8" >
-                <asp:Label ID="LblCatagory" runat="server" Text="Category:"></asp:Label>
-                 &nbsp;&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="DdlCatagory" runat="server" Height="26px" Width="130px" OnSelectedIndexChanged="DdlCatagory_SelectedIndexChanged">
+            <td class="auto-style18">
+ <asp:Label ID="LblCatagory" runat="server" Text="Category:"></asp:Label>
+                 &nbsp; <asp:DropDownList ID="DdlCatagory" runat="server" Height="26px" Width="130px" OnSelectedIndexChanged="DdlCatagory_SelectedIndexChanged">
       <asp:ListItem></asp:ListItem>
       <asp:ListItem>All</asp:ListItem>
     </asp:DropDownList>
-                 &nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Label ID="LblUIS" runat="server" Text="Units In Stock:"></asp:Label>
-                 &nbsp;&nbsp;
-                 <asp:DropDownList ID="DdlUIS" runat="server" Height="28px" Width="130px">
+                 &nbsp;&nbsp;&nbsp;&nbsp;
+                 <asp:Label ID="LblUIS0" runat="server" Text="Units In Stock:"></asp:Label>
+                           &nbsp;
+                           <asp:DropDownList ID="DdlUIS" runat="server" Height="28px" Width="130px">
       <asp:ListItem Value="0">All</asp:ListItem>
 <asp:ListItem Value="1">&lt;Reorder Level</asp:ListItem>
                      <asp:ListItem Value="200">&lt;200</asp:ListItem>
@@ -166,72 +155,60 @@ body{
                      <asp:ListItem Value="50">&lt;50</asp:ListItem>
       <asp:ListItem Value="10">&lt;10</asp:ListItem>
     </asp:DropDownList>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="BtnSearch" runat="server" Text="VIEW" OnClick="Btnsearch_Click" Width="100px" CssClass="auto-style7" Height="28px" />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </td>
-            <td class="auto-style4">
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
+            <td class="auto-style17">
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 &nbsp; 
+            &nbsp;
+                &nbsp;
+            </td>
         </tr>
-                
+             </tbody>
     </table>
-    <br />
-  
 
+                                 
+     
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                
+    
 
-
-
-
-
-
-
-      <div>
+   
         <table class="nav-justified">
              <tbody style="width: 100%">
                     
                     
                       <tr>
-                      <td class="auto-style6">
-                      <asp:Label ID="LblCatName" runat="server" Text="Catagory: " Style="padding-right: 10px"></asp:Label>
-                      <asp:Label ID="LblCatNameD" runat="server" Font-Bold="true"></asp:Label>
+                      <td class="auto-style14">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <br />
+                      <asp:Label ID="LblCatName" runat="server" Text="Category: " Style="padding-right: 10px"></asp:Label>
+                      <asp:Label ID="LblCatNameD" runat="server" Font-Bold="true"></asp:Label>
                       </td>
-                      <td class="auto-style6">
+                      <td class="auto-style15">
+                      &nbsp;&nbsp;&nbsp;
                       <asp:Label ID="LblReorder" runat="server" Text="Reorder Level: " Style="padding-right: 10px"></asp:Label>
                       <asp:Label ID="LblReorderD" runat="server" Font-Bold="true"></asp:Label>
                      </td>
                      </tr>
                  
                    <tr>
-                     <td class="auto-style6">
-                      <asp:Label ID="LblId" runat="server" Text="Catagory ID: " Style="padding-right: 10px"></asp:Label>
-                      <asp:Label ID="LblIdD" runat="server" Font-Bold="true"></asp:Label>
+                     <td class="auto-style14">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                          <br />
+                      <asp:Label ID="LblId" runat="server" Text="Category ID: " Style="padding-right: 10px"></asp:Label>
+                      <asp:Label ID="LblIdD" runat="server" Font-Bold="true"></asp:Label>
                       </td>
-                      <td class="auto-style6">
+                      <td class="auto-style15">
+                      &nbsp;&nbsp;&nbsp;
                       <asp:Label ID="LblReorderQty" runat="server" Text="Reorder Quantity: " Style="padding-right: 10px"></asp:Label>
                       <asp:Label ID="LblReorderQtyD" runat="server" Font-Bold="true"></asp:Label>
                      </td>
                      </tr>
-                  <tr style="height:20px">
-                     <td class="auto-style2">
-                      <asp:Label ID="LblUOM" runat="server" Text="Unit Of Measurement: " Style="padding-right: 10px"></asp:Label>
-                      <asp:Label ID="LblUOMD" runat="server" Font-Bold="true"></asp:Label>
-                         <br />
-                      </td>
-                </tr>
                  
             </tbody>
         </table>
-          </div>
-
-
-   
-    <br />
-
-  <%-- ---------------------Formatting GridViewInventory-------------------------------------------------------------------------- --%>
     <asp:GridView ID="GridViewInventory" runat="server"   AutoGenerateColumns="false" Width="100%" GridLines="None" datakeynames="ItemID" ItemType="Team12_SSIS.Model.InventoryCatalogue" BackColor="White"  AllowPaging="true"  PageSize="10"  OnPageIndexChanging="OnPaging" OnRowDataBound="GridViewInventory_RowDataBound" ShowHeaderWhenEmpty="True" OnRowCommand="GridViewDisbList_RowCommand" EmptyDataText="No records Found"> 
       
         <HeaderStyle CssClass="gridViewHeader" />

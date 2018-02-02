@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -116,6 +116,10 @@
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -172,15 +176,17 @@
     <Content Include="Images\viewreq.png" />
     <Content Include="Images\wait.gif" />
     <Content Include="Logout.aspx" />
-    <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
+    <Content Include="scripts\ai.0.22.9-build00167.js" />
+    <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Site.Master" />
     <Content Include="SQLStoredProcedureForReports%28ChangSiang%29.txt" />
     <Content Include="SSIS_UserPassword.txt" />
     <Content Include="StoreClerk\CurrentRequisitionOrders.aspx" />
-    <Content Include="StoreClerk\ForecastReport.aspx" />
+    <Content Include="StoreReport\ForecastReport.aspx" />
     <Content Include="StoreClerk\PastRequisitionOrders.aspx" />
     <Content Include="StoreClerk\ReorderList.aspx" />
     <Content Include="StoreClerk\RetrievalList.aspx" />
@@ -202,6 +208,7 @@
     <Content Include="BusinessLogic\RScripts\ForecastingAlgorithm.R" />
     <Content Include="BusinessLogic\RScripts\RExec.bat" />
     <Content Include="BusinessLogic\RScripts\ChartingTool.R" />
+    <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\AD.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="SA45Team12ADDataSet.xsc">
@@ -281,8 +288,6 @@
     <Content Include="DepartmentHead\ViewDeptRepHistory.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
-    <Content Include="scripts\ai.0.22.9-build00167.js" />
-    <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="StoreClerk\ChangeBufferStockLevel.aspx" />
     <Content Include="StoreClerk\ChangeOrderLeadTime.aspx" />
     <Content Include="StoreClerk\CreateAdjustmentVoucherRequest.aspx" />
@@ -545,11 +550,11 @@
     <Compile Include="StoreClerk\CurrentRequisitionOrders.aspx.designer.cs">
       <DependentUpon>CurrentRequisitionOrders.aspx</DependentUpon>
     </Compile>
-    <Compile Include="StoreClerk\ForecastReport.aspx.cs">
+    <Compile Include="StoreReport\ForecastReport.aspx.cs">
       <DependentUpon>ForecastReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="StoreClerk\ForecastReport.aspx.designer.cs">
+    <Compile Include="StoreReport\ForecastReport.aspx.designer.cs">
       <DependentUpon>ForecastReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoreClerk\Home.aspx.cs">

@@ -22,7 +22,7 @@ namespace Team12_SSIS.StoreManager
 
         protected void BindGrid()
         {
-            List<InventoryCatalogue> cList = inventoryLogic.GetAllCatalogue();
+            List<InventoryCatalogue> cList = InventoryLogic.GetAllCatalogue();
             GridViewCatalogue.DataSource = cList;
             GridViewCatalogue.DataBind();
         }

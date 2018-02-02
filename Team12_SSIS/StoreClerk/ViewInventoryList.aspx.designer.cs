@@ -22,6 +22,15 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.TextBox TxtSearch;
         
         /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
+        
+        /// <summary>
         /// LblCatagory control.
         /// </summary>
         /// <remarks>
@@ -40,13 +49,13 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.DropDownList DdlCatagory;
         
         /// <summary>
-        /// LblUIS control.
+        /// LblUIS0 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblUIS;
+        protected global::System.Web.UI.WebControls.Label LblUIS0;
         
         /// <summary>
         /// DdlUIS control.
@@ -137,24 +146,6 @@ namespace Team12_SSIS.StoreClerk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblReorderQtyD;
-        
-        /// <summary>
-        /// LblUOM control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblUOM;
-        
-        /// <summary>
-        /// LblUOMD control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblUOMD;
         
         /// <summary>
         /// GridViewInventory control.

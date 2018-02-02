@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Author Lim Chang Siang
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
-
+//Jianing's code
 namespace Team12_SSIS.StoreClerk
 {
     public partial class CreatePurchaseOrder : System.Web.UI.Page
@@ -62,21 +63,30 @@ namespace Team12_SSIS.StoreClerk
         }
         protected void BtnAddItem_Click(object sender, EventArgs e)
         {
-            List<PORecordDetail> poRecordDetailsList = new List<PORecordDetail>();
-            foreach (GridViewRow r in GridViewPO.Rows)
+            try
             {
-                PORecordDetail poRecordDetails = new PORecordDetail();
-                poRecordDetails.ItemID = (r.FindControl("Txtitemid") as TextBox).Text;
-                poRecordDetails.UOM = PurchasingLogic.GetUOM(poRecordDetails.ItemID, DdlSli.SelectedValue);
-                poRecordDetails.Quantity = int.Parse((r.FindControl("Txtquantity") as TextBox).Text);
-                poRecordDetails.UnitPrice = PurchasingLogic.GetUnitPrice(poRecordDetails.ItemID, DdlSli.SelectedValue);
-                poRecordDetailsList.Add(poRecordDetails);
+                List<PORecordDetail> poRecordDetailsList = new List<PORecordDetail>();
+                foreach (GridViewRow r in GridViewPO.Rows)
+                {
+                    PORecordDetail poRecordDetails = new PORecordDetail();
+                    poRecordDetails.ItemID = (r.FindControl("Txtitemid") as TextBox).Text;
+                    poRecordDetails.UOM = PurchasingLogic.GetUOM(poRecordDetails.ItemID, DdlSli.SelectedValue);
+                    poRecordDetails.Quantity = int.Parse((r.FindControl("Txtquantity") as TextBox).Text);
+                    poRecordDetails.UnitPrice = PurchasingLogic.GetUnitPrice(poRecordDetails.ItemID, DdlSli.SelectedValue);
+                    poRecordDetailsList.Add(poRecordDetails);
+                }
+                PORecordDetail poRecordDetailsNew = new PORecordDetail();
+                poRecordDetailsList.Add(poRecordDetailsNew);
+                GridViewPO.DataSource = poRecordDetailsList;
+                GridViewPO.DataBind();
             }
-            PORecordDetail poRecordDetailsNew = new PORecordDetail();
-            poRecordDetailsList.Add(poRecordDetailsNew);
-            GridViewPO.DataSource = poRecordDetailsList;
-            GridViewPO.DataBind();
-            
+            //In the event when a wrong Supplier was selected or Invalid Item ID is entered.
+            catch (Exception)
+            {
+                statusMessage.Text = "Error! Please check that the correct Supplier and ItemID has been selected.";
+                statusMessage.ForeColor = System.Drawing.Color.Red;
+                statusMessage.Visible = true;
+            }
         }
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {

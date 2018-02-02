@@ -1737,34 +1737,37 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        //----Thanisha-------------------------View Stock Card details-----------------------------------------------//
-        //------------------------------getting stock card details(ItemID,Date of transaction,Description,UOM,transaction type,quantity,balance)-------------//
+//----Thanisha starts-------------------------View Stock Card details---------------------------------------------------//
+
+        
+//---getting stock card details(ItemID,Date of transaction,Description,UOM,transaction type,quantity,balance)-----------//
 
         public static List<StockCard> GetStockCardList(string itemid)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
-           return  entity.StockCards.Where(x => x.ItemID == itemid).ToList<StockCard>(); ;
+           return  entity.StockCards.Where(x => x.ItemID == itemid).ToList<StockCard>(); 
                
             }
         }
-        //------------------------get all stockcarditems----------------------------------------//
-        public List<StockCard> GetAllStockCardList()
+//------------------------Get all stockcarditems------------------------------------------------------------------------//
+        public static List<StockCard> GetAllStockCardList()
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 return entity.StockCards.ToList<StockCard>(); ;
             }
         }
-
-        public List<StockCard> GetAllStockCard()
+       
+        public static List<StockCard> GetAllStockCard()
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                      return entity.StockCards.ToList<StockCard>();
             }
         }
-        public List<StockCard> GetStockcardByItemId(string id)
+//------------------------------------------------Get stock card records by Item code-----------------------------------//
+        public static List<StockCard> GetStockcardByItemId(string id)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
@@ -1772,23 +1775,23 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        //-------------------------(BIN,Description,UOM)------------------------------//
-        public InventoryCatalogue getInventoryDetails(string itemid)
+//-------------------------Get Inventory details for View Stock card page(BIN,Description,UOM)--------------------------//
+        public static InventoryCatalogue GetInventoryDetails(string itemid)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 return entity.InventoryCatalogues.Where(s => s.ItemID == itemid).ToList().FirstOrDefault<InventoryCatalogue>();
             }
         }
-        //-------------------------- (Supplier details)---------------------------------------//
-        public List<SupplierCatalogue> getSCatalogueDetails(string itemid)
+//-------------------------- Get Supplier details for the view stock card page(Supplier details)------------------------//
+        public static List<SupplierCatalogue> GetCatalogueDetails(string itemid)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 return entity.SupplierCatalogues.Where(s => s.ItemID == itemid).ToList<SupplierCatalogue>();
             }
         }
-        //---------------------------------Transaction between the specified dates--------------------------------------------//
+//---------------------------------Transaction between the specified dates----------------------------------------------//
 
         public static List<StockCard> GetTransactionByDate(DateTime startDate, DateTime enddate, string id)
         {
@@ -1797,7 +1800,7 @@ namespace Team12_SSIS.BusinessLogic
                 return entity.StockCards.Where(x => x.Date >= startDate && x.Date <= enddate && x.ItemID == id).ToList<StockCard>();
             }
         }
-        //------------------------------return all transaction dates within the dates selected by user--------------------------//
+//------------------------------Return all transaction dates within the date range selected by user--------------------//
 
         public static List<StockCard> GetAllTransactionByDate(DateTime startDate, DateTime enddate)
         {
@@ -1807,11 +1810,10 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+//-------------------------------------------------View InventoryList---------------------------------------------------//
 
-        //-------------------------------------------------View InventoryList-----------------------------------------//
-
-        //-----------------------------------get Catalogue Name in  dropdown list---------------------------//
-        public List<CatalogueCategory> getCatalogue()
+//-----------------------------------Get Catalogue Name in  dropdown list-----------------------------------------------//
+        public static List<CatalogueCategory> GetCatalogue()
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
@@ -1819,39 +1821,41 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        //-----------------------------------get inventory catalogue record based on itemcode in gridview---------------------------//
-        public List<InventoryCatalogue> getInventoryByItemcode(string itemcode)
+//----------------------------------Get inventory catalogue record based on itemcode -----------------------------------//
+        public static List<InventoryCatalogue> GetInventoryByItemcode(string itemcode)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 return entity.InventoryCatalogues.Where(x => x.ItemID == itemcode).ToList<InventoryCatalogue>();
             }
         }
-
-        public List<InventoryCatalogue> getInventoryByCatagory(string catagory)
+//--------------------------------------Get inventory catalogue record based on category-------------------------------//
+        public static List<InventoryCatalogue> GetInventoryByCatagory(string catagory)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
-                CatalogueCategory catalogue = getCatalogue(catagory);
+                CatalogueCategory catalogue = GetCatalogue(catagory);
                 return entity.InventoryCatalogues.Where(x => x.CategoryID == catalogue.CategoryID).ToList<InventoryCatalogue>();
             }
         }
-        public List<InventoryCatalogue> GetAllCatalogue()
+//-------------------------------------------------------Get all the records from the innventory catalogue--------------//
+        public static List<InventoryCatalogue> GetAllCatalogue()
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
                 return entity.InventoryCatalogues.ToList<InventoryCatalogue>();
             }
         }
-        public CatalogueCategory getCatalogue(string catagory)
+//-------------------------------Get Catalogue record of the given category from the catalogueCategory ----------------//
+        public static CatalogueCategory GetCatalogue(string category)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
-                return entity.CatalogueCategories.Where(x => x.CatalogueName == catagory).First<CatalogueCategory>();
+                return entity.CatalogueCategories.Where(x => x.CatalogueName == category).First<CatalogueCategory>();
 
             }
         }
-
+//-----------------------------------Search inventory by itemcode and category-----------------------------------------//
         public static List<InventoryCatalogue> GetInventoryByIdandCategory(string id,string category)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
@@ -1866,7 +1870,7 @@ namespace Team12_SSIS.BusinessLogic
                 return q.ToList<InventoryCatalogue>();
             }
         }
-
+//--------------------------------------Search inventory Catalogue by keyword entered by the user-----------------------//
         public static List<InventoryCatalogue> SearchInventory(string keyword)
         {
 
@@ -1876,7 +1880,7 @@ namespace Team12_SSIS.BusinessLogic
                 return iList;
             }
         }
-        //----------------------------------------checking category and quantity level selected in the dropdown list...returns the resultset-----//
+//-------------------checking category and quantity level selected in the dropdown list...returns the resultset---------//
         public static List<InventoryCatalogue> GetInventoryByCategoryNQuantity(string category, int UIS)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
@@ -1893,6 +1897,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+//---------------------------Get inventory catalogue records below the reorder level------------------------------------//
         public static List<InventoryCatalogue> GetInventoryByCategorybelowReorder(string category)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
@@ -1907,7 +1912,7 @@ namespace Team12_SSIS.BusinessLogic
                 return q.ToList<InventoryCatalogue>();
             }
         }
-        //------------------------------get all inventory items  below reorder level---------//
+//------------------------------------Get all inventory items  below reorder level-------------------------------------//
         public static List<InventoryCatalogue> GetAllInventorybelowReorder()
         {
             using (SA45Team12AD entity = new SA45Team12AD())
@@ -1921,7 +1926,7 @@ namespace Team12_SSIS.BusinessLogic
                 return q.ToList<InventoryCatalogue>();
             }
         }
-        //------------------------------get inventoryitems  below the dropdown list selected stock level---------//
+//------------------------------Get inventory items  below the  stock level selected from dropdown list-----------------//
 
         public static List<InventoryCatalogue> GetAllInventorybelowStock(int stock)
         {
@@ -1936,7 +1941,7 @@ namespace Team12_SSIS.BusinessLogic
                 return q.ToList<InventoryCatalogue>();
             }
         }
-        //-------------------------------get the list of itemId--------------------------------------------------------------//
+//---------------------------------Get the list of itemId--------------------------------------------------------------//
         public static List<string> GetAllItemId()
         {
             List<string> idList=null;
@@ -1952,8 +1957,9 @@ namespace Team12_SSIS.BusinessLogic
         }
 
 
-        //---------------------------------AdjustmentVoucher--------------------------------------------------------//
+//---------------------------------AdjustmentVoucher--------------------------------------------------------------------//
 
+//----------------------------Get pending Adjustment voucher requests need to handle by the user logged in-------------//             
         public static List<AVRequest> GetadvReq(string id)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
@@ -1962,7 +1968,7 @@ namespace Team12_SSIS.BusinessLogic
             }
                
         }
-        //--------------------Adjustment voucher request approval---status changes to approved-------//
+//--------------------Adjustment voucher request approval(request status changes to approved)---------------------------//
 
         public static  void ApproveAvRequest(int id,string remarks)
         {
@@ -1971,7 +1977,7 @@ namespace Team12_SSIS.BusinessLogic
                 AVRequest avReq = entity.AVRequests.Where(x => x.AVRID == id).First<AVRequest>();
               List<AVRequestDetail> avReqDetail= entity.AVRequestDetails.Where(x => x.AVRID == id).ToList<AVRequestDetail>();
 
-                //--------------------Iterating through each item in the adjustment voucher request to adjust the inventory stock------//
+//-- ------------------Iterating through each item in the adjustment voucher request to adjust the  stock---------------//
                 for (int i = 0; i < avReqDetail.Count; i++)
                 {
                     string type = avReqDetail[i].Type;
@@ -2001,11 +2007,11 @@ namespace Team12_SSIS.BusinessLogic
                     }
                     inventory.UnitsInStock = stock;
                     entity.SaveChanges();
-                    //-----------------------------add the transaction to stock card-----------------------------------//
+//--------------------------------------------------add the transaction to stock card-----------------------------------//
                     CreatestockCard(itemId, DateTime.Today, Stockcarddescription, type, quantity, UOM, stock);
 
                 }
-
+ //----------------------------AvRequest status is changed to "Approved" & date processed is todays date---------------//
                 avReq.Status = "Approved";
                 avReq.DateProcessed = DateTime.Today;
                 avReq.Remarks = remarks;
@@ -2014,7 +2020,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
 
-        //---------------------------------------------Create stockCard-----------------------------------------------------
+//---------------------------------------------Create stockCard-------------------------------------------------------//
 
         public static void CreatestockCard(string itemid, DateTime transactionDate,string description,string type,int quantity,string uom,int balance)
         {
@@ -2037,7 +2043,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        //--------------------Adjustment voucher request rejection---status changes to rejected-------//
+//--------------------Adjustment voucher request rejection(AvRequest status  changed to rejected)----------------------//
 
         public static void RejectAvRequest(int id, string remarks)
         {
@@ -2052,7 +2058,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         
-
+//----------Thanisha ends here-----------------------------------------------------------------------------------------------------------//
 
 
 

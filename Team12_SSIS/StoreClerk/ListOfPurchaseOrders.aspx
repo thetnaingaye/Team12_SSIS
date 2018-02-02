@@ -23,7 +23,8 @@
             </tr>
             <tr>
                 <td colspan="5">
-                    <asp:GridView ID="GridViewLPO" runat="server" AutoGenerateColumns="False" Style="width: 100%" OnRowCommand="GridViewVPO_RowCommand">
+                    <asp:GridView ID="GridViewLPO"  class="table" runat="server" AutoGenerateColumns="False" Style="width: 100%" OnRowCommand="GridViewVPO_RowCommand">
+                         <AlternatingRowstyle BackColor="#f9f9f9"/>
                         <Columns>
                             <asp:TemplateField HeaderText="PO#" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                 <ItemTemplate>

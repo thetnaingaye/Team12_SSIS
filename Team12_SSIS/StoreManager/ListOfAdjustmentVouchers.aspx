@@ -1,5 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ListOfAdjustmentVouchers.aspx.cs" Inherits="Team12_SSIS.StoreManager.ListOfAdjustmentVouchers" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .auto-style1 {
+            height: 25px;
+        }
+        .auto-style2 {
+            height: 35px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
    
@@ -7,10 +15,13 @@
         <table style="width: 100%">
            
                 <tr>
-                    <td style="height: 25px">
-                        <asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="Medium" Text="Inventory Adjustment Voucher Request"></asp:Label>
+                    <td class="auto-style1">
+                       <h2 class="auto-style2">Inventory Adjustment Voucher Request</h2>
                     </td>
-                    <td>
+                    </tr>
+            <tr>
+                    <td class="auto-style1">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:Label ID="Label1" runat="server" Text="Show: " Style="padding-right: 10px"></asp:Label>
                         <asp:DropDownList ID="DdlStatus" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DdlStatus_SelectedIndexChanged">
                             <asp:ListItem Selected="True" Value="Pending">Pending</asp:ListItem>
@@ -25,26 +36,26 @@
                     <td colspan="2">
                         <div>
 
-                            <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False" Style="width:100%"
-                                ShowHeaderWhenEmpty="True"
+                            <asp:GridView ID="GridViewAdjV" Class="table" runat="server" AutoGenerateColumns="False" Style="width:100%"
+                                ShowHeaderWhenEmpty="True"  EmptyDataText="No Record Found"
                                 OnRowDataBound="OnRowDataBound" OnRowCommand="GridViewAdjV_RowCommand"
                                 CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="AVRID" AllowPaging="true"
                                 OnPageIndexChanging="OnPageIndexChanging" PageSize="15" >
-                                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                <AlternatingRowStyle BackColor="White" ForeColor="#284775"/>
                                 <Columns>
-                                    <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                    <asp:TemplateField HeaderText="#" HeaderStyle-Width="3%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                         <ItemTemplate>
                                             <asp:Label ID="LblSn" runat="server" CssClass="center-block" Text="<%# Container.DataItemIndex + 1 %>"></asp:Label>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="3%"></HeaderStyle>
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="Voucher ID / Request ID" HeaderStyle-Width="6%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                    <asp:TemplateField HeaderText="Adjustment Request ID" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate >
                                             <asp:LinkButton ID="LBtnVoucherId" runat="server" Visible="false" CommandName="ViewDetails" CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
                                            <asp:LinkButton ID="LBtnRequestId" runat="server" Visable="false" CommandName="ViewDetails" Text='<%# "AVR" + ((int)Eval("AVRID")).ToString("0000") %>' CommandArgument='<%# Bind("AVRID") %>'></asp:LinkButton>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="8%" ></HeaderStyle>
+                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%" ></HeaderStyle>
                                     </asp:TemplateField>
 
                                     <asp:TemplateField HeaderText="Date Created" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
@@ -54,11 +65,11 @@
                                         <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="Requested By" HeaderStyle-Width="7%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                    <asp:TemplateField HeaderText="Requested By" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
                                             <asp:Label ID="LblRequestor" runat="server" Text='<%# Bind("RequestedBy") %>'></asp:Label>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="7%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                     </asp:TemplateField>
 
                                     <asp:TemplateField HeaderText="Status" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">

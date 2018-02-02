@@ -3,22 +3,26 @@
     
   
 
-  <%-- 
-<%--        .auto-style2 {
-            margin-top: 77;
+
+    <style type="text/css">
+        .auto-style1 {
+            height: 26px;
         }
-        .auto-style3 {
-            height: 69px;
-        }
-        .auto-style4 {
-            width: 89px;
+        .auto-style2 {
+            height: 20px;
         }
         .auto-style5 {
-            margin-top: 77;
-            width: 84px;
+            height: 84px;
+        }
+        .auto-style6 {
+            width: 100px;
             height: 23px;
-        }--%>
-    </style>--%>
+        }
+    </style>
+    
+  
+
+
     </asp:Content>
 
  
@@ -44,36 +48,42 @@
         <table>
             <tbody style="width: 100%">
 
-            <tr style="height:20px">
-            <td style="height: 25px">
+            <tr>
+            <td class="auto-style1">
            <%--<asp:Label ID="LblTitle" runat="server" Font-Size="Large"></asp:Label>--%>
                <h2>Stock Card</h2>
             </td>-
             </tr>
             
            <tr>
-            <td>
+            <td class="auto-style5">
                  
                         <%-- Input ItemId --%>
                       <asp:Label ID="LblInput" runat="server"   Text="Enter Item Code:" Style="padding-right: 5px" ></asp:Label>
-                      <asp:TextBox ID="TxtId" runat="server" Height="20px" Width="210px"></asp:TextBox>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Btninventory" runat="server" OnClick="BtnInventory_Click" Text="View Inventory" Width="178px" />
-                           &nbsp;<%-- Search button to search the transaction details --%>&nbsp;&nbsp;&nbsp;&nbsp;
-                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;<asp:TextBox ID="TxtId" runat="server" Height="23px" Width="100px"></asp:TextBox>
+                        &nbsp;&nbsp;
+                        <asp:HyperLink ID="HyperLink1" runat="server" Font-Italic="True" ForeColor="Blue" NavigateUrl="~/StoreClerk/ViewInventoryList.aspx">Find Item Code</asp:HyperLink>
+&nbsp;&nbsp;
+                        <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<%-- Search button to search the transaction details --%>&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
 
                          <%--Button redirect to inventory  --%>
                         <br />
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<asp:Label ID="Lblstratdate" runat="server" Text="Start Date:"></asp:Label>
+                            &nbsp;&nbsp;&nbsp; <input type="text" id="datepicker" name="datepicker" readonly="true" placeholder="Start Date" class="auto-style6" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Label ID="Label3" runat="server" Text="End Date:"></asp:Label>
+                            &nbsp;&nbsp;&nbsp; <input type="text" id="datepicker2" name="datepicker2" readonly="true" placeholder="End Date" class="auto-style6" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="BtnFind" runat="server" CssClass="btn btn-primary btn-xs" Text="View Transaction Details" OnClick="BtnFind_Click" Width="182px" Height="30px"  />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       </td>
                       </tr>
                        <tr>
                         <td>
-                            <asp:Label ID="Lblstratdate" runat="server" Text="Start Date:"></asp:Label>
-                            &nbsp;&nbsp;<input type="text" id="datepicker" name="datepicker" readonly="true" placeholder="Start Date" class="auto-style4" />&nbsp;&nbsp;
-                            <asp:Label ID="Label3" runat="server" Text="End Date:"></asp:Label>
-                            &nbsp;&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" placeholder="End Date" class="auto-style5" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="BtnFind" runat="server" CssClass="btn btn-primary btn-xs" Text="Find Transaction Details" OnClick="BtnFind_Click" Width="180px" Height="30px"  />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                            </td>
                    
                         </tr>
@@ -81,11 +91,10 @@
                         </table>
                
             <br />
-            <br />
                        <table style="width: 100%">
                         <tbody style="width: 100%">
-                      <tr style="height:20px">
-                      <td margin-top:77>
+                      <tr>
+                      <td margin-top:77 class="auto-style2">
                          
                       <asp:Label ID="LblId" runat="server" Text="ItemCode: " Style="padding-right: 10px"></asp:Label>
                       <asp:Label ID="LblIdD" runat="server" Font-Bold="true"></asp:Label>
@@ -136,18 +145,18 @@
                   <asp:GridView ID="GridViewStockCard" Class="table" runat="server" AutoGenerateColumns="False"
                                         Style="width:100%;padding-top:50px" 
                                        
-                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID" ShowHeaderWhenEmpty="True" EmptyDataText="">
+                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID" ShowHeaderWhenEmpty="True" EmptyDataText="No Record Found">
                                         <AlternatingRowStyle BackColor="#f9f9f9"  />
                                         <Columns>
 
-                                        <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                        <asp:TemplateField HeaderText="#" HeaderStyle-Width="2%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                             <ItemTemplate>
                                             <asp:Label ID="LblSn" runat="server" CssClass="center-block" Text="<%# Container.DataItemIndex + 1 %>"></asp:Label>
                                             </ItemTemplate>
-                                            <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                            <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="2%"></HeaderStyle>
                                         </asp:TemplateField>
 
-                                          <asp:TemplateField HeaderText="TransactionDate" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                          <asp:TemplateField HeaderText="Transaction Date" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
                                                 <asp:Label ID="LblDate" runat="server" CssClass="center-block" Text='<%# Eval("Date","{0:dd/MM/yyyy}")%>'></asp:Label>
                                                 </ItemTemplate><HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
@@ -161,11 +170,11 @@
                                             </asp:TemplateField>
 
                                             
-                                             <asp:TemplateField HeaderText="Transaction Type" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
+                                             <asp:TemplateField HeaderText="Transaction Type" HeaderStyle-Width="3%" HeaderStyle-CssClass="text-left" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                               <ItemTemplate>
                                               <asp:Label ID="Type" runat="server" CssClass="center-block" Text='<%# Eval("Type") %>'></asp:Label>
                                               </ItemTemplate>
-                                            <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
+                                            <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="3%"></HeaderStyle>
                                             </asp:TemplateField>
 
                                              <asp:TemplateField HeaderText="Units Of Measurement" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
@@ -205,7 +214,7 @@
         </table>
                
 
-     </div>
+    
   
 </asp:Content>
 
@@ -237,38 +246,3 @@
 
 
 
-
-     <%-- <asp:Label ID="LblTitle" runat="server" Text="STOCK CARD" Font-Size="Large" ></asp:Label>
-   
-      <br />
-   
-    <p>
-        <asp:Label ID="LblInput" runat="server" Text="Enter ItemId:"></asp:Label>
-        <asp:TextBox ID="TxtId" runat="server"></asp:TextBox>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:Button ID="BtnFind" runat="server" CssClass="auto-style1" Text="Find Transaction Details" OnClick="BtnFind_Click" />
-    </p>
-      <br />
-     <p>
-        <asp:Label ID="LblId" runat="server" Text="ItemID:"></asp:Label><asp:Label ID="LblIdD" runat="server" Text="Label" Font-Bold="true" ></asp:Label>
-    </p>
-    <p>
-        <asp:Label ID="LbldDes" runat="server" Text="ItemDescription:"></asp:Label><asp:Label ID="LblDesD" runat="server" Text="Label"></asp:Label>
-    </p>
-    <p>
-         <asp:Label ID="LblBin" runat="server" Text="Bin:"></asp:Label> <asp:Label ID="LblBinD" runat="server" Text="Label"></asp:Label>
-    </p>
-    <p>
-      <asp:Label ID="LblUom" runat="server" Text="UOM:"></asp:Label><asp:Label ID="LblUomD" runat="server" Text="Label"></asp:Label>
-    </p>
-    <p>
-         <asp:Label ID="LblS1" runat="server" Text="Supplier1:"></asp:Label><asp:Label ID="LblS1D" runat="server" Text="Label" Font-Bold="true"></asp:Label>
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                 <asp:Label ID="LblS2" runat="server" Text="Supplier2:"></asp:Label><asp:Label ID="LblS2D" runat="server" Text="Label" Font-Bold="true"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <asp:Label ID="LblsS3" runat="server" Text="Supplier3:"></asp:Label><asp:Label ID="LblS3D" runat="server" Text="Label" Font-Bold="true"></asp:Label>
-         <br />
-         </p>
-        <asp:GridView ID="GridViewStockCard" runat="server"  OnRowDataBound="GridViewStockCard_RowDataBound" Autopostback="true">
-        </asp:GridView>--%>
-  
-  
