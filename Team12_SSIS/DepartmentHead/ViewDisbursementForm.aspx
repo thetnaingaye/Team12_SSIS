@@ -2,13 +2,18 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .auto-style1 {
+            width: 81px;
+        }
+        </style>
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
-    <asp:Label ID="LblTitle" runat="server" Text="DisbursementList" Font-Size="Large"></asp:Label>
+    <%--<asp:Label ID="LblTitle" runat="server" Text="DisbursementList" Font-Size="Large"></asp:Label>--%>
+    <h2>Disbursement Form</h2>
     <br />
     <br />
-    <asp:Label ID="LblDate" runat="server" Text="Filter by date range:"></asp:Label>
       &nbsp;&nbsp;
      <br />
       <asp:Label ID="LblStartDate" runat="server" Text="Start Date:"></asp:Label>
@@ -29,11 +34,9 @@
         });
     </script>
 
-	&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="datepicker" name="datepicker" readonly="true" />
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:Label ID="Label2" runat="server" Text="End Date:"> </asp:Label>&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" />
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     <asp:Button ID="BtnFindDate" runat="server" Text="FIND" OnClick="BtnFindDate_Click" Height="25px" />
+	&nbsp;<input type="text" id="datepicker" name="datepicker" readonly="true" class="auto-style1" />&nbsp;
+    &nbsp;&nbsp;&nbsp; <asp:Label ID="Label2" runat="server" Text="End Date:"> </asp:Label>&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" class="auto-style1" />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="BtnFindDate" CssClass="btn btn-primary btn-xs" runat="server" Text="FIND" OnClick="BtnFindDate_Click" Height="25px" Width="72px" />
      <br />
     &nbsp;
 &nbsp;&nbsp;
@@ -44,36 +47,25 @@
 
     <asp:Label ID="LblRep" runat="server" Text="Department Representative:"></asp:Label>
      
-     <asp:DropDownList ID="DdlSal" runat="server">
-         <asp:ListItem>Mr</asp:ListItem>
-         <asp:ListItem>Ms</asp:ListItem>
-         <asp:ListItem>Mrs</asp:ListItem>
-     </asp:DropDownList> 
        &nbsp; 
-       <asp:TextBox ID="TxtRep" runat="server"></asp:TextBox>
-     &nbsp;
-     <asp:Button ID="BtnFindrep" runat="server" Text="FIND" OnClick="BtnFindrep_Click" />
+       <asp:TextBox ID="TxtRep" runat="server" Width="142px"></asp:TextBox>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="BtnFindrep" CssClass="btn btn-primary btn-xs" runat="server" Text="FIND" OnClick="BtnFindrep_Click" Width="72px" />
      <br />
        <br />
-    <asp:GridView ID="GridViewDisbursement" runat="server"    autogeneratecolumns="false" Width="100%" GridLines="None"  BackColor="White"    ShowHeaderWhenEmpty="True" OnRowCommand="GridViewDisbList_RowCommand">
+    <asp:GridView ID="GridViewDisbursement" runat="server"  Class="table"  autogeneratecolumns="false" Width="100%" GridLines="None"  BackColor="White"    ShowHeaderWhenEmpty="True" OnRowCommand="GridViewDisbList_RowCommand" EmptyDataText="No Record Found">
         <Columns>
           
                     
                                           <asp:TemplateField HeaderText="Disbursement ID" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
-                                                   <%-- <asp:Label ID="LblDate" runat="server" CssClass="center-block" Text='<%# Eval("DisbursementID")%>'></asp:Label>--%>
-                                                 <asp:LinkButton ID="LBtnListID" runat="server" Text='<%# "DL" + (Eval("DisbursementID")) %>' CommandName="show" CommandArgument='<%# Bind("DisbursementID") %>'></asp:LinkButton>
+                                                 
+                                                 <asp:LinkButton ID="LBtnListID" runat="server" Text='<%# "DL" + (Eval("DisbursementID","{0:0000}")) %>' CommandName="show" CommandArgument='<%# Bind("DisbursementID") %>'></asp:LinkButton>
                                                 </ItemTemplate>
                                          <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
 
 
-                                     <asp:TemplateField HeaderText="Department" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="LblDepartment" runat="server" CssClass="center-block" Text='<%# Eval("DepartmentName")%>'></asp:Label>
-                                                </ItemTemplate>
-                                         <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
-                                            </asp:TemplateField>
+                                  
 
             <asp:TemplateField HeaderText="Collection Date" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
@@ -82,12 +74,7 @@
                                          <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
                                             </asp:TemplateField>
 
-             <asp:TemplateField HeaderText="Collection Point" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="LblCPoint" runat="server" CssClass="center-block" Text='<%# Eval("CollectionPoint")%>'></asp:Label>
-                                                </ItemTemplate>
-                                         <HeaderStyle CssClass="text-left" Font-Size="Smaller" Width="5%"></HeaderStyle>
-                                            </asp:TemplateField>
+          
 
 
              <asp:TemplateField HeaderText="Representative Name" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
@@ -110,6 +97,11 @@
                                         <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
 
     </asp:GridView>
+
+    
+
+     <br />
+    <asp:Label ID="LblMsg" runat="server" ForeColor="#009900" Text="[LblStatus]"></asp:Label>
 
     
 

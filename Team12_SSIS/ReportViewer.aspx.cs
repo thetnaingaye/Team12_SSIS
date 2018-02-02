@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Team12_SSIS.StoreManager
+namespace Team12_SSIS
 {
-    public partial class IssueAdjustmentVoucher : System.Web.UI.Page
+    public partial class ReportViewer : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -6,7 +6,7 @@
         .auto-style2 {
             padding: 5px 15px 0px 15px;
             text-align: center;
-            color: white;
+            color: #1A6ECC;
         }
     </style>
 </asp:Content>
@@ -39,45 +39,36 @@ GROUP BY CC.CatalogueName"></asp:SqlDataSource>
 
     <div class="container-fluid" style="padding: 2px 2px 2px 2px">
             <div class="row">
+                    <a href="ListOfAdjustmentVouchers.aspx" style="text-decoration:none"> 
             <div class="col-md-5">
-                <div class="well" style="background-color: steelblue;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-
+                      <div class="panel panel-default" style="border-color: #006699;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding:101px 0px 111px 0px">
+               
                     <div class="auto-style2">
                         <span>You have</span>
-                        <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                        <br />
+                        <br />
+     
+                       <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="Timer1" />
                             </Triggers>
                             <ContentTemplate>
-                                <h1 style="color: white"><strong><%= GetPendingPO() %></strong></h1>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
-                        <span>pending purchase orders for approval</span>
-                    </div>
-
-                </div>
-                <div class="well" style="background-color: steelblue;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-
-                    <div class="auto-style2">
-                        <span>You have</span>
-                       <asp:UpdatePanel ID="UpdatePanel7" runat="server">
-                            <Triggers>
-                                <asp:AsyncPostBackTrigger ControlID="Timer1" />
-                            </Triggers>
-                            <ContentTemplate>
-                                <h1 style="color: white"><strong><%= GetPendingAVR() %></strong></h1>
+                                <h1 ><strong><%= GetPendingAVR() %></strong></h1>
 
                             </ContentTemplate>
                         </asp:UpdatePanel>
+                          <br />
+                        <br />
 
                         <span>pending adjustment vouchers for approval</span>
                     </div>
-
+                       
                 </div>
-
+                
             </div>
-          
+               </a>
             <div class="col-md-7">
+                           <a href="../StoreReport/DeptRequisitionReport.aspx" style="text-decoration:none"> 
                <div class="panel panel-default" style="border-color: #006699;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
                    <div class="panel-heading" style="text-align: left; background-color: transparent; color: #1A6ECC";font-weight:600><h4>Requisition Trend</h4><h6>Numbers of Ruquests By Department For Current Month</h6></div>
                     <div class="auto-style2">
@@ -121,11 +112,13 @@ GROUP BY CC.CatalogueName"></asp:SqlDataSource>
                         </asp:UpdatePanel>
                   </div>
                 </div>
+                               </a>
             </div>
         </div>
     <br />
          <div class="row">
         <div class="col-lg-12">
+                       <a href="../StoreReport/RequisitionTrendReport.aspx" style="text-decoration:none"> 
                  <div class="panel panel-default" style="border-color: #006699;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
             <div class="panel-heading" style="text-align: left; background-color: transparent; color: #1A6ECC";font-weight:600><h4>Purchasing Trend</h4><h6>Expenditure By Category For Current Month</h6></div>
                     <div class="auto-style2">
@@ -166,12 +159,12 @@ GROUP BY CC.CatalogueName"></asp:SqlDataSource>
                         </asp:UpdatePanel>
                     </div>
                 </div>
+                           </a>
                    
                   
                 </div>
          </div>
         </div>
-    <br />
     <br />
 
 

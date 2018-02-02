@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Profile;
 using System.Web.Security;
@@ -31,7 +32,7 @@ namespace Team12_SSIS.Utility
         public static List<MembershipUser> GetListOfMembershipUsers()
         {
             var users = Membership.GetAllUsers();
-            var userList = new List<MembershipUser>();
+            List<MembershipUser> userList = new List<MembershipUser>();
             foreach (MembershipUser u in users)
             {
                 userList.Add(u);
@@ -53,6 +54,21 @@ namespace Team12_SSIS.Utility
             return userList;
         }
 
+        public static int GetValidPrimaryKeyInt(string referenceId)
+        {
+            string s = referenceId;
+            Regex regex = new Regex("[0-9]");
+            for (int i = 0; i < s.Length - 1; i++)
+            {
+                int x;
+                if (regex.IsMatch(s.Substring(i, 1)))
+                {
+                    bool isValid = int.TryParse(s.Substring(i, s.Length - i), out x);
+                    return x;
+                }               
+            }
+            return -1;
+        }
 
 
 

@@ -16,10 +16,10 @@
             <td style="width: 10%">
                 <asp:TextBox ID="TxtGRNumber" runat="server"></asp:TextBox>
             </td>
-            <asp:RegularExpressionValidator ID="RegularExpressionValidatorPoNumber" ValidationGroup="BtnRetrieveGR" ControlToValidate="TxtGRNumber" ValidationExpression="^[1-9]\d*$" runat="server" ErrorMessage="Please enter a valid GR number." Display="None"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidatorPoNumber" ValidationGroup="BtnRetrieveGR" ControlToValidate="TxtGRNumber" ValidationExpression="[Gg][Rr][0-9]\d*" runat="server" ErrorMessage="Please enter a valid GR number." Display="None"></asp:RegularExpressionValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidatorPoNumber" runat="server" ValidationGroup="BtnRetrieveGR" ControlToValidate="TxtGRNumber" ErrorMessage="Please enter a GR number." Display="None"></asp:RequiredFieldValidator>
-            <td style="width: 60%">
-                <asp:Button ID="BtnRetrievePO" runat="server" Text="Retrieve GR" OnClick="BtnRetrieveGR_Click" CssClass="btn btn-xs" ValidationGroup="BtnRetrieveGR" />
+            <td style="width: 40%">
+                <asp:Button ID="BtnRetrievePO" runat="server" Text="Retrieve GR" OnClick="BtnRetrieveGR_Click" CssClass="btn btn-primary btn-xs" ValidationGroup="BtnRetrieveGR" />
             </td>
 
             <td colspan="2">
@@ -28,9 +28,10 @@
             </td>
         </tr>
         <tr>
-            <td colspan="3">
+            <td colspan="2">
                 <asp:ValidationSummary ID="ValidationSummaryPo" runat="server" ValidationGroup="BtnRetrieveGR" ForeColor="red" />
             </td>
+            <td></td>
             <td colspan="2">
                 <asp:Label ID="Label1" runat="server" Text="Posting Date:" Font-Size="Small" Style="padding-right: 10px"></asp:Label>
                 <asp:Label ID="LblGRDate" runat="server"> </asp:Label>
@@ -51,8 +52,8 @@
             <td colspan="5">
                 <div>
                     <asp:GridView ID="GridViewGR" runat="server" AutoGenerateColumns="False"
-                        Style="height: 100px; overflow: auto; width: 100%" DataKeyNames="GRNumber" ShowHeaderWhenEmpty="True" OnRowDataBound="OnRowDataBound" CellPadding="4" ForeColor="#333333" GridLines="None">
-                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                        Style="height: 100px; overflow: auto; width: 100%" DataKeyNames="GRNumber" ShowHeaderWhenEmpty="True" OnRowDataBound="OnRowDataBound" CellPadding="4" ForeColor="#333333">
+                        <AlternatingRowStyle BackColor="#F9F9F9"/>
                         <Columns>
 
                             <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">

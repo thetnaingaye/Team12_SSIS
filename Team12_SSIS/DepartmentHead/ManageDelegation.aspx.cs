@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Author - Pradeep Elango
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
@@ -39,6 +41,8 @@ namespace Team12_SSIS.DepartmentHead
 		{
 			EmployeesDdl.DataSource = DisbursementLogic.GetAllEmployeeFullNamesFromDept(DisbursementLogic.GetCurrentDep());
 			EmployeesDdl.DataBind();
+			CalStartAddDelegate.SelectedDate = DateTime.Today;
+			CalEndAddDelegate.SelectedDate = DateTime.Today;
 		}
 
 		protected void ShowCurrentDelegate()
@@ -96,6 +100,7 @@ namespace Team12_SSIS.DepartmentHead
 
 		protected void BtnEdit_Click(object sender, EventArgs e)
 		{
+			statusMessage.Visible = false;
 			MultiView1.ActiveViewIndex = 1;
 			string currentdep = DisbursementLogic.GetCurrentDep();
 			DDelegateDetail currentdelegate = RequisitionLogic.GetLatestDelegate(currentdep);
@@ -134,6 +139,8 @@ namespace Team12_SSIS.DepartmentHead
 				statusMessage.ForeColor = Color.Red;
 			}
 		}
+
+	
 	}
 
 }

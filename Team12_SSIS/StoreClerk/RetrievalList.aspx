@@ -2,6 +2,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
+<%----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------%>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
         <h1>Stationery Retrieval List</h1>
@@ -34,7 +36,15 @@
                     <HeaderStyle CssClass="text-center" Font-Size="Smaller" Height="8%"></HeaderStyle>
                 </asp:TemplateField>
 
-                <asp:TemplateField HeaderText="Total Quantity">
+                <asp:TemplateField HeaderText="Existing Quantity">
+                    <ItemTemplate>
+                        <asp:Label ID="LblTotalExistingQuantity" runat="server" Text='<%#:GetExistingQuantity(Item.ItemID) %>'></asp:Label>
+                    </ItemTemplate>
+                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                    <HeaderStyle CssClass="text-center" Font-Size="Smaller" Height="8%"></HeaderStyle>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="Needed Quantity">
                     <ItemTemplate>
                         <asp:Label ID="LblTotalQtyNeeded" runat="server" Text='<%#:GetTotalQtyNeeded(Item.ItemID) %>'></asp:Label>
                     </ItemTemplate>
@@ -99,12 +109,13 @@
             </Columns>
     </asp:GridView>
     <asp:Label ID="LblNote" runat="server" Text="*Quantity displayed here has been pre-calculated by the system."></asp:Label>
-    <br /><br />
+    <br /><br /><br /><br />
     <div>
-        <asp:Button ID="BtnCumulativeSubmit" runat="server" Text="Submit" style="position: relative; left:82%;" OnClientClick = "SetSource(this.id)" OnClick="BtnCumulativeSubmit_Click" />
+        <asp:TextBox ID="TbxResult" runat="server" TextMode="MultiLine" Width="60%" BorderStyle="Ridge" Height="105px" ReadOnly="True" Visible="False"></asp:TextBox>
+        <asp:Button ID="BtnCumulativeSubmit" CssClass="btn btn-primary" runat="server" Text="Submit" style="position: absolute; left:82%;" OnClientClick = "SetSource(this.id)" OnClick="BtnCumulativeSubmit_Click" />
     </div>
+    <br /><br /><br /><br />
     <div>
-        <asp:TextBox ID="TbxResult" runat="server" TextMode="MultiLine" Width="40%" BorderStyle="Ridge" Height="95px" ReadOnly="True" Visible="False"></asp:TextBox>
         <asp:HiddenField ID="HdParam" runat="server" />
     </div>
 

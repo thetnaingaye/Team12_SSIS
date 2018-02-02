@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Author Lim Chang Siang
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
@@ -83,14 +84,23 @@ namespace Team12_SSIS.StoreClerk
 
         protected void BtnCreateDis_Click(object sender, EventArgs e)
         {
+            statusMessage.Visible = false;
+
             DisbursementLogic dl = new DisbursementLogic();
 
             DateTime date = DateTime.ParseExact(Request.Form["datepicker"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
             int collectionId = DisbursementLogic.GetListofDepartments().Where(x => x.DeptID == DdlDept.SelectedValue).Select(x => x.CollectionPointID).FirstOrDefault();
             string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
 
+            if (!Utility.Validator.IsDateRangeValid(DateTime.Now.Date, date))
+            {
+                statusMessage.Text = "Collection Date cannot be past date or today.";
+                statusMessage.ForeColor = Color.Red;
+                statusMessage.Visible = true;
+                return;
+            }
+
             int disbLNumber = dl.CreateDisbursementList(DdlDept.SelectedValue, collectionId, date, LblDeptRep.Text);
-            
             foreach (GridViewRow r in GridViewDisbList.Rows)
             {
                 int retrievalId = int.Parse((r.FindControl("HideRetriId") as HiddenField).Value);
