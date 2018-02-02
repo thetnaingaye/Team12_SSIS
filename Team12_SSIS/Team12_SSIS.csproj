@@ -147,6 +147,8 @@
   <ItemGroup>
     <Content Include="BusinessLogic\RScripts\RLibraries\Empty.txt" />
     <Content Include="BusinessLogic\RScripts\RPackages\Empty.txt" />
+    <Content Include="DepartmentEmployee\DepartmentRep\ViewDisbursementForm.aspx" />
+    <Content Include="DepartmentEmployee\DepartmentRep\ViewDisbursementList.aspx" />
     <Content Include="EODAutomationLog.txt" />
     <Content Include="ForecastAutomationLog.txt" />
     <Content Include="default.aspx" />
@@ -343,6 +345,20 @@
     </Compile>
     <Compile Include="DepartmentEmployee\DepartmentRep\ChangeCollectionPoint.aspx.designer.cs">
       <DependentUpon>ChangeCollectionPoint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentEmployee\DepartmentRep\ViewDisbursementForm.aspx.cs">
+      <DependentUpon>ViewDisbursementForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentEmployee\DepartmentRep\ViewDisbursementForm.aspx.designer.cs">
+      <DependentUpon>ViewDisbursementForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentEmployee\DepartmentRep\ViewDisbursementList.aspx.cs">
+      <DependentUpon>ViewDisbursementList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DepartmentEmployee\DepartmentRep\ViewDisbursementList.aspx.designer.cs">
+      <DependentUpon>ViewDisbursementList.aspx</DependentUpon>
     </Compile>
     <Compile Include="DepartmentEmployee\Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>

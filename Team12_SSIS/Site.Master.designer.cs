@@ -85,6 +85,15 @@ namespace Team12_SSIS {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl RepMenu;
         
         /// <summary>
+        /// RepMenu1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl RepMenu1;
+        
+        /// <summary>
         /// HOD control.
         /// </summary>
         /// <remarks>

@@ -35,16 +35,19 @@ namespace Team12_SSIS
             if (Page.User.IsInRole("Rep"))
             {
                 RepMenu.Visible = true;
+                RepMenu1.Visible = true;
                 EmployeeMenu.Visible = true;
             }
             else if (Page.User.IsInRole("Employee"))
             {
                 RepMenu.Visible = false;
+                RepMenu1.Visible = false;
                 EmployeeMenu.Visible = true;
             }
             else
             {
                 RepMenu.Visible = false;
+                RepMenu1.Visible = false;
                 EmployeeMenu.Visible = false;
             }
 

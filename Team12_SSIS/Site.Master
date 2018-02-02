@@ -221,7 +221,7 @@
                             <li><a href="<%= Page.ResolveUrl("~/DepartmentEmployee/ViewRequisitionHistory.aspx") %>">Request History</a></li>
 
                             <li id="RepMenu" visible="false" runat="server"><a href="<%= Page.ResolveUrl("~/DepartmentEmployee/DepartmentRep/ChangeCollectionPoint.aspx") %>">Collection Points</a></li>
-
+                            <li id="RepMenu1" visible="false" runat="server"><a href="<%= Page.ResolveUrl("~/DepartmentEmployee/DepartmentRep/ViewDisbursementForm.aspx") %>">Disbursement</a></li>
                         </ul>
                     </div>
 
