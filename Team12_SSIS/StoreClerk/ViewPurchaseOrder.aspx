@@ -72,14 +72,14 @@
             <asp:ScriptManager ID="sml" runat="server"></asp:ScriptManager>
             <asp:UpdatePanel ID="Upl" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
                 <ContentTemplate>
-                    <asp:GridView ID="GridViewVPO" runat="server" AutoGenerateColumns="False"
+                    <asp:GridView ID="GridViewVPO" class="table" runat="server" AutoGenerateColumns="False"
                         Style="width: 100%" ShowHeaderWhenEmpty="True"
                         OnRowDataBound="OnRowDataBound"
                         CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID">
 
 
 
-                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                         <AlternatingRowstyle BackColor="#f9f9f9"/>
                         <Columns>
                             <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                 <ItemTemplate>
