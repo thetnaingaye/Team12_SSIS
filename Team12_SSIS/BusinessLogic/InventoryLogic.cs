@@ -331,8 +331,8 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        
-        //----------------------------         KHAIR's               ----------------------------// 
+
+        //----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------//
 
         // Retrieve ALL items
         public static List<InventoryCatalogue> ListAllItems()
@@ -554,9 +554,7 @@ namespace Team12_SSIS.BusinessLogic
                 // Finding the week no for the year (aka our period currently)
                 DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
                 Calendar cal = dfi.Calendar;
-                //Uncomment for final ver: int currentPeriod = cal.GetWeekOfYear(DateTime.Now, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
-                DateTime date1 = new DateTime(2018, 1, 2);
-                int currentPeriod = cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+                int currentPeriod = cal.GetWeekOfYear(DateTime.Now, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
 
 
                 // Init the diff tables to retrieve the required variables
@@ -751,6 +749,30 @@ namespace Team12_SSIS.BusinessLogic
             return ti;
         }
 
+        // Searching item catalogue for forecast report page
+        public static InventoryCatalogue SearchItemForReport(string value)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                try
+                {
+                    InventoryCatalogue a = context.InventoryCatalogues.Where(x => x.ItemID.Contains(value)).First();
+                    return a;
+                }
+                catch (Exception)
+                {
+                    try
+                    {
+                        InventoryCatalogue b = context.InventoryCatalogues.Where(x => x.Description.Contains(value)).First();
+                        return b;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
 
 
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+//Author Lim Chang Siang
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -132,7 +133,6 @@ namespace Team12_SSIS.StoreClerk
         {
             statusMessage.Visible = false;
             InventoryLogic il = new InventoryLogic();
-            List<AVRequestDetail> adjDetailList = new List<AVRequestDetail>();
             string clerkName = HttpContext.Current.Profile.GetPropertyValue("fullname").ToString();
             int avRId = InventoryLogic.CreateAdjustmentVoucherRequest(clerkName, DateTime.Now.Date);
             bool isAbove250 = false;

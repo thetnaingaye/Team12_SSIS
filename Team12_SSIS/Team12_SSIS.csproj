@@ -2,6 +2,7 @@
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -26,6 +27,7 @@
     </NuGetPackageImportStamp>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <Use64BitIISExpress />
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -114,6 +116,10 @@
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -139,6 +145,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BusinessLogic\RScripts\RLibraries\Empty.txt" />
+    <Content Include="BusinessLogic\RScripts\RPackages\Empty.txt" />
     <Content Include="EODAutomationLog.txt" />
     <Content Include="ForecastAutomationLog.txt" />
     <Content Include="default.aspx" />
@@ -155,6 +163,10 @@
     <Content Include="Images\favicon-16x16.png" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\findout.png" />
+    <Content Include="Images\Charts\chart1.png" />
+    <Content Include="Images\Charts\tableAccuracy.png" />
+    <Content Include="Images\Charts\tableModel.png" />
+    <Content Include="Images\Charts\tableResults.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\logosmall.png" />
     <Content Include="Images\managedis.png" />
@@ -162,15 +174,19 @@
     <Content Include="Images\requisition.png" />
     <Content Include="Images\viewhistory.png" />
     <Content Include="Images\viewreq.png" />
+    <Content Include="Images\wait.gif" />
     <Content Include="Logout.aspx" />
-    <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
+    <Content Include="scripts\ai.0.22.9-build00167.js" />
+    <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Site.Master" />
     <Content Include="SQLStoredProcedureForReports%28ChangSiang%29.txt" />
     <Content Include="SSIS_UserPassword.txt" />
     <Content Include="StoreClerk\CurrentRequisitionOrders.aspx" />
+    <Content Include="StoreClerk\ForecastReport.aspx" />
     <Content Include="StoreClerk\PastRequisitionOrders.aspx" />
     <Content Include="StoreClerk\ReorderList.aspx" />
     <Content Include="StoreClerk\RetrievalList.aspx" />
@@ -188,6 +204,11 @@
     <Content Include="DepartmentEmployee\DepartmentRep\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="BusinessLogic\RScripts\ChartExec.bat" />
+    <Content Include="BusinessLogic\RScripts\ForecastingAlgorithm.R" />
+    <Content Include="BusinessLogic\RScripts\RExec.bat" />
+    <Content Include="BusinessLogic\RScripts\ChartingTool.R" />
+    <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\AD.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="SA45Team12ADDataSet.xsc">
@@ -267,8 +288,6 @@
     <Content Include="DepartmentHead\ViewDeptRepHistory.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
-    <Content Include="scripts\ai.0.22.9-build00167.js" />
-    <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="StoreClerk\ChangeBufferStockLevel.aspx" />
     <Content Include="StoreClerk\ChangeOrderLeadTime.aspx" />
     <Content Include="StoreClerk\CreateAdjustmentVoucherRequest.aspx" />
@@ -531,6 +550,13 @@
     <Compile Include="StoreClerk\CurrentRequisitionOrders.aspx.designer.cs">
       <DependentUpon>CurrentRequisitionOrders.aspx</DependentUpon>
     </Compile>
+    <Compile Include="StoreClerk\ForecastReport.aspx.cs">
+      <DependentUpon>ForecastReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreClerk\ForecastReport.aspx.designer.cs">
+      <DependentUpon>ForecastReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StoreClerk\Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -741,7 +767,6 @@
     <Compile Include="WebServices\WCF_Model\WCF_TempInventoryRetrieval.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BusinessLogic\RScripts\" />
     <Folder Include="Utility\TempImageFiles\" />
   </ItemGroup>
   <ItemGroup>
@@ -754,11 +779,15 @@
     <EmbeddedResource Include="Supplier\PurchaseOrder.rdlc" />
     <EmbeddedResource Include="Utility\PurchaseOrder.rdlc" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

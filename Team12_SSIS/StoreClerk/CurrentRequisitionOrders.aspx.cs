@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
 
+//----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------//
+
 namespace Team12_SSIS.StoreClerk
 {
     public partial class CurrentRequisitionOrders : System.Web.UI.Page
@@ -67,6 +69,11 @@ namespace Team12_SSIS.StoreClerk
             // Binding the gridview
             GridViewDetails.DataSource = tempList;
             GridViewDetails.DataBind();
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/StoreClerk/ForecastReport.aspx");
         }
     }
 }

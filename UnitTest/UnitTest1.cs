@@ -19,70 +19,36 @@ namespace UnitTest
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
-        {
-            Console.WriteLine(IsPositiveInteger(23));
-            Console.WriteLine(IsPositiveInteger(-23).ToString());
-            Console.WriteLine(IsPositiveInteger(0).ToString());
+        public void TestGetCollectionPointNameAndId()
+		{
+			//This is english dept
+			string currentDept = "ENGL"; 
+			//This should show the current CP Id - currently is 6.
+			string currentCPByDept = DisbursementLogic.GetCurrentCPIDByDep(currentDept);
+			Console.WriteLine(currentCPByDept);
+			//This should show University Hospital, 11A.M
+			string currentCPNameById = DisbursementLogic.GetCurrentCPWithTimeByID(Int32.Parse(currentCPByDept));
+			Console.WriteLine(currentCPNameById);			
         }
         [TestMethod]
-        public void TestMethod2()
-        {
+        public void TestGetCurrentOrderLeadTime()
+		{
+			//This is ALPHA Office Supplies
+			string supplierID = "ALPA";
+			//This should show the current order lead time of ALPHA Office Supplies - 3
+			string orderLeadTime = PurchasingLogic.GetCurrentOrderLeadTime(supplierID).ToString();
+			Console.WriteLine(orderLeadTime);
 
-            Console.WriteLine(IsProductIdFormat("P0232"));
-            Console.WriteLine(IsProductIdFormat("p0232"));
-            Console.WriteLine(IsProductIdFormat("pp0232"));
-            Console.WriteLine(IsProductIdFormat("#0323"));
-            Console.WriteLine(IsProductIdFormat("0232"));
-        }
+		}
         [TestMethod]
-        public void TestMethod3()
+        public void TestGetCurrentBufferStockLevel()
         {
-            Console.WriteLine(IsEmailFormat("abc@gmail.com"));
-            Console.WriteLine(IsEmailFormat("abc@u.nus.edu"));
-            Console.WriteLine(IsEmailFormat("abc.abc.nus.edu"));
+			//This is Clips item
+			string itemID = "C001";
+			//This should show the current buffer stock level of Clips item -
+			int bufferStockLevel = PurchasingLogic.GetCurrentBufferStock(itemID);
+			Console.WriteLine(bufferStockLevel);
         }
 
-        [TestMethod]
-        public void TestMethod4()
-        {
-            string todayDate = "18/Jan/2017";
-            string tomorrowDate = "20/Jan/2017";
-            Console.WriteLine(IsDateRangeValid(DateTime.Parse(todayDate), DateTime.Parse(tomorrowDate)).ToString());
-            Console.WriteLine(IsDateRangeValid(DateTime.Parse(todayDate), DateTime.Parse(todayDate)).ToString());
-            Console.WriteLine(IsDateRangeValid(DateTime.Parse(tomorrowDate), DateTime.Parse(todayDate)).ToString());
-        }
-
-        [TestMethod]
-        public void TestMethod6()
-        {
-            string userName = "clerk1";
-            string password = "Password@#1";
-            char seperator = '/';
-
-            var topSecret = userName + seperator + password;
-            int shft = 5;
-            string encrypted = topSecret.Select(ch => ((int)ch) << shft).Aggregate("", (current, val) => current + (char)(val * 2));
-            encrypted = Convert.ToBase64String(Encoding.UTF8.GetBytes(encrypted));
-            string decrypted = Encoding.UTF8.GetString(Convert.FromBase64String(encrypted)).Select(ch => ((int)ch) >> shft).Aggregate("", (current, val) => current + (char)(val / 2));
-            Console.WriteLine(topSecret);
-            Console.WriteLine(encrypted);
-            string[] splitString = decrypted.Split(seperator);
-            foreach(string s in splitString)
-            {
-                Console.WriteLine(s);
-            }
-
-        }
-        [TestMethod]
-        public void TestMail()
-        {
-            SendPurchaseOrderToSupplier.SendPurchaseOrder();
-        }
-
-
-        public void TestMethod7()
-        {
-        }
     }
 }

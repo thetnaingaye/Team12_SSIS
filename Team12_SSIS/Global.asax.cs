@@ -28,8 +28,8 @@ namespace Team12_SSIS
 
 
 
+            // SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         
 
-            
             // Thread for auto running the clearance of the reorder list table
             Thread threadEndOfDae = new Thread(new ThreadStart(ThreadEODFunc));
             threadEndOfDae.IsBackground = true;
@@ -41,18 +41,6 @@ namespace Team12_SSIS
             threadSundae.IsBackground = true;
             threadSundae.Name = "ThreadSundae";
             threadSundae.Start();
-
-            //// Thread for auto running the clearance of the reorder list table
-            //TimeSpan tsInterval1 = new TimeSpan(0, 0, 30);  // hours, minutes, seconds
-            //IntervalTimer = new System.Threading.Timer(
-            //    new System.Threading.TimerCallback(AutomationLogic.BeginEndOfDayProcesses)
-            //    , null, tsInterval1, tsInterval1);
-
-            //// Thread for auto running the clearance of the reorder list table
-            //TimeSpan tsInterval2 = new TimeSpan(1, 0, 0);  // hours, minutes, seconds
-            //IntervalTimer = new System.Threading.Timer(
-            //    new System.Threading.TimerCallback(AutomationLogic.ForecastingAlgorithm)
-            //    , null, tsInterval2, tsInterval2);
         }
 
         void AuthenticationService_Authenticating(object sender, System.Web.ApplicationServices.AuthenticatingEventArgs e)
@@ -87,7 +75,7 @@ namespace Team12_SSIS
             DisbursementLogic.SendCollectionReminder(DateTime.Now.Date);
         }
 
-        // Checks and calls the reorder table clearance method   -   Runs every 1 hour
+        // Checks and calls the reorder table clearance method   -   Runs every 1 hour             // SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI  
         protected void ThreadEODFunc()
         {
             System.Timers.Timer t = new System.Timers.Timer();
@@ -99,7 +87,7 @@ namespace Team12_SSIS
             t.Start();
         }
 
-        // Checks and calls the forecasting algo method   -   Runs every 1 hour
+        // Checks and calls the forecasting algo method   -   Runs every 1 hour              // SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI  
         protected void ThreadSundaeFunc()
         {
             System.Timers.Timer t = new System.Timers.Timer();

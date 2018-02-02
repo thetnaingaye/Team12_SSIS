@@ -16,7 +16,7 @@ namespace Team12_SSIS.BusinessLogic
     public class RequisitionLogic
     {
 
-        //----------------------------         KHAIR's               ----------------------------// 
+        //----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------//
 
 
         // Retrieve requisition order by RequestID
