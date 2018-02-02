@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+//-------------------------------------------Written by Thanisha-------------------------------------------------------//
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,50 +15,51 @@ namespace Team12_SSIS.DepartmentHead
 {
     public partial class ViewDisbursementForm : System.Web.UI.Page
     {
-        List<Object> dsList;
-        List<Object> uList;
-        DisbursementLogic disbursement = new DisbursementLogic();
-        
+        List<DisbursementList> dsList;
+        List<DisbursementList> uList;
+      
+   
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                uList = disbursement.GetDisbursementForm();
-                GridViewDisbursement.DataSource = uList;
+                uList = DisbursementLogic.GetDisbursementForm();
+             var lastNlist = uList.Skip(Math.Max(0, uList.Count() -10)).Take(10); ;
+
+                GridViewDisbursement.DataSource = lastNlist;
                 GridViewDisbursement.DataBind();
+                LblMsg.Visible = false;
 
             }
         }
-        //-------------------------Filter by rep-----------//
+      
+ //-------------------------Filter by rep------------------------------------------------------------------------------//
        protected void BtnFindrep_Click(object sender, EventArgs e)
         {
-            string sal = DdlSal.SelectedItem.Text;
-            dsList = disbursement.GetDisbursementByRep(sal + " " + TxtRep.Text);
+           
+            dsList = DisbursementLogic.GetDisbursementByRep(TxtRep.Text);
             GridViewDisbursement.DataSource = dsList;
             GridViewDisbursement.DataBind();
+            LblMsg.Visible = false;
 
         }
-        //-------------------------filter by date range----------//
+//-------------------------filter by date range-----------------------------------------------------------------------//
         protected void BtnFindDate_Click(object sender, EventArgs e)
         {
             DateTime d1 = DateTime.ParseExact(Request.Form["datepicker"], "MM/dd/yyyy", CultureInfo.InvariantCulture);
             DateTime d2= DateTime.ParseExact(Request.Form["datepicker2"], "MM/dd/yyyy", CultureInfo.InvariantCulture);
-            dsList =disbursement.GetDisbursementByDate(d1, d2);
+            string d0 = d1.ToString("yyyy-MM-dd");
+            string d = d2.ToString("yyyy-MM-dd");
+            dsList = DisbursementLogic.GetDisbursementByDate(d1, d2);
             GridViewDisbursement.DataSource = dsList;
             GridViewDisbursement.DataBind();
+            LblMsg.Visible = true;
+            LblMsg.Text= "* Showing disbursement list " +  "within the date range " + d0 + " and " + d;
 
         }
 
 
-
-        //-------------------------gridview details link button click event.........//
-        //-------------------------  directing to Disbursement detail page---//
-        //protected void Btndetailclick(Object sender, CommandEventArgs e)
-        //{
-        //    int dId = Convert.ToInt32(e.CommandArgument.ToString());
-        //    Response.Redirect("ViewDisbursementList.aspx?DisbursementID="+dId);
-
-        //}
+//------------Redirect to View Disbursementlist page to see the Disbursement details-----------------------------------//
 
         protected void GridViewDisbList_RowCommand(object sender, GridViewCommandEventArgs e)
         {

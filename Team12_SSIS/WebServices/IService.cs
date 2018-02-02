@@ -15,77 +15,264 @@ namespace Team12_SSIS.WebServices
     public interface IService
     {
         [OperationContract]
-        [WebGet(UriTemplate = "/GetDisbursementLists", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_DisbursementList> GetDisbursementList();
+        [WebInvoke(UriTemplate = "/GetDisbursementLists", Method ="POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        List<WCF_DisbursementList> GetDisbursementList(string token);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/GetUsersFromDept/{dept}", ResponseFormat = WebMessageFormat.Json)]
-        List<string> GetUsersFromDept(string dept);
+        [WebInvoke(UriTemplate = "/GetUsersFromDept", Method = "POST", 
+            ResponseFormat = WebMessageFormat.Json, 
+            RequestFormat = WebMessageFormat.Json, 
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        List<string> GetUsersFromDept(string dept, string token);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/GetInventoryList", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_InventoryCatalogue> GetInventoryList();
+        [WebInvoke(UriTemplate = "/GetInventoryList", Method ="POST", 
+            ResponseFormat = WebMessageFormat.Json, 
+            RequestFormat = WebMessageFormat.Json)]
+        List<WCF_InventoryCatalogue> GetInventoryList(string token);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/SearchInventoryList/{query}", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_InventoryCatalogue> SearchInventoryList(string query);
+        [WebInvoke(UriTemplate = "/SearchInventoryList", Method = "POST", 
+            ResponseFormat = WebMessageFormat.Json, 
+            RequestFormat = WebMessageFormat.Json, 
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        List<WCF_InventoryCatalogue> SearchInventoryList(string query, string token);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/GetStockCard/{itemID}", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_StockCard> GetStockCard(string itemId);
+        [WebInvoke(UriTemplate = "/GetStockCard", Method = "POST", 
+            ResponseFormat = WebMessageFormat.Json, 
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        List<WCF_StockCard> GetStockCard(string itemId, string token);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/GetAllRequestsList", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_RequisitionRecord> GetStationeryRequests();
+        [WebInvoke(UriTemplate = "/GetAllRequestsList", Method = "POST", 
+            ResponseFormat = WebMessageFormat.Json, 
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        List<WCF_RequisitionRecord> GetStationeryRequests(string token);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/GetRequestsList/{deptId}", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_RequisitionRecord> GetStationeryRequestsById(string deptId);
+        [WebInvoke(UriTemplate = "/GetRequestsList", Method = "POST", 
+            ResponseFormat = WebMessageFormat.Json, 
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        List<WCF_RequisitionRecord> GetStationeryRequestsById(string deptId, string token);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "/UpdateRequestStatus", Method = "POST",
-            ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        void UpdateStationeryRequestStatus(WCF_RequisitionRecord record);
+            ResponseFormat = WebMessageFormat.Json, 
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        void UpdateStationeryRequestStatus(WCF_RequisitionRecord record, string status, string token);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/GetRequestListDetails/{requestId}", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_RequisitionRecordDetail> GetStationeryRequestDetails(string requestId);
+        [WebInvoke(UriTemplate = "/GetRequestListDetails/{requestId}", Method = "POST", 
+            ResponseFormat = WebMessageFormat.Json, 
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        List<WCF_RequisitionRecordDetail> GetStationeryRequestDetails(string requestId, string token);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "/UpdateDisburse", Method = "POST",
             RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json)]
-        void UpdateDisbursementStatus(WCF_DisbursementList disbursementList);
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        void UpdateDisbursementStatus(WCF_DisbursementList disbursementList, string token);
 
-        //[OperationContract]
-        //[WebInvoke(UriTemplate = "/CreateRetrievalList", Method = "POST",
-        //    RequestFormat = WebMessageFormat.Json,
-        //    ResponseFormat = WebMessageFormat.Json)]
-        ////void CreateInventoryRetrievalList(WCF_InventoryRetrievalList retrievalList);
         [OperationContract]
         [WebInvoke(UriTemplate = "/CreateAVRequest", Method = "POST",
             RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json)]
-        void CreateAdjustmentRequest(WCF_AVRequest request);
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        string CreateAdjustmentRequest(WCF_AVRequestDetail avrDetail, string token);
 
 
 
-        // ------------------   From Khair with Love ~   ---------------------//
+        //----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------//
 
         // Retrieving total quantity needed on a per item basis necessary for inventory retrieval
         [OperationContract]
-        [WebGet(UriTemplate = "/GetTotalQtyNeeded/{itemID}", ResponseFormat = WebMessageFormat.Json)]
-        int RetrieveTotalQtyNeeded(string itemID);
+        [WebInvoke(UriTemplate = "/GetTotalQtyNeeded", Method = "POST",
+            ResponseFormat = WebMessageFormat.Json, 
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        int RetrieveTotalQtyNeeded(string itemID, string token);
 
         // Retrieving the relevant item list for inventory retrieval
         [OperationContract]
-        [WebGet(UriTemplate = "/GetRelevantItemList", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_InventoryCatalogue> GetRelevantItemList();
+        [WebInvoke(UriTemplate = "/GetRelevantItemList", Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json)]
+        List<WCF_InventoryCatalogue> GetRelevantItemList(string token);
 
         // Retrieving the relevant aggregated by dept list for inventory retrieval
         [OperationContract]
-        [WebGet(UriTemplate = "/GetRelevantListByDept/{itemID}", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_TempInventoryRetrieval> GetRelevantListByDept(string itemID);
+        [WebInvoke(UriTemplate = "/GetRelevantListByDept", Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        List<WCF_TempInventoryRetrieval> GetRelevantListByDept(string itemID, string token);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate= "/SubmitRetrieval", Method = "POST", 
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json, 
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        string SubmitInventoryRetrieval(List<WCF_TempInventoryRetrieval> tempList, string token);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/ApproveRequisition", Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        string ApproveRequisition(WCF_RequisitionRecord tempObj, string token);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/RejectRequisition", Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        string RejectRequisition(WCF_RequisitionRecord tempObj, string token);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //Naing
+        [OperationContract]
+        [WebGet(UriTemplate = "/GetDeptName/{deptid}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_Department GetDeptName(string deptid);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
 

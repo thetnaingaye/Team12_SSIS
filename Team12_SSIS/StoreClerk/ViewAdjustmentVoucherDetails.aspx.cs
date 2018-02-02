@@ -12,8 +12,11 @@ namespace Team12_SSIS.StoreClerk
 {
     public partial class ViewAdjustmentVoucherDetails : System.Web.UI.Page
     {
+        Label statusMessage;
         protected void Page_Load(object sender, EventArgs e)
         {
+            statusMessage = this.Master.FindControl("LblStatus") as Label;
+
             if (Session["AdjustVID"] == null)
             {
                 Response.Redirect("~/StoreClerk/ListOfAdjustmentVouchers.aspx");
@@ -23,6 +26,17 @@ namespace Team12_SSIS.StoreClerk
                 int avRId = (int)Session["AdjustVID"];
                 BindGird(avRId);
             }
+
+            //If it is redirected from Create Adjustment Voucher Page.
+            if (Session["AdjVSuccess"] != null)
+            {
+                string statusMsg = (string)Session["AdVSuccess"];
+                statusMessage.Text = statusMsg;
+                statusMessage.ForeColor = Color.Green;
+                statusMessage.Visible = true;
+                Session["AdjVSuccess"] = null;
+            }
+
         }
 
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -32,7 +46,7 @@ namespace Team12_SSIS.StoreClerk
                 AVRequestDetail avR = (AVRequestDetail)e.Row.DataItem;
                 string itemId = avR.ItemID;
                 string itemName = InventoryLogic.GetItemName(itemId);
-                string adjValue = (InventoryLogic.GetInventoryPrice(itemId) * avR.Quantity).ToString();
+                string adjValue = ((double)(InventoryLogic.GetInventoryPrice(itemId) * avR.Quantity)).ToString("c");
 
                 Label LblDesc = (e.Row.FindControl("LblDesc") as Label);
                 if (LblDesc != null)
@@ -65,7 +79,7 @@ namespace Team12_SSIS.StoreClerk
                     {
                         LblPageTitle.Text = "Inventory Adjustment Voucher";
                         LblRequestIDLabel.Text = "Inventory Adjustment Voucher ID: ";
-                        LblRequestID.Text = InventoryLogic.GetAdjustmentVoucherApproveID(aVRequest.AVRID).ToString();
+                        LblRequestID.Text = "AV" + InventoryLogic.GetAdjustmentVoucherApproveID(aVRequest.AVRID).ToString("0000");
                         LblHandledBy.Text = aVRequest.HandledBy;
                         DateTime dateProcessed = (DateTime)aVRequest.DateProcessed;
                         LblDateProcessed.Text = dateProcessed.ToString("d");
@@ -75,7 +89,7 @@ namespace Team12_SSIS.StoreClerk
                     {
                         LblPageTitle.Text = "Inventory Adjustment Voucher Request";
                         LblRequestIDLabel.Text = "Inventory Adjustment Voucher Request ID: ";
-                        LblRequestID.Text = aVRequest.AVRID.ToString();
+                        LblRequestID.Text = "AVR" + aVRequest.AVRID.ToString("0000");
                         LblHandledBy.Text = aVRequest.HandledBy;
                         DateTime dateProcessed = (DateTime)aVRequest.DateProcessed;
                         LblDateProcessed.Text = dateProcessed.ToString("d");
@@ -85,7 +99,7 @@ namespace Team12_SSIS.StoreClerk
                     {
                         LblPageTitle.Text = "Inventory Adjustment Voucher Request";
                         LblRequestIDLabel.Text = "Inventory Adjustment Voucher Request ID: ";
-                        LblRequestID.Text = aVRequest.AVRID.ToString();
+                        LblRequestID.Text = "AVR" + aVRequest.AVRID.ToString("0000");
                         LblHandledByLabel.Visible = false;
                         LblHandledBy.Visible = false;
                         LblDateProcessedLabel.Visible = false;
@@ -98,7 +112,7 @@ namespace Team12_SSIS.StoreClerk
 
                         LblPageTitle.Text = "Inventory Adjustment Voucher Request";
                         LblRequestIDLabel.Text = "Inventory Adjustment Voucher Request ID: ";
-                        LblRequestID.Text = aVRequest.AVRID.ToString();
+                        LblRequestID.Text = "AVR" + aVRequest.AVRID.ToString("0000");
                         LblHandledByLabel.Visible = false;
                         LblHandledBy.Visible = false;
                         LblDateProcessedLabel.Visible = false;
@@ -111,8 +125,7 @@ namespace Team12_SSIS.StoreClerk
 
         protected void BtnCancelReq_Click(object sender, EventArgs e)
         {
-            int aVRId = int.Parse(LblRequestID.Text);
-            Label statusMessage = this.Master.FindControl("LblStatus") as Label;
+            int aVRId = Utility.Utility.GetValidPrimaryKeyInt(LblRequestID.Text);
             if (InventoryLogic.CancelAdjustmentVoucherRequest(aVRId))
             {
                 statusMessage.ForeColor = Color.Green;
@@ -124,8 +137,6 @@ namespace Team12_SSIS.StoreClerk
                 statusMessage.Text = "Inventory Adjustment Voucher Request ID: " + aVRId.ToString() + " cannot be cancelled.";
             }
             Response.Redirect("~/StoreClerk/ViewAdjustmentVoucherDetails.aspx");
-        }
-
-       
+        }       
     }
 }

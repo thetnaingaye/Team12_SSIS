@@ -64,19 +64,19 @@
                 </td>
             </tr>
             <td colspan="2">
-                <asp:GridView ID="GridViewAPO" class="table" runat="server" AutoGenerateColumns="False"
+                <asp:GridView ID="GridViewAPO" runat="server" AutoGenerateColumns="False"
                     Style="width: 100%" ShowHeaderWhenEmpty="True"
                     OnRowDataBound="OnRowDataBound"
-                    CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridViewAPO_SelectedIndexChanged">
-               <AlternatingRowstyle BackColor="#f9f9f9"/>
+                    CellPadding="4" ForeColor="#333333" GridLines="None">
+                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                     <Columns>
 
-                        <asp:TemplateField HeaderText="Description" HeaderStyle-Width="50%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                        <asp:TemplateField HeaderText="Description" HeaderStyle-Width="52%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                             <ItemTemplate>
                                 <asp:Label ID="LblDesc" runat="server"></asp:Label>
                             </ItemTemplate>
 
-                            <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="50%"></HeaderStyle>
+                            <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="52%"></HeaderStyle>
                             <ItemStyle CssClass="text-center"></ItemStyle>
                         </asp:TemplateField>
 
@@ -128,11 +128,11 @@
             <tr>
 
                 <td>
-                    <asp:Button ID="btnapr" CssClass="btn btn-primary" runat="server" Text="Approve" Height="38px" Width="110px" OnClick="btnapr_Click" /></td>
+                    <asp:Button ID="btnapr" runat="server" Text="Approve" CssClass="btn btn-success" OnClick="btnapr_Click" /></td>
 
 
                 <td>
-                    <asp:Button ID="btncancel" CssClass="btn btn-primary" runat="server" Text="Reject" Height="39px" Width="94px" OnClick="btncancel_Click" /></td>
+                    <asp:Button ID="btncancel" runat="server" Text="Reject" CssClass="btn btn-danger" OnClick="btncancel_Click" /></td>
 
             </tr>
         </table>

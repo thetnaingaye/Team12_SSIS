@@ -7,36 +7,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Team12_SSIS.DepartmentEmployee {
+namespace Team12_SSIS.StoreReport {
     
     
-    public partial class CheckOutRequest {
+    public partial class RequisitionTrendReport {
         
         /// <summary>
-        /// LinkButtonViewCatalogue control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButtonViewCatalogue;
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// GridViewCheckOut control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewCheckOut;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// BtnCheckOut control.
+        /// ReportViewerDeptReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnCheckOut;
+        protected global::Microsoft.Reporting.WebForms.ReportViewer ReportViewerDeptReq;
     }
 }

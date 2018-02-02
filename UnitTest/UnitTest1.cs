@@ -9,6 +9,9 @@ using System.Data;
 using System.Linq;
 using Team12_SSIS.Model;
 using System.Web.Security;
+using System.Text.RegularExpressions;
+using System.Text;
+using Team12_SSIS.Supplier;
 
 namespace UnitTest
 {
@@ -16,100 +19,36 @@ namespace UnitTest
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
-        {
-            Console.WriteLine(IsPositiveInteger(23));
-            Console.WriteLine(IsPositiveInteger(-23).ToString());
-            Console.WriteLine(IsPositiveInteger(0).ToString());
+        public void TestGetCollectionPointNameAndId()
+		{
+			//This is english dept
+			string currentDept = "ENGL"; 
+			//This should show the current CP Id - currently is 6.
+			string currentCPByDept = DisbursementLogic.GetCurrentCPIDByDep(currentDept);
+			Console.WriteLine(currentCPByDept);
+			//This should show University Hospital, 11A.M
+			string currentCPNameById = DisbursementLogic.GetCurrentCPWithTimeByID(Int32.Parse(currentCPByDept));
+			Console.WriteLine(currentCPNameById);			
         }
         [TestMethod]
-        public void TestMethod2()
-        {
+        public void TestGetCurrentOrderLeadTime()
+		{
+			//This is ALPHA Office Supplies
+			string supplierID = "ALPA";
+			//This should show the current order lead time of ALPHA Office Supplies - 3
+			string orderLeadTime = PurchasingLogic.GetCurrentOrderLeadTime(supplierID).ToString();
+			Console.WriteLine(orderLeadTime);
 
-            Console.WriteLine(IsProductIdFormat("P0232"));
-            Console.WriteLine(IsProductIdFormat("p0232"));
-            Console.WriteLine(IsProductIdFormat("pp0232"));
-            Console.WriteLine(IsProductIdFormat("#0323"));
-            Console.WriteLine(IsProductIdFormat("0232"));
-        }
+		}
         [TestMethod]
-        public void TestMethod3()
+        public void TestGetCurrentBufferStockLevel()
         {
-            Console.WriteLine(IsEmailFormat("abc@gmail.com"));
-            Console.WriteLine(IsEmailFormat("abc@u.nus.edu"));
-            Console.WriteLine(IsEmailFormat("abc.abc.nus.edu"));
+			//This is Clips item
+			string itemID = "C001";
+			//This should show the current buffer stock level of Clips item -
+			int bufferStockLevel = PurchasingLogic.GetCurrentBufferStock(itemID);
+			Console.WriteLine(bufferStockLevel);
         }
 
-        [TestMethod]
-        public void TestMethod4()
-        {
-            string todayDate = "18/Jan/2017";
-            string tomorrowDate = "20/Jan/2017";
-            Console.WriteLine(IsDateRangeValid(DateTime.Parse(todayDate), DateTime.Parse(tomorrowDate)).ToString());
-            Console.WriteLine(IsDateRangeValid(DateTime.Parse(todayDate), DateTime.Parse(todayDate)).ToString());
-            Console.WriteLine(IsDateRangeValid(DateTime.Parse(tomorrowDate), DateTime.Parse(todayDate)).ToString());
-        }
-
-        [TestMethod]
-        public void TestMethod6()
-        {
-			List<string> testlist = Utility.GetClerksEmailAddressList();
-			foreach(string s in testlist)
-			{
-				Console.WriteLine(s);
-			}
-
-        }
-        [TestMethod]
-        public void TestMail()
-        {
-            using(EmailControl em = new EmailControl())
-            {
-                em.DisburstmentPointChangeNotification("lim.chang.siang@gmail.com", "English", "Naiag", "Science");
-            }
-        }
-
-
-        public void TestMethod7()
-        {
-            //Start Here....
-
-
-
-
-
-
-
-
-            //Some things there
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }
     }
 }

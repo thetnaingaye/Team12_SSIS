@@ -51,8 +51,7 @@ namespace Team12_SSIS.StoreClerk
                 {
                     PriceLbl.Text = ((double)(poR.UnitPrice * poR.Quantity)).ToString("c");
                 }
-                PurchasingLogic pl = new PurchasingLogic();
-                LblTotal.Text = pl.FindTotalByPONum(poR.PONumber).ToString("c");
+                LblTotal.Text = PurchasingLogic.FindTotalByPONum(poR.PONumber).ToString("c");
             }
         }
         protected void BindGird(int poNo)

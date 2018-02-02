@@ -13,24 +13,6 @@ namespace Team12_SSIS.DepartmentHead {
     public partial class ViewDisbursementForm {
         
         /// <summary>
-        /// LblTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblTitle;
-        
-        /// <summary>
-        /// LblDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblDate;
-        
-        /// <summary>
         /// LblStartDate control.
         /// </summary>
         /// <remarks>
@@ -67,15 +49,6 @@ namespace Team12_SSIS.DepartmentHead {
         protected global::System.Web.UI.WebControls.Label LblRep;
         
         /// <summary>
-        /// DdlSal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DdlSal;
-        
-        /// <summary>
         /// TxtRep control.
         /// </summary>
         /// <remarks>
@@ -101,5 +74,14 @@ namespace Team12_SSIS.DepartmentHead {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridViewDisbursement;
+        
+        /// <summary>
+        /// LblMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblMsg;
     }
 }

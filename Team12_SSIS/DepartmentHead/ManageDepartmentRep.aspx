@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <h2>Manage Representative</h2>
     <asp:Label ID="CurrentRepTextLbl" runat="server" Text="Current Representative:"></asp:Label>
     <asp:Label ID="CurrentRepLbl" runat="server"></asp:Label>
     <br />
@@ -14,7 +15,7 @@
     </asp:DropDownList>
     <br />
     <br />
-    <asp:Button ID="AssignRepBtn" runat="server" OnClick="AssignRepBtn_Click" Text="Assign Representative" OnClientClick="this.disabled=true;" UseSubmitBehavior="false" />
+    <asp:Button ID="AssignRepBtn" CssClass="btn btn-primary" runat="server" OnClick="AssignRepBtn_Click" Text="Assign Representative" OnClientClick="this.disabled=true;" UseSubmitBehavior="false" />
     <br />
     <br />
 </asp:Content>

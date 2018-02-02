@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+//-----------------------------------------------Written by Thanisha------------------------------------------------//
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,26 +17,31 @@ namespace Team12_SSIS.DepartmentHead
         List<Object> detailList;
      DisbursementList detail;
         CollectionPoint cdetail;
-        DisbursementLogic logic = new DisbursementLogic();
+      
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string id = Convert.ToString(Session["dId"]);
+//--------------------------------Getting Disbursement id from session-------------------------------------------------//
+            string id = Convert.ToString(Session["dId"]);           
+
             int DisbursementID = Convert.ToInt32(id);
             LblIdD.Text = id;
 
-            detail = logic.GetDisbursementtextDetails(DisbursementID);
+//------------------------Getting RepresentaTive name------------------------------------------------------------------//
+
+            detail = DisbursementLogic.GetDisbursementtextDetails(DisbursementID);
             LblRepresentativeNameD.Text = detail.RepresentativeName;
 
-           
+//------------------------------Getting collectin point and date information-----------------------------------------//           
                 DateTime collectionDate=(DateTime) detail.CollectionDate;
             LblCollectionDateD.Text = collectionDate.ToString("MM/dd/yyyy");
 
-            cdetail = logic.GetDisbursementCollectionDetails(DisbursementID);
+ 
+            cdetail = DisbursementLogic.GetDisbursementCollectionDetails(DisbursementID);
             LblCollectionPointD.Text = cdetail.CollectionPoint1;
             
-            //------------------------Binding datagridview with disbursement details----//
-            detailList = logic.GetDisbursementDetails(DisbursementID);
+//----------------------------------Binding datagridview with disbursement details------------------------------------//
+            detailList = DisbursementLogic.GetDisbursementDetails(DisbursementID);
             GridViewDisbursementDetails.DataSource = detailList;
             GridViewDisbursementDetails.DataBind();
            

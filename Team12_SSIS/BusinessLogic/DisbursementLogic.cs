@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Profile;
 using System.Web.Security;
@@ -319,45 +320,48 @@ namespace Team12_SSIS.BusinessLogic
 
         //-------------------------Getting disbursement details------------------------------//
         //-----------------------Entire disbursement List------------------------------------//
-        //public List<DisbursementList> GetDisbursementList()
-        //{
-        //    using (SA45Team12AD entities = new SA45Team12AD())
-        //    {
-        //        return entities.DisbursementLists.ToList<DisbursementList>();
-        //    }
-        //}
+        public static List<DisbursementList> GetDisbursementForm()
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                string departmentId = GetCurrentDep();
+                return entities.DisbursementLists.Where(x=>x.DepartmentID== departmentId).ToList<DisbursementList>();
+            }
+        }
 
-    
+
         //-------------------------------Filter the disbursement details  by date range-------------------------------------------------------------------//
-        //public List<DisbursementList> GetDisbursementByDate(DateTime startDate, DateTime enddate)
-        //{
-        //    using (SA45Team12AD entities = new SA45Team12AD())
-        //    {
-        //        var q = (from di in entities.DisbursementLists
-        //                 where di.CollectionDate >= startDate && di.CollectionDate <= enddate
-        //                 select di);
+        public static List<DisbursementList> GetDisbursementByDate(DateTime startDate, DateTime enddate)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                string departmentId = GetCurrentDep();
+                var q = (from di in entities.DisbursementLists
+                         where di.CollectionDate >= startDate && di.CollectionDate <= enddate && di.DepartmentID==departmentId
+                         select di);
 
-        //        List<DisbursementList> dList = q.ToList<DisbursementList>();
-        //        return dList;
-        //    }
-        //}
+                List<DisbursementList> dList = q.ToList<DisbursementList>();
+                return dList;
+            }
+        }
 
         //-------------------------------Filter the disbursement details  by rep-------------------------------------------------------------------//
-        //public List<DisbursementList> GetDisbursementByRep(string rep)
-        //{
-        //    using (SA45Team12AD entities = new SA45Team12AD())
-        //    {
-        //        var q = (from di in entities.DisbursementLists
-        //                where di.RepresentativeName == rep
-        //                 select di);
-        //        List<DisbursementList> dList = q.ToList<DisbursementList>();
-        //        return dList;
-        //    }
-        //}
+        public static List<DisbursementList> GetDisbursementByRep(string rep)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                string departmentId = GetCurrentDep();
+                var q = (from di in entities.DisbursementLists
+                         where di.RepresentativeName.Contains(rep) && di.DepartmentID == departmentId
+                         select di);
+                List<DisbursementList> dList = q.ToList<DisbursementList>();
+                return dList;
+            }
+        }
 
         //-------------------------------get departments()-------------------------------------------------------------------//
 
-        public List<Department> GetDepartmentList()
+        public static List<Department> GetDepartmentList()
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -367,7 +371,7 @@ namespace Team12_SSIS.BusinessLogic
 
         //-------------------------------filter disbursement by department------------------------------------------------------------------//
 
-        public List<DisbursementList> GetDepartmentListByDep(string dep)
+        public static List<DisbursementList> GetDisbursementmentListByDep(string dep)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -378,77 +382,12 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        //-----------------------------using join to get disbursement form details from 3 tables:1)DisbursementLists 2)Departments 3)CollectionPoints --------//
-        public List<Object> GetDisbursementForm()
-        {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                var q = (from di in entities.DisbursementLists
-                         join de in entities.Departments on di.DepartmentID equals de.DeptID
-                         join co in entities.CollectionPoints on di.CollectionPointID equals co.CollectionPointID
-                         select new
-                         {
-                             DisbursementID = di.DisbursementID,
-                             DepartmentName = de.DepartmentName,
-                             CollectionDate = di.CollectionDate,
-                             CollectionPoint = co.CollectionPoint1,
-                             RepresentativeName = di.RepresentativeName,
-                             status = di.Status
-                         });
-                List<Object> dList = q.ToList<Object>();
-                return dList;
-            }
-        }
+      
 
-        public List<Object> GetDisbursementByRep(string rep)
-        {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                var q = (from di in entities.DisbursementLists
-                         join de in entities.Departments on di.DepartmentID equals de.DeptID
-                         join co in entities.CollectionPoints on di.CollectionPointID equals co.CollectionPointID
-                         where di.RepresentativeName == rep
-                         select new
-                         {
-                             DisbursementID = di.DisbursementID,
-                             DepartmentName = de.DepartmentName,
-                             CollectionDate = di.CollectionDate,
-                             CollectionPoint = co.CollectionPoint1,
-                             RepresentativeName = di.RepresentativeName,
-                             status = di.Status
-                         });
-                List<Object> dList = q.ToList<Object>();
-                return dList;
-            }
-        }
-
-        //-----------------------------using join to get disbursement form details from 3 tables:1). DisbursementLists 2).Departments 3).CollectionPoints----------------//
-        //-------------------------------Filter the disbursement details  by date range-------------------------------------------------------------------//
-        public List<Object> GetDisbursementByDate(DateTime startDate, DateTime enddate)
-        {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                var q = (from di in entities.DisbursementLists
-                         join de in entities.Departments on di.DepartmentID equals de.DeptID
-                         join co in entities.CollectionPoints on di.CollectionPointID equals co.CollectionPointID
-                         where di.CollectionDate >= startDate && di.CollectionDate <= enddate
-                         select new
-                         {
-                             DisbursementID = di.DisbursementID,
-                             DepartmentName = de.DepartmentName,
-                             CollectionDate = di.CollectionDate,
-                             CollectionPoint = co.CollectionPoint1,
-                             RepresentativeName = di.RepresentativeName,
-                             status = di.Status
-                         });
-                List<Object> dList = q.ToList<Object>();
-                return dList;
-            }
-        }
 
         //----------------------------------for Disbursement Details page--------------------------//
 
-        public List<Object> GetDisbursementDetails(int id)
+        public static List<Object> GetDisbursementDetails(int id)
         {
 
             using (SA45Team12AD entities = new SA45Team12AD())
@@ -470,7 +409,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public DisbursementList GetDisbursementtextDetails(int id)
+        public static DisbursementList GetDisbursementtextDetails(int id)
         {
 
             using (SA45Team12AD entities = new SA45Team12AD())
@@ -483,7 +422,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public CollectionPoint GetDisbursementCollectionDetails(int id)
+        public static CollectionPoint GetDisbursementCollectionDetails(int id)
         {
 
             using (SA45Team12AD entities = new SA45Team12AD())
@@ -816,6 +755,12 @@ namespace Team12_SSIS.BusinessLogic
             RequisitionRecord rRecord = new RequisitionRecord();
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
+                rRecord.DepartmentID = deptId;
+                rRecord.Remarks = remarks;
+                rRecord.RequestorName = "DisbursementLogic";
+                rRecord.RequestDate = DateTime.Now.Date;
+                rRecord.ApprovedDate = DateTime.Now.Date;
+                rRecord.ApproverName = "System Generated Request";
                 ctx.RequisitionRecords.Add(rRecord);
                 ctx.SaveChanges();
                 return rRecord.RequestID;
@@ -828,8 +773,8 @@ namespace Team12_SSIS.BusinessLogic
             rRDetails.RequestID = requestId;
             rRDetails.ItemID = itemId;
             rRDetails.RequestedQuantity = requestedQuantity;
-            rRDetails.Status = "Pending";
-
+            rRDetails.Status = "Approved";
+            rRDetails.Priority = "Yes";
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 ctx.RequisitionRecordDetails.Add(rRDetails);
@@ -839,10 +784,15 @@ namespace Team12_SSIS.BusinessLogic
 
         private void CheckForOutstandingItem(int quantityCollected, DisbursementListDetail dListDetails, string remarks)
         {
-            if (quantityCollected < dListDetails.QuantityCollected)
+            string departmentId;
+            using(SA45Team12AD ctx = new SA45Team12AD())
             {
-                int Reqid = CreateSystemStationeryRequest(DateTime.Now.Date, dListDetails.DisbursementList.DepartmentID, remarks);
-                CreateStationeryRequestDetails(Reqid, dListDetails.ItemID, (int)dListDetails.QuantityCollected - quantityCollected);
+                departmentId = ctx.DisbursementLists.Where(x => x.DisbursementID == dListDetails.DisbursementID).Select(x => x.DepartmentID).FirstOrDefault();
+            }
+            if (quantityCollected < dListDetails.ActualQuantity)
+            {
+                int Reqid = CreateSystemStationeryRequest(DateTime.Now.Date, departmentId, ("DisbursementLogic for: DL" + dListDetails.DisbursementID.ToString("0000")));
+                CreateStationeryRequestDetails(Reqid, dListDetails.ItemID, (int)dListDetails.ActualQuantity - quantityCollected);
             }
         }
 
@@ -880,15 +830,27 @@ namespace Team12_SSIS.BusinessLogic
 
         public static bool UpdateDisbursementStatus(int disbursementId, string status)
         {
+            string email;
+            string collectPoint;
+            string dateTime;
             bool success = false;
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 DisbursementList dL = ctx.DisbursementLists.Where(x => x.DisbursementID == disbursementId).FirstOrDefault();
+                email = Utility.Utility.GetEmailAddressByName(dL.RepresentativeName);
+                collectPoint = GetCurrentCPWithTimeByID(dL.CollectionPointID);
+                dateTime = ((DateTime)dL.CollectionDate).ToString("d");
                 dL.Status = status;
                 ctx.SaveChanges();
                 success = true;
             }
-            return success;
+            if (status == "Cancelled")
+                using(EmailControl em = new EmailControl())
+                {
+                    em.CancelStationeryCollectionNotification(email, collectPoint, dateTime);
+                }
+
+                return success;
         }
 
         public static List<DisbursementList> GetListOfDisbursements()
@@ -911,6 +873,28 @@ namespace Team12_SSIS.BusinessLogic
                         return ctx.DisbursementLists.Where(x => x.Status == query).ToList();
                     default:
                         return ctx.DisbursementLists.ToList();
+                }
+            }
+        }
+
+        //Send reminder email to department rep 2 days before the collection date
+        public static void SendCollectionReminder(DateTime date)
+        {
+            string email;
+            string collectPoint;
+            string dateTime;
+            using (SA45Team12AD ctx = new SA45Team12AD())
+            {
+                List<DisbursementList> dList = ctx.DisbursementLists.Where(x => x.CollectionDate == date.Add(TimeSpan.FromDays(2))).ToList();
+                foreach (DisbursementList d in dList)
+                {
+                    email = Utility.Utility.GetEmailAddressByName(d.RepresentativeName);
+                    collectPoint = GetCurrentCPWithTimeByID(d.CollectionPointID);
+                    dateTime = ((DateTime)d.CollectionDate).ToString("d");
+                    using (EmailControl em = new EmailControl())
+                    {
+                        em.RemindStationeryCollectionNotification(email, collectPoint, dateTime);
+                    }
                 }
             }
         }
@@ -1358,7 +1342,6 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        
 
 
 
@@ -1878,14 +1861,18 @@ namespace Team12_SSIS.BusinessLogic
 				department.CollectionPointID = cpid;
 				entities.SaveChanges();
 			}
-			using (EmailControl em = new EmailControl())
-			{
-				
-				List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
-				string newCPID = GetCurrentCPIDByDep(depid);
-				string newCPName = GetCurrentCPWithTimeByID(Int32.Parse(newCPID));
-				em.DisburstmentPointChangeNotification(clerkemails, GetDepNameByDepID(depid), GetDeptRepFullName(depid),newCPName);
-			}
+            Thread collectPointThread = new Thread(delegate ()
+            {
+                using (EmailControl em = new EmailControl())
+                {
+
+                    List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+                    string newCPID = GetCurrentCPIDByDep(depid);
+                    string newCPName = GetCurrentCPWithTimeByID(Int32.Parse(newCPID));
+                    em.DisburstmentPointChangeNotification(clerkemails, GetDepNameByDepID(depid), GetDeptRepFullName(depid), newCPName);
+                }
+            });
+            collectPointThread.Start();
 		}
 
 		public static List<MembershipUser> GetUsersFromDept(string dept)
@@ -2010,32 +1997,35 @@ namespace Team12_SSIS.BusinessLogic
 			return null;
 		}
 
-		public static void UpdateDeptRep(String newrepfullname, String dept)
-		{
-			Roles.AddUserToRole(GetDeptRepUserName(GetCurrentDep()), "Employee");
-			Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
-			Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
-			Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
+        public static void UpdateDeptRep(String newrepfullname, String dept)
+        {
+            Roles.AddUserToRole(GetDeptRepUserName(GetCurrentDep()), "Employee");
+            Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
+            Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
+            Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
 
-			using(EmailControl em = new EmailControl())
-			{
-				List<string> allemails = new List<string>();
-				List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
-				List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
-				foreach(string s in clerkemails)
-				{
-					allemails.Add(s);
-				}
-				foreach(string s in depusersemails)
-				{
-					allemails.Add(s);
-				}
+            Thread bgThread = new Thread(delegate()
+            {
+                using (EmailControl em = new EmailControl())
+                {
+                    List<string> allemails = new List<string>();
+                    List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+                    List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
+                    foreach (string s in clerkemails)
+                    {
+                        allemails.Add(s);
+                    }
+                    foreach (string s in depusersemails)
+                    {
+                        allemails.Add(s);
+                    }
 
-				em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
-			}
-			
-			
-		}
-	}
+                    em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
+                }
+            });
+            bgThread.Start();
+
+        }
+    }
 
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Author - Pradeep Elango
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -35,6 +37,7 @@ namespace Team12_SSIS.DepartmentHead
 
 		protected void ViewAllBtn_Click(object sender, EventArgs e)
 		{
+			SearchTxt.Text = "";
 			BindGrid();
 		}
 	}

@@ -1531,7 +1531,7 @@ h6,
     font-family: "Open Sans", sans-serif;
     font-weight: 500;
     line-height: 1.1;
-    color: inherit;
+   
 }
 
     h1 small,
@@ -3123,6 +3123,7 @@ table th[class*="col-"] {
 .table-hover > tbody > tr.danger:hover > th {
     background-color: #e60033;
 }
+
 
 .table-responsive {
     overflow-x: auto;

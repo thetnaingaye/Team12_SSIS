@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Team12_SSIS.StoreManager
+namespace Team12_SSIS
 {
 
 
-    public partial class IssueAdjustmentVoucher
+    public partial class ReportViewer
     {
     }
 }

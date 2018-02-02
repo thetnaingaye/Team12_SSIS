@@ -3,9 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <p>
-        Change Collection Point
-        </p>
+    
+        <h2>Change Collection Point</h2>
+        
     <p>
         Current Collection Point: <asp:Label ID="CurrentCollectionPointLbl" runat="server"></asp:Label>
     </p>
@@ -17,7 +17,7 @@
         </asp:RadioButtonList>
     </p>
     <p>
-        <asp:Button ID="ChangeCollectionPointBtn" runat="server" Text="Change Collection Point" OnClick="ChangeCollectionPointBtn_Click" OnClientClick="this.disabled=true;" UseSubmitBehavior="false" />
+        <asp:Button ID="ChangeCollectionPointBtn" CssClass="btn btn-primary" runat="server" Text="Change Collection Point" OnClick="ChangeCollectionPointBtn_Click" OnClientClick="this.disabled=true;" UseSubmitBehavior="false" />
     </p>
     <p>
         <asp:Label ID="ChangedLbl" runat="server" Visible="False"></asp:Label>

@@ -14,7 +14,8 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:Label ID="LblTitle" runat="server" Text="Disbursement Details" Font-Size="Large"></asp:Label>
+    <h2>Disbursement Details</h2>
+    <%--<asp:Label ID="LblTitle" runat="server" Text="Disbursement Details" Font-Size="Large"></asp:Label>--%>
     <br />
      <br />
     <table>
@@ -39,7 +40,7 @@
         </tr>
     </table>
     <br />
-    <asp:GridView ID="GridViewDisbursementDetails" runat="server"  AutoGenerateColumns="false" Width="100%" GridLines="None"  BackColor="White"    ShowHeaderWhenEmpty="True" >
+    <asp:GridView ID="GridViewDisbursementDetails" Class="table" runat="server"  AutoGenerateColumns="false" Width="100%" GridLines="None"  BackColor="White"    ShowHeaderWhenEmpty="True" EmptyDataText="No Record Found">
         <Columns>
         <asp:TemplateField HeaderText="Description" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                                 <ItemTemplate>
