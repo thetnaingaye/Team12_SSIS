@@ -67,16 +67,16 @@
                 <asp:GridView ID="GridViewAPO" runat="server" AutoGenerateColumns="False"
                     Style="width: 100%" ShowHeaderWhenEmpty="True"
                     OnRowDataBound="OnRowDataBound"
-                    CellPadding="4" ForeColor="#333333" GridLines="None">
-                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                    CellPadding="4" ForeColor="#333333">
+                    <AlternatingRowStyle BackColor="#f9f9f9"/>
                     <Columns>
 
-                        <asp:TemplateField HeaderText="Description" HeaderStyle-Width="52%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                        <asp:TemplateField HeaderText="Description" HeaderStyle-Width="50%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                             <ItemTemplate>
                                 <asp:Label ID="LblDesc" runat="server"></asp:Label>
                             </ItemTemplate>
 
-                            <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="52%"></HeaderStyle>
+                            <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="50%"></HeaderStyle>
                             <ItemStyle CssClass="text-center"></ItemStyle>
                         </asp:TemplateField>
 

@@ -117,9 +117,5 @@ namespace Team12_SSIS.StoreManager.StoreSupervisor
             btncancel.Visible = false;            
         }
 
-        protected void GridViewAPO_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
