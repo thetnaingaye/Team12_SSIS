@@ -46,7 +46,7 @@ namespace Team12_SSIS.DepartmentEmployee
         protected void BindGrid()
         {
             InventoryLogic il = new InventoryLogic();
-            List<InventoryCatalogue> itemList = InventoryLogic.GetAllCatalogue();
+            List<InventoryCatalogue> itemList = InventoryLogic.GetAllCatalogue().Where(x => x.Discontinued != "Y").ToList();
             GridViewAddRequest.DataSource = itemList;
             GridViewAddRequest.DataBind();
         }
