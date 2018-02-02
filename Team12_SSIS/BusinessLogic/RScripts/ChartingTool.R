@@ -79,7 +79,7 @@ dbconnection <- odbcDriverConnect("Driver=ODBC Driver 11 for SQL Server;
                                   Server=127.0.0.1; Database=SA45Team12AD; Uid=root; Pwd=password; trusted_connection=yes")
 
 #Retrieving our list of items
-listItems <- sqlQuery(dbconnection, "SELECT * FROM [SA45Team12AD].[dbo].[InventoryCatalogue]")
+listItems <- sqlQuery(dbconnection, "SELECT * FROM [SA45Team12AD].[dbo].[InventoryCatalogue] WHERE Discontinued = 'N'")
 
 #Close connection
 odbcClose(dbconnection)
