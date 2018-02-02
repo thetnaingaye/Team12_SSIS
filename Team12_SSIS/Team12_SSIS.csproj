@@ -186,7 +186,7 @@
     <Content Include="SQLStoredProcedureForReports%28ChangSiang%29.txt" />
     <Content Include="SSIS_UserPassword.txt" />
     <Content Include="StoreClerk\CurrentRequisitionOrders.aspx" />
-    <Content Include="StoreClerk\ForecastReport.aspx" />
+    <Content Include="StoreReport\ForecastReport.aspx" />
     <Content Include="StoreClerk\PastRequisitionOrders.aspx" />
     <Content Include="StoreClerk\ReorderList.aspx" />
     <Content Include="StoreClerk\RetrievalList.aspx" />
@@ -550,11 +550,11 @@
     <Compile Include="StoreClerk\CurrentRequisitionOrders.aspx.designer.cs">
       <DependentUpon>CurrentRequisitionOrders.aspx</DependentUpon>
     </Compile>
-    <Compile Include="StoreClerk\ForecastReport.aspx.cs">
+    <Compile Include="StoreReport\ForecastReport.aspx.cs">
       <DependentUpon>ForecastReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="StoreClerk\ForecastReport.aspx.designer.cs">
+    <Compile Include="StoreReport\ForecastReport.aspx.designer.cs">
       <DependentUpon>ForecastReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoreClerk\Home.aspx.cs">

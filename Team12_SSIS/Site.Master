@@ -151,6 +151,9 @@
                                     <li class="menu-item dropdown dropdown-submenu">
                                         <a href="<%= Page.ResolveUrl("~/StoreReport/SupplierOrderReport.aspx") %>">Supplier Order Report</a>
                                     </li>
+                                    <li class="menu-item dropdown dropdown-submenu">
+                                        <a href="<%= Page.ResolveUrl("~/StoreReport/ForecastReport.aspx") %>">Forecast Report</a>
+                                    </li>
                                 </ul>
                             </li>
 
@@ -200,6 +203,9 @@
                                     </li>
                                     <li class="menu-item dropdown dropdown-submenu">
                                         <a href="<%= Page.ResolveUrl("~/StoreReport/SupplierOrderReport.aspx") %>">Supplier Order Report</a>
+                                    </li>
+                                    <li class="menu-item dropdown dropdown-submenu">
+                                        <a href="<%= Page.ResolveUrl("~/StoreReport/ForecastReport.aspx") %>">Forecast Report</a>
                                     </li>
                                 </ul>
                             </li>
