@@ -76,7 +76,7 @@ namespace Team12_SSIS.BusinessLogic
                     }
                     else if (hour < targetHour)
                     {
-                        Thread.Sleep(1 * 60 * 60 * 1000);  // WIll sleep for 1hr before checking again
+                        Thread.Sleep(1 * 60 * 60 * 1000);  // Will sleep for 1hr before checking again
                     }
                     else
                     {
@@ -232,8 +232,8 @@ namespace Team12_SSIS.BusinessLogic
                     {
                         try   // Performing our necessary logic...
                         {
-                            CallForecastingScript();
                             CheckActualData();
+                            CallForecastingScript();
                             UpdatingBufferStock();
                         }
                         catch (Exception ee)

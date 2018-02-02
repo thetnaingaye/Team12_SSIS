@@ -154,7 +154,7 @@ namespace Team12_SSIS.BusinessLogic
                     p.RecipientName = "System-generated";
                     p.DeliveryAddress = "21 Lower Kent Ridge Rd, Singapore 119077";  // Default address
                     p.SupplierID = r.SupplierID;
-                    p.CreatedBy = "System-generated";
+                    p.CreatedBy = "Logic University Stationery Store";
                     p.ExpectedDelivery = DateTime.Now.AddDays(Convert.ToDouble(s.OrderLeadTime));
                     p.Status = "Pending";
 

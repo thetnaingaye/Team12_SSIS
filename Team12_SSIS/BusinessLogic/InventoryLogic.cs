@@ -462,16 +462,17 @@ namespace Team12_SSIS.BusinessLogic
                     // Gotta create an entry inside the stock card table
                     CreatestockCard(itemID, DateTime.Now, "Item retrieval for RQ" + reqID + ".", "Minus", actQty, ic.UOM, (currentQty - actQty));
 
+                    //Performing check through the MRP model [Create entry in the reorder record table]
+                    MRPInitialize(itemID);
+
                     // Checking whether req qty is fulfilled   -   Separate this shit out  [Creating requisition records and details]
                     if (isFulfilled == false)
                     {
                         try
                         {
+                            // Create a new req record with its associating details entry
                             AutoCreateRR(reqID);
                             AutoCreateRRDetails(itemID, (reqQty - actQty));
-
-                            //Performing check through the MRP model [Create entry in the reorder record table]
-                            MRPInitialize(itemID);
                         }
                         catch (Exception)
                         {
