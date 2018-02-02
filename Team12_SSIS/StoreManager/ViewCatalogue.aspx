@@ -1,16 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewCatalogue.aspx.cs" Inherits="Team12_SSIS.StoreManager.ViewCatalogue" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
-        .auto-style2 {
-            width: 1115px;
-            overflow: auto;
-        }
+        .gridview {
+    width: 100%; 
+    word-wrap:break-word;
+    table-layout: fixed;
+}
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 <h2>Stationery Catalog List</h2>
-    <table style="width: 100%">
+    <table style="width: 100%; align-self:center">
         <tr>
             <td>
                 <asp:Button ID="BtnCreate" cssclass="btn btn-primary" runat="server" OnClick="BtnCreate_Click" Text="Create" />
@@ -54,7 +55,7 @@
 
                         <asp:TemplateField HeaderText="Description" SortExpression="Description">
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtDescription" runat="server" Text='<%# Bind("Description") %>'></asp:TextBox>
+                                <asp:TextBox ID="TxtDescription" runat="server" Width="100px" Text='<%# Bind("Description") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
@@ -86,7 +87,7 @@
 
                         <asp:TemplateField HeaderText="BIN" SortExpression="BIN">
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtBIN" runat="server" Text='<%# Bind("BIN") %>'></asp:TextBox>
+                                <asp:TextBox ID="TxtBIN" runat="server" Width="50px" Text='<%# Bind("BIN") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblBIN" runat="server" Text='<%# Bind("BIN") %>'></asp:Label>
@@ -96,7 +97,7 @@
 
                         <asp:TemplateField HeaderText="Shelf" SortExpression="Shelf">
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtShelf" runat="server" Text='<%# Bind("Shelf") %>'></asp:TextBox>
+                                <asp:TextBox ID="TxtShelf" runat="server" Width="30px" Text='<%# Bind("Shelf") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblShelf" runat="server" Text='<%# Bind("Shelf") %>'></asp:Label>
@@ -106,19 +107,19 @@
 
                         <asp:TemplateField HeaderText="Level" SortExpression="Level">
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtLevel" TextMode="Number" runat="server" Text='<%# Bind("Level") %>'></asp:TextBox>
+                                <asp:TextBox ID="TxtLevel" TextMode="Number" runat="server" Width="50px" Text='<%# Bind("Level") %>'></asp:TextBox>
                                 <asp:RegularExpressionValidator ID="RegularExpressionValidatorlVL" ControlToValidate="TxtLevel" ErrorMessage="*Positive Number Only" ForeColor="Red"
                         runat="server" ValidationExpression="^\d+$"/>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="LblLevel" runat="server" Text='<%# Bind("Level") %>'></asp:Label>
+                                <asp:Label ID="LblLevel" runat="server"  Text='<%# Bind("Level") %>'></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle CssClass="text-center" />
                         </asp:TemplateField>
 
                         <asp:TemplateField HeaderText="Reorder Level" SortExpression="ReorderLevel">
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtReorderLevel" runat="server" Text='<%# Bind("ReorderLevel") %>'></asp:TextBox>
+                                <asp:TextBox ID="TxtReorderLevel" runat="server" Width="50px" Text='<%# Bind("ReorderLevel") %>'></asp:TextBox>
                                 <asp:RegularExpressionValidator ID="RegularExpressionValidatorReLvl" ControlToValidate="TxtReorderLevel" ErrorMessage="*Positive Number Only" ForeColor="Red"
                         runat="server" ValidationExpression="^\d+$"/>
                             </EditItemTemplate>
@@ -138,7 +139,7 @@
 
                         <asp:TemplateField HeaderText="Reorder Quantity" SortExpression="ReorderQty">
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtReorderQty" runat="server" Text='<%# Bind("ReorderQty") %>'></asp:TextBox>
+                                <asp:TextBox ID="TxtReorderQty" runat="server" Width="50px" Text='<%# Bind("ReorderQty") %>'></asp:TextBox>
                                 <asp:RegularExpressionValidator ID="RegularExpressionValidatorReQty" ControlToValidate="TxtReorderQty" ErrorMessage="*Positive Number Only" ForeColor="Red"
                         runat="server" ValidationExpression="^\d+$"/>
                             </EditItemTemplate>

@@ -13,6 +13,7 @@ namespace Team12_SSIS.StoreManager
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Form.DefaultButton = BtnSearch.UniqueID;
             if (!IsPostBack)
             {
                 BindGrid();
@@ -25,13 +26,16 @@ namespace Team12_SSIS.StoreManager
             List<InventoryCatalogue> cList = InventoryLogic.GetAllCatalogue();
             GridViewCatalogue.DataSource = cList;
             GridViewCatalogue.DataBind();
+            Session["CatalogueList"] = cList;
         }
 
 
         protected void GridViewCatalogue_RowEditing(object sender, GridViewEditEventArgs e)
         {
             GridViewCatalogue.EditIndex = e.NewEditIndex;
-            BindGrid();
+            List<InventoryCatalogue> cList = (List<InventoryCatalogue>)Session["CatalogueList"];
+            GridViewCatalogue.DataSource = cList;
+            GridViewCatalogue.DataBind();
         }
 
         protected void GridViewCatalogue_RowUpdating(object sender, GridViewUpdateEventArgs e)
@@ -78,13 +82,16 @@ namespace Team12_SSIS.StoreManager
             }
         }
        
-        InventoryLogic inventoryLogic = new InventoryLogic();
+
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
+            InventoryLogic inventoryLogic = new InventoryLogic();
             string temp= TxtSearch.Text;
-            GridViewCatalogue.DataSource = inventoryLogic.SearchBy(temp);
+            List<InventoryCatalogue> cList = inventoryLogic.SearchBy(temp);
+            GridViewCatalogue.DataSource = cList;
             GridViewCatalogue.DataBind();
+            Session["CatalogueList"] = cList;
         }
 
         protected void GridViewCatalogue_PageIndexChanging(object sender, GridViewPageEventArgs e)

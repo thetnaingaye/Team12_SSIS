@@ -74,6 +74,7 @@ namespace Team12_SSIS.StoreReport
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            statusMessage.Visible = false;
             string itemCode = TxtItemCode.Text;
             DateTime startDate;
             DateTime endDate;
@@ -109,7 +110,18 @@ namespace Team12_SSIS.StoreReport
 
             ReportParameter startDateParam = new ReportParameter("StartDate", startDate.ToString("d"));
             ReportParameter endDateParam = new ReportParameter("EndDate", endDate.ToString("d"));
-            ReportParameter itemDescParam = new ReportParameter("ItemDescription", InventoryLogic.GetItemName(itemCode));
+            ReportParameter itemDescParam;
+            try
+            {
+                itemDescParam = new ReportParameter("ItemDescription", InventoryLogic.GetItemName(itemCode));
+            }
+            catch (Exception)
+            {
+                statusMessage.Text = "Invalid Item Code Entered.";
+                statusMessage.ForeColor = System.Drawing.Color.Red;
+                statusMessage.Visible = true;
+                return;
+            }
             ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { startDateParam, endDateParam, itemDescParam });
             ReportDataSource dataSource = new ReportDataSource("SA45Team12ADDataSet", (DataTable)dt);
             ReportViewer1.LocalReport.DataSources.Clear();

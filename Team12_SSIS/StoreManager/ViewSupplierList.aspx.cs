@@ -17,6 +17,7 @@ namespace Team12_SSIS.StoreManager
         PurchasingLogic purchasing = new PurchasingLogic();
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Form.DefaultButton = BtnSearch.UniqueID;
             if (!IsPostBack)
             {
                 BindGrid();
@@ -25,11 +26,10 @@ namespace Team12_SSIS.StoreManager
 
         protected void BindGrid()
         {
-            using (SA45Team12AD entities = new SA45Team12AD())
-            {
-                GridViewSupplier.DataSource = entities.SupplierLists.ToList<SupplierList>();
-                GridViewSupplier.DataBind();
-            }
+            List<SupplierList> sList = PurchasingLogic.ListSuppliers();
+            GridViewSupplier.DataSource = sList;
+            GridViewSupplier.DataBind();
+            Session["SupplierList"] = sList;
         }
 
         protected void GridViewSupplier_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -42,7 +42,9 @@ namespace Team12_SSIS.StoreManager
         protected void GridViewSupplier_RowEditing(object sender, GridViewEditEventArgs e)
         {
             GridViewSupplier.EditIndex = e.NewEditIndex;
-            BindGrid();
+            List<SupplierList> sList = (List<SupplierList>)Session["SupplierList"];
+            GridViewSupplier.DataSource = sList;
+            GridViewSupplier.DataBind();
         }
 
         protected void GridViewSupplier_RowUpdating(object sender, GridViewUpdateEventArgs e)
@@ -87,8 +89,10 @@ namespace Team12_SSIS.StoreManager
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             string temp = TxtSearch.Text;
-            GridViewSupplier.DataSource = purchasing.SearchBy(temp);
+            List<SupplierList> sList = purchasing.SearchBy(temp);
+            GridViewSupplier.DataSource = sList;
             GridViewSupplier.DataBind();
+            Session["SupplierList"] = sList;
         }
 
         protected void GridViewSupplier_PageIndexChanging(object sender, GridViewPageEventArgs e)

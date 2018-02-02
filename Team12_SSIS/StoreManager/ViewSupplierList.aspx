@@ -29,7 +29,7 @@
         </tr>
         <tr>
             <td style="width: 100%">
-                <div style="overflow-x:auto;width:1100px">
+                <div style="width:100%">
                 <asp:GridView ID="GridViewSupplier" class="table" runat="server" AutoGenerateColumns="False"  
                     Style="width: 100%"
                     AllowPaging="True" PageSize="10" OnPageIndexChanging="GridViewSupplier_PageIndexChanging"
