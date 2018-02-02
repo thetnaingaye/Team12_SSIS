@@ -170,6 +170,7 @@
     <Content Include="Images\requisition.png" />
     <Content Include="Images\viewhistory.png" />
     <Content Include="Images\viewreq.png" />
+    <Content Include="Images\wait.gif" />
     <Content Include="Logout.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
