@@ -28,8 +28,8 @@ namespace Team12_SSIS
 
 
 
+            // SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         
 
-            
             // Thread for auto running the clearance of the reorder list table
             Thread threadEndOfDae = new Thread(new ThreadStart(ThreadEODFunc));
             threadEndOfDae.IsBackground = true;
@@ -75,7 +75,7 @@ namespace Team12_SSIS
             DisbursementLogic.SendCollectionReminder(DateTime.Now.Date);
         }
 
-        // Checks and calls the reorder table clearance method   -   Runs every 1 hour
+        // Checks and calls the reorder table clearance method   -   Runs every 1 hour             // SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI  
         protected void ThreadEODFunc()
         {
             System.Timers.Timer t = new System.Timers.Timer();
@@ -87,7 +87,7 @@ namespace Team12_SSIS
             t.Start();
         }
 
-        // Checks and calls the forecasting algo method   -   Runs every 1 hour
+        // Checks and calls the forecasting algo method   -   Runs every 1 hour              // SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI  
         protected void ThreadSundaeFunc()
         {
             System.Timers.Timer t = new System.Timers.Timer();

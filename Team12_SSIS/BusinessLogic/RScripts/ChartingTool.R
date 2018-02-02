@@ -1,5 +1,8 @@
 
 
+
+##------------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------##
+
 #rm(list=ls())
 
 ## This here allows us to retrieve from cmd
@@ -50,7 +53,7 @@ if (!"forecast" %in% listPack) {
 if (!"gridExtra" %in% listPack) {
   install.packages("gridExtra", repos='http://cran.us.r-project.org', lib=libLocation,
                    destdir=(paste(tempwd,"\\RPackages", sep = "")))
-  print("Installing package: forecast")
+  print("Installing package: gridExtra")
 }
 
 
@@ -266,9 +269,9 @@ if(file.exists(tableName1)) file.remove(tableName1)
 
 mydata <- data.frame(resultF)
 mytable <- cbind(mydata)
-qplot(1:10, 1:10, geom = "blank") + theme_bw() + theme(line = element_blank(), text = element_blank()) +
-  # Then I add my table :
-  annotation_custom(grob = tableGrob(mytable))
+
+# Creating a blank plot and then adding mytable to it
+qplot(1:10, 1:10, geom = "blank") + theme_bw() + theme(line = element_blank(), text = element_blank()) + annotation_custom(grob = tableGrob(mytable))
 
 tg = gridExtra::tableGrob(mytable)
 h = grid::convertHeight(sum(tg$heights), "in", TRUE)
@@ -285,9 +288,9 @@ if(file.exists(tableName2)) file.remove(tableName2)
 
 mydata <- data.frame(accuracy(resultF))
 mytable <- cbind(mydata)
-qplot(1:10, 1:10, geom = "blank") + theme_bw() + theme(line = element_blank(), text = element_blank()) +
-  # Then I add my table :
-  annotation_custom(grob = tableGrob(mytable))
+
+# Creating a blank plot and then adding mytable to it
+qplot(1:10, 1:10, geom = "blank") + theme_bw() + theme(line = element_blank(), text = element_blank()) + annotation_custom(grob = tableGrob(mytable))
 
 tg = gridExtra::tableGrob(mytable)
 h = grid::convertHeight(sum(tg$heights), "in", TRUE)
@@ -304,9 +307,9 @@ tableName3 <- paste(imagedir, "/", "tableModel.png", sep="")
 if(file.exists(tableName3)) file.remove(tableName3)
 
 mytable <- cbind(resultF$model)
-qplot(1:10, 1:10, geom = "blank") + theme_bw() + theme(line = element_blank(), text = element_blank()) +
-  # Then I add my table :
-  annotation_custom(grob = tableGrob(mytable))
+
+# Creating a blank plot and then adding mytable to it
+qplot(1:10, 1:10, geom = "blank") + theme_bw() + theme(line = element_blank(), text = element_blank()) + annotation_custom(grob = tableGrob(mytable))
 
 tg = gridExtra::tableGrob(mytable)
 h = grid::convertHeight(sum(tg$heights), "in", TRUE)

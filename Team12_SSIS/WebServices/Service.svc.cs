@@ -295,7 +295,7 @@ namespace Team12_SSIS.WebServices
         }
 
 
-        // ------------------   From Khair with Love ~   ---------------------//
+        //----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------//
 
         // Retrieving total quantity needed on a per item basis necessary for inventory retrieval
         public int RetrieveTotalQtyNeeded(string itemID, string token)
