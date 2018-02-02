@@ -42,6 +42,8 @@ namespace Team12_SSIS.Model
         [StringLength(50)]
         public string Discontinued { get; set; }
 
+        public string EmailAddress { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PORecord> PORecords { get; set; }
 
