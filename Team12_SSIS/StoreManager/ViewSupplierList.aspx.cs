@@ -10,6 +10,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 
+//Yishu's code
 namespace Team12_SSIS.StoreManager
 {
     public partial class ViewSupplierList : System.Web.UI.Page
@@ -32,12 +33,6 @@ namespace Team12_SSIS.StoreManager
             }
         }
 
-        protected void GridViewSupplier_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            string SupplierID = Convert.ToString(GridViewSupplier.DataKeys[e.RowIndex].Values[0]);
-            BusinessLogic.PurchasingLogic.DeleteSupplier(SupplierID);
-            BindGrid();
-        }
 
         protected void GridViewSupplier_RowEditing(object sender, GridViewEditEventArgs e)
         {

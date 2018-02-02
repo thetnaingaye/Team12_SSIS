@@ -16,7 +16,7 @@ namespace Team12_SSIS.BusinessLogic
     //Chang Siang Line 1519 to 1820
     public class InventoryLogic
     {
-
+        //Yishu's codes starts from here
         public static List<InventoryCatalogue> ListCatalogues()
         {
             using (SA45Team12AD entities = new SA45Team12AD())
@@ -99,7 +99,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-
+//Yishu's codes ends here
 
 
 

@@ -2390,7 +2390,7 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-
+        //Yishu's codes start from here
 
         public static void DeleteSupplier(string SupplierID)
         {
@@ -2445,6 +2445,6 @@ namespace Team12_SSIS.BusinessLogic
                 entities.SaveChanges();
             }
             }
-        
+        //Yishu's codes end here
     }
 }

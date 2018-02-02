@@ -2037,7 +2037,7 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-
+        //Yishu's codes start from here
 
         public List<InventoryCatalogue> SearchBy(string value)
         {
@@ -2054,7 +2054,7 @@ namespace Team12_SSIS.BusinessLogic
             itemList.Remove(removeItem);
             return itemList;
         }
-
+        //Yishu's codes end here
 
 
 
@@ -2191,7 +2191,7 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
-        //Yishu will be here
+        //Yishu's codes start from here
 
         public static int CreateRequisitionRecord(string requestorName, string departmentId, DateTime requestDate)
         {
@@ -2223,7 +2223,7 @@ namespace Team12_SSIS.BusinessLogic
                 return r;
             }
         }
-
+        //Yishu's code end here
 
 
 
