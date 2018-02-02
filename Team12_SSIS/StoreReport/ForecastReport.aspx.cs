@@ -47,26 +47,33 @@ namespace Team12_SSIS.StoreClerk
             bool parsed = Int32.TryParse(input, out numvalue);
             bool errors = false;
 
-            // Check for any empty or incorrect format for the input
-            if (!String.IsNullOrEmpty(input) && !parsed && input != "")
+            // Check for any empty or incorrect format for the input including no pure numbers
+            if (!String.IsNullOrWhiteSpace(input) && !parsed)
             {
                 // Retrieving our value from the search bar
                 var temp = InventoryLogic.SearchItemForReport(inputValue.Text);
 
                 if (temp != null)
                 {
-                    LblSelectedItem.Visible = true;
-                    LblItemDesc.Text = temp.Description;
-                    LblItemID.Text = temp.ItemID;
-                    LblSelectNumber.Visible = true;
-                    DdlNoForeacast.Visible = true;
-                    LblSelectType.Visible = true;
-                    DdlTypeChart.Visible = true;
-                    LblDateFrom.Visible = true;
-                    LblDateTo.Visible = true;
-                    BtnGenerate.Visible = true;
-                    DateFrom.Visible = true;
-                    DateTo.Visible = true;
+                    // Check if discontinued
+                    bool check = InventoryLogic.CheckIfDiscontinued(temp.ItemID);
+
+                    if (!check)
+                    {
+                        LblSelectedItem.Visible = true;
+                        LblItemDesc.Text = temp.Description;
+                        LblItemID.Text = temp.ItemID;
+                        LblSelectNumber.Visible = true;
+                        DdlNoForeacast.Visible = true;
+                        LblSelectType.Visible = true;
+                        DdlTypeChart.Visible = true;
+                        LblDateFrom.Visible = true;
+                        LblDateTo.Visible = true;
+                        BtnGenerate.Visible = true;
+                        DateFrom.Visible = true;
+                        DateTo.Visible = true;
+                    }
+                    //else errors = true;
                 }
                 else errors = true;
             }
