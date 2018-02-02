@@ -40,6 +40,7 @@ namespace Team12_SSIS.StoreReport
 
         protected void BtnAddDept_Click(object sender, EventArgs e)
         {
+            statusMessage.Visible = false;
             List<Department> dList = DisbursementLogic.GetListofDepartments();
             string deptID = DdlDept.SelectedValue;
             if (deptID == "All")
@@ -50,10 +51,16 @@ namespace Team12_SSIS.StoreReport
             {
                 dList = (List<Department>)Session["DepartmentList"];
                 Department selectItem = DisbursementLogic.GetListofDepartments().Where(x => x.DeptID == deptID).FirstOrDefault();
+                if (!CheckIfDepartmentNotExist(dList, selectItem))
+                {
+                    statusMessage.Text = "Department Already Added to List";
+                    statusMessage.ForeColor = System.Drawing.Color.Red;
+                    statusMessage.Visible = true;
+                    return;
+                }
                 dList.Add(selectItem);
                 Session["DepartmentList"] = dList;
                 BindGrid(dList);
-
             }
 
         }
@@ -109,6 +116,18 @@ namespace Team12_SSIS.StoreReport
             ReportViewerDeptReq.LocalReport.DataSources.Add(dataSource);
             ReportViewerDeptReq.LocalReport.Refresh();
             ReportViewerDeptReq.Visible = true;
+        }
+        bool CheckIfDepartmentNotExist(List<Department> dList, Department ItemToAdd)
+        {
+            bool isNotExist = false;
+            foreach (Department d in dList)
+            {
+                if (d.DeptID == ItemToAdd.DeptID)
+                    return isNotExist;
+
+            }
+            isNotExist = true;
+            return isNotExist;
         }
     }
 }

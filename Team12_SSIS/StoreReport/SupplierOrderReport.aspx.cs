@@ -40,6 +40,7 @@ namespace Team12_SSIS.StoreReport
 
         protected void BtnAddSupplier_Click(object sender, EventArgs e)
         {
+            statusMessage.Visible = false;
             List<SupplierList> sList = PurchasingLogic.ListSuppliers();
             string supplierID = DdlSupplier.SelectedValue;
             if(supplierID == "All")
@@ -50,6 +51,13 @@ namespace Team12_SSIS.StoreReport
             {
                 sList = (List<SupplierList>)Session["SupplierList"];
                 SupplierList selectItem = PurchasingLogic.ListSuppliers().Where(x => x.SupplierID == supplierID).FirstOrDefault();
+                if(!CheckIfSupplierNotExist(sList, selectItem))
+                {
+                    statusMessage.Text = "Supplier Already Added to List";
+                    statusMessage.ForeColor = System.Drawing.Color.Red;
+                    statusMessage.Visible = true;
+                    return;
+                }
                 sList.Add(selectItem);
                 Session["SupplierList"] = sList;
                 BindGrid(sList);
@@ -108,6 +116,19 @@ namespace Team12_SSIS.StoreReport
             ReportViewer1.LocalReport.DataSources.Add(dataSource);
             ReportViewer1.LocalReport.Refresh();
             ReportViewer1.Visible = true;
+        }
+
+        bool CheckIfSupplierNotExist(List<SupplierList> sList, SupplierList ItemToAdd)
+        {
+            bool isNotExist = false;
+            foreach(SupplierList s in sList)
+            {
+                if (s.SupplierID == ItemToAdd.SupplierID)
+                    return isNotExist;
+
+            }
+            isNotExist = true;
+            return isNotExist;
         }
     }
 }
