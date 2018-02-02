@@ -775,6 +775,17 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        // Check item if its discontinued by simply passing an itemID
+        public static bool CheckIfDiscontinued(string itemID)
+        {
+            using (SA45Team12AD context = new SA45Team12AD())
+            {
+                InventoryCatalogue i = context.InventoryCatalogues.Where(x => x.ItemID.Equals(itemID)).First();
+                if (i.Discontinued.Equals("Y")) return true;
+                else return false;
+            }
+        }
+
 
 
 
