@@ -20,7 +20,7 @@ namespace Team12_SSIS.StoreClerk
         InventoryCatalogue detFromInventory=new InventoryCatalogue();
         List<SupplierCatalogue> sCatList=null;
         List<StockCard> tList=null;
-        List<string> idList;
+      
         InventoryLogic i = new InventoryLogic();
         string itemId;
         DateTime date1;
@@ -36,30 +36,10 @@ namespace Team12_SSIS.StoreClerk
 
             if (Session["Itemid"] != null)
             {
-                ControlVisibleTrue();
+                //ControlVisibleTrue();
 
                 itemId = (string)Session["Itemid"];
-
-//---------------------populating the transaction details of the item seleted------------------------------------------//
-
-                details(itemId);
-                tList = InventoryLogic.GetStockCardList(itemId);
-//------------------------------if list has records,display in datagrid view--------------------------------------------//
-                if (tList.Count != 0)
-                {
-
-                    GridViewStockCard.DataSource = tList;
-                GridViewStockCard.DataBind();
-                LblMsg.Visible = false;
-                }
-
-//-----------------------------------Status message for no record found------------------------------------------------//
-                else
-                {
-                    LblMsg.Visible = true;
-             
-                    LblMsg.Text = "No Transaction Records Found for" + " " + detFromInventory.Description;
-                }
+                TxtId.Text = itemId;
 
             }
 
@@ -94,8 +74,13 @@ namespace Team12_SSIS.StoreClerk
 
                 }
 
-//-----------------------------Search based on item code & transaction dates-------------------------------------------//
-//-----------------Datagrid view load with transaction records of selected item within the selected dates--------------//
+//----------------------------Search based on item code & transaction dates-------------------------------------------//
+//-------------Datagrid view load with transaction records of selected item within the selected dates--------------//
+
+                //To get the item name corresponding to the item code selected
+                InventoryCatalogue i = InventoryLogic.GetInventoryDetails(TxtId.Text);    
+                string d0 = date1.ToString("yyyy-MM-dd");
+                string d = date2.ToString("yyyy-MM-dd");
 
                 if (TxtId.Text != string.Empty && d1 != null && d2 != null)
                 {
@@ -104,7 +89,10 @@ namespace Team12_SSIS.StoreClerk
                     GridViewStockCard.DataSource = tList;
                     GridViewStockCard.DataBind();
 
-                    LblMsg.Visible = false;
+                    LblMsg.Visible = true ;
+                   
+                    
+                    LblMsg.Text = "*Showing transaction records of " + i.Description + " within the date range " + d0 + " and " + d;
 
                 }
 
@@ -116,7 +104,9 @@ namespace Team12_SSIS.StoreClerk
                     details(TxtId.Text);
                     GridViewStockCard.DataSource = tList;
                     GridViewStockCard.DataBind();
-                    LblMsg.Visible = false;
+                    LblMsg.Visible = true;
+                    LblMsg.Text = "*Showing transaction records of " + i.Description;
+
 
                 }
 //--------------------------------Transaction records within the selected date range------------------------------------//
@@ -125,7 +115,8 @@ namespace Team12_SSIS.StoreClerk
                     tList = InventoryLogic.GetAllTransactionByDate(date1, date2);
                     GridViewStockCard.DataSource = tList;
                     GridViewStockCard.DataBind();
-                    LblMsg.Visible = false;
+                    LblMsg.Visible = true;
+                    LblMsg.Text = "*Showing transaction records " +  "within the date range " + d0 + " and " + d;
                     ControlVisibleFalse();
                 }
 //--------------------user don't give any input.just click search button.then this condition will fire------------------//
@@ -141,8 +132,7 @@ namespace Team12_SSIS.StoreClerk
             catch
             {
                 ControlVisibleFalse();
-                LblMsg.Visible = true;
-                LblMsg.Text = "Item code doesn't exist";
+               
             }
             }
 

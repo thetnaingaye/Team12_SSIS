@@ -6,10 +6,7 @@
         .auto-style1 {
             width: 81px;
         }
-        .auto-style2 {
-            width: 89px;
-        }
-    </style>
+        </style>
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
@@ -38,9 +35,8 @@
     </script>
 
 	&nbsp;<input type="text" id="datepicker" name="datepicker" readonly="true" class="auto-style1" />&nbsp;
-    &nbsp;&nbsp;&nbsp; <asp:Label ID="Label2" runat="server" Text="End Date:"> </asp:Label>&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" class="auto-style2" />
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     <asp:Button ID="BtnFindDate" runat="server" Text="FIND" OnClick="BtnFindDate_Click" Height="25px" Width="70px" />
+    &nbsp;&nbsp;&nbsp; <asp:Label ID="Label2" runat="server" Text="End Date:"> </asp:Label>&nbsp;<input type="text" id="datepicker2" name="datepicker2" readonly="true" class="auto-style1" />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="BtnFindDate" CssClass="btn btn-primary btn-xs" runat="server" Text="FIND" OnClick="BtnFindDate_Click" Height="25px" Width="72px" />
      <br />
     &nbsp;
 &nbsp;&nbsp;
@@ -53,8 +49,7 @@
      
        &nbsp; 
        <asp:TextBox ID="TxtRep" runat="server" Width="142px"></asp:TextBox>
-     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     <asp:Button ID="BtnFindrep" runat="server" Text="FIND" OnClick="BtnFindrep_Click" Width="72px" />
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="BtnFindrep" CssClass="btn btn-primary btn-xs" runat="server" Text="FIND" OnClick="BtnFindrep_Click" Width="72px" />
      <br />
        <br />
     <asp:GridView ID="GridViewDisbursement" runat="server"  Class="table"  autogeneratecolumns="false" Width="100%" GridLines="None"  BackColor="White"    ShowHeaderWhenEmpty="True" OnRowCommand="GridViewDisbList_RowCommand" EmptyDataText="No Record Found">
@@ -102,6 +97,11 @@
                                         <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
 
     </asp:GridView>
+
+    
+
+     <br />
+    <asp:Label ID="LblMsg" runat="server" ForeColor="#009900" Text="[LblStatus]"></asp:Label>
 
     
 

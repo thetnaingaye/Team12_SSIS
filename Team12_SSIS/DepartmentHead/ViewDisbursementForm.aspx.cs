@@ -28,6 +28,7 @@ namespace Team12_SSIS.DepartmentHead
 
                 GridViewDisbursement.DataSource = lastNlist;
                 GridViewDisbursement.DataBind();
+                LblMsg.Visible = false;
 
             }
         }
@@ -39,6 +40,7 @@ namespace Team12_SSIS.DepartmentHead
             dsList = DisbursementLogic.GetDisbursementByRep(TxtRep.Text);
             GridViewDisbursement.DataSource = dsList;
             GridViewDisbursement.DataBind();
+            LblMsg.Visible = false;
 
         }
 //-------------------------filter by date range-----------------------------------------------------------------------//
@@ -46,9 +48,13 @@ namespace Team12_SSIS.DepartmentHead
         {
             DateTime d1 = DateTime.ParseExact(Request.Form["datepicker"], "MM/dd/yyyy", CultureInfo.InvariantCulture);
             DateTime d2= DateTime.ParseExact(Request.Form["datepicker2"], "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            string d0 = d1.ToString("yyyy-MM-dd");
+            string d = d2.ToString("yyyy-MM-dd");
             dsList = DisbursementLogic.GetDisbursementByDate(d1, d2);
             GridViewDisbursement.DataSource = dsList;
             GridViewDisbursement.DataBind();
+            LblMsg.Visible = true;
+            LblMsg.Text= "* Showing disbursement list " +  "within the date range " + d0 + " and " + d;
 
         }
 
