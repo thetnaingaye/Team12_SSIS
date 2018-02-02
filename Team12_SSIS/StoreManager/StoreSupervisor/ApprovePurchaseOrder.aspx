@@ -64,11 +64,11 @@
                 </td>
             </tr>
             <td colspan="2">
-                <asp:GridView ID="GridViewAPO" runat="server" AutoGenerateColumns="False"
+                <asp:GridView ID="GridViewAPO" class="table" runat="server" AutoGenerateColumns="False"
                     Style="width: 100%" ShowHeaderWhenEmpty="True"
                     OnRowDataBound="OnRowDataBound"
                     CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridViewAPO_SelectedIndexChanged">
-                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+               <AlternatingRowstyle BackColor="#f9f9f9"/>
                     <Columns>
 
                         <asp:TemplateField HeaderText="Description" HeaderStyle-Width="50%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">

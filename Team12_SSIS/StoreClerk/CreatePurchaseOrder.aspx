@@ -71,11 +71,11 @@
                     <asp:ScriptManager ID="sml" runat="server"></asp:ScriptManager>
                     <asp:UpdatePanel ID="Upl" runat="server" UpdateMode="Conditional" ChildrenAsTriger="true">
                         <ContentTemplate>
-                            <asp:GridView ID="GridViewPO" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="GridViewPO_SelectedIndexChanged"
+                            <asp:GridView ID="GridViewPO" class="table" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="GridViewPO_SelectedIndexChanged"
                                 Style="width: 100%" ShowHeaderWhenEmpty="True"
                                 OnRowDataBound="OnRowDataBound" OnRowDeleting="OnRowDeleting"
                                 CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID">
-                                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                 <AlternatingRowstyle BackColor="#f9f9f9"/>
                                 <Columns>
                                     <asp:TemplateField HeaderText="#" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
                                         <ItemTemplate>
