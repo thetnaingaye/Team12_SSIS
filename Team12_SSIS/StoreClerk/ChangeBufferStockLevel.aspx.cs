@@ -58,6 +58,9 @@ namespace Team12_SSIS.StoreClerk
 		protected void BtnBack_Click(object sender, EventArgs e)
 		{
 			MultiView1.ActiveViewIndex = 0;
+			statusMessage.Visible = false;
+			TxtAbsolute.Text = "";
+			TxtProportional.Text = "";
 		}
 
 		protected void ProportionalRbtn_CheckedChanged(object sender, EventArgs e)

@@ -126,21 +126,13 @@
             </td>
 
             <tr>
-                <td>
-                    <asp:Label ID="LblRmk" runat="server" Text="Remarks :"></asp:Label></td>
-                <td>
-                    <asp:TextBox ID="txtRmk" runat="server"></asp:TextBox>
-                </td>
-            </tr>
-
-            <tr>
 
                 <td>
-                    <asp:Button ID="btnapr" runat="server" Text="Approve" Height="27px" Width="64px" OnClick="btnapr_Click" /></td>
+                    <asp:Button ID="btnapr" runat="server" Text="Approve" CssClass="btn btn-success" OnClick="btnapr_Click" /></td>
 
 
                 <td>
-                    <asp:Button ID="btncancel" runat="server" Text="Reject" Height="27px" Width="64px" OnClick="btncancel_Click" /></td>
+                    <asp:Button ID="btncancel" runat="server" Text="Reject" CssClass="btn btn-danger" OnClick="btncancel_Click" /></td>
 
             </tr>
         </table>

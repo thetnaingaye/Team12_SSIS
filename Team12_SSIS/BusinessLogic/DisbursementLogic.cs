@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Profile;
 using System.Web.Security;
@@ -351,7 +352,7 @@ namespace Team12_SSIS.BusinessLogic
             {
                 string departmentId = GetCurrentDep();
                 var q = (from di in entities.DisbursementLists
-                         where di.RepresentativeName.Contains(rep)   && di.DepartmentID == departmentId
+                         where di.RepresentativeName.Contains(rep) && di.DepartmentID == departmentId
                          select di);
                 List<DisbursementList> dList = q.ToList<DisbursementList>();
                 return dList;
@@ -829,6 +830,12 @@ namespace Team12_SSIS.BusinessLogic
             RequisitionRecord rRecord = new RequisitionRecord();
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
+                rRecord.DepartmentID = deptId;
+                rRecord.Remarks = remarks;
+                rRecord.RequestorName = "DisbursementLogic";
+                rRecord.RequestDate = DateTime.Now.Date;
+                rRecord.ApprovedDate = DateTime.Now.Date;
+                rRecord.ApproverName = "System Generated Request";
                 ctx.RequisitionRecords.Add(rRecord);
                 ctx.SaveChanges();
                 return rRecord.RequestID;
@@ -841,8 +848,8 @@ namespace Team12_SSIS.BusinessLogic
             rRDetails.RequestID = requestId;
             rRDetails.ItemID = itemId;
             rRDetails.RequestedQuantity = requestedQuantity;
-            rRDetails.Status = "Pending";
-
+            rRDetails.Status = "Approved";
+            rRDetails.Priority = "Yes";
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 ctx.RequisitionRecordDetails.Add(rRDetails);
@@ -852,10 +859,15 @@ namespace Team12_SSIS.BusinessLogic
 
         private void CheckForOutstandingItem(int quantityCollected, DisbursementListDetail dListDetails, string remarks)
         {
-            if (quantityCollected < dListDetails.QuantityCollected)
+            string departmentId;
+            using(SA45Team12AD ctx = new SA45Team12AD())
             {
-                int Reqid = CreateSystemStationeryRequest(DateTime.Now.Date, dListDetails.DisbursementList.DepartmentID, remarks);
-                CreateStationeryRequestDetails(Reqid, dListDetails.ItemID, (int)dListDetails.QuantityCollected - quantityCollected);
+                departmentId = ctx.DisbursementLists.Where(x => x.DisbursementID == dListDetails.DisbursementID).Select(x => x.DepartmentID).FirstOrDefault();
+            }
+            if (quantityCollected < dListDetails.ActualQuantity)
+            {
+                int Reqid = CreateSystemStationeryRequest(DateTime.Now.Date, departmentId, ("DisbursementLogic for: DL" + dListDetails.DisbursementID.ToString("0000")));
+                CreateStationeryRequestDetails(Reqid, dListDetails.ItemID, (int)dListDetails.ActualQuantity - quantityCollected);
             }
         }
 
@@ -1924,14 +1936,18 @@ namespace Team12_SSIS.BusinessLogic
 				department.CollectionPointID = cpid;
 				entities.SaveChanges();
 			}
-			using (EmailControl em = new EmailControl())
-			{
-				
-				List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
-				string newCPID = GetCurrentCPIDByDep(depid);
-				string newCPName = GetCurrentCPWithTimeByID(Int32.Parse(newCPID));
-				em.DisburstmentPointChangeNotification(clerkemails, GetDepNameByDepID(depid), GetDeptRepFullName(depid),newCPName);
-			}
+            Thread collectPointThread = new Thread(delegate ()
+            {
+                using (EmailControl em = new EmailControl())
+                {
+
+                    List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+                    string newCPID = GetCurrentCPIDByDep(depid);
+                    string newCPName = GetCurrentCPWithTimeByID(Int32.Parse(newCPID));
+                    em.DisburstmentPointChangeNotification(clerkemails, GetDepNameByDepID(depid), GetDeptRepFullName(depid), newCPName);
+                }
+            });
+            collectPointThread.Start();
 		}
 
 		public static List<MembershipUser> GetUsersFromDept(string dept)
@@ -2063,23 +2079,26 @@ namespace Team12_SSIS.BusinessLogic
             Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
             Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
 
-            using (EmailControl em = new EmailControl())
+            Thread bgThread = new Thread(delegate()
             {
-                List<string> allemails = new List<string>();
-                List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
-                List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
-                foreach (string s in clerkemails)
+                using (EmailControl em = new EmailControl())
                 {
-                    allemails.Add(s);
-                }
-                foreach (string s in depusersemails)
-                {
-                    allemails.Add(s);
-                }
+                    List<string> allemails = new List<string>();
+                    List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+                    List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
+                    foreach (string s in clerkemails)
+                    {
+                        allemails.Add(s);
+                    }
+                    foreach (string s in depusersemails)
+                    {
+                        allemails.Add(s);
+                    }
 
-                em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
-            }
-
+                    em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
+                }
+            });
+            bgThread.Start();
 
         }
     }

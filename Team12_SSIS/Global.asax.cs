@@ -16,8 +16,9 @@ namespace Team12_SSIS
 {
     public class Global : System.Web.HttpApplication
     {
+        public Timer IntervalTimer { get; private set; }
 
-		protected void Application_Start(object sender, EventArgs e)
+        protected void Application_Start(object sender, EventArgs e)
 		{
 			Application["count"] = 0;
 			Thread thread = new Thread(new ThreadStart(ThreadFunc));
@@ -25,11 +26,33 @@ namespace Team12_SSIS
 			thread.Name = "ThreadFunc";
 			thread.Start();
 
-            // Thread for auto running the reorder list
-            //Thread threadEndOfDay = new Thread(new ThreadStart(ThreadFuncParam));
-            //threadEndOfDay.IsBackground = true;
-            //threadEndOfDay.Name = "ThreadEndOfDay";
-            //threadEndOfDay.Start();
+
+
+
+            
+            // Thread for auto running the clearance of the reorder list table
+            Thread threadEndOfDae = new Thread(new ThreadStart(ThreadEODFunc));
+            threadEndOfDae.IsBackground = true;
+            threadEndOfDae.Name = "ThreadEndOfDae";
+            threadEndOfDae.Start();
+
+            // Thread for auto running the clearance of the reorder list table
+            Thread threadSundae = new Thread(new ThreadStart(ThreadSundaeFunc));
+            threadSundae.IsBackground = true;
+            threadSundae.Name = "ThreadSundae";
+            threadSundae.Start();
+
+            //// Thread for auto running the clearance of the reorder list table
+            //TimeSpan tsInterval1 = new TimeSpan(0, 0, 30);  // hours, minutes, seconds
+            //IntervalTimer = new System.Threading.Timer(
+            //    new System.Threading.TimerCallback(AutomationLogic.BeginEndOfDayProcesses)
+            //    , null, tsInterval1, tsInterval1);
+
+            //// Thread for auto running the clearance of the reorder list table
+            //TimeSpan tsInterval2 = new TimeSpan(1, 0, 0);  // hours, minutes, seconds
+            //IntervalTimer = new System.Threading.Timer(
+            //    new System.Threading.TimerCallback(AutomationLogic.ForecastingAlgorithm)
+            //    , null, tsInterval2, tsInterval2);
         }
 
         void AuthenticationService_Authenticating(object sender, System.Web.ApplicationServices.AuthenticatingEventArgs e)
@@ -40,7 +63,7 @@ namespace Team12_SSIS
 			System.Timers.Timer t = new System.Timers.Timer();
 			t.Elapsed += new System.Timers.ElapsedEventHandler(AddDeptHeadRoleToUserWithDateCheck);
 			
-			t.Interval = 5000;
+			t.Interval = 28800000;
 			t.Enabled = true;
 			t.AutoReset = true;
 			t.Start();
@@ -63,16 +86,31 @@ namespace Team12_SSIS
         {
             DisbursementLogic.SendCollectionReminder(DateTime.Now.Date);
         }
-        protected void ThreadFuncParam()
+
+        // Checks and calls the reorder table clearance method   -   Runs every 1 hour
+        protected void ThreadEODFunc()
         {
             System.Timers.Timer t = new System.Timers.Timer();
             t.Elapsed += new System.Timers.ElapsedEventHandler(AutomationLogic.BeginEndOfDayProcesses);
 
-            t.Interval = 5000;
+            t.Interval = (1 * 60 * 60 * 1000);
             t.Enabled = true;
             t.AutoReset = true;
             t.Start();
         }
+
+        // Checks and calls the forecasting algo method   -   Runs every 1 hour
+        protected void ThreadSundaeFunc()
+        {
+            System.Timers.Timer t = new System.Timers.Timer();
+            t.Elapsed += new System.Timers.ElapsedEventHandler(AutomationLogic.ForecastingAlgorithm);
+
+            t.Interval = (1 * 60 * 60 * 1000);
+            t.Enabled = true;
+            t.AutoReset = true;
+            t.Start();
+        }
+
         protected void AddDeptHeadRoleToUserWithDateCheck(object sender, System.Timers.ElapsedEventArgs e)
 		{
 			List<Department> depwithdelegateslist = new List<Department>();

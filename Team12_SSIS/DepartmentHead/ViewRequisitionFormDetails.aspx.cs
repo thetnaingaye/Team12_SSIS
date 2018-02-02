@@ -11,8 +11,6 @@ namespace Team12_SSIS.DepartmentHead
 {
     public partial class ViewRequisitionFormDetails : System.Web.UI.Page
     {
-        RequisitionLogic r = new RequisitionLogic();
-        InventoryLogic i = new InventoryLogic();
         string reqID;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -21,7 +19,7 @@ namespace Team12_SSIS.DepartmentHead
             reqID = Request.QueryString["RequestID"];
 
             // Retrieving our req record using the reqID retrieved
-            RequisitionRecord tempR = r.FindRequisitionRecord(Convert.ToInt32(reqID));
+            RequisitionRecord tempR = RequisitionLogic.FindRequisitionRecord(Convert.ToInt32(reqID));
 
             if (!IsPostBack)
             {
@@ -29,7 +27,7 @@ namespace Team12_SSIS.DepartmentHead
                 LblReqFormID.Text = Convert.ToString("RQ" + tempR.RequestID);
                 LblEmployeeName.Text = tempR.RequestorName;
                 LblDateCreated.Text = tempR.RequestDate.Value.ToString("MM/dd/yyyy");
-                LblStatus.Text = r.GetStatus(Convert.ToInt32(reqID));
+                LblStatus.Text = RequisitionLogic.GetStatus(Convert.ToInt32(reqID));
                 if (String.IsNullOrWhiteSpace(tempR.Remarks))
                 {
                     TxtRemarks.Text = "No remarks.";
@@ -40,7 +38,7 @@ namespace Team12_SSIS.DepartmentHead
                 }
 
                 // Toggling the visibilty of the "Approve" and "Reject" controls   ---    If "Pending", will still remain invisible
-                if (r.GetStatus(Convert.ToInt32(reqID)).Equals("Pending"))
+                if (RequisitionLogic.GetStatus(Convert.ToInt32(reqID)).Equals("Pending"))
                 {
                     TxtRemarks.Text = "";
                     BtnApprove.Visible = true;
@@ -58,7 +56,7 @@ namespace Team12_SSIS.DepartmentHead
             }
 
             // Populating the gridview
-            GridViewDetails.DataSource = r.FindRequisitionRecordDetailsByReqID(Convert.ToInt32(reqID));
+            GridViewDetails.DataSource = RequisitionLogic.FindRequisitionRecordDetailsByReqID(Convert.ToInt32(reqID));
             GridViewDetails.DataBind();
         }
 
@@ -66,26 +64,26 @@ namespace Team12_SSIS.DepartmentHead
         // Methods for retrieving aesthetically pleasant values for the user - rather then just showing item id for eg
         public string GetItemDescription(string itemID)
         {
-            string temp = i.GetItemDescription(itemID);
+            string temp = InventoryLogic.GetItemDescription(itemID);
             return temp.ToString();
         }
 
         public string GetUnitsOfMeasure(string itemID)
         {
-            string temp = i.GetUnitsOfMeasure(itemID);
+            string temp = InventoryLogic.GetUnitsOfMeasure(itemID);
             return temp.ToString();
         }
 
         // Approving the requisition record
         protected void BtnApprove_Click(object sender, EventArgs e)
         {
-            string temp = r.ProcessRequsitionRequest(Convert.ToInt32(reqID), "Approved", RequisitionLogic.GetCurrentDeptUserName(), TxtRemarks.Text);
+            string temp = RequisitionLogic.ProcessRequsitionRequest(Convert.ToInt32(reqID), "Approved", RequisitionLogic.GetCurrentDeptUserName(), TxtRemarks.Text);
             LblMessage.Text = temp;
 
             // Modifying the textbox if successful
             if (temp.Contains("successfully"))
             {
-                TxtRemarks.Text = r.GetReqRemarks(Convert.ToInt32(reqID));
+                TxtRemarks.Text = RequisitionLogic.GetReqRemarks(Convert.ToInt32(reqID));
                 TxtRemarks.Attributes.Add("readonly", "readonly");
                 BtnApprove.Visible = false;
                 BtnReject.Visible = false;
@@ -98,19 +96,18 @@ namespace Team12_SSIS.DepartmentHead
         // Rejecting the requisition record
         protected void BtnReject_Click(object sender, EventArgs e)
         {
-            string temp = r.ProcessRequsitionRequest(Convert.ToInt32(reqID), "Rejected", RequisitionLogic.GetCurrentDeptUserName(), TxtRemarks.Text);
+            string temp = RequisitionLogic.ProcessRequsitionRequest(Convert.ToInt32(reqID), "Rejected", RequisitionLogic.GetCurrentDeptUserName(), TxtRemarks.Text);
             LblMessage.Text = temp;
 
             // Modifying the textbox if successful
             if (temp.Contains("successfully"))
             {
-                RequisitionLogic rr = new RequisitionLogic();
                 TxtRemarks.Attributes.Add("readonly", "readonly");
                 BtnApprove.Visible = false;
                 BtnReject.Visible = false;
-                RequisitionRecord tR = rr.FindRequisitionRecord(Convert.ToInt32(reqID));
+                RequisitionRecord tR = RequisitionLogic.FindRequisitionRecord(Convert.ToInt32(reqID));
                 LblDateApproved.Text = tR.ApprovedDate.Value.ToString("MM/dd/yyyy");
-                LblStatus.Text = r.GetStatus(Convert.ToInt32(reqID));
+                LblStatus.Text = RequisitionLogic.GetStatus(Convert.ToInt32(reqID));
             }
 
             // Sending a pop up message

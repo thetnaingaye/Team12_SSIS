@@ -31,7 +31,7 @@
             <asp:RegularExpressionValidator ID="RegularExpressionValidatorPoNumber" ValidationGroup="BtnRetrievePO" ControlToValidate="TxtPONumber" ValidationExpression="^[1-9]\d*$" runat="server" ErrorMessage="Please enter a valid PO number." Display="None"></asp:RegularExpressionValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidatorPoNumber" runat="server" ValidationGroup="BtnRetrievePO" ControlToValidate="TxtPONumber" ErrorMessage="Please enter a PO number." Display="None"></asp:RequiredFieldValidator>
             <td style="width: 70%">
-                <asp:Button ID="BtnRetrievePO" runat="server" Text="Retrieve PO" OnClick="BtnRetrievePO_Click" CssClass="btn btn-xs" ValidationGroup="BtnRetrievePO" />
+                <asp:Button ID="BtnRetrievePO" runat="server" Text="Retrieve PO" OnClick="BtnRetrievePO_Click" CssClass="btn btn-primary btn-xs" ValidationGroup="BtnRetrievePO" />
             </td>
 
             <td style="width: 80%">
@@ -58,8 +58,8 @@
             <td colspan="5">
                 <div>
                     <asp:GridView ID="GridViewGR" runat="server" AutoGenerateColumns="False"
-                        Style="height: 100px; overflow: auto; width: 100%" DataKeyNames="PONumber" ShowHeaderWhenEmpty="True" OnRowDataBound="OnRowDataBound" CellPadding="4" ForeColor="#333333" GridLines="None">
-                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                        Style="height: 100px; overflow: auto; width: 100%" DataKeyNames="PONumber" ShowHeaderWhenEmpty="True" OnRowDataBound="OnRowDataBound" CellPadding="4" ForeColor="#333333">
+                        <AlternatingRowStyle BackColor="#F9F9F9"/>
                         <Columns>
 
                             <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
@@ -142,7 +142,7 @@
 
                 <asp:ValidationSummary ID="ValidatorSummary1" runat="server" ValidationGroup="BtnCreateGR" ForeColor="Red" />
                 <br />
-                <asp:Button ID="BtnPostGR" runat="server" Text="Post Goods Receipt" CssClass="btn btn-group-xs center-block" Visible="false" OnClick="BtnPostGR_Click" ValidationGroup="BtnCreateGR" />
+                <asp:Button ID="BtnPostGR" runat="server" Text="Post Goods Receipt" CssClass="btn btn-primary center-block" Visible="false" OnClick="BtnPostGR_Click" ValidationGroup="BtnCreateGR" />
             </td>
         </tr>
     </table>

@@ -134,3 +134,41 @@ GROUP BY IC.Description, rq.DepartmentID, dl.DepartmentName
 END 
 
 ## End of Script ##
+
+## Stored Procedure for Trend analysis. Pending aspx code ##
+CREATE PROCEDURE RequisitionTrend(@startDate Date, @endDate Date)
+AS 
+-- This is specific Item for a Specific Dept
+BEGIN
+SELECT DISTINCT
+SUM (rqd.RequestedQuantity) as Total_Req_Qty,
+ic.ItemID,
+ic.Description,
+cc.CategoryID,
+cc.CatalogueName,
+COUNT(rq.RequestID) AS NO_OF_REQUESTS,
+AVG(rqd.RequestedQuantity) AS AVG_REQUEST_QTY
+FROM RequisitionRecords rq, RequisitionRecordDetails rqd, InventoryCatalogue ic, CatalogueCategory cc 
+WHERE 
+rq.RequestID = rqd.RequestID
+AND rqd.ItemID = ic.ItemID
+AND ic.CategoryID = cc.CategoryID
+AND rq.RequestDate BETWEEN @startDate and @endDate
+GROUP BY ic.ItemID, cc.CategoryID, ic.Description, cc.CatalogueName
+END 
+
+## End of Script ##
+
+## Stored Procedure for Purchase Order ##
+CREATE PROCEDURE PurchaseOrderReport (@poNumber int)
+AS
+BEGIN
+SELECT
+pod.ItemID, pod.Quantity, pod.Quantity, pod.UnitPrice, pod.UOM, ic.Description
+FROM PORecordDetails pod, InventoryCatalogue ic
+WHERE 
+pod.PONumber = @poNumber
+AND pod.ItemID = ic.ItemID
+END
+
+## End of Script ##

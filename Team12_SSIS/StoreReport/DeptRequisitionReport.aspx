@@ -18,26 +18,34 @@
     </script>
     <table style="width: 100%; vertical-align: top">
         <tr>
-            <td colspan="2">Starting:
-                                <input type="text" id="datepickerStart" name="datepickerStart" readonly="true" />
-
-            </td>
-            <td colspan="2">Ending:
-                                <input type="text" id="datepickerEnd" name="datepickerEnd" readonly="true" />
-
+            <td colspan="4">
+                <h2>Department Requisition Report</h2>
             </td>
         </tr>
         <tr>
-            <td colspan="2">Supplier:
+            <td colspan="2">Department:
                             <asp:DropDownList ID="DdlDept" runat="server" DataTextField="DepartmentName" DataValueField="DeptID"></asp:DropDownList>
+                <asp:Button ID="BtnAddSupplier" runat="server" Text="Add Department..." OnClick="BtnAddDept_Click" CssClass="btn btn-primary btn-xs" />
+
             </td>
-            <td colspan="2">
-                <asp:Button ID="BtnAddSupplier" runat="server" Text="Add Department..." OnClick="BtnAddDept_Click" />
+            <td colspan="2"></td>
+        </tr>
+
+
+        <tr>
+            <td colspan="2">Starting:
+                                <input type="text" id="datepickerStart" name="datepickerStart" />
+
+            </td>
+            <td colspan="2">Ending:
+                                <input type="text" id="datepickerEnd" name="datepickerEnd" />
+
             </td>
         </tr>
         <tr>
             <td colspan="2">Item Code:
-                        <asp:TextBox ID="TxtItemCode" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="TxtItemCode" runat="server"></asp:TextBox><br />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please enter a valid item code." ForeColor="Red" ControlToValidate="TxtItemCode" ValidationGroup="GenerateReport"></asp:RequiredFieldValidator>
             </td>
             <td colspan="2">
                 <asp:Label ID="LblItemDesc" runat="server"></asp:Label>
@@ -66,7 +74,7 @@
 
         <tr>
             <td colspan="4">
-                <asp:Button ID="Button1" runat="server" Text="Generate Report" OnClick="Button1_Click" />
+                <asp:Button ID="Button1" runat="server" Text="Generate Report" OnClick="Button1_Click" CssClass="btn btn-primary btn-xs" ValidationGroup="GenerateReport" />
             </td>
         </tr>
         <tr>

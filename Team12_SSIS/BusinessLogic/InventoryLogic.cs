@@ -25,7 +25,9 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void UpdateCatalogue(string ItemID, string Description,string CategoryID,string BIN, string Shelf, int Level, int ReorderLevel, int ReorderQty, string UOM, string Discontinued)
+        public static void UpdateCatalogue(string ItemID, string Description,string CategoryID,string BIN, string Shelf, int Level,
+            int ReorderLevel, int UnitsInStock, int ReorderQty, string UOM, string Discontinued,
+            int UnitsOnOrder, int BufferStockLevel, int BFSProportion)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -36,9 +38,13 @@ namespace Team12_SSIS.BusinessLogic
                 catalogue.Shelf = Shelf;
                 catalogue.Level = Level;
                 catalogue.ReorderLevel = ReorderLevel;
+                catalogue.UnitsInStock = UnitsInStock;
                 catalogue.ReorderQty = ReorderQty;
                 catalogue.UOM = UOM;
                 catalogue.Discontinued = Discontinued;
+                catalogue.UnitsOnOrder = UnitsOnOrder;
+                catalogue.BufferStockLevel = BufferStockLevel;
+                catalogue.BFSProportion = BFSProportion;
                 entities.SaveChanges();
             }
         }
@@ -51,7 +57,9 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void AddCatalogue(string ItemID, string BIN, string Shelf, int Level, string CategoryID, string Description, int ReorderLevel, int ReorderQty, string UOM, string Discontinued)
+        public static void AddCatalogue(string ItemID, string BIN, string Shelf, int Level, string CategoryID, string Description,
+            int ReorderLevel, int UnitsInStock, int ReorderQty, string UOM,
+            string Discontinued, int UnitsOnOrder, int BufferStockLevel, int BFSProportion)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {
@@ -63,9 +71,13 @@ namespace Team12_SSIS.BusinessLogic
                 inventoryCatalogue.CategoryID = CategoryID;
                 inventoryCatalogue.Description = Description;
                 inventoryCatalogue.ReorderLevel = ReorderLevel;
+                inventoryCatalogue.UnitsInStock = UnitsInStock;
                 inventoryCatalogue.ReorderQty = ReorderQty;
                 inventoryCatalogue.UOM = UOM;
                 inventoryCatalogue.Discontinued = Discontinued;
+                inventoryCatalogue.UnitsOnOrder = UnitsOnOrder;
+                inventoryCatalogue.BufferStockLevel = BufferStockLevel;
+                inventoryCatalogue.BFSProportion = BFSProportion;
                 entities.InventoryCatalogues.Add(inventoryCatalogue);
                 entities.SaveChanges();
             }
@@ -323,7 +335,7 @@ namespace Team12_SSIS.BusinessLogic
         //----------------------------         KHAIR's               ----------------------------// 
 
         // Retrieve ALL items
-        public List<InventoryCatalogue> ListAllItems()
+        public static List<InventoryCatalogue> ListAllItems()
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -341,7 +353,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve specific item name
-        public string GetItemDescription(string itemID)
+        public static string GetItemDescription(string itemID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -361,7 +373,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Retrieve specific item units of measure
-        public string GetUnitsOfMeasure(string itemID)
+        public static string GetUnitsOfMeasure(string itemID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -371,7 +383,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Checks if the current inventory is sufficient for the qty specified to be withdrawn by the user.
-        public bool CheckAgainstInventoryQty(string itemID, int neededQty)
+        public static bool CheckAgainstInventoryQty(string itemID, int neededQty)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -382,7 +394,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Inventory retrieval processes
-        public string CreateNewInventoryRetrievalEntry(int reqID, int reqDetailID, string itemID, string deptID, int reqQty, int actQty, bool isOverride)
+        public static string CreateNewInventoryRetrievalEntry(int reqID, int reqDetailID, string itemID, string deptID, int reqQty, int actQty, bool isOverride)
         {
             bool isFulfilled = true;
             bool isEnough = true;
@@ -403,7 +415,7 @@ namespace Team12_SSIS.BusinessLogic
                 }
 
                 //If inventory is not enough and isOverride is true
-                if (isOverride && ic.UnitsInStock > actQty)
+                if (isOverride)
                 {
                     isEnough = false;
                 }
@@ -447,6 +459,9 @@ namespace Team12_SSIS.BusinessLogic
                     RequisitionRecordDetail rr = context.RequisitionRecordDetails.Where(x => x.RequestDetailID == reqDetailID).First();
                     rr.Status = "Processed";
 
+                    // Gotta create an entry inside the stock card table
+                    CreatestockCard(itemID, DateTime.Now, "Item retrieval for RQ" + reqID + ".", "Minus", actQty, ic.UOM, (currentQty - actQty));
+
                     // Checking whether req qty is fulfilled   -   Separate this shit out  [Creating requisition records and details]
                     if (isFulfilled == false)
                     {
@@ -477,7 +492,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Creating a new req record - auto by the system
-        public void AutoCreateRR(int reqID)
+        private static void AutoCreateRR(int reqID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -505,7 +520,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Creating a new req record details - auto by the system
-        public void AutoCreateRRDetails(string itemID, int newReqQty)
+        private static void AutoCreateRRDetails(string itemID, int newReqQty)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -532,7 +547,7 @@ namespace Team12_SSIS.BusinessLogic
         }
 
         // Materials Resource Planning (MRP) model    -    Always using the top priority supplier [auto by the system as well]
-        public void MRPInitialize(string itemID)
+        public static void MRPInitialize(string itemID)
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
@@ -626,62 +641,55 @@ namespace Team12_SSIS.BusinessLogic
         // Retrieve RRDetails that are relevant to the inventory retrieval process
         public static List<RequisitionRecordDetail> GetRelevantDetailList()
         {
-            using (SA45Team12AD context = new SA45Team12AD())
+            List<RequisitionRecordDetail> tempListDetails = new List<RequisitionRecordDetail>();
+            List<int> currentReqIDs = new List<int>();
+            List<RequisitionRecord> tempReqList = new List<RequisitionRecord>();
+
+            // Retrieve all the req IDs of all current requisition orders
+            tempReqList = RequisitionLogic.ListCurrentRequisitionRecord();
+
+            foreach (var item in tempReqList)
             {
-
-                List<RequisitionRecordDetail> tempListDetails = new List<RequisitionRecordDetail>();
-                List<int> currentReqIDs = new List<int>();
-                List<RequisitionRecord> tempReqList = new List<RequisitionRecord>();
-
-                // Retrieve all the req IDs of all current requisition orders
-                tempReqList = RequisitionLogic.ListCurrentRequisitionRecord();
-
-                foreach (var item in tempReqList)
-                {
-                    currentReqIDs.Add(item.RequestID);
-                }
-
-
-                // Retrieve list of all the chosen req details
-                foreach (var item in currentReqIDs)
-                {
-                    tempListDetails.AddRange(RequisitionLogic.RetrieveRequisitionRecordDetails(item, "Approved"));
-                }
-
-                return tempListDetails;
+                currentReqIDs.Add(item.RequestID);
             }
+
+
+            // Retrieve list of all the chosen req details
+            foreach (var item in currentReqIDs)
+            {
+                tempListDetails.AddRange(RequisitionLogic.RetrieveRequisitionRecordDetails(item, "Approved"));
+            }
+
+            return tempListDetails;
         }
 
         // Building our custom item list for inventory retrieval process
         public static List<InventoryCatalogue> GetRelevantItemList(List<RequisitionRecordDetail> tempListDetails)
         {
-            using (SA45Team12AD context = new SA45Team12AD())
+            List<InventoryCatalogue> tempListItems = new List<InventoryCatalogue>();
+
+            // From our details list, extract its itemID and retrieve the list of items
+            foreach (var item1 in tempListDetails)
             {
-                List<InventoryCatalogue> tempListItems = new List<InventoryCatalogue>();
+                bool check = false;
 
-                // From our details list, extract its itemID and retrieve the list of items
-                foreach (var item1 in tempListDetails)
+                // Check if there is a similar item in tempListItems
+                foreach (var item2 in tempListItems)
                 {
-                    bool check = false;
-
-                    // Check if there is a similar item in tempListItems
-                    foreach (var item2 in tempListItems)
+                    if (item2.ItemID == item1.ItemID)
                     {
-                        if (item2.ItemID == item1.ItemID)
-                        {
-                            check = true;
-                            break;
-                        }
-                    }
-
-                    // only add if there are no similar item in the list
-                    if (check == false)
-                    {
-                        tempListItems.Add(FindItemByItemID(item1.ItemID));
+                        check = true;
+                        break;
                     }
                 }
-                return tempListItems;
+
+                // only add if there are no similar item in the list
+                if (check == false)
+                {
+                    tempListItems.Add(FindItemByItemID(item1.ItemID));
+                }
             }
+            return tempListItems;
         }
 
         // Calculating the total qty needed per item for inventory retrieval
@@ -704,16 +712,16 @@ namespace Team12_SSIS.BusinessLogic
         // Segregating our per item for retrieval by dept and generating the tempList
         public static List<TempInventoryRetrieval> RetrieveTempInventoryList(string itemID)
         {
-            // Intialize our list
+            // Intialize our lists
             List<RequisitionRecordDetail> tempList = new List<RequisitionRecordDetail>();
             List<TempInventoryRetrieval> ti = new List<TempInventoryRetrieval>();
 
-            int totalAct = 0;
+            int totalReq = 0;
 
-            // Creating our ReqRecord list that is relevant to this "main" row.
+            // Creating our ReqRecord list that is relevant to this "main" row, i.e those that are "approved" and not yet "processed"
             foreach (var item in GetRelevantDetailList())
             {
-                if (item.ItemID == itemID)
+                if (item.ItemID == itemID)  // From our list, we are only taking those that are relevant (i.e same itemID as our param)
                 {
                     tempList.Add(RequisitionLogic.FindRequisitionRecordDetails(item.RequestDetailID));
                 }
@@ -726,11 +734,11 @@ namespace Team12_SSIS.BusinessLogic
             // This takes the overall qty requested per item (combines all relevant req together) and compares it to the existing inventory
             foreach (var item in ti)
             {
-                totalAct += item.ActualQty;
+                totalReq += item.RequestedQty;
             }
             foreach (var item in ti)
             {
-                if (totalAct <= GetQuantity(itemID))
+                if (totalReq > GetQuantity(itemID))  // If total req qty is more than the current quantity in the inventory (aka insufficient qty for the "batch")
                 {
                     item.IsOverride = true;
                 }
@@ -1709,25 +1717,20 @@ namespace Team12_SSIS.BusinessLogic
         //----Thanisha-------------------------View Stock Card details-----------------------------------------------//
         //------------------------------getting stock card details(ItemID,Date of transaction,Description,UOM,transaction type,quantity,balance)-------------//
 
-        public List<Object> GetStockCardList(string itemid)
+        public static List<StockCard> GetStockCardList(string itemid)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
-                var q = entity.StockCards.
-                Select(x => new { x.ItemID, x.Date, x.Description, x.Type, x.Quantity, x.Balance }).Where(x => x.ItemID == itemid);
-                List<Object> sList = q.ToList<Object>();
-                return sList;
+           return  entity.StockCards.Where(x => x.ItemID == itemid).ToList<StockCard>(); ;
+               
             }
         }
         //------------------------get all stockcarditems----------------------------------------//
-        public List<Object> GetAllStockCardList()
+        public List<StockCard> GetAllStockCardList()
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
-                var q = entity.StockCards.
-                Select(x => new { x.ItemID, x.Date, x.Description, x.Type, x.Quantity, x.Balance });
-                List<Object> sList = q.ToList<Object>();
-                return sList;
+                return entity.StockCards.ToList<StockCard>(); ;
             }
         }
 
@@ -1751,7 +1754,7 @@ namespace Team12_SSIS.BusinessLogic
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
-                return entity.InventoryCatalogues.Where(s => s.ItemID == itemid).ToList().First<InventoryCatalogue>();
+                return entity.InventoryCatalogues.Where(s => s.ItemID == itemid).ToList().FirstOrDefault<InventoryCatalogue>();
             }
         }
         //-------------------------- (Supplier details)---------------------------------------//
@@ -1762,8 +1765,24 @@ namespace Team12_SSIS.BusinessLogic
                 return entity.SupplierCatalogues.Where(s => s.ItemID == itemid).ToList<SupplierCatalogue>();
             }
         }
+        //---------------------------------Transaction between the specified dates--------------------------------------------//
 
+        public static List<StockCard> GetTransactionByDate(DateTime startDate, DateTime enddate, string id)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.StockCards.Where(x => x.Date >= startDate && x.Date <= enddate && x.ItemID == id).ToList<StockCard>();
+            }
+        }
+        //------------------------------return all transaction dates within the dates selected by user--------------------------//
 
+        public static List<StockCard> GetAllTransactionByDate(DateTime startDate, DateTime enddate)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                return entity.StockCards.Where(x => x.Date >= startDate && x.Date <= enddate ).ToList<StockCard>();
+            }
+        }
 
 
         //-------------------------------------------------View InventoryList-----------------------------------------//
@@ -1825,10 +1844,94 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        public static List<InventoryCatalogue> SearchInventory(string keyword)
+        {
 
-            //---------------------------------AdjustmentVoucher--------------------------------------------------------//
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                List<InventoryCatalogue> iList = entity.InventoryCatalogues.Where(x => x.Description.Contains(keyword) || x.ItemID.Contains(keyword) || x.BIN.Contains(keyword) || x.UOM.Contains(keyword)).ToList<InventoryCatalogue>();
+                return iList;
+            }
+        }
+        //----------------------------------------checking category and quantity level selected in the dropdown list...returns the resultset-----//
+        public static List<InventoryCatalogue> GetInventoryByCategoryNQuantity(string category, int UIS)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                CatalogueCategory cat = entity.CatalogueCategories.Where(x => x.CatalogueName == category).ToList<CatalogueCategory>().First();
+                string catId = cat.CategoryID;
+                var q = (from i in entity.InventoryCatalogues
+                         join c in entity.CatalogueCategories on i.CategoryID equals c.CategoryID
+                         where c.CatalogueName == category && i.UnitsInStock < UIS
+                         select i);
+                return q.ToList<InventoryCatalogue>();
 
-            public static List<AVRequest> GetadvReq(string id)
+
+            }
+        }
+
+        public static List<InventoryCatalogue> GetInventoryByCategorybelowReorder(string category)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                CatalogueCategory cat = entity.CatalogueCategories.Where(x => x.CatalogueName == category).ToList<CatalogueCategory>().First();
+                string catId = cat.CategoryID;
+
+                var q = (from i in entity.InventoryCatalogues
+                         join c in entity.CatalogueCategories on i.CategoryID equals c.CategoryID
+                         where c.CatalogueName == category && i.UnitsInStock < i.ReorderLevel
+                         select i);
+                return q.ToList<InventoryCatalogue>();
+            }
+        }
+        //------------------------------get all inventory items  below reorder level---------//
+        public static List<InventoryCatalogue> GetAllInventorybelowReorder()
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+               
+
+                var q = (from i in entity.InventoryCatalogues
+                        
+                         where  i.UnitsInStock < i.ReorderLevel
+                         select i);
+                return q.ToList<InventoryCatalogue>();
+            }
+        }
+        //------------------------------get inventoryitems  below the dropdown list selected stock level---------//
+
+        public static List<InventoryCatalogue> GetAllInventorybelowStock(int stock)
+        {
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+
+
+                var q = (from i in entity.InventoryCatalogues
+
+                         where i.UnitsInStock < stock
+                         select i);
+                return q.ToList<InventoryCatalogue>();
+            }
+        }
+        //-------------------------------get the list of itemId--------------------------------------------------------------//
+        public static List<string> GetAllItemId()
+        {
+            List<string> idList=null;
+            using (SA45Team12AD entity = new SA45Team12AD())
+            {
+                List<InventoryCatalogue> iList=entity.InventoryCatalogues.ToList<InventoryCatalogue>();
+                for(int i=0;i<iList.Count;i++)
+                {
+                    idList.Add(iList[i].ItemID);
+                }
+                return idList;
+            }
+        }
+
+
+        //---------------------------------AdjustmentVoucher--------------------------------------------------------//
+
+        public static List<AVRequest> GetadvReq(string id)
         {
             using (SA45Team12AD entity = new SA45Team12AD())
             {
@@ -2104,7 +2207,7 @@ namespace Team12_SSIS.BusinessLogic
 
                 using (EmailControl em = new EmailControl())
                 {
-                    em.NewAdjustmentVoucherRequestNotification(User.Email.ToString(), avRId.ToString(), clerkName);
+                    em.NewAdjustmentVoucherRequestNotification(User.Email.ToString(), "AVR" + avRId.ToString("0000"), clerkName);
                 }
             }
         }
@@ -2142,7 +2245,7 @@ namespace Team12_SSIS.BusinessLogic
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 InventoryRetrievalList iRL = ctx.InventoryRetrievalLists.Where(x => x.RetrievalID == retrievalId).FirstOrDefault();
-                iRL.Status = status;
+                iRL.Status += ":"+status;
                 ctx.SaveChanges();
                 success = true;
             }

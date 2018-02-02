@@ -14,7 +14,7 @@
             <tbody style="width: 100%">
                 <tr>
                     <td colspan="2" style="height: 25px">
-                        <asp:Label ID="LblPageTitle" runat="server" Font-Size="Large"></asp:Label>
+                        <h2><asp:Label ID="LblPageTitle" runat="server"></asp:Label></h2>
                     </td>
                 </tr>
                 <tr>
@@ -57,8 +57,8 @@
                                     <asp:GridView ID="GridViewAdjV" runat="server" AutoGenerateColumns="False"
                                         Style="width:100%" ShowHeaderWhenEmpty="True"
                                         OnRowDataBound="OnRowDataBound"
-                                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ItemID">
-                                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                        CellPadding="4" ForeColor="#333333" DataKeyNames="ItemID">
+                                        <AlternatingRowStyle BackColor="#F9F9F9" />
                                         <Columns>
 
                                             <asp:TemplateField HeaderText="#" HeaderStyle-Width="5%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller" ShowHeader="true">
@@ -155,7 +155,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <asp:Button ID="BtnCancelReq" runat="server" Text="Cancel Request" CssClass="btn btn-xs" OnClick="BtnCancelReq_Click" Visible="false"/>
+                        <asp:Button ID="BtnCancelReq" runat="server" Text="Cancel Request" CssClass="btn btn-primary btn-xs" OnClick="BtnCancelReq_Click" Visible="false"/>
                     </td>
                 </tr>
             </tbody>

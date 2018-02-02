@@ -62,7 +62,7 @@ namespace Team12_SSIS.Utility
 
         public static bool IsIntMoreThan(int value, int maximumLimit)
         {
-            if (value < maximumLimit)
+            if (value <= maximumLimit)
                 return false;
             else
                 return true;
