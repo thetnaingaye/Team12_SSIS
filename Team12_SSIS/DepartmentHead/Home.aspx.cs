@@ -21,17 +21,10 @@ namespace Team12_SSIS.DepartmentHead
             List<RequisitionRecord> list = RequisitionLogic.ListAllRRBySpecificDeptAndStatus(dep, "Pending");
             return list.Count;
         }
-        protected int GetDisbursementCount()
+        protected String GetRep()
         {
-            String dep = DisbursementLogic.GetCurrentDep();
-            List<DisbursementList> list = DisbursementLogic.GetListOfDisbursements("Status", "Pending Collection");
-            int count = 0;
-            foreach(DisbursementList d in list)
-            {
-                if (d.DepartmentID == dep)
-                    count++;
-            }
-            return count;
+            
+            return DisbursementLogic.GetDeptRepFullName(DisbursementLogic.GetCurrentDep());
         }
     }
 }

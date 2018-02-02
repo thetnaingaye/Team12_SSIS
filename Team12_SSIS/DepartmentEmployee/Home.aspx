@@ -11,7 +11,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- First Container - quick research-->
-    <div class="container-fluid" style="padding: 0px 0px 0px 150px">
+    <div class="container-fluid" style="padding: 150px 0px 250px 150px">
 
         <!-- Third Container - quick buttons -->
 
@@ -19,30 +19,19 @@
             <a href="ViewCatalogue.aspx" style="text-decoration: none">
                 <div class="col-sm-6">
 
-                    <img src="../Images/requisition.png" class="img-responsive margin" style="width: 60%" alt="Image" />
+                    <img src="../Images/raisereq.png" class="img-responsive margin" style="width: 60%" alt="Image" />
                     <h5>Raise another requisition...</h5>
                 </div>
             </a>
-            <div class="col-sm-6" style="text-combine-upright: all">
-                <div class="panel">
-                </div>
-
-            </div>
-        </div>
-        <div class="row" style="align-content: center">
-
-
-            <div class="col-sm-6" style="align-content: center">
-                <div class="panel">
-                </div>
-            </div>
             <a href="ViewRequisitionHistory.aspx" style="text-decoration: none">
                 <div class="col-sm-6" style="align-content: center">
 
-                    <img src="../Images/check.png" class="img-responsive margin" style="width: 60%" alt="Image" />
+                    <img src="../Images/viewhistory.png" class="img-responsive margin" style="width: 60%" alt="Image" />
                     <h5>Check the status of recent requests...</h5>
                 </div>
             </a>
+
         </div>
     </div>
+
 </asp:Content>

@@ -41,18 +41,6 @@ namespace Team12_SSIS
             threadSundae.IsBackground = true;
             threadSundae.Name = "ThreadSundae";
             threadSundae.Start();
-
-            //// Thread for auto running the clearance of the reorder list table
-            //TimeSpan tsInterval1 = new TimeSpan(0, 0, 30);  // hours, minutes, seconds
-            //IntervalTimer = new System.Threading.Timer(
-            //    new System.Threading.TimerCallback(AutomationLogic.BeginEndOfDayProcesses)
-            //    , null, tsInterval1, tsInterval1);
-
-            //// Thread for auto running the clearance of the reorder list table
-            //TimeSpan tsInterval2 = new TimeSpan(1, 0, 0);  // hours, minutes, seconds
-            //IntervalTimer = new System.Threading.Timer(
-            //    new System.Threading.TimerCallback(AutomationLogic.ForecastingAlgorithm)
-            //    , null, tsInterval2, tsInterval2);
         }
 
         void AuthenticationService_Authenticating(object sender, System.Web.ApplicationServices.AuthenticatingEventArgs e)
