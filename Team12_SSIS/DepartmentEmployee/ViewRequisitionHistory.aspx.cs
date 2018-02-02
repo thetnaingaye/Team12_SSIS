@@ -64,7 +64,7 @@ namespace Team12_SSIS.DepartmentEmployee
         protected void LBtnRID_Click(object sender, EventArgs e)
         {
             LinkButton lb = (LinkButton)sender;
-            int reqID = Convert.ToInt32(lb.Text);
+            int reqID = Utility.Utility.GetValidPrimaryKeyInt(lb.Text);
 
             // Retrieve details list
             var tempList = RequisitionLogic.FindRequisitionRecordDetailsByReqID(reqID);
@@ -72,7 +72,7 @@ namespace Team12_SSIS.DepartmentEmployee
             {
                 // Populating the labels associated with the gridview
                 LblSelected.Text = "Request ID: ";
-                LblItemIDInfo.Text = "RQ" + lb.Text;
+                LblItemIDInfo.Text = lb.Text;
                 LblDetails.Text = "Details";
             }
             else

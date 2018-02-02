@@ -21,7 +21,7 @@
                
                   <asp:TemplateField HeaderText="Requisition ID" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
-                                            <asp:LinkButton ID="LBtnRID" runat="server" Visible="true" Text='<%# Bind("RequestID") %>' OnClick="LBtnRID_Click"></asp:LinkButton>
+                                            <asp:LinkButton ID="LBtnRID" runat="server" Visible="true" Text='<%# "RQ" + Eval("RequestID") %>' OnClick="LBtnRID_Click"></asp:LinkButton>
                                         </ItemTemplate>
                                         <HeaderStyle CssClass="text-center" Font-Size="Smaller" ></HeaderStyle>
                                     <ItemStyle CssClass="text-center"></ItemStyle>

@@ -79,7 +79,7 @@
                     <EmptyDataTemplate>
                         <table runat="server">
                             <tr>
-                                <td>There are records associated with this status.</td>
+                                <td>There are no records associated with this status.</td>
                             </tr>
                         </table>
                     </EmptyDataTemplate>
