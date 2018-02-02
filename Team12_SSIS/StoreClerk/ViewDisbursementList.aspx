@@ -52,7 +52,7 @@
                 <asp:Label ID="Label4" runat="server" Text="Collection Date: "></asp:Label>
             </td>
             <td>
-                <input type="text" id="datepicker" name="datepicker" readonly="true" />
+                <input type="text" id="datepicker" name="datepicker" placeholder="dd/MM/yyyy"/>
             </td>
             <td>
                 <asp:Button ID="BtnSearch" CssClass="btn btn-primary btn-xs" runat="server" Text="Search..." OnClick="BtnSearch_Click" />

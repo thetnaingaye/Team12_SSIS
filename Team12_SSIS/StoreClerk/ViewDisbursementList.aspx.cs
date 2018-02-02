@@ -90,10 +90,12 @@ namespace Team12_SSIS.StoreClerk
         {
             string status = DdlStatus.SelectedValue;
             int colPointId = int.Parse(DdlColPoint.SelectedValue);
-            DateTime collectionDate = DateTime.ParseExact(Request.Form["datepicker"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime collectionDate;
             List<DisbursementList> dList = status == "All" ? DisbursementLogic.GetListOfDisbursements() : DisbursementLogic.GetListOfDisbursements("Status", status);
             dList =  colPointId == -1 ? dList : dList.Where(x => x.CollectionPointID == colPointId).ToList();
-            dList = dList.Where(x => x.CollectionDate == collectionDate).ToList();
+            if ((DateTime.TryParseExact(Request.Form["datepicker"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out collectionDate)))
+                dList = dList.Where(x => x.CollectionDate == collectionDate).ToList();
+            
             GridViewDisbList.DataSource = dList;
             GridViewDisbList.DataBind();
         }

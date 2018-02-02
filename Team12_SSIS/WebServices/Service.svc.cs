@@ -456,6 +456,11 @@ namespace Team12_SSIS.WebServices
         // Approve requisition [DEPT HEAD]
         public string ApproveRequisition(WCF_RequisitionRecord tempObj, string token)
         {
+            if (!IsAuthanticateUser(token))
+            {
+                return "Invalid user.";
+            }
+
             string temp = RequisitionLogic.ProcessRequsitionRequest(tempObj.RequestID, "Approved", GetUserFullName(token), tempObj.Remarks);
             return temp;
         }
@@ -463,6 +468,11 @@ namespace Team12_SSIS.WebServices
         // Reject requisition [DEPT HEAD]
         public string RejectRequisition(WCF_RequisitionRecord tempObj, string token)
         {
+            if (!IsAuthanticateUser(token))
+            {
+                return "Invalid user.";
+            }
+
             string temp = RequisitionLogic.ProcessRequsitionRequest(tempObj.RequestID, "Rejected", GetUserFullName(token), tempObj.Remarks);
             return temp;
         }
