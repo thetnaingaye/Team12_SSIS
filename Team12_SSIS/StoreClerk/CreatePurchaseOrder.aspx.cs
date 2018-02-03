@@ -1,4 +1,4 @@
-﻿//Author Lim Chang Siang
+﻿//Author Lim Chang Siang and Li Jianing
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
-//Jianing's code
+
 namespace Team12_SSIS.StoreClerk
 {
     public partial class CreatePurchaseOrder : System.Web.UI.Page

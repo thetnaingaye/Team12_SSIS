@@ -2,10 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
-        .auto-style1 {
-            height: 26px;
-        }
-
+        
 
         .auto-style2 {
             padding: 5px 15px 0px 15px;
@@ -128,7 +125,7 @@
             <div class="col-md-5 col-sm-12">
                       <a href="../StoreReport/RequisitionTrendReport.aspx" style="text-decoration:none"> 
                 <div class="panel panel-default" style="border-color: #006699; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-                     <div class="panel-heading" style="text-align: left; background-color: transparent; color: #1A6ECC";font-weight:600><h4>Requisition Trend</h4><h6>number of requisitions current and past two months</h6></div>
+                     <div class="panel-heading" style="text-align: left; background-color: transparent; color: #1A6ECC";font-weight:600><h4>Requisition Trend</h4><h6>number of requisitions current and past three months</h6></div>
                     <div class="auto-style2">
                         <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                             <Triggers>
@@ -179,7 +176,7 @@ GROUP BY FORMAT(RequestDate, 'MMM_yyyy')
             <div class="col-md-7 col-sm-12">
                   <a href="../StoreReport/RequisitionTrendReport.aspx" style="text-decoration:none"> 
                 <div class="panel panel-default" style="border-color: #006699; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-                     <div class="panel-heading" style="text-align: left; background-color: transparent; color: #1A6ECC";font-weight:600><h4>Requisition Trend</h4><h6>number of requisitions by department for current and past two months</h6></div>
+                     <div class="panel-heading" style="text-align: left; background-color: transparent; color: #1A6ECC";font-weight:600><h4>Requisition Trend</h4><h6>number of requisitions by department for current and past three months</h6></div>
                     <div class="auto-style2">
                         <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
                             <Triggers>

@@ -12,9 +12,11 @@ using Team12_SSIS.Model;
 
 namespace Team12_SSIS.BusinessLogic
 {
-    //Chang Siang here...
+    
     public class ReportLogic
     {
+
+        //------------------ Lim Chang Siang's Code Starts Here---------------------//
         public static DataTable GetPurchaseHistotoryWithCost(DateTime startPeriod, DateTime endPeriod, string itemId,string supplierId)
         {
             using (SA45Team12AD ctx = new SA45Team12AD())
@@ -29,6 +31,7 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        //------------------ Lim Chang Siang's Code Ends Here---------------------//
 
 
 

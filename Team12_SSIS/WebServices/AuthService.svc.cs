@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Author: Lim Chang Siang
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -15,6 +16,7 @@ namespace Team12_SSIS.WebServices
 
     public class AuthService : IAuthService
     {
+        const int shft = 5;
         const char seperator = '/';
         public string Login(UserIdentity user)
         {
@@ -34,7 +36,6 @@ namespace Team12_SSIS.WebServices
         {
             //Took this code from StackOverflow by lokusking https://stackoverflow.com/questions/38816004/simple-string-encryption-without-dependencies/38816208#38816208?newreg=466b51f08cc74759835ead8063afb961
             string topSecret = userName + seperator + password;
-            int shft = 5;
             string encrypted = topSecret.Select(ch => ((int)ch) << shft).Aggregate("", (current, val) => current + (char)(val * 2));
             encrypted = Convert.ToBase64String(Encoding.UTF8.GetBytes(encrypted));
             return encrypted;
@@ -44,7 +45,6 @@ namespace Team12_SSIS.WebServices
         UserIdentity Team12CustomIdentityDecoder(string tokenString)
         {
             //Took this code from StackOverflow by lokusking https://stackoverflow.com/questions/38816004/simple-string-encryption-without-dependencies/38816208#38816208?newreg=466b51f08cc74759835ead8063afb961
-            int shft = 5;
             string decrypted = Encoding.UTF8.GetString(Convert.FromBase64String(tokenString)).Select(ch => ((int)ch) >> shft).Aggregate("", (current, val) => current + (char)(val / 2));
             string[] splitString = decrypted.Split(seperator);
             UserIdentity user = new UserIdentity();

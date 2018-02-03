@@ -1,4 +1,5 @@
-﻿## Store Procedure for SupplierOrderReport
+﻿## Author: Lim Chang Siang ##
+## Store Procedure for SupplierOrderReport
 ## Start of Script ##
 CREATE PROCEDURE StoreOrderHistory(@startDate Date, @endDate Date, @itemId VARCHAR(255),@supplierId VARCHAR(255))
 AS 

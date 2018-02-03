@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Author: Pradeep Elango and THET NAING AYE
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -25,8 +26,6 @@ namespace Team12_SSIS
 			thread.IsBackground = true;
 			thread.Name = "ThreadFunc";
 			thread.Start();
-
-
 
             // SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         
 
@@ -188,7 +187,7 @@ namespace Team12_SSIS
 		}
 
 
-		protected void Session_Start(object sender, EventArgs e)
+        protected void Session_Start(object sender, EventArgs e)
         {
 
         }

@@ -1,6 +1,6 @@
-﻿using System;
+﻿//Author: Lim Chang Siang
+using System;
 using System.Collections.Generic;
-//Author Lim Chang Siang
 using System.Drawing;
 using System.Linq;
 using System.Web;

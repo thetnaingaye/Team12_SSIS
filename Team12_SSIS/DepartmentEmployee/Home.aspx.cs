@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Author: Thet Naing Aye and SICAT JANE ESCALADA
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,8 +26,6 @@ namespace Team12_SSIS.DepartmentEmployee
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
-            //Session["input"] = TxtSearch.Text;
-            //Server.Transfer("~/DepartmentEmployee/ViewCatalogue.aspx");
         }
     }
 }

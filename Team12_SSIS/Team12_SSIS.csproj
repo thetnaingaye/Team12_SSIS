@@ -288,7 +288,6 @@
     <Content Include="DepartmentHead\ViewDelegationHistory.aspx" />
     <Content Include="DepartmentHead\ViewDisbursementForm.aspx" />
     <Content Include="DepartmentHead\ViewDisbursementList.aspx" />
-    <Content Include="DepartmentHead\ViewDeptRepHistory.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="StoreClerk\ChangeBufferStockLevel.aspx" />
@@ -423,13 +422,6 @@
     </Compile>
     <Compile Include="DepartmentHead\ViewDisbursementList.aspx.designer.cs">
       <DependentUpon>ViewDisbursementList.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DepartmentHead\ViewDeptRepHistory.aspx.cs">
-      <DependentUpon>ViewDeptRepHistory.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DepartmentHead\ViewDeptRepHistory.aspx.designer.cs">
-      <DependentUpon>ViewDeptRepHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="DepartmentHead\ViewRequisitionFormDetails.aspx.cs">
       <DependentUpon>ViewRequisitionFormDetails.aspx</DependentUpon>

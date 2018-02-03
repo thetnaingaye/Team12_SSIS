@@ -1,17 +1,7 @@
-﻿using System;
+﻿//Author: Pradeep Elango
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static Team12_SSIS.Utility.Validator;
 using Team12_SSIS.BusinessLogic;
-using System.Collections.Generic;
-using System.Data.Entity;
-using Team12_SSIS.Utility;
-using System.Data;
-using System.Linq;
-using Team12_SSIS.Model;
-using System.Web.Security;
-using System.Text.RegularExpressions;
-using System.Text;
-using Team12_SSIS.Supplier;
 
 namespace UnitTest
 {
@@ -49,12 +39,7 @@ namespace UnitTest
 			int bufferStockLevel = PurchasingLogic.GetCurrentBufferStock(itemID);
 			Console.WriteLine(bufferStockLevel);
         }
-        [TestMethod]
-        public void TestProductID()
-        {
-            Console.WriteLine(Team12_SSIS.Utility.Validator.IsProductIdFormat("C001"));
 
-        }
 
     }
 }

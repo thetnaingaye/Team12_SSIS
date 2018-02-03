@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Author: Li Jianing and Lim Chang Siang
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,7 +7,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
-//Jianing's code
 
 namespace Team12_SSIS.StoreManager.StoreSupervisor
 {

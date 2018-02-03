@@ -1,12 +1,11 @@
-﻿using System;
+﻿//Author: Lim Chang Siang
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-/// <summary>
-/// Taken from kiong.com DipSA Android Module. Media and Playback topic....
-/// </summary>
+
 namespace Team12_SSIS.WebServices
 {
     public partial class FormUpload : System.Web.UI.Page

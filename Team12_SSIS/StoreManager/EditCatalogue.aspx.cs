@@ -1,4 +1,5 @@
-﻿using System;
+﻿//-- Author: Pradeep Elango and Yuan Yishu
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Author: Lim Chang Siang
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;

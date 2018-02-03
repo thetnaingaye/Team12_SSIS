@@ -18,306 +18,7 @@ namespace Team12_SSIS.BusinessLogic
     //Pradeep Line 1519 to 1820
     public class DisbursementLogic
     {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //-------------------- VALLIYODAN THANISHA Code Starts Here-------------------------//
         //-------------------------Getting disbursement details------------------------------//
         //-----------------------Entire disbursement List------------------------------------//
         public static List<DisbursementList> GetDisbursementForm()
@@ -325,7 +26,7 @@ namespace Team12_SSIS.BusinessLogic
             using (SA45Team12AD entities = new SA45Team12AD())
             {
                 string departmentId = GetCurrentDep();
-                return entities.DisbursementLists.Where(x=>x.DepartmentID== departmentId).ToList<DisbursementList>();
+                return entities.DisbursementLists.Where(x => x.DepartmentID == departmentId).ToList<DisbursementList>();
             }
         }
 
@@ -337,7 +38,7 @@ namespace Team12_SSIS.BusinessLogic
             {
                 string departmentId = GetCurrentDep();
                 var q = (from di in entities.DisbursementLists
-                         where di.CollectionDate >= startDate && di.CollectionDate <= enddate && di.DepartmentID==departmentId
+                         where di.CollectionDate >= startDate && di.CollectionDate <= enddate && di.DepartmentID == departmentId
                          select di);
 
                 List<DisbursementList> dList = q.ToList<DisbursementList>();
@@ -377,12 +78,13 @@ namespace Team12_SSIS.BusinessLogic
             {
                 var q = (from di in entities.DisbursementLists
                          join de in entities.Departments on di.DepartmentID equals de.DeptID
-                         where de.DepartmentName==dep select di);
+                         where de.DepartmentName == dep
+                         select di);
                 return q.ToList<DisbursementList>();
             }
         }
 
-      
+
 
 
         //----------------------------------for Disbursement Details page--------------------------//
@@ -416,7 +118,8 @@ namespace Team12_SSIS.BusinessLogic
             {
                 var q = (from df in entities.DisbursementLists
                          join co in entities.CollectionPoints on df.CollectionPointID equals co.CollectionPointID
-                         where df.DisbursementID == id select df);
+                         where df.DisbursementID == id
+                         select df);
                 DisbursementList ddetail = q.First<DisbursementList>();
                 return ddetail;
             }
@@ -436,252 +139,12 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        //-------------------- VALLIYODAN THANISHA Code Ends Here-------------------------//
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //-- Jane not using.. Chang Siang will write here first..
+        //-------------------- Lim Chang Siang Start here -------------------------------//
         public static List<Department> GetListofDepartments()
         {
             using (SA45Team12AD ctx = new SA45Team12AD())
@@ -785,7 +248,7 @@ namespace Team12_SSIS.BusinessLogic
         private void CheckForOutstandingItem(int quantityCollected, DisbursementListDetail dListDetails, string remarks)
         {
             string departmentId;
-            using(SA45Team12AD ctx = new SA45Team12AD())
+            using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 departmentId = ctx.DisbursementLists.Where(x => x.DisbursementID == dListDetails.DisbursementID).Select(x => x.DepartmentID).FirstOrDefault();
             }
@@ -845,12 +308,12 @@ namespace Team12_SSIS.BusinessLogic
                 success = true;
             }
             if (status == "Cancelled")
-                using(EmailControl em = new EmailControl())
+                using (EmailControl em = new EmailControl())
                 {
                     em.CancelStationeryCollectionNotification(email, collectPoint, dateTime);
                 }
 
-                return success;
+            return success;
         }
 
         public static List<DisbursementList> GetListOfDisbursements()
@@ -899,968 +362,70 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
+        //-------------------- Lim Chang Siang ends here -------------------------------//
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //------ Predeep Code Starts Here--------------------//
 
         public static List<CollectionPoint> ListCollectionPoints()
-		{
-			using (SA45Team12AD entities = new SA45Team12AD())
-			{
-				return entities.CollectionPoints.ToList();
-			}
-		}
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.CollectionPoints.ToList();
+            }
+        }
 
-		public static List<string> ListCollectionPointsWithTime()
-		{
-			List<CollectionPoint> cpList = new List<CollectionPoint>();
-			cpList = DisbursementLogic.ListCollectionPoints();
-			List<string> cpWithTimeList = new List<string>();
-			foreach (CollectionPoint C in cpList)
-			{
-				string s = C.CollectionPoint1;
-				cpWithTimeList.Add(s);
-			}
-			return cpWithTimeList;
-		}
+        public static List<string> ListCollectionPointsWithTime()
+        {
+            List<CollectionPoint> cpList = new List<CollectionPoint>();
+            cpList = DisbursementLogic.ListCollectionPoints();
+            List<string> cpWithTimeList = new List<string>();
+            foreach (CollectionPoint C in cpList)
+            {
+                string s = C.CollectionPoint1;
+                cpWithTimeList.Add(s);
+            }
+            return cpWithTimeList;
+        }
 
-		public static string GetCurrentDep()
-		{
-			return HttpContext.Current.Profile.GetPropertyValue("department").ToString();
-		}
+        public static string GetCurrentDep()
+        {
+            return HttpContext.Current.Profile.GetPropertyValue("department").ToString();
+        }
 
-		public static string GetDepNameByDepID(string depid)
-		{
-			using (SA45Team12AD entities = new SA45Team12AD())
-			{
-				return entities.Departments.Where(x => x.DeptID == depid).Select(x => x.DepartmentName).Single().ToString();
-			}
-		}
+        public static string GetDepNameByDepID(string depid)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.Departments.Where(x => x.DeptID == depid).Select(x => x.DepartmentName).Single().ToString();
+            }
+        }
 
-		public static string GetCurrentCPIDByDep(string dep)
-		{
-			using (SA45Team12AD entities = new SA45Team12AD())
-			{
-				return entities.Departments.Where(x => x.DeptID == dep).Select(x => x.CollectionPointID).Single().ToString();
+        public static string GetCurrentCPIDByDep(string dep)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.Departments.Where(x => x.DeptID == dep).Select(x => x.CollectionPointID).Single().ToString();
 
-			}
-		}
+            }
+        }
 
-		public static string GetCurrentCPWithTimeByID(int id)
-		{
-			using (SA45Team12AD entities = new SA45Team12AD())
-			{
-				return entities.CollectionPoints.Where(x => x.CollectionPointID == id).Select(x => x.CollectionPoint1).Single().ToString();
-				
-			}
-		}
+        public static string GetCurrentCPWithTimeByID(int id)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                return entities.CollectionPoints.Where(x => x.CollectionPointID == id).Select(x => x.CollectionPoint1).Single().ToString();
 
-		public static void UpdateCollectionPoint(string depid, int cpid)
-		{
-			using (SA45Team12AD entities = new SA45Team12AD())
-			{
-				Department department = entities.Departments.Where(p => p.DeptID == depid).First<Department>();
-				department.CollectionPointID = cpid;
-				entities.SaveChanges();
-			}
+            }
+        }
+
+        public static void UpdateCollectionPoint(string depid, int cpid)
+        {
+            using (SA45Team12AD entities = new SA45Team12AD())
+            {
+                Department department = entities.Departments.Where(p => p.DeptID == depid).First<Department>();
+                department.CollectionPointID = cpid;
+                entities.SaveChanges();
+            }
             Thread collectPointThread = new Thread(delegate ()
             {
                 using (EmailControl em = new EmailControl())
@@ -1873,129 +438,129 @@ namespace Team12_SSIS.BusinessLogic
                 }
             });
             collectPointThread.Start();
-		}
+        }
 
-		public static List<MembershipUser> GetUsersFromDept(string dept)
-		{
-			List<MembershipUser> currentdepusers = new List<MembershipUser>();
-			var users = Membership.GetAllUsers();
+        public static List<MembershipUser> GetUsersFromDept(string dept)
+        {
+            List<MembershipUser> currentdepusers = new List<MembershipUser>();
+            var users = Membership.GetAllUsers();
 
-			foreach (MembershipUser u in users)
-			{
-
-
-				ProfileBase profile = ProfileBase.Create(u.UserName);
-				if (profile.GetPropertyValue("department").ToString() == dept)
-				{
-					currentdepusers.Add(u);
-				}
+            foreach (MembershipUser u in users)
+            {
 
 
-			}
+                ProfileBase profile = ProfileBase.Create(u.UserName);
+                if (profile.GetPropertyValue("department").ToString() == dept)
+                {
+                    currentdepusers.Add(u);
+                }
 
 
-			return currentdepusers;
-		}
-		public static List<String> GetFullNamesFromDept(string dept)
-		{
-			List<String> currentdep = new List<String>();
-			var users = Membership.GetAllUsers();
-
-			foreach (MembershipUser u in users)
-			{
+            }
 
 
-				ProfileBase profile = ProfileBase.Create(u.UserName);
-				if (profile.GetPropertyValue("department").ToString() == dept)
-				{
-					currentdep.Add(profile.GetPropertyValue("fullname").ToString());
-				}
+            return currentdepusers;
+        }
+        public static List<String> GetFullNamesFromDept(string dept)
+        {
+            List<String> currentdep = new List<String>();
+            var users = Membership.GetAllUsers();
+
+            foreach (MembershipUser u in users)
+            {
 
 
-			}
+                ProfileBase profile = ProfileBase.Create(u.UserName);
+                if (profile.GetPropertyValue("department").ToString() == dept)
+                {
+                    currentdep.Add(profile.GetPropertyValue("fullname").ToString());
+                }
 
 
-			return currentdep;
-		}
-
-		public static List<String> GetAllEmployeeFullNamesFromDept(string dept)
-		{
-			String employeeFullName = "";
-			List<MembershipUser> users = GetUsersFromDept(dept);
-			List<String> repusers = Roles.GetUsersInRole("Employee").ToList();
-			List<string> employees = new List<string>();
-			foreach (MembershipUser u in users)
-			{
-				foreach (string username in repusers)
-				{
-					if (u.UserName == username)
-					{
-						ProfileBase p = ProfileBase.Create(username);
-						employeeFullName = p.GetPropertyValue("fullname").ToString();
-						employees.Add(employeeFullName);
+            }
 
 
-					}
-				}
-			}
+            return currentdep;
+        }
 
-			return employees;
-		}
-		public static string GetDeptRepFullName(String dept)
-		{
-			String repFullName = "";
-			List<MembershipUser> users = GetUsersFromDept(dept);
-			List<String> repusers = Roles.GetUsersInRole("Rep").ToList();
-			foreach (MembershipUser u in users)
-			{
-				foreach (string username in repusers)
-				{
-					if (u.UserName == username)
-					{
-						ProfileBase p = ProfileBase.Create(username);
-						repFullName = p.GetPropertyValue("fullname").ToString();
+        public static List<String> GetAllEmployeeFullNamesFromDept(string dept)
+        {
+            String employeeFullName = "";
+            List<MembershipUser> users = GetUsersFromDept(dept);
+            List<String> repusers = Roles.GetUsersInRole("Employee").ToList();
+            List<string> employees = new List<string>();
+            foreach (MembershipUser u in users)
+            {
+                foreach (string username in repusers)
+                {
+                    if (u.UserName == username)
+                    {
+                        ProfileBase p = ProfileBase.Create(username);
+                        employeeFullName = p.GetPropertyValue("fullname").ToString();
+                        employees.Add(employeeFullName);
 
-					}
-				}
-			}
 
-			return repFullName;
-		}
+                    }
+                }
+            }
 
-		public static string GetDeptRepUserName(String dept)
-		{
+            return employees;
+        }
+        public static string GetDeptRepFullName(String dept)
+        {
+            String repFullName = "";
+            List<MembershipUser> users = GetUsersFromDept(dept);
+            List<String> repusers = Roles.GetUsersInRole("Rep").ToList();
+            foreach (MembershipUser u in users)
+            {
+                foreach (string username in repusers)
+                {
+                    if (u.UserName == username)
+                    {
+                        ProfileBase p = ProfileBase.Create(username);
+                        repFullName = p.GetPropertyValue("fullname").ToString();
 
-			List<MembershipUser> users = GetUsersFromDept(dept);
-			List<String> repusers = Roles.GetUsersInRole("Rep").ToList();
-			foreach (MembershipUser u in users)
-			{
-				foreach (string username in repusers)
-				{
-					if (u.UserName == username)
-					{
-						return u.UserName;
+                    }
+                }
+            }
 
-					}
-				}
-			}
+            return repFullName;
+        }
 
-			return null;
-		}
+        public static string GetDeptRepUserName(String dept)
+        {
 
-		public static string GetUserName(String fullname, String dept)
-		{
+            List<MembershipUser> users = GetUsersFromDept(dept);
+            List<String> repusers = Roles.GetUsersInRole("Rep").ToList();
+            foreach (MembershipUser u in users)
+            {
+                foreach (string username in repusers)
+                {
+                    if (u.UserName == username)
+                    {
+                        return u.UserName;
 
-			List<MembershipUser> users = GetUsersFromDept(dept);
-			foreach (MembershipUser u in users)
-			{
-				ProfileBase p = ProfileBase.Create(u.UserName);
-				if (p.GetPropertyValue("fullname").ToString() == fullname)
-				{
-					return u.UserName;
-				}
-			}
-			return null;
-		}
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public static string GetUserName(String fullname, String dept)
+        {
+
+            List<MembershipUser> users = GetUsersFromDept(dept);
+            foreach (MembershipUser u in users)
+            {
+                ProfileBase p = ProfileBase.Create(u.UserName);
+                if (p.GetPropertyValue("fullname").ToString() == fullname)
+                {
+                    return u.UserName;
+                }
+            }
+            return null;
+        }
 
         public static void UpdateDeptRep(String newrepfullname, String dept)
         {
@@ -2003,8 +568,8 @@ namespace Team12_SSIS.BusinessLogic
             Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
             Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
             Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
-
-            Thread bgThread = new Thread(delegate()
+            //Chang Siang suggested using Thread function here
+            Thread bgThread = new Thread(delegate ()
             {
                 using (EmailControl em = new EmailControl())
                 {
@@ -2026,6 +591,7 @@ namespace Team12_SSIS.BusinessLogic
             bgThread.Start();
 
         }
+        //------ Predeep Code Ends Here--------------------//
     }
 
 }

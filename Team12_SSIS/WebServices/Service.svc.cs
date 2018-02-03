@@ -21,9 +21,10 @@ namespace Team12_SSIS.WebServices
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service.svc or Service.svc.cs at the Solution Explorer and start debugging.
     public class Service : IService
     {
+        const int shft = 5;
         const string internalSecertKey = "4aOA4ayA4aWA4bKA4auA4LGA4K+A4ZCA4aGA4bOA4bOA4beA4a+A4bKA4aSA4YCA4KOA4LGA";
-        //Chang Siang Codes 1-299
-        //Khiar Codes 300-999
+
+        //---------- Lim Chang Siang's Code Start Here ------------------//
         public List<string> GetUsersFromDept(string dept, string token)
         {
             //Check if user is authorizated to use this method. If is not authorized, it will return a json with -1 in the primary key
@@ -293,7 +294,7 @@ namespace Team12_SSIS.WebServices
                 return ex.ToString();
             }
         }
-
+        //---------- Lim Chang Siang's Code Start Here ------------------//
 
         //----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------//
 
@@ -479,67 +480,7 @@ namespace Team12_SSIS.WebServices
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Chang Siang will write here. Organisation is a mess!
+        //---------- Lim Chang Siang's Code Start Here ------------------//
         bool IsAuthanticateUser(string tokenString)
         {
             bool isValidUser = true;
@@ -547,7 +488,6 @@ namespace Team12_SSIS.WebServices
             try
             {
                 //Took this scrambler and descrambler from StackOverflow by lokusking https://stackoverflow.com/questions/38816004/simple-string-encryption-without-dependencies/38816208#38816208?newreg=466b51f08cc74759835ead8063afb961
-                int shft = 5;
                 string decrypted = Encoding.UTF8.GetString(Convert.FromBase64String(tokenString)).Select(ch => ((int)ch) >> shft).Aggregate("", (current, val) => current + (char)(val / 2));
                 string[] splitString = decrypted.Split(seperator);
                 UserIdentity user = new UserIdentity();
@@ -574,7 +514,6 @@ namespace Team12_SSIS.WebServices
             try
             {
                 //Took this scrambler and descrambler from StackOverflow by lokusking https://stackoverflow.com/questions/38816004/simple-string-encryption-without-dependencies/38816208#38816208?newreg=466b51f08cc74759835ead8063afb961
-                int shft = 5;
                 string decrypted = Encoding.UTF8.GetString(Convert.FromBase64String(tokenString)).Select(ch => ((int)ch) >> shft).Aggregate("", (current, val) => current + (char)(val / 2));
                 string[] splitString = decrypted.Split(seperator);
                 UserIdentity user = new UserIdentity();
@@ -590,7 +529,7 @@ namespace Team12_SSIS.WebServices
             return fullName;
 
         }
-
+        //---------- Lim Chang Siang's Code Ends Here ------------------//
 
 
 

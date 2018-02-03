@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Author: Jianing and SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI code here
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Team12_SSIS.BusinessLogic;
 using Team12_SSIS.Model;
-//Jianing's code here
+
 namespace Team12_SSIS.DepartmentEmployee
 {
     public partial class ViewRequisitionHistory : System.Web.UI.Page
@@ -102,16 +103,7 @@ namespace Team12_SSIS.DepartmentEmployee
             string temp = InventoryLogic.GetUnitsOfMeasure(itemID);
             return temp.ToString();
         }
-    }
-
-    //protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
-    //{
-    //    GridViewVPR.PageIndex = e.NewPageIndex;
-    //    BindGrid();
-    //}
-
-
-    
+    }   
 }
     
    
