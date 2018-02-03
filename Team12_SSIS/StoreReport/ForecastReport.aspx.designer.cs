@@ -301,6 +301,24 @@ namespace Team12_SSIS.StoreClerk {
         protected global::System.Web.UI.WebControls.Panel Panel2;
         
         /// <summary>
+        /// LblModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblModel;
+        
+        /// <summary>
+        /// ImgTableModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImgTableModel;
+        
+        /// <summary>
         /// LblExpectedDemand control.
         /// </summary>
         /// <remarks>
@@ -335,24 +353,6 @@ namespace Team12_SSIS.StoreClerk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image ImgTableAccuracy;
-        
-        /// <summary>
-        /// LblModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblModel;
-        
-        /// <summary>
-        /// ImgTableModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImgTableModel;
         
         /// <summary>
         /// BtnPrint control.

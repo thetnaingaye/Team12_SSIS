@@ -91,12 +91,12 @@
                     <br /><br /><br />
                     <div>
                         <asp:Panel ID="Panel2" runat="server" HorizontalAlign="Center">
+                            <asp:Label ID="LblModel" runat="server" Text="Autoregressive Integrated Moving Average (ARIMA) Model" Font-Size="Large" Visible="false"></asp:Label><br /><br />
+                            <asp:Image ID="ImgTableModel" class="center-block" runat="server" style="max-width:200px;max-height:120px;height:auto;width:auto;" ImageUrl="~/images/Charts/tableModel.png" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br /> 
                             <asp:Label ID="LblExpectedDemand" runat="server" Text="Forecasted Demand" Font-Size="Large" Visible="false"></asp:Label><br /><br />
                             <asp:Image ID="ImgTableResult" class="center-block" runat="server" style="max-width:100%;height:auto;width:auto;" ImageUrl="~/images/Charts/tableResults.png" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br />
                             <asp:Label ID="LblAccuracy" runat="server" Text="Measures of Accuracy" Font-Size="Large" Visible="false"></asp:Label><br /><br />
-                            <asp:Image ID="ImgTableAccuracy" class="center-block" runat="server" style="max-width:100%;height:auto;width:auto;" ImageUrl="~/images/Charts/tableAccuracy.png" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br />
-                            <asp:Label ID="LblModel" runat="server" Text="Model Details" Font-Size="Large" Visible="false"></asp:Label><br /><br />
-                            <asp:Image ID="ImgTableModel" class="center-block" runat="server" style="max-width:100%;max-height:500px;height:auto;width:auto;" ImageUrl="~/images/Charts/tableModel.png" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br /> 
+                            <asp:Image ID="ImgTableAccuracy" class="center-block" runat="server" style="max-width:100%;max-height:500px;height:auto;width:auto;" ImageUrl="~/images/Charts/tableAccuracy.png" BorderStyle="Inset" BorderWidth="1px" Visible="False"/><br /><br />
                             <div>
                                 <br /><br />
                                 <asp:button id="BtnPrint" ControlStyle-CssClass="btn btn-success" style="position: absolute; top: 19%; right: 9%;" runat="server" onclientclick="javascript:CallPrint('MainArea');" text="Print" xmlns:asp="#unknown" Visible="false"/>

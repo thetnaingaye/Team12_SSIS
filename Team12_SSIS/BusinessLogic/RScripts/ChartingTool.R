@@ -286,7 +286,7 @@ tableName2 <- paste(imagedir, "/", "tableAccuracy.png", sep="")
 #Checking if file with specified name exist in the working directory, if it does, remove it
 if(file.exists(tableName2)) file.remove(tableName2)
 
-mydata <- data.frame(accuracy(resultF))
+mydata <- data.frame(format(accuracy(resultF), digits = 2))
 mytable <- cbind(mydata)
 
 # Creating a blank plot and then adding mytable to it
@@ -306,7 +306,7 @@ tableName3 <- paste(imagedir, "/", "tableModel.png", sep="")
 #Checking if file with specified name exist in the working directory, if it does, remove it
 if(file.exists(tableName3)) file.remove(tableName3)
 
-mytable <- cbind(resultF$model)
+mytable <- cbind(resultF$method)
 
 # Creating a blank plot and then adding mytable to it
 qplot(1:10, 1:10, geom = "blank") + theme_bw() + theme(line = element_blank(), text = element_blank()) + annotation_custom(grob = tableGrob(mytable))
