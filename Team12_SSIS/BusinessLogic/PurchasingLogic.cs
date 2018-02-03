@@ -1624,7 +1624,9 @@ namespace Team12_SSIS.BusinessLogic
             }
         }
 
-        public static void UpdateOrderLeadTime(int orderLeadTime, string supplierID)
+	
+
+		public static void UpdateOrderLeadTime(int orderLeadTime, string supplierID)
         {
             using (SA45Team12AD entities = new SA45Team12AD())
             {

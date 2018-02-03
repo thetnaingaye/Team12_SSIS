@@ -1,5 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CreateCatalogue.aspx.cs" Inherits="Team12_SSIS.StoreManager.CreateCatalogue" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .auto-style1 {
+            height: 31px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
@@ -127,22 +132,30 @@
 
             <tr>
                 <!--BufferStockLevel-->
-                <td>Buffer Stock Level:
-                </td>
+                <td>&nbsp;Suppliers:</td>
                 <td>
-                    <asp:TextBox ID="TxtBufferStockLevel" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorBSL" ControlToValidate="TxtBufferStockLevel" ErrorMessage="*Positive Number Only" ForeColor="Red"
-                        runat="server" ValidationExpression="^\d+$"/>
+                    Priority 1:
+                    <asp:DropDownList ID="DdlSupplier1" runat="server" DataTextField="SupplierName" DataValueField="SupplierID">
+                    </asp:DropDownList>
+&nbsp;Price:
+                    <asp:TextBox ID="TxtPriceS1" runat="server"></asp:TextBox>
+                    <br />
+                    Priority 2:
+                    <asp:DropDownList ID="DdlSupplier2" runat="server" DataTextField="SupplierName" DataValueField="SupplierID">
+                    </asp:DropDownList>
+&nbsp;Price:
+                    <asp:TextBox ID="TxtPriceS2" runat="server"></asp:TextBox>
+                    <br />
+                    Priority 3:
+                    <asp:DropDownList ID="DdlSupplier3" runat="server" DataTextField="SupplierName" DataValueField="SupplierID">
+                    </asp:DropDownList>
+&nbsp;Price: <asp:TextBox ID="TxtPriceS3" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <!--BFSProportion-->
-                <td>BFS Proportion:
-                </td>
-                <td>
-                    <asp:TextBox ID="TxtBFSProportion" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorBFSP" ControlToValidate="TxtBFSProportion" ErrorMessage="*Positive Number Only" ForeColor="Red"
-                        runat="server" ValidationExpression="^\d+$"/>
+                <td class="auto-style1">&nbsp;</td>
+                <td class="auto-style1">
                 </td>
             </tr>
 
