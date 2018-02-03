@@ -568,26 +568,34 @@ namespace Team12_SSIS.BusinessLogic
             Roles.RemoveUserFromRole(GetDeptRepUserName(GetCurrentDep()), "Rep");
             Roles.AddUserToRole(GetUserName(newrepfullname, dept), "Rep");
             Roles.RemoveUserFromRole(GetUserName(newrepfullname, dept), "Employee");
-            //Chang Siang suggested using Thread function here
-            Thread bgThread = new Thread(delegate ()
-            {
-                using (EmailControl em = new EmailControl())
+           
+                using (SA45Team12AD entities = new SA45Team12AD())
                 {
-                    List<string> allemails = new List<string>();
-                    List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
-                    List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
-                    foreach (string s in clerkemails)
-                    {
-                        allemails.Add(s);
-                    }
-                    foreach (string s in depusersemails)
-                    {
-                        allemails.Add(s);
-                    }
-
-                    em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
+                    Department department = entities.Departments.Where(x => x.DeptID == dept).FirstOrDefault();
+                    department.RepresentativeName = newrepfullname;
+                    entities.SaveChanges();
                 }
-            });
+           
+                //Chang Siang suggested using Thread function here
+                Thread bgThread = new Thread(delegate ()
+                {
+                    using (EmailControl em = new EmailControl())
+                    {
+                        List<string> allemails = new List<string>();
+                        List<string> clerkemails = Utility.Utility.GetClerksEmailAddressList();
+                        List<string> depusersemails = Utility.Utility.GetAllUserEmailAddressListForDept(dept);
+                        foreach (string s in clerkemails)
+                        {
+                            allemails.Add(s);
+                        }
+                        foreach (string s in depusersemails)
+                        {
+                            allemails.Add(s);
+                        }
+
+                        em.CollectionRepChangeNotification(allemails, GetDepNameByDepID(dept), newrepfullname);
+                    }
+                });
             bgThread.Start();
 
         }
