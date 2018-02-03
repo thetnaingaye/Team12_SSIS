@@ -25,7 +25,7 @@ namespace Team12_SSIS.DepartmentHead
             string id = Convert.ToString(Session["dId"]);           
 
             int DisbursementID = Convert.ToInt32(id);
-            LblIdD.Text = id;
+            LblIdD.Text = "DL" + DisbursementID.ToString("0000");
             DisbursementList dL = DisbursementLogic.GetDisbursementList(DisbursementID);
             DisplaySignature(dL.Status, DisbursementID);
 //------------------------Getting RepresentaTive name------------------------------------------------------------------//
@@ -35,7 +35,7 @@ namespace Team12_SSIS.DepartmentHead
 
 //------------------------------Getting collectin point and date information-----------------------------------------//           
                 DateTime collectionDate=(DateTime) detail.CollectionDate;
-            LblCollectionDateD.Text = collectionDate.ToString("MM/dd/yyyy");
+            LblCollectionDateD.Text = collectionDate.ToString("dd/MM/yyyy");
 
  
             cdetail = DisbursementLogic.GetDisbursementCollectionDetails(DisbursementID);
