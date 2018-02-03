@@ -6,7 +6,7 @@
         <table >
             <tr>
                 <td colspan="2">
-                    <h2>Create Stationery Catalog</h2>
+                    <h2>Edit Supplier-Catalogue</h2>
                 </td>
             </tr>
 

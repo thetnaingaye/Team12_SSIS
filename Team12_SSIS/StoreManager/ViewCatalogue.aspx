@@ -39,7 +39,7 @@
                     OnRowEditing="GridViewCatalogue_RowEditing"
                     OnRowCancelingEdit="GridViewCatalogue_RowCancelingEdit"
                     OnRowUpdating="GridViewCatalogue_RowUpdating"
-                    DataKeyNames="ItemID">
+                    DataKeyNames="ItemID" OnRowCommand="GridViewCatalogue_RowCommand">
                     <AlternatingRowStyle BackColor="#f9f9f9"  />
                     <PagerStyle HorizontalAlign="Center" />
                     <pagersettings mode="Numeric" position="Bottom" />
@@ -48,7 +48,7 @@
 
                         <asp:TemplateField HeaderText="Item ID" SortExpression="ItemID">
                             <ItemTemplate>
-                                <asp:Label ID="LblItemID" runat="server" Text='<%# Bind("ItemID") %>'></asp:Label>
+                                <asp:LinkButton ID="LblItemID" runat="server" Text='<%# Bind("ItemID") %>' CommandName="EditItem" CommandArgument='<%# Bind("ItemID") %>'></asp:LinkButton>
                             </ItemTemplate>
                             <HeaderStyle CssClass="text-center" />
                         </asp:TemplateField>

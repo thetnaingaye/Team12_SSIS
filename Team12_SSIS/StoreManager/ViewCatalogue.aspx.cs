@@ -121,5 +121,14 @@ namespace Team12_SSIS.StoreManager
             if (LblCatalogueNameAuto != null)
                 LblCatalogueNameAuto.Text = InventoryLogic.GetCatalogueName(CategoryID);
         }
+
+        protected void GridViewCatalogue_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if(e.CommandName == "EditItem")
+            {
+                string itemID = e.CommandArgument.ToString();
+                Response.Redirect("EditCatalogue.aspx?itemID=" + itemID);
+            }
+        }
     }
 }

@@ -23,7 +23,10 @@ namespace Team12_SSIS.StoreManager
             statusMessage.Visible = false;
             if (!IsPostBack)
             {
-                BindControl();
+                string itemID = Request.QueryString["itemID"];
+                if (!Utility.Validator.IsProductIdFormat(itemID))
+                    Response.Redirect("ViewCatalogue.aspx");
+                BindControl(itemID);
             }
         }
 
@@ -167,12 +170,8 @@ namespace Team12_SSIS.StoreManager
 
         }
 
-        protected void BindControl()
+        protected void BindControl(string itemID)
         {
-
-            //need to change hardcoded value
-            string itemID = "C001";
-
             List<SupplierList> sList = PurchasingLogic.ListSuppliers();
             DdlSupplier1.DataSource = sList;
             DdlSupplier1.DataBind();

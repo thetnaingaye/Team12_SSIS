@@ -17,7 +17,7 @@ namespace Team12_SSIS.Utility
 
         public static bool IsProductIdFormat(string productId)
         {
-            Regex regex = new Regex("^([A-Za-z])([0-9][0-9][0-9][0-9])");
+            Regex regex = new Regex("^([A-Za-z])([0-9][0-9][0-9])");
             return regex.IsMatch(productId);
         }
 

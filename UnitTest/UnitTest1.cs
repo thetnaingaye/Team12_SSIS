@@ -49,6 +49,12 @@ namespace UnitTest
 			int bufferStockLevel = PurchasingLogic.GetCurrentBufferStock(itemID);
 			Console.WriteLine(bufferStockLevel);
         }
+        [TestMethod]
+        public void TestProductID()
+        {
+            Console.WriteLine(Team12_SSIS.Utility.Validator.IsProductIdFormat("C001"));
+
+        }
 
     }
 }
