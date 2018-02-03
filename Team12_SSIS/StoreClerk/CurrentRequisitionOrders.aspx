@@ -15,7 +15,7 @@
         <asp:UpdatePanel ID="UpdatePanelList" runat="server">
             <ContentTemplate>
                 <asp:GridView ID="GridViewReqList" runat="server" AutoGenerateColumns="False" Width="75%" DataKeyNames="RequestID" ItemType="Team12_SSIS.Model.RequisitionRecord"
-                    BackColor="White" BorderColor="#CCCCCC" BorderStyle="Inset">
+                    BackColor="White" BorderColor="#CCCCCC" BorderStyle="Inset" AllowPaging="True" PageSize="5" OnPageIndexChanging="GridViewReqList_PageIndexChanging">
                 <Columns>
                     <asp:TemplateField HeaderText="RequestID">
                         <ItemTemplate>

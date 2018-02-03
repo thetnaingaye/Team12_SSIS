@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Team12_SSIS.BusinessLogic;
-using Team12_SSIS.Model;
 
 //----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------//
 
@@ -25,27 +24,26 @@ namespace Team12_SSIS.StoreClerk
                 }
                 else
                 {
-                    GridViewReqList.DataSource = temp;
-                    GridViewReqList.DataBind();
+                    LoadData();
                 }
             }
         }
 
 
         // Retrieving selected col values from the diff tables - To populate into the respective GridViews
-        public string GetDepartmentName(string deptID)
+        protected string GetDepartmentName(string deptID)
         {
             string temp = RequisitionLogic.GetDepartmentName(deptID);
             return temp.ToString();
         }
 
-        public string GetItemName(string itemID)
+        protected string GetItemName(string itemID)
         {
             string temp = InventoryLogic.GetItemDescription(itemID);
             return temp.ToString();
         }
 
-        public string GetUnitsOfMeasure(string itemID)
+        protected string GetUnitsOfMeasure(string itemID)
         {
             string temp = InventoryLogic.GetUnitsOfMeasure(itemID);
             return temp.ToString();
@@ -71,9 +69,19 @@ namespace Team12_SSIS.StoreClerk
             GridViewDetails.DataBind();
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        // Creating pagination
+        protected void GridViewReqList_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            Response.Redirect("~/StoreClerk/ForecastReport.aspx");
+            GridViewReqList.PageIndex = e.NewPageIndex;
+            LoadData();
+        }
+
+        // Populating main gridview
+        protected void LoadData()
+        {
+            var temp = RequisitionLogic.ListCurrentRequisitionRecord();
+            GridViewReqList.DataSource = temp;
+            GridViewReqList.DataBind();
         }
     }
 }
