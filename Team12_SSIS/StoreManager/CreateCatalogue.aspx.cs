@@ -54,9 +54,21 @@ namespace Team12_SSIS.StoreManager
                 double price1;
                 double price2;
                 double price3;
-                bool isprice1legit = Double.TryParse(TxtPriceS1.Text, out price1);
-                bool isprice2legit = Double.TryParse(TxtPriceS2.Text, out price2);
-                bool isprice3legit = Double.TryParse(TxtPriceS3.Text, out price3);
+                bool isprice1legit = false;
+                if (Double.TryParse(TxtPriceS1.Text, out price1) && price1 > 0)
+                {
+                    isprice1legit = true;
+                }
+                bool isprice2legit = false;
+                if (Double.TryParse(TxtPriceS2.Text, out price2) && price2 > 0)
+                {
+                    isprice2legit = true;
+                }
+                bool isprice3legit = false;
+                if (Double.TryParse(TxtPriceS3.Text, out price3) && price3 > 0)
+                {
+                    isprice3legit = true;
+                }
 
 
                 string input = TxtItemID.Text;
