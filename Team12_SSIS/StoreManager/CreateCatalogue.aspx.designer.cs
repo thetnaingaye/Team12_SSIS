@@ -193,40 +193,58 @@ namespace Team12_SSIS.StoreManager {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorUOO;
         
         /// <summary>
-        /// TxtBufferStockLevel control.
+        /// DdlSupplier1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtBufferStockLevel;
+        protected global::System.Web.UI.WebControls.DropDownList DdlSupplier1;
         
         /// <summary>
-        /// RegularExpressionValidatorBSL control.
+        /// TxtPriceS1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorBSL;
+        protected global::System.Web.UI.WebControls.TextBox TxtPriceS1;
         
         /// <summary>
-        /// TxtBFSProportion control.
+        /// DdlSupplier2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtBFSProportion;
+        protected global::System.Web.UI.WebControls.DropDownList DdlSupplier2;
         
         /// <summary>
-        /// RegularExpressionValidatorBFSP control.
+        /// TxtPriceS2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorBFSP;
+        protected global::System.Web.UI.WebControls.TextBox TxtPriceS2;
+        
+        /// <summary>
+        /// DdlSupplier3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DdlSupplier3;
+        
+        /// <summary>
+        /// TxtPriceS3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxtPriceS3;
         
         /// <summary>
         /// BtnSubmit control.

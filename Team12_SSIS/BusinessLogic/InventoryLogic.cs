@@ -77,6 +77,7 @@ namespace Team12_SSIS.BusinessLogic
                 inventoryCatalogue.BFSProportion = BFSProportion;
                 entities.InventoryCatalogues.Add(inventoryCatalogue);
                 entities.SaveChanges();
+
             }
         }
 
@@ -104,15 +105,135 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
+		public static void AddSupplierCatalogue(string supplier, string itemID, double price, int priority, string uom)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				SupplierCatalogue supplierCatalogue = new SupplierCatalogue();
+
+				supplierCatalogue.SupplierID = supplier;
+				supplierCatalogue.Price = price;
+				supplierCatalogue.ItemID = itemID;
+				supplierCatalogue.Priority = priority;
+				supplierCatalogue.UOM = uom;
+				entities.SupplierCatalogues.Add(supplierCatalogue);
+				entities.SaveChanges();
+
+			}
+		}
+
+
+
+		public static string GetFirstPrioritySupplierByItemID(string itemid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				return entities.SupplierCatalogues.Where(x => x.ItemID == itemid).Where(x => x.Priority == 1).Select(x => x.SupplierID).FirstOrDefault().ToString();
+			}
+		}
+
+		public static string GetSecondPrioritySupplierByItemID(string itemid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+
+				if (entities.SupplierCatalogues.Where(x => x.ItemID == itemid).Where(x => x.Priority == 2).Select(x => x.SupplierID).FirstOrDefault() != null)
+				{
+					return entities.SupplierCatalogues.Where(x => x.ItemID == itemid).Where(x => x.Priority == 2).Select(x => x.SupplierID).FirstOrDefault().ToString();
+				}
+				else return "";
+			}
+		}
+
+		public static string GetThirdPrioritySupplierByItemID(string itemid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				if (entities.SupplierCatalogues.Where(x => x.ItemID == itemid).Where(x => x.Priority == 3).Select(x => x.SupplierID).FirstOrDefault() != null)
+				{
+					return entities.SupplierCatalogues.Where(x => x.ItemID == itemid).Where(x => x.Priority == 3).Select(x => x.SupplierID).FirstOrDefault().ToString();
+				}
+				else return "";
+			}
+		}
 
 
+		public static string GetFirstPrioritySupplierPriceByItemID(string itemid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				return entities.SupplierCatalogues.Where(x => x.ItemID == itemid).Where(x => x.Priority == 1).Select(x => x.Price).First().ToString();
+			}
+		}
 
 
+		public static string GetSecondPrioritySupplierPriceByItemID(string itemid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				if (entities.SupplierCatalogues.Where(x => x.ItemID == itemid).Where(x => x.Priority == 2).Select(x => x.SupplierID).FirstOrDefault() != null)
+				{
+					return entities.SupplierCatalogues.Where(x => x.ItemID == itemid).Where(x => x.Priority == 2).Select(x => x.Price).First().ToString();
+				}
+				else
+				{
+					return "";
+				}
+			}
+		}
 
+		public static string GetThirdPrioritySupplierPriceByItemID(string itemid)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				if (entities.SupplierCatalogues.Where(x => x.ItemID == itemid).Where(x => x.Priority == 3).Select(x => x.SupplierID).FirstOrDefault() != null)
+				{
+					return entities.SupplierCatalogues.Where(x => x.ItemID == itemid).Where(x => x.Priority == 3).Select(x => x.Price).First().ToString();
+				}
+				else
+				{
+					return "";
+				}
+			}
+		}
 
+		public static void UpdateSupplierCatalogue(string supplier, string itemID, double price, int priority)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				SupplierCatalogue supplierCatalogue = entities.SupplierCatalogues.Where(x => x.ItemID == itemID).Where(x => x.Priority == priority).FirstOrDefault();
+				supplierCatalogue.Price = price;
+				supplierCatalogue.Priority = priority;
+				supplierCatalogue.SupplierID = supplier;
+				entities.SaveChanges();
+			}
+		}
 
+		public static void DeleteSupplierCatalogue(int priority, string itemID)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				SupplierCatalogue supplierCatalogue = entities.SupplierCatalogues.Where(x => x.ItemID == itemID).Where(x => x.Priority == priority).FirstOrDefault();
+				supplierCatalogue.Priority = 0;
+				entities.SaveChanges();
+			}
 
+		}
 
+		public static bool DoesSupplierExistInSupplierCatalogueForItemID(int priority, string itemID)
+		{
+			using (SA45Team12AD entities = new SA45Team12AD())
+			{
+				if (entities.SupplierCatalogues.Where(x => x.ItemID == itemID).Where(x => x.Priority == priority).Select(x => x.SupplierID).FirstOrDefault() != null)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
 
 
 
@@ -319,20 +440,10 @@ namespace Team12_SSIS.BusinessLogic
 
 
 
+		//----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------//
 
-
-
-
-
-
-
-
-
-
-        //----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------//
-
-        // Retrieve ALL items
-        public static List<InventoryCatalogue> ListAllItems()
+		// Retrieve ALL items
+		public static List<InventoryCatalogue> ListAllItems()
         {
             using (SA45Team12AD context = new SA45Team12AD())
             {
