@@ -49,38 +49,38 @@ namespace Team12_SSIS.StoreClerk
 
 
         // Retrieving the summation of all items needed by the diff depts for this specific item
-        public string GetTotalQtyNeeded(string itemID)
+        protected string GetTotalQtyNeeded(string itemID)
         {
             return InventoryLogic.GetTotalQtyNeeded(itemID).ToString();
         }
 
-        public string GetExistingQuantity(string itemID)
+        protected string GetExistingQuantity(string itemID)
         {
             return InventoryLogic.GetQuantity(itemID).ToString();
         }
 
         // Identifying dept name
-        public string GetDepartmentName(string deptID)
+        protected string GetDepartmentName(string deptID)
         {
             string temp = RequisitionLogic.GetDepartmentName(deptID);
             return temp.ToString();
         }
 
         // Determining qty ordered from the details table
-        public string GetQtyNeeded(string reqID)
+        protected string GetQtyNeeded(string reqID)
         {
             var temp = RequisitionLogic.GetDepartmentName(reqID);
             return temp.ToString();
         }
 
         // Show error message
-        public void GetErrorMessage()
+        protected void GetErrorMessage()
         {
             LblMessage.Text = "Invalid quantity selected";
         }
 
         // Identifying the priority for each req per item
-        public string GetPriority(int reqDetailID)
+        protected string GetPriority(int reqDetailID)
         {
             var temp = RequisitionLogic.GetPriority(reqDetailID);
             if (temp.Equals("Yes")) return "Priority Given";

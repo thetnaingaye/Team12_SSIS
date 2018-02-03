@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Team12_SSIS.BusinessLogic;
-using Team12_SSIS.Model;
 
 //----------------------------------------         SYED MOHAMAD KHAIRWANCYK BIN SAYED HIRWAINI         ---------------------------------------------//
 
@@ -20,8 +19,7 @@ namespace Team12_SSIS.StoreClerk
                 LblDetails.Text = "";
 
                 // Populating the first gridview with all past req records
-                GridViewReqList.DataSource = RequisitionLogic.ListPastRequisitionRecord();
-                GridViewReqList.DataBind();
+                LoadAllData();
 
                 // Populating the dropdownlist
                 List<string> temp1 = new List<string>();
@@ -35,19 +33,19 @@ namespace Team12_SSIS.StoreClerk
 
 
         // Retrieving selected col values from the diff tables - To populate into the respective GridViews
-        public string GetDepartmentName(string deptID)
+        protected string GetDepartmentName(string deptID)
         {
             string temp = RequisitionLogic.GetDepartmentName(deptID);
             return temp.ToString();
         }
 
-        public string GetItemDescription(string itemID)
+        protected string GetItemDescription(string itemID)
         {
             string temp = InventoryLogic.GetItemDescription(itemID);
             return temp.ToString();
         }
 
-        public string GetUnitsOfMeasure(string itemID)
+        protected string GetUnitsOfMeasure(string itemID)
         {
             string temp = InventoryLogic.GetUnitsOfMeasure(itemID);
             return temp.ToString();
@@ -84,25 +82,22 @@ namespace Team12_SSIS.StoreClerk
             GridViewDetails.DataBind();
         }
 
+        // Dropdownlist manipulation
         protected void DdlDeptList_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Retrieve the value currently selected in the dropdownlist
             string val = DdlDeptList.SelectedValue;
-            List<RequisitionRecord> temp;
 
             if (val == "All")
             {
                 // Populating all past req records
-                temp = RequisitionLogic.ListPastRequisitionRecord();
-                GridViewReqList.DataSource = temp;
+                LoadAllData();
             }
             else
             {
                 // Populating the first gridview based on the selected department
-                temp = RequisitionLogic.ListPastRequisitionRecordsByDept(val);
-                GridViewReqList.DataSource = temp;
+                LoadDataByDept(val);
             }
-            GridViewReqList.DataBind();
 
             // Clearing the details gridview
             LblDetails.Text = null;
@@ -110,6 +105,37 @@ namespace Team12_SSIS.StoreClerk
             LblItemIDInfo.Text = null;
             GridViewDetails.DataSource = null;
             GridViewDetails.DataBind();
+        }
+
+        // Creating pagination
+        protected void GridViewReqList_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridViewReqList.PageIndex = e.NewPageIndex;
+            string val = DdlDeptList.SelectedValue;
+            if (val == "All")
+            {
+                // Populating all past req records
+                LoadAllData();
+            }
+            else
+            {
+                // Populating past req records by selected dept only
+                LoadDataByDept(val);
+            }
+        }
+
+        // Populating ALL main gridview
+        protected void LoadAllData()
+        {
+            GridViewReqList.DataSource = RequisitionLogic.ListPastRequisitionRecord();
+            GridViewReqList.DataBind();
+        }
+
+        // Populating selected dept in the main gridview
+        protected void LoadDataByDept(string val)
+        {
+            GridViewReqList.DataSource = RequisitionLogic.ListPastRequisitionRecordsByDept(val);
+            GridViewReqList.DataBind();
         }
     }
 }

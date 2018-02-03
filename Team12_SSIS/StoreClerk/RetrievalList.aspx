@@ -10,7 +10,7 @@
         <asp:Label ID="LblMessage" runat="server" Text=""></asp:Label>
     </div>
     <asp:GridView ID="GridViewMainList" runat="server" AutoGenerateColumns="False" Width="100%" DataKeyNames="ItemID" ItemType="Team12_SSIS.Model.InventoryCatalogue"
-                        BackColor="White" BorderColor="#CCCCCC" BorderStyle="Inset" AllowPaging="True" AllowSorting="True" style="margin-top: 5px" OnRowDataBound="GridViewMainList_RowDataBound">
+                        BackColor="White" BorderColor="#CCCCCC" BorderStyle="Inset" style="margin-top: 5px" OnRowDataBound="GridViewMainList_RowDataBound">
             <Columns>
                 <asp:TemplateField HeaderText="BIN">
                     <ItemTemplate>

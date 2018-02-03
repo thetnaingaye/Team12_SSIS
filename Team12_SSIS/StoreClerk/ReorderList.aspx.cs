@@ -24,25 +24,25 @@ namespace Team12_SSIS.StoreClerk
         }
 
         // Retrieving selected col values from the diff tables - To populate into the respective GridViews
-        public string GetSuppilerName(string suppID)
+        protected string GetSuppilerName(string suppID)
         {
             string temp = PurchasingLogic.GetSuppilerName(suppID);
             return temp.ToString();
         }
 
-        public string GetItemDescription(string itemID)
+        protected string GetItemDescription(string itemID)
         {
             string temp = InventoryLogic.GetItemDescription(itemID);
             return temp.ToString();
         }
 
-        public string GetQuantity(string itemID)
+        protected string GetQuantity(string itemID)
         {
             int temp = InventoryLogic.GetQuantity(itemID);
             return temp.ToString();
         }
 
-        public string GetUnitsOfMeasure(string itemID)
+        protected string GetUnitsOfMeasure(string itemID)
         {
             string temp = InventoryLogic.GetUnitsOfMeasure(itemID);
             return temp.ToString();

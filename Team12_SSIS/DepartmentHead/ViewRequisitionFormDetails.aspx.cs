@@ -64,13 +64,13 @@ namespace Team12_SSIS.DepartmentHead
 
 
         // Methods for retrieving aesthetically pleasant values for the user - rather then just showing item id for eg
-        public string GetItemDescription(string itemID)
+        protected string GetItemDescription(string itemID)
         {
             string temp = InventoryLogic.GetItemDescription(itemID);
             return temp.ToString();
         }
 
-        public string GetUnitsOfMeasure(string itemID)
+        protected string GetUnitsOfMeasure(string itemID)
         {
             string temp = InventoryLogic.GetUnitsOfMeasure(itemID);
             return temp.ToString();
@@ -89,10 +89,10 @@ namespace Team12_SSIS.DepartmentHead
                 TxtRemarks.Attributes.Add("readonly", "readonly");
                 BtnApprove.Visible = false;
                 BtnReject.Visible = false;
+                RequisitionRecord tR = RequisitionLogic.FindRequisitionRecord(Convert.ToInt32(reqID));
+                LblDateApproved.Text = tR.ApprovedDate.Value.ToString("MM/dd/yyyy");
+                LblStatus.Text = RequisitionLogic.GetStatus(Convert.ToInt32(reqID));
             }
-
-            // Sending a pop up message
-            ClientScript.RegisterStartupScript(this.GetType(), "yourMessage", "alert('" + temp + "');", true);
         }
 
         // Rejecting the requisition record
@@ -111,9 +111,6 @@ namespace Team12_SSIS.DepartmentHead
                 LblDateApproved.Text = tR.ApprovedDate.Value.ToString("MM/dd/yyyy");
                 LblStatus.Text = RequisitionLogic.GetStatus(Convert.ToInt32(reqID));
             }
-
-            // Sending a pop up message
-            ClientScript.RegisterStartupScript(this.GetType(), "yourMessage", "alert('" + temp + "');", true);
         }
 
         // Goes back to the main list
