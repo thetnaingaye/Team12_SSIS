@@ -67,7 +67,7 @@ namespace Team12_SSIS.DepartmentHead
         }
 
         // Retrieving status of the req for better UI aesthetics
-        public string GetStatus(int reqID)
+        protected string GetStatus(int reqID)
         {
             string temp = RequisitionLogic.GetStatus(reqID);
             return temp.ToString();
