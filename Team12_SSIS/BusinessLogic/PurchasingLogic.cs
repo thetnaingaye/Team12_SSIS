@@ -481,9 +481,11 @@ namespace Team12_SSIS.BusinessLogic
         {
             PORecord po;
             double totalPrice = 0;
+            string supplierEmail;
             using (SA45Team12AD ctx = new SA45Team12AD())
             {
                 po = ctx.PORecords.Where(x => x.PONumber == poNumber).FirstOrDefault();
+                supplierEmail = ctx.SupplierLists.Where(x => x.SupplierID == po.SupplierID).Select(x => x.EmailAddress).FirstOrDefault();
                 List<PORecordDetail> poDList = ctx.PORecordDetails.Where(x => x.PONumber == poNumber).ToList();
                 foreach (PORecordDetail p in poDList)
                 {
@@ -496,7 +498,7 @@ namespace Team12_SSIS.BusinessLogic
             {
                 using (EmailControl em = new EmailControl())
                 {
-                    em.SendPurchaseOrder("sa45team12ssis+supplier@gmail.com", po.PONumber, po.RecipientName, po.DeliveryAddress, GetSuppilerName(po.SupplierID), (DateTime)po.ExpectedDelivery, totalPrice);
+                    em.SendPurchaseOrder(supplierEmail, po.PONumber, po.RecipientName, po.DeliveryAddress, GetSuppilerName(po.SupplierID), (DateTime)po.ExpectedDelivery, totalPrice);
                 }
             });
             bgThread.Start();

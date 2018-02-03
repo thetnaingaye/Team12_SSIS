@@ -2,6 +2,9 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Team12_SSIS.BusinessLogic;
+using Team12_SSIS.Model;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTest
 {
@@ -39,7 +42,6 @@ namespace UnitTest
 			int bufferStockLevel = PurchasingLogic.GetCurrentBufferStock(itemID);
 			Console.WriteLine(bufferStockLevel);
         }
-
 
     }
 }
