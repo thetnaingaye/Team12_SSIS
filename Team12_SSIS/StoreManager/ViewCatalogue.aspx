@@ -10,7 +10,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-<h2>Stationery Catalog List</h2>
+<h2>Stationery Catalogue List</h2>
     <table style="width: 100%; align-self:center">
         <tr>
             <td>
