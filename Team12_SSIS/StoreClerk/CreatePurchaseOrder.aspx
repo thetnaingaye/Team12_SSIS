@@ -91,7 +91,7 @@
                                             <asp:UpdatePanel ID="Upid" runat="server" UpdateMode="Conditional" ChildrenAsTriger="true">
                                                 <ContentTemplate>
                                                     <asp:TextBox ID="Txtitemid" runat="server" Text='<%# Bind("ItemID") %>' OnTextChanged="Txtitemid_TextChanged" AutoPostBack="true"></asp:TextBox>
-                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorItemID" runat="server" ControlToValidate="Txtitemid" ForeColor="Red" ErrorMessage="* Item ID Required"/>
+                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorItemID" runat="server" ControlToValidate="Txtitemid" Font-Size="X-Small" ForeColor="Red" ErrorMessage="Item ID Required"/>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </ItemTemplate>
@@ -99,11 +99,11 @@
                                         <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
 
-                                     <asp:TemplateField HeaderText="Description" HeaderStyle-Width="50%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
+                                     <asp:TemplateField HeaderText="Description" HeaderStyle-Width="45%" HeaderStyle-CssClass="text-center" HeaderStyle-Font-Size="Smaller">
                                         <ItemTemplate>
                                             <asp:Label ID="LblDes" runat="server"></asp:Label>
                                         </ItemTemplate>
-                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="50%"></HeaderStyle>
+                                        <HeaderStyle CssClass="text-center" Font-Size="Smaller" Width="45%"></HeaderStyle>
                                         <ItemStyle CssClass="text-center"></ItemStyle>
                                     </asp:TemplateField>
 
@@ -112,7 +112,8 @@
                                             <asp:UpdatePanel runat="server" ID="UpValue" UpdateMode="Conditional" ChildrenAsTriggers="true">
                                                 <ContentTemplate>
                                                     <asp:TextBox ID="Txtquantity" runat="server"  Text='<%# Bind("Quantity") %>' OnTextChanged="Txtitemid_TextChanged" AutoPostBack="true"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorQuantity" runat="server" ControlToValidate="Txtquantity" ForeColor="Red" ErrorMessage="* Quantity Required"/>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorQuantity" runat="server" ControlToValidate="Txtquantity" ForeColor="Red" Font-Size="X-Small" ErrorMessage="Quantity Required"/>
+                                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="Txtquantity" ForeColor="Red" Font-Size="X-Small" ValidationExpression="^\d+$" ErrorMessage="Positive Integer Only" ValidationGroup="BtnSfa"></asp:RegularExpressionValidator>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </ItemTemplate>
@@ -174,7 +175,7 @@
 
             <tr>
                 <td>
-                    <asp:Button ID="BtnSfa" CssClass="btn btn-primary" runat="server" Text="Submit for approval" OnClick="BtnSfa_Click" />
+                    <asp:Button ID="BtnSfa" CssClass="btn btn-primary" runat="server" Text="Submit for approval" OnClick="BtnSfa_Click" ValidationGroup="BtnSfa" />
                     
 
                 </td>
