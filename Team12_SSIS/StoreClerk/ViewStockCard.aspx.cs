@@ -40,6 +40,7 @@ namespace Team12_SSIS.StoreClerk
 
                 itemId = (string)Session["Itemid"];
                 TxtId.Text = itemId;
+                Session.Remove("Itemid");
 
             }
 
