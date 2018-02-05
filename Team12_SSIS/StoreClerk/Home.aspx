@@ -134,7 +134,7 @@
                             <ContentTemplate>
                                 <asp:Chart ID="Chart4" runat="server" DataSourceID="SqlDataSource_RuquestsbyMonth" BackColor="Transparent" Height="325px" Width="400px">
                                     <Series>
-                                        <asp:Series Name="Series1" XValueMember="Month" YValueMembers="TotalRequests" CustomProperties="PixelPointWidth=5" LabelForeColor="RoyalBlue" IsValueShownAsLabel="True">
+                                        <asp:Series Name="Series1" XValueMember="Column1" YValueMembers="TotalRequests" CustomProperties="PixelPointWidth=5" LabelForeColor="RoyalBlue" IsValueShownAsLabel="True">
                                             <EmptyPointStyle LabelForeColor="DimGray" />
                                         </asp:Series>
                                     </Series>
@@ -159,13 +159,16 @@
                                     </ChartAreas>
                                     <BorderSkin PageColor="DarkGray" BorderColor="Transparent" />
                                 </asp:Chart>
-                                <asp:SqlDataSource ID="SqlDataSource_RuquestsbyMonth" runat="server" ConnectionString="<%$ ConnectionStrings:SA45Team12AD %>" SelectCommand="SELECT  
- FORMAT(RequestDate, 'MMM_yyyy') as Month,
-        COUNT(*) TotalRequests 
+                                <asp:SqlDataSource ID="SqlDataSource_RuquestsbyMonth" runat="server" ConnectionString="<%$ ConnectionStrings:SA45Team12AD %>" SelectCommand="select
+  Concat(LEFT(datename(month,dateadd(mm,datediff(mm,0,RequestDate),0)),3),'_', year(dateadd(mm,datediff(mm,0,RequestDate),0))),
+   [TotalRequests]   = count(*)
 FROM    RequisitionRecords
 WHERE   RequestDate &gt;= DATEADD(month, -3, GETDATE())
 AND     RequestDate &lt;= GetDate()
-GROUP BY FORMAT(RequestDate, 'MMM_yyyy')
+group by
+   dateadd(mm,datediff(mm,0,RequestDate),0)
+order by
+   dateadd(mm,datediff(mm,0,RequestDate),0) 
 "></asp:SqlDataSource>
                             </ContentTemplate>
                         </asp:UpdatePanel>
