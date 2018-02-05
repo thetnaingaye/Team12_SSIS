@@ -54,7 +54,7 @@
 
                         <asp:TemplateField HeaderText="Description" SortExpression="Description">
                             <EditItemTemplate>
-                                <asp:TextBox ID="TxtDescription" runat="server" Text='<%# Bind("Description") %>'></asp:TextBox>
+                                <asp:TextBox ID="TxtDescription" runat="server" Width="50px" Text='<%# Bind("Description") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>

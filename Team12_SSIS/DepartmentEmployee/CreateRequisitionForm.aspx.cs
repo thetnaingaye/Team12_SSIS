@@ -46,7 +46,7 @@ namespace Team12_SSIS.DepartmentEmployee
                 string ItemID = (GridViewRequisitionForm.Rows[i].FindControl("LblItemID") as Label).Text;
                 int RequestedQuantity;
                 if (!int.TryParse((GridViewRequisitionForm.Rows[i].FindControl("TxtRequestedQuantity") as TextBox).Text, out RequestedQuantity))
-                {
+                { 
                 }
 
                 string Status = "Pending";
@@ -54,8 +54,7 @@ namespace Team12_SSIS.DepartmentEmployee
                 RequisitionRecordDetail r = RequisitionLogic.CreateRequisitionRecordDetail(requestId, ItemID, RequestedQuantity, Status, Priority);
 
             }
-
-
+            
             statusMessage.Text = "Stationery Requisition Form Submitted Successfully.";
             statusMessage.ForeColor = Color.Green;
             statusMessage.Visible = true;
@@ -78,5 +77,6 @@ namespace Team12_SSIS.DepartmentEmployee
         {
             Response.Redirect("ViewCatalogue.aspx");
         }
+
     }
 }
